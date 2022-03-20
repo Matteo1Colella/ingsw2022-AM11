@@ -9,6 +9,56 @@ public class Game {
     private boolean isPro;
     private int MovedPieces;
     private GameStructure GameStructure;
+    private int ID;
+
+    // Start of Getters, Setters, Constructor
+
+    public Game(boolean isPro, int ID) {
+        this.isPro = isPro;
+        this.ID = ID;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public boolean isPro() {
+        return isPro;
+    }
+
+    public void setPro(boolean pro) {
+        isPro = pro;
+    }
+
+    public int getMovedPieces() {
+        return MovedPieces;
+    }
+
+    public void setMovedPieces(int movedPieces) {
+        MovedPieces = movedPieces;
+    }
+
+    public it.polimi.ingsw.model.GameStructure getGameStructure() {
+        return GameStructure;
+    }
+
+    public void setGameStructure(it.polimi.ingsw.model.GameStructure gameStructure) {
+        GameStructure = gameStructure;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    // End of Getters, Setters, Constructor
 
     public void endTurn(){}
 
@@ -34,7 +84,8 @@ public class Game {
         return null;
     }
 
-    public void mergeIsland(){}
+    public void mergeIsland(){
+    }
 
     public void generateBoard(){}
 
