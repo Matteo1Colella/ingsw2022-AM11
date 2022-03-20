@@ -2,13 +2,13 @@ package it.polimi.ingsw.model;
 
 public class Tower extends Piece{
 
-    private colorTower colorTower;
+    private ColorTower colorTower;
 
 
     //builder
 
 
-    public Tower(colorTower colorTower) {
+    public Tower(ColorTower colorTower) {
         this.colorTower = colorTower;
     }
 
@@ -22,7 +22,7 @@ public class Tower extends Piece{
     }
 
     //returns the color of the tower
-    public colorTower getColor(){
+    public ColorTower getColor(){
         return null;
     }
 

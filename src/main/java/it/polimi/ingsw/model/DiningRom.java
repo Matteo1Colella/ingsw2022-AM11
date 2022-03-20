@@ -1,13 +1,17 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
+
 public class DiningRom {
-    ColorStudent Color;
-    SchoolBoard SchoolBoard;
-    Boolean[] Occupation; //array of occupations
-    boolean Professor;
-    int CoinsGiven;
-
+    private ColorStudent Color;
+    private SchoolBoard SchoolBoard;
+    private ArrayList<Student> Occupation; //array of occupations
+    private boolean Professor;
+    private int CoinsGiven;
+    public int GetOccupation(){
+        return 0;
+    }
     public Coin giveCoin(){
-
+        return null;
     }
 }

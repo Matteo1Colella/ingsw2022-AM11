@@ -6,5 +6,7 @@ public class Student extends Piece{
     public void SetPosition(){}
     public void GetPosition(){
     }
-    public void GetColor(){}
+    public ColorStudent GetColor(){
+        return null;
+    }
 }

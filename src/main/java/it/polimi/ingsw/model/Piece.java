@@ -4,5 +4,4 @@ public abstract class Piece {
     private Board Position;
     public void SetPosition(){}
     public void GetPosition(){}
-    public void GetColor(){}
 }
