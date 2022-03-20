@@ -12,9 +12,11 @@ public class Player {
     private SchoolBoard schoolBoard;
     private ArrayList<Coin> Coins;
     private ArrayList<Tower> Towers;
-
+    private Game PlayerGame; 
     //builder
-    public void Player(){}
+    public void Player(){
+
+    }
 
     //choose card from deck
     public Card playCard(){

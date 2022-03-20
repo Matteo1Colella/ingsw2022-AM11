@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public enum colorTower {
+public enum ColorTower {
     GREY,
     BLACK,
     WHITE
