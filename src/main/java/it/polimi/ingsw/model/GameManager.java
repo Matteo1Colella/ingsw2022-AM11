@@ -1,35 +1,50 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
+
 public class GameManager {
-    private int numplayers;
-    private String UserId;
-    private int Gametype;
-    public Game CreateGame(int numplayers, int gametype){
-        return null;
+    private ArrayList<Lobby> Lobbies;
+
+    // Looks For the last Lobby matching with player preferences and returns, if exists, else returns null
+    public Lobby getLobby(int Numplayers, boolean Gametype){
+        Lobby Chosen = null;
+        int ID = -1;
+        for (Lobby Temp : Lobbies)
+        {
+            if (Temp.getNumPlayers() == Numplayers && Temp.isGameType() == Gametype && Temp.getID() > ID) {
+                ID = Temp.getID();
+                Chosen = Temp;
+            }
+        }
+        if (ID == -1) return null;
+        return Chosen;
     }
-    public void JoinGame(){}
-    public void LoginManager(){
-    }
-    public boolean Login(String ID, int numplayers, int Gametype){
-            this.numplayers = numplayers;
-            this.UserId = ID;
-            this.Gametype = Gametype;
-            Game ExistingGame = getGame(numplayers, Gametype);
-            if (ExistingGame == null)
+
+    // If there's no Lobbies, it creates one, if there's one matching lobby but full, it creates a new one, if there's one matching Lobby which is not full
+    // the player gets added in that Lobby. it checks if UserID is free and if it's not it returns an access failed.
+    public boolean Login(String ID, int numplayers, boolean Gametype){
+
+        Lobby ExistingLobby = getLobby(numplayers, Gametype);
+        if (ExistingLobby == null)
             {
-                Game Newgame = CreateGame(numplayers, Gametype);
+                Lobby NewLobby = new Lobby(numplayers, Gametype, this.Lobbies.size());
+                this.Lobbies.add(NewLobby);
                 return true;
             }
-            if (ExistingGame.IsIn(ID) == true) return false;
+        if (ExistingLobby.IsIn(ID) == true) return false;
             else {
-                ExistingGame.AddPlayer(ID);
-                return true;
+                if (ExistingLobby.isReady()==true){
+                    Lobby NewLobby = new Lobby(numplayers, Gametype, this.Lobbies.size());
+                    this.Lobbies.add(NewLobby);
+                    return true;
+                }   else {
+                        ExistingLobby.AddPlayer(ID);
+                        return true;
+                    }
             }
 
 
     }
-    public Game getGame(int numplayers, int gametype){
-        return null;
-    }
+
 
 }

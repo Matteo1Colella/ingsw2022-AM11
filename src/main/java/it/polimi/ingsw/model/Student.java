@@ -3,10 +3,13 @@ package it.polimi.ingsw.model;
 public class Student extends Piece{
     private ColorStudent Color;
     public Student(){}
-    public void SetPosition(){}
-    public void GetPosition(){
+
+    public ColorStudent getColor() {
+        return Color;
     }
-    public ColorStudent GetColor(){
-        return null;
+
+    public void setColor(ColorStudent color) {
+        Color = color;
     }
+
 }
