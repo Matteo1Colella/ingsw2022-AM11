@@ -9,7 +9,7 @@ public class Game {
     private Status status;
     private boolean isPro;
     private int MovedPieces;
-    private GameStructure GameStructure;
+    private GameComponents GameComponents;
     private int ID;
 
     // Start of Getters, Setters, Constructor
@@ -43,12 +43,12 @@ public class Game {
         MovedPieces = movedPieces;
     }
 
-    public it.polimi.ingsw.model.GameStructure getGameStructure() {
-        return GameStructure;
+    public GameComponents getGameStructure() {
+        return GameComponents;
     }
 
-    public void setGameStructure(it.polimi.ingsw.model.GameStructure gameStructure) {
-        GameStructure = gameStructure;
+    public void setGameStructure(GameComponents gameComponents) {
+        GameComponents = gameComponents;
     }
 
     public int getID() {
@@ -109,8 +109,8 @@ public class Game {
       of the same colors, then the island are merged.
     */
     public void mergeIsland(){
-        Collection<IslandCard> Archipelago = GameStructure.getArchipelago();
-        IslandCard courrentIsland = GameStructure.getMothernature().getPosition();
+        Collection<IslandCard> Archipelago = GameComponents.getArchipelago();
+        IslandCard courrentIsland = GameComponents.getMothernature().getPosition();
         IslandCard previousIsland = null;
 
         for(IslandCard tempIsland : Archipelago){
