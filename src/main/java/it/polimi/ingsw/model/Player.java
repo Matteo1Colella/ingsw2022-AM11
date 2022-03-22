@@ -13,12 +13,21 @@ public class Player {
     private Collection<Coin> Coins;
     private Collection<Tower> Towers;
     private Game PlayerGame;
+    private int GameID;
 
     // Start of Getters, Setters, Constructor
 
     public Player(int playerNum, String ID_player) {
         PlayerNum = playerNum;
         this.ID_player = ID_player;
+    }
+
+    public int getGameID() {
+        return GameID;
+    }
+
+    public void setGameID(int gameID) {
+        GameID = gameID;
     }
 
     public int getPlayerNum() {
