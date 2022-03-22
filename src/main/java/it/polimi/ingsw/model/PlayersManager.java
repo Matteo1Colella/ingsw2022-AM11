@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Lobby {
+public class PlayersManager {
 private Game Game;
 private boolean GameType;
 private int NumPlayers;
@@ -11,7 +11,7 @@ private int ID;
 private ArrayList<Player> Players;
 private boolean ready;
     // Start of Getters, Setters, Constructor
-    public Lobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
+    public PlayersManager(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
 
         this.GameType = gametype;
         this.NumPlayers = numplayers;
