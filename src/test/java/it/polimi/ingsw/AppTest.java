@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class AppTest 
 {
-
+    // testing lobbies functionalities
     @Test
     public void TestSameID(){
         ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
@@ -25,7 +25,7 @@ public class AppTest
         boolean added = GM.login("Cole", 3, true);
         assertTrue("not added first player", added);
         added = GM.login("Leo", 3, true);
-        assertTrue("not added first player", added);
+        assertTrue("not added player", added);
         added = GM.login("Cole", 3, true);
         assertFalse("added duplicate player Cole", added);
 
@@ -51,8 +51,93 @@ public class AppTest
         GM.login("Ale", 3, true);
         GM.login("Gian", 3, true);
     }
+    @Test
+    // testing deck requests
+    public void TestLoginAndDeck(){
+        ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
+        GameManager GM = new GameManager(Lobbies);
 
+        boolean added = GM.login("Cole", 3, true);
+        assertTrue("not added first player", added);
 
+        boolean decksuccess=GM.deckRequest(GM.getPlayerLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Leo", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Ale", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Ale").getID(), Mage.MAGE3, "Ale");
+        assertTrue("not added deck", decksuccess);
+
+    }
+    @Test
+    public void TestLoginAndDeckMultipleLobbies(){
+        ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
+        GameManager GM = new GameManager(Lobbies);
+
+        boolean added = GM.login("Cole", 3, true);
+        assertTrue("not added first player", added);
+
+        boolean decksuccess=GM.deckRequest(GM.getPlayerLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Leo", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Ale", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Ale").getID(), Mage.MAGE3, "Ale");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Gian", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Gian").getID(), Mage.MAGE1, "Gian");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Pore", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Pore").getID(), Mage.MAGE2, "Pore");
+        assertTrue("not added deck", decksuccess);
+
+    }
+
+    @Test
+    public void TestLoginAndDuplicateDeck(){
+        ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
+        GameManager GM = new GameManager(Lobbies);
+
+        boolean added = GM.login("Cole", 3, true);
+        assertTrue("not added first player", added);
+
+        boolean decksuccess=GM.deckRequest(0, Mage.MAGE1, "Cole");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Leo", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(0, Mage.MAGE1, "Leo");
+        assertFalse("added deck", decksuccess);
+
+        added=GM.login("Ale", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(0, Mage.MAGE3, "Ale");
+        assertTrue("not added deck", decksuccess);
+
+    }
+    // testing deck functionalities
     @Test
     public void sameDeck(){
         DeckManager deckManager = new DeckManager();
