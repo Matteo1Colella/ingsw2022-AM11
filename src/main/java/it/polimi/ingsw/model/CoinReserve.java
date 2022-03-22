@@ -6,6 +6,18 @@ public class CoinReserve {
 
     private ArrayList<Coin> Coins;
 
-    private void CoinsReserve(){}
+    //constructor
+    public CoinReserve(ArrayList<Coin> coins) {
+        Coins = coins;
+    }
 
+    //getter and setter methods
+
+    public ArrayList<Coin> getCoins() {
+        return Coins;
+    }
+
+    public void setCoins(ArrayList<Coin> coins) {
+        Coins = coins;
+    }
 }

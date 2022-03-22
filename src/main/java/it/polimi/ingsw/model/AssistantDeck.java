@@ -1,17 +1,55 @@
 package it.polimi.ingsw.model;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
 public class AssistantDeck {
 
-    //final: the value can't be reinitialized
+
     private Mage mage;
     private boolean free;
     private int RemainingCards;
-    private ArrayList<Card> Cards;
+    private Collection<Card> Cards;
 
-    //builder
-    public void AssistantDeck(){}
+    //Constructor
+    public AssistantDeck(Mage mage, boolean free, int remainingCards, Collection<Card> cards) {
+        this.mage = mage;
+        this.free = free;
+        RemainingCards = remainingCards;
+        Cards = cards;
+    }
+
+    //getter and setter methods
+    public Mage getMage() {
+        return mage;
+    }
+
+    public void setMage(Mage mage) {
+        this.mage = mage;
+    }
+
+    public boolean isFree() {
+        return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
+    }
+
+    public int getRemainingCards() {
+        return RemainingCards;
+    }
+
+    public void setRemainingCards(int remainingCards) {
+        RemainingCards = remainingCards;
+    }
+
+    public Collection<Card> getCards() {
+        return Cards;
+    }
+
+    public void setCards(Collection<Card> cards) {
+        Cards = cards;
+    }
 
     //returns the number of the cars remaining
     public int LeftCard(){
