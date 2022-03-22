@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 
 public class Player {
@@ -10,8 +10,8 @@ public class Player {
     private AssistantDeck Deck;
     private boolean Status;
     private SchoolBoard schoolBoard;
-    private ArrayList<Coin> Coins;
-    private ArrayList<Tower> Towers;
+    private Collection<Coin> Coins;
+    private Collection<Tower> Towers;
     private Game PlayerGame;
 
     // Start of Getters, Setters, Constructor
@@ -61,19 +61,19 @@ public class Player {
         this.schoolBoard = schoolBoard;
     }
 
-    public ArrayList<Coin> getCoins() {
+    public Collection<Coin> getCoins() {
         return Coins;
     }
 
-    public void setCoins(ArrayList<Coin> coins) {
+    public void setCoins(Collection<Coin> coins) {
         Coins = coins;
     }
 
-    public ArrayList<Tower> getTowers() {
+    public Collection<Tower> getTowers() {
         return Towers;
     }
 
-    public void setTowers(ArrayList<Tower> towers) {
+    public void setTowers(Collection<Tower> towers) {
         Towers = towers;
     }
 
@@ -87,9 +87,6 @@ public class Player {
     // End of Getters, Setters, Constructor
 
 
-    //builder
-    public void Player() {
-    }
     //choose card from deck
     public Card playCard(){
         return null;

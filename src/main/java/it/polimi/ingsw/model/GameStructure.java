@@ -22,7 +22,6 @@ public class GameStructure {
     }
 
     public MotherNature getMothernature() {
-
         return Mothernature;
     }
 

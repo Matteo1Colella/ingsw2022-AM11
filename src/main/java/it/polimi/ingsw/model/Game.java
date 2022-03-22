@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -84,8 +85,6 @@ public class Game {
         return null;
     }
 
-    public void mergeIsland(){
-    }
 
     public void generateBoard(){}
 
@@ -99,12 +98,29 @@ public class Game {
         return null;
     }
 
-
-
     public boolean IsIn(String ID){
         return false;
     }
-    public void AddPlayer(String ID){
 
+    public void AddPlayer(String ID){}
+
+    /*
+    If two adjacent island are dominated by two towers
+      of the same colors, then the island are merged.
+    */
+    public void mergeIsland(){
+        Collection<IslandCard> Archipelago = GameStructure.getArchipelago();
+        IslandCard courrentIsland = GameStructure.getMothernature().getPosition();
+        IslandCard previousIsland = null;
+
+        for(IslandCard tempIsland : Archipelago){
+            if(tempIsland.equals(courrentIsland)){
+                if((previousIsland.getTower()) == (courrentIsland.getTower())){
+
+                }
+            }
+
+           previousIsland = tempIsland;
+        }
     }
 }
