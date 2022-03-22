@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Lobby {
@@ -7,14 +8,15 @@ private Game Game;
 private boolean GameType;
 private int NumPlayers;
 private int ID;
-private Collection<Player> Players;
+private ArrayList<Player> Players;
 private boolean ready;
     // Start of Getters, Setters, Constructor
-    public Lobby(int numplayers, boolean gametype, int ID) {
+    public Lobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
 
-       this.GameType = gametype;
+        this.GameType = gametype;
         this.NumPlayers = numplayers;
         this.ID = ID;
+        this.Players = Players;
 
     }
 
@@ -57,7 +59,7 @@ private boolean ready;
         return Players;
     }
 
-    public void setPlayers(Collection<Player> players) {
+    public void setPlayers(ArrayList<Player> players) {
         Players = players;
     }
     public boolean isReady() {
@@ -71,9 +73,14 @@ private boolean ready;
 
     // checks no duplicates players inside the lobby
     public boolean IsIn(String ID){
+
         for (Player Temp : Players){
-            if (Temp.getID_player().toUpperCase() == ID.toUpperCase()) return true;
+
+            if (Temp.getID_player().toUpperCase().equals(ID.toUpperCase())) {
+                return true;
+            }
         }
+
         return false;
     }
 
