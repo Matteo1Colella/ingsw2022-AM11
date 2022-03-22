@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
 
-public class DiningRom {
+public class DiningRoom {
     private ColorStudent Color;
     private SchoolBoard SchoolBoard;
     private ArrayList<Student> Occupation; //array of occupations

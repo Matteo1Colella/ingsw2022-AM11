@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-public class GameStructure {
+public class GameComponents {
     private Collection<IslandCard> Archipelago;
     private MotherNature Mothernature;
     private Collection<SchoolBoard> SchoolBoards;
@@ -60,7 +59,7 @@ public class GameStructure {
         CloudCards = cloudCards;
     }
 
-    public GameStructure(Collection<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards) {
+    public GameComponents(Collection<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards) {
         Archipelago = archipelago;
         Mothernature = mothernature;
         SchoolBoards = schoolBoards;

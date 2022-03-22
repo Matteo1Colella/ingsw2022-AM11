@@ -7,10 +7,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 import it.polimi.ingsw.model.GameManager;
-import it.polimi.ingsw.model.Lobby;
-import org.junit.Test;
+import it.polimi.ingsw.model.PlayersManager;
+
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 /**
@@ -21,20 +20,36 @@ public class AppTest
 
     @Test
     public void TestSameID(){
-        ArrayList<Lobby> Lobbies = new ArrayList<Lobby>();
+        ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
         GameManager GM = new GameManager(Lobbies);
-        GM.Login("Cole", 3, true);
-        GM.Login("Leo", 3, true);
-        GM.Login("Cole", 3, true);
+        boolean added = GM.login("Cole", 3, true);
+        assertTrue("not added first player", added);
+        added = GM.login("Leo", 3, true);
+        assertTrue("not added first player", added);
+        added = GM.login("Cole", 3, true);
+        assertFalse("added duplicate player Cole", added);
+
+        // bastard phase:
+        added = GM.login("Cole1", 3, true);
+        assertTrue("added Cole", added);
+
+        added = GM.login("Cole2", 3, true);
+        assertTrue("added duplicate player Cole", added);
+
+        added = GM.login("Cole3", 3, true);
+        assertTrue("added duplicate player Cole", added);
+
+        int nOFLobbies = Lobbies.size();
+        assertTrue("Lobbies must be 2 but are " + nOFLobbies, nOFLobbies == 2);
     }
     @Test
     public void TestFullLobby(){
-        ArrayList<Lobby> Lobbies = new ArrayList<Lobby>();
+        ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
         GameManager GM = new GameManager(Lobbies);
-        GM.Login("Cole", 3, true);
-        GM.Login("Leo", 3, true);
-        GM.Login("Ale", 3, true);
-        GM.Login("Gian", 3, true);
+        GM.login("Cole", 3, true);
+        GM.login("Leo", 3, true);
+        GM.login("Ale", 3, true);
+        GM.login("Gian", 3, true);
     }
 
 
