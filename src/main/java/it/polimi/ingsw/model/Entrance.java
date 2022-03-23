@@ -3,11 +3,12 @@ package it.polimi.ingsw.model;
 import java.util.ArrayList;
 
 public class Entrance {
-    ArrayList<Student> Students;
+    ArrayList<Student> students;
 
-    public void Entrance(){
-
+    public Entrance(ArrayList<Student> students) {
+        this.students = students;
     }
+
     public void AddStudents(){
 
     }

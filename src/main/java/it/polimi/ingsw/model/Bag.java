@@ -1,13 +1,15 @@
 package it.polimi.ingsw.model;
 
+import java.util.Collection;
 import java.util.Set;
 
 public class Bag {
     private int remaining;
-    private Set<Piece> Pieces;
+    private Collection<Student> Pieces;
 
     // Start Getters, Setters, Constructor
-    public Bag(int remaining, Set<Piece> pieces) {
+
+    public Bag(int remaining, Collection<Student> pieces) {
         this.remaining = remaining;
         Pieces = pieces;
     }
@@ -20,11 +22,11 @@ public class Bag {
         this.remaining = remaining;
     }
 
-    public Set<Piece> getPieces() {
+    public Collection<Student> getPieces() {
         return Pieces;
     }
 
-    public void setPieces(Set<Piece> pieces) {
+    public void setPieces(Collection<Student> pieces) {
         Pieces = pieces;
     }
     // End Getters, Setters, Constructor

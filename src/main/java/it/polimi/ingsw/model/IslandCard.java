@@ -1,83 +1,106 @@
 package it.polimi.ingsw.model;
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.Collection;
 
-public class IslandCard extends Board{
-    int ID_island;
-    Set<Student> Occupation;
-    Tower Tower;
-    Player PlayerOwner;
-    Boolean MotherNature;
-    int[] mergedWith; //array of integers
-    Boolean Locked;
+public class IslandCard extends Board {
+        int id_island;
+        Collection<Student> occupation;
+        Tower tower;
+        Player playerOwner;
+        Boolean motherNature;
+        int[] mergedWith; //array of integers
+        Boolean locked;
+        private it.polimi.ingsw.model.IslandCard next;  //pointer of the next Island in the circularArrayList
 
-    public int getID_island() {
-        return ID_island;
-    }
+        //start constructors, getters, setters
+        public IslandCard(int id_island, Collection<Student> occupation, Tower tower, Player playerOwner, Boolean motherNature, int[] mergedWith, Boolean locked) {
+            this.id_island = id_island;
+            this.occupation = occupation;
+            this.tower = tower;
+            this.playerOwner = playerOwner;
+            this.motherNature = motherNature;
+            this.mergedWith = mergedWith;
+            this.locked = locked;
+        }
 
-    public void setID_island(int ID_island) {
-        this.ID_island = ID_island;
-    }
 
-    public void setOccupation(Set<Student> occupation) {
-        Occupation = occupation;
-    }
+        public int getId_island() {
+            return id_island;
+        }
 
-    public Tower getTower() {
-        return Tower;
-    }
+        public void setId_island(int id_island) {
+            this.id_island = id_island;
+        }
 
-    public void setTower(it.polimi.ingsw.model.Tower tower) {
-        Tower = tower;
-    }
+        public void setOccupation(Collection<Student> occupation) {
+            this.occupation = occupation;
+        }
 
-    public Player getPlayerOwner() {
-        return PlayerOwner;
-    }
+        public Tower getTower() {
+            return tower;
+        }
 
-    public void setPlayerOwner(Player playerOwner) {
-        PlayerOwner = playerOwner;
-    }
+        public void setTower(Tower tower) {
+            this.tower = tower;
+        }
 
-    public Boolean getMotherNature() {
-        return MotherNature;
-    }
+        public Player getPlayerOwner() {
+            return playerOwner;
+        }
 
-    public void setMotherNature(Boolean motherNature) {
-        MotherNature = motherNature;
-    }
+        public void setPlayerOwner(Player playerOwner) {
+            this.playerOwner = playerOwner;
+        }
 
-    public int[] getMergedWith() {
-        return mergedWith;
-    }
+        public Boolean getMotherNature() {
+            return motherNature;
+        }
 
-    public void setMergedWith(int[] mergedWith) {
-        this.mergedWith = mergedWith;
-    }
+        public void setMotherNature(Boolean motherNature) {
+            this.motherNature = motherNature;
+        }
 
-    public Boolean getLocked() {
-        return Locked;
-    }
+        public int[] getMergedWith() {
+            return mergedWith;
+        }
 
-    public void setLocked(Boolean locked) {
-        Locked = locked;
-    }
+        public void setMergedWith(int[] mergedWith) {
+            this.mergedWith = mergedWith;
+        }
 
-    public boolean isAggregable(){
-        return true;
-    }
-    public Set<Student> getOccupation(){
-        return null;
-    }
-    public boolean isMotherNature(){
-        return false;
-    }
-    public boolean isMerged(){
-        return false;
-    }
-    public boolean isLocked(){
-        return false;
-    }
+        public Boolean getLocked() {
+            return locked;
+        }
+
+        public void setLocked(Boolean locked) {
+            this.locked = locked;
+        }
+
+        public IslandCard getNext() {
+            return next;
+        }
+
+        public void setNext(IslandCard next) {
+            this.next = next;
+        }
+
+        //end of constructors, getters, setters
+
+        public boolean isAggregable(){
+            return true;
+        }
+        public Collection<Student> getOccupation(){
+            return null;
+        }
+        public boolean isMotherNature(){
+            return false;
+        }
+        public boolean isMerged(){
+            return false;
+        }
+        public boolean isLocked(){
+            return false;
+        }
+
 
 }

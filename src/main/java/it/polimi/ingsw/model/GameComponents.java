@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Components.Archipelago;
+
 import java.util.Collection;
 
 public class GameComponents {
@@ -67,4 +69,7 @@ public class GameComponents {
         CloudCards = cloudCards;
     }
     // End of Getters, Setters, Constructor
+
+
+
 }

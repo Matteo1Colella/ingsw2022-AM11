@@ -1,15 +1,13 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.AssistantDeck;
-import it.polimi.ingsw.model.DeckManager;
-import it.polimi.ingsw.model.Mage;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Components.*;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
-import it.polimi.ingsw.model.GameManager;
-import it.polimi.ingsw.model.PlayersManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import static org.junit.Assert.*;
 
 
 /**
@@ -177,4 +175,17 @@ public class AppTest
         assertNotNull(assistantDeck4);
 
     }
+    @Test
+    public void testArchipelago(){
+        //create Archipelago
+        Archipelago islands = new Archipelago();
+        islands.createCircularLinkedList();
+        islands.printIslands(); //prints the 12 ID_Islands
+        //motherNature in first island
+        MotherNature motherNature = new MotherNature(islands.next());
+        System.out.println(motherNature.getPosition().getId_island());
+        int test = motherNature.getPosition().getId_island();
+        assertEquals(1, test); //motherNature on the island: ID=1 (at the beginning of a game)
+    }
+
 }
