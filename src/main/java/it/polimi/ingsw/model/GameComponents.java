@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Components.Archipelago;
+
 import java.util.Collection;
 
 public class GameComponents {
@@ -8,6 +10,8 @@ public class GameComponents {
     private Collection<SchoolBoard> SchoolBoards;
     private Bag Bag;
     private Collection<CloudCard> CloudCards;
+
+
 
     // Start of Getters, Setters, Constructor
     public Collection<IslandCard> getArchipelago() {
@@ -67,4 +71,7 @@ public class GameComponents {
         CloudCards = cloudCards;
     }
     // End of Getters, Setters, Constructor
+
+
+
 }

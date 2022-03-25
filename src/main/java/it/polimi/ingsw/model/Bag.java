@@ -1,15 +1,26 @@
 package it.polimi.ingsw.model;
 
+import java.util.Collection;
 import java.util.Set;
 
 public class Bag {
     private int remaining;
-    private Set<Piece> Pieces;
+    private Collection<Student> yellow;
+    private Collection<Student> pink;
+    private Collection<Student> red;
+    private Collection<Student> green;
+    private Collection<Student> blue;
+
 
     // Start Getters, Setters, Constructor
-    public Bag(int remaining, Set<Piece> pieces) {
+
+    public Bag(int remaining, Collection<Student> yellow, Collection<Student> pink, Collection<Student> red, Collection<Student> green, Collection<Student> blue) {
         this.remaining = remaining;
-        Pieces = pieces;
+        this.yellow = yellow;
+        this.pink = pink;
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
     }
 
     public int getRemaining() {
@@ -20,12 +31,44 @@ public class Bag {
         this.remaining = remaining;
     }
 
-    public Set<Piece> getPieces() {
-        return Pieces;
+    public Collection<Student> getYellow() {
+        return yellow;
     }
 
-    public void setPieces(Set<Piece> pieces) {
-        Pieces = pieces;
+    public void setYellow(Collection<Student> yellow) {
+        this.yellow = yellow;
+    }
+
+    public Collection<Student> getPink() {
+        return pink;
+    }
+
+    public void setPink(Collection<Student> pink) {
+        this.pink = pink;
+    }
+
+    public Collection<Student> getRed() {
+        return red;
+    }
+
+    public void setRed(Collection<Student> red) {
+        this.red = red;
+    }
+
+    public Collection<Student> getGreen() {
+        return green;
+    }
+
+    public void setGreen(Collection<Student> green) {
+        this.green = green;
+    }
+
+    public Collection<Student> getBlue() {
+        return blue;
+    }
+
+    public void setBlue(Collection<Student> blue) {
+        this.blue = blue;
     }
     // End Getters, Setters, Constructor
 

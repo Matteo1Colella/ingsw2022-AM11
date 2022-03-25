@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+
 public class Professor extends Piece {
     private final ColorStudent color;
     private Board position;
@@ -15,5 +16,6 @@ public class Professor extends Piece {
 
     public ColorStudent getColor(){
         return this.color;
+
     }
 }

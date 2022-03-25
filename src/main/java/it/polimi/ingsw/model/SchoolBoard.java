@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
 public class SchoolBoard extends Board{
 
     private final ArrayList<Tower> towers;
@@ -113,5 +114,6 @@ public class SchoolBoard extends Board{
 
     private Entrance getEntrance(){
         return entrance;
+
     }
 }

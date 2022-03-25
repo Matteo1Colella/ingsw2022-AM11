@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public abstract class Piece {
+public abstract class Piece implements Moovable {
     private Board Position;
     // Start of Getters, Setters, Constructor
 
