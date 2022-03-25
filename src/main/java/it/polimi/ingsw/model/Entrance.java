@@ -1,17 +1,22 @@
 package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Entrance {
-    ArrayList<Student> Students;
+    private final ArrayList<Student> students;
 
-    public void Entrance(){
-
+    //the entrance is initialized with 7 students
+    public Entrance(Collection<Student> students){
+        this.students = new ArrayList<>();
+        this.students.addAll(students);
     }
-    public void AddStudents(){
-
+    //the caller have the control of the drawing of the students
+    public void addStudents(Collection<Student> students){
+        this.students.addAll(students);
     }
-    public void moveStudent(){
 
+    public Student chooseStudent(int position){
+        return students.get(position);
     }
 }
