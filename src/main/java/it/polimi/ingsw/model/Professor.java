@@ -1,23 +1,21 @@
 package it.polimi.ingsw.model;
 
-public class Professor extends Piece{
-    private ColorStudent colorprofessor;
 
-    public Professor(ColorStudent colorprofessor) {
-        this.colorprofessor = colorprofessor;
+public class Professor extends Piece {
+    private final ColorStudent color;
+    private Board position;
+
+    public Professor(ColorStudent color) {
+        this.color = color;
+        this.position = null;
     }
 
-    public ColorStudent getColorprofessor() {
-        return colorprofessor;
+    public void setPosition(DiningRoom diningRoom){
+        this.position = diningRoom;
     }
 
-    public void setColorprofessor(ColorStudent colorprofessor) {
-        this.colorprofessor = colorprofessor;
-    }
+    public ColorStudent getColor(){
+        return this.color;
 
-    //override of interface moovable
-    @Override
-    public Board setPosition() {
-        return null;
     }
 }
