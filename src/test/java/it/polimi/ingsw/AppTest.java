@@ -1,15 +1,13 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.AssistantDeck;
-import it.polimi.ingsw.model.DeckManager;
-import it.polimi.ingsw.model.Mage;
+import it.polimi.ingsw.model.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
-import it.polimi.ingsw.model.GameManager;
-import it.polimi.ingsw.model.PlayersManager;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 /**
@@ -92,4 +90,100 @@ public class AppTest
         assertNotNull(assistantDeck4);
 
     }
+
+    //SchoolBoard test
+    @Test
+    public void schoolBoardCreation(){
+        ArrayList<SchoolBoard> schoolBoard = new ArrayList<>();
+        ColorTower[] colors =  ColorTower.values();
+        Collection<Student> students = new ArrayList<>();
+        int numberOfPlayers = 3;
+        Student student = new Student();
+
+        students.add(student);
+
+        schoolBoard.add(new SchoolBoard(colors[0], numberOfPlayers, students));
+        schoolBoard.add(new SchoolBoard(colors[1], numberOfPlayers, students));
+
+        assertNotNull(schoolBoard.get(0));
+        assertNotNull(schoolBoard.get(1));
+    }
+
+    //checking if the colors of the towers ar correct for each player
+    @Test
+    public void schoolBoardColors(){
+        ArrayList<SchoolBoard> schoolBoard = new ArrayList<>();
+        ColorTower[] colors =  ColorTower.values();
+        Collection<Student> students = new ArrayList<>();
+        int numberOfPlayers = 3;
+        Student student = new Student();
+        ColorTower black = ColorTower.BLACK;
+        ColorTower white = ColorTower.WHITE;
+        ColorTower grey = ColorTower.GREY;
+
+        students.add(student);
+
+        schoolBoard.add(new SchoolBoard(colors[0], numberOfPlayers, students));
+        schoolBoard.add(new SchoolBoard(colors[1], numberOfPlayers, students));
+        schoolBoard.add(new SchoolBoard(colors[2], numberOfPlayers, students));
+
+        assertEquals(schoolBoard.get(0).schoolBoardTowerColor(), black);
+        assertEquals(schoolBoard.get(1).schoolBoardTowerColor(), white);
+        assertEquals(schoolBoard.get(2).schoolBoardTowerColor(), grey);
+    }
+
+    //move tower test with 2 players
+    @Test
+    public void moveTowerFromSchoolBoard1(){
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student());
+        IslandCard islandCard = new IslandCard();
+
+        SchoolBoard schoolBoard= new SchoolBoard(ColorTower.BLACK, 2, students);
+
+        schoolBoard.moveTower(islandCard);
+        int towerSize = schoolBoard.getTowers().size();
+
+        assertEquals(7, towerSize);
+    }
+
+    //move tower test with 3 players
+    @Test
+    public void moveTowerFromSchoolBoard2(){
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student());
+        IslandCard islandCard = new IslandCard();
+
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 3, students);
+
+        schoolBoard.moveTower(islandCard);
+        int towerSize = schoolBoard.getTowers().size();
+
+        assertEquals(5, towerSize);
+    }
+
+    //moove 9 tower: the lastes doesn't cause anything
+    @Test
+    public void move9Towers(){
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student());
+        IslandCard islandCard = new IslandCard();
+
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 3, students);
+
+        for(int i = 0; i < 9; i++){
+            schoolBoard.moveTower(islandCard);
+        }
+
+        int towerSize = schoolBoard.getTowers().size();
+        assertEquals(0, towerSize);
+    }
+
+    //move a student on an island or dashboard
+    //CANT TESTED UNTIL SOMEONE WRITES STUDENT
+    @Test
+    public void movingStudent(){
+
+    }
 }
+
