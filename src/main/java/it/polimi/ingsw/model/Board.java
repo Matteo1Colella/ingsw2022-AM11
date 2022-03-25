@@ -1,15 +1,10 @@
 package it.polimi.ingsw.model;
 
-import java.util.Set;
+import java.util.Collection;
 
-public class Board {
+public interface Board {
 
-    public Set<Student> getStudents(){
-        return null;
-    }
-
-    public String getID(){
-        return null;
-    }
+    public Collection<Student> getStudents();
+    public String getID();
 
 }

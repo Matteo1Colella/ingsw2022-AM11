@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 
-public class CloudCard extends Board{
+public class CloudCard implements Board{
     private int id_cloud;
     private ArrayList<Student> students;
 
@@ -27,6 +28,17 @@ public class CloudCard extends Board{
     }
 
     public Set<Student> getStudent(){
+        return null;
+    }
+
+    //override of interface Board
+    @Override
+    public Collection<Student> getStudents() {
+        return null;
+    }
+
+    @Override
+    public String getID() {
         return null;
     }
 }

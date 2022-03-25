@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public class Professor {
+public class Professor extends Piece{
     private ColorStudent colorprofessor;
 
     public Professor(ColorStudent colorprofessor) {
@@ -13,5 +13,11 @@ public class Professor {
 
     public void setColorprofessor(ColorStudent colorprofessor) {
         this.colorprofessor = colorprofessor;
+    }
+
+    //override of interface moovable
+    @Override
+    public Board setPosition() {
+        return null;
     }
 }

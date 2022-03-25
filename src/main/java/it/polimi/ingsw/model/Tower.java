@@ -26,4 +26,9 @@ public class Tower extends Piece{
         return null;
     }
 
+    //override of interface moovable
+    @Override
+    public Board setPosition() {
+        return null;
+    }
 }

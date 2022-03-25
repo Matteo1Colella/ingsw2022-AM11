@@ -11,6 +11,8 @@ public class GameComponents {
     private Bag Bag;
     private Collection<CloudCard> CloudCards;
 
+
+
     // Start of Getters, Setters, Constructor
     public Collection<IslandCard> getArchipelago() {
 

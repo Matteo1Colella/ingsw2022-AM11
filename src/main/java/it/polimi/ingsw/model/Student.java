@@ -2,7 +2,12 @@ package it.polimi.ingsw.model;
 
 public class Student extends Piece{
     private ColorStudent Color;
-    public Student(){}
+
+
+    public Student(ColorStudent color) {
+        Color = color;
+    }
+
 
     public ColorStudent getColor() {
         return Color;
@@ -12,4 +17,9 @@ public class Student extends Piece{
         Color = color;
     }
 
+    //override of interface moovable
+    @Override
+    public Board setPosition() {
+        return null;
+    }
 }

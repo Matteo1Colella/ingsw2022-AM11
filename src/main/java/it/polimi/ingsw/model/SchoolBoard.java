@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
-public class SchoolBoard extends Board{
+public class SchoolBoard implements Board{
 
     private ArrayList<Tower> towers;
     private ArrayList<DiningRoom> Classes; //a class is an array of students
@@ -46,5 +47,16 @@ public class SchoolBoard extends Board{
 
     public void setEntrance(Entrance entrance) {
         this.entrance = entrance;
+    }
+
+    //override of interface Board
+    @Override
+    public Collection<Student> getStudents() {
+        return null;
+    }
+
+    @Override
+    public String getID() {
+        return null;
     }
 }

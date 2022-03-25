@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 import java.util.Collection;
 
-public class IslandCard extends Board {
+public class IslandCard implements Board {
         int id_island;
         Collection<Student> occupation;
         Tower tower;
@@ -24,7 +24,8 @@ public class IslandCard extends Board {
         }
 
 
-        public int getId_island() {
+
+    public int getId_island() {
             return id_island;
         }
 
@@ -102,5 +103,14 @@ public class IslandCard extends Board {
             return false;
         }
 
+    //override of interface Board
+    @Override
+    public Collection<Student> getStudents() {
+        return null;
+    }
 
+    @Override
+    public String getID() {
+        return null;
+    }
 }
