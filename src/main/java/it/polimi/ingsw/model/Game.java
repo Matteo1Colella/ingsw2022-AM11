@@ -11,12 +11,13 @@ public class Game {
     private int MovedPieces;
     private GameComponents GameComponents;
     private int ID;
-
+    private int numplayers;
     // Start of Getters, Setters, Constructor
 
-    public Game(boolean isPro, int ID) {
+    public Game(boolean isPro, int ID, int numplayers) {
         this.isPro = isPro;
         this.ID = ID;
+        this.numplayers = numplayers;
     }
 
     public Status getStatus() {

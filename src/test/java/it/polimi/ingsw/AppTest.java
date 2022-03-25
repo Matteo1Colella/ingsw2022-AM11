@@ -1,15 +1,13 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.AssistantDeck;
-import it.polimi.ingsw.model.DeckManager;
-import it.polimi.ingsw.model.Mage;
+import it.polimi.ingsw.model.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
-import it.polimi.ingsw.model.GameManager;
-import it.polimi.ingsw.model.PlayersManager;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 /**
@@ -17,7 +15,7 @@ import java.util.ArrayList;
  */
 public class AppTest 
 {
-
+    // testing lobbies functionalities
     @Test
     public void TestSameID(){
         ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
@@ -25,7 +23,7 @@ public class AppTest
         boolean added = GM.login("Cole", 3, true);
         assertTrue("not added first player", added);
         added = GM.login("Leo", 3, true);
-        assertTrue("not added first player", added);
+        assertTrue("not added player", added);
         added = GM.login("Cole", 3, true);
         assertFalse("added duplicate player Cole", added);
 
@@ -51,8 +49,93 @@ public class AppTest
         GM.login("Ale", 3, true);
         GM.login("Gian", 3, true);
     }
+    @Test
+    // testing deck requests
+    public void TestLoginAndDeck(){
+        ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
+        GameManager GM = new GameManager(Lobbies);
 
+        boolean added = GM.login("Cole", 3, true);
+        assertTrue("not added first player", added);
 
+        boolean decksuccess=GM.deckRequest(GM.getPlayerLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Leo", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Ale", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Ale").getID(), Mage.MAGE3, "Ale");
+        assertTrue("not added deck", decksuccess);
+
+    }
+    @Test
+    public void TestLoginAndDeckMultipleLobbies(){
+        ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
+        GameManager GM = new GameManager(Lobbies);
+
+        boolean added = GM.login("Cole", 3, true);
+        assertTrue("not added first player", added);
+
+        boolean decksuccess=GM.deckRequest(GM.getPlayerLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Leo", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Ale", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Ale").getID(), Mage.MAGE3, "Ale");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Gian", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Gian").getID(), Mage.MAGE1, "Gian");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Pore", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(GM.getPlayerLobby("Pore").getID(), Mage.MAGE2, "Pore");
+        assertTrue("not added deck", decksuccess);
+
+    }
+
+    @Test
+    public void TestLoginAndDuplicateDeck(){
+        ArrayList<PlayersManager> Lobbies = new ArrayList<PlayersManager>();
+        GameManager GM = new GameManager(Lobbies);
+
+        boolean added = GM.login("Cole", 3, true);
+        assertTrue("not added first player", added);
+
+        boolean decksuccess=GM.deckRequest(0, Mage.MAGE1, "Cole");
+        assertTrue("not added deck", decksuccess);
+
+        added=GM.login("Leo", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(0, Mage.MAGE1, "Leo");
+        assertFalse("added deck", decksuccess);
+
+        added=GM.login("Ale", 3, true);
+        assertTrue("not added player", added);
+
+        decksuccess=GM.deckRequest(0, Mage.MAGE3, "Ale");
+        assertTrue("not added deck", decksuccess);
+
+    }
+    // testing deck functionalities
     @Test
     public void sameDeck(){
         DeckManager deckManager = new DeckManager();
@@ -92,4 +175,100 @@ public class AppTest
         assertNotNull(assistantDeck4);
 
     }
+
+    //SchoolBoard test
+    @Test
+    public void schoolBoardCreation(){
+        ArrayList<SchoolBoard> schoolBoard = new ArrayList<>();
+        ColorTower[] colors =  ColorTower.values();
+        Collection<Student> students = new ArrayList<>();
+        int numberOfPlayers = 3;
+        Student student = new Student();
+
+        students.add(student);
+
+        schoolBoard.add(new SchoolBoard(colors[0], numberOfPlayers, students));
+        schoolBoard.add(new SchoolBoard(colors[1], numberOfPlayers, students));
+
+        assertNotNull(schoolBoard.get(0));
+        assertNotNull(schoolBoard.get(1));
+    }
+
+    //checking if the colors of the towers ar correct for each player
+    @Test
+    public void schoolBoardColors(){
+        ArrayList<SchoolBoard> schoolBoard = new ArrayList<>();
+        ColorTower[] colors =  ColorTower.values();
+        Collection<Student> students = new ArrayList<>();
+        int numberOfPlayers = 3;
+        Student student = new Student();
+        ColorTower black = ColorTower.BLACK;
+        ColorTower white = ColorTower.WHITE;
+        ColorTower grey = ColorTower.GREY;
+
+        students.add(student);
+
+        schoolBoard.add(new SchoolBoard(colors[0], numberOfPlayers, students));
+        schoolBoard.add(new SchoolBoard(colors[1], numberOfPlayers, students));
+        schoolBoard.add(new SchoolBoard(colors[2], numberOfPlayers, students));
+
+        assertEquals(schoolBoard.get(0).schoolBoardTowerColor(), black);
+        assertEquals(schoolBoard.get(1).schoolBoardTowerColor(), white);
+        assertEquals(schoolBoard.get(2).schoolBoardTowerColor(), grey);
+    }
+
+    //move tower test with 2 players
+    @Test
+    public void moveTowerFromSchoolBoard1(){
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student());
+        IslandCard islandCard = new IslandCard();
+
+        SchoolBoard schoolBoard= new SchoolBoard(ColorTower.BLACK, 2, students);
+
+        schoolBoard.moveTower(islandCard);
+        int towerSize = schoolBoard.getTowers().size();
+
+        assertEquals(7, towerSize);
+    }
+
+    //move tower test with 3 players
+    @Test
+    public void moveTowerFromSchoolBoard2(){
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student());
+        IslandCard islandCard = new IslandCard();
+
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 3, students);
+
+        schoolBoard.moveTower(islandCard);
+        int towerSize = schoolBoard.getTowers().size();
+
+        assertEquals(5, towerSize);
+    }
+
+    //moove 9 tower: the lastes doesn't cause anything
+    @Test
+    public void move9Towers(){
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student());
+        IslandCard islandCard = new IslandCard();
+
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 3, students);
+
+        for(int i = 0; i < 9; i++){
+            schoolBoard.moveTower(islandCard);
+        }
+
+        int towerSize = schoolBoard.getTowers().size();
+        assertEquals(0, towerSize);
+    }
+
+    //move a student on an island or dashboard
+    //CANT TESTED UNTIL SOMEONE WRITES STUDENT
+    @Test
+    public void movingStudent(){
+
+    }
 }
+

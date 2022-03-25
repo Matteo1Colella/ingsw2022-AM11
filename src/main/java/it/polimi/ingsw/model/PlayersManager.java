@@ -10,6 +10,9 @@ private int NumPlayers;
 private int ID;
 private ArrayList<Player> Players;
 private boolean ready;
+private CoinReserve coinReserve;
+private DeckManager DM;
+
     // Start of Getters, Setters, Constructor
     public PlayersManager(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
 
@@ -17,7 +20,15 @@ private boolean ready;
         this.NumPlayers = numplayers;
         this.ID = ID;
         this.Players = Players;
+        this.DM = new DeckManager();
+    }
 
+    public DeckManager getDM() {
+        return DM;
+    }
+
+    public void setDM(DeckManager DM) {
+        this.DM = DM;
     }
 
     public boolean isGameType() {
@@ -36,7 +47,7 @@ private boolean ready;
         NumPlayers = numPlayers;
     }
 
-    public Game getGame(int Numplayers, boolean Gametype) {
+    public Game getGame() {
         return Game;
     }
 
@@ -71,32 +82,25 @@ private boolean ready;
     }
     // End of Getters, Setters, Constructor
 
-    // checks no duplicates players inside the lobby
-    public boolean IsIn(String ID){
-
-        for (Player Temp : Players){
-
-            if (Temp.getID_player().toUpperCase().equals(ID.toUpperCase())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     // adds a player to the lobby, if it fills up the game starts
     public void AddPlayer(String ID){
         Player New = new Player(Players.size(), ID);
+        New.setGameID(this.ID);
         this.Players.add(New);
         if (Players.size() == this.NumPlayers) {
-            CreateGame(this.NumPlayers, this.ID, this.GameType);
             this.setReady(true);
-
         };
     }
     //creates the game related to this lobby
     public void CreateGame(int NumPlayers, int ID, boolean GameType) {
-        this.Game = new Game(GameType, ID);
+        System.out.println("All set! Starting Game...");
+        System.out.println("");
+        this.Game = new Game(GameType, ID, NumPlayers);
+        if (GameType){
+            //coins reserve and character cards creation
+        }
+
+
     }
 
 
