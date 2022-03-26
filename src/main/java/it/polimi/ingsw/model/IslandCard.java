@@ -3,13 +3,13 @@ package it.polimi.ingsw.model;
 import java.util.Collection;
 
 public class IslandCard implements Board {
-        int id_island;
-        Collection<Student> occupation;
-        Tower tower;
-        Player playerOwner;
-        Boolean motherNature;
-        int[] mergedWith; //array of integers
-        Boolean locked;
+        private int id_island;
+        private Collection<Student> occupation;
+        private Tower tower;
+        private Player playerOwner;
+        private Boolean motherNature;
+        private int[] mergedWith; //array of integers
+        private Boolean locked;
         private it.polimi.ingsw.model.IslandCard next;  //pointer of the next Island in the circularArrayList
 
         //start constructors, getters, setters
@@ -110,7 +110,8 @@ public class IslandCard implements Board {
     }
 
     @Override
-    public String getID() {
+    public Collection<Student> getStudents(ColorStudent colorStudent) {
         return null;
     }
+
 }

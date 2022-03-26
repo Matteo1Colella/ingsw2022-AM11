@@ -21,8 +21,6 @@ public class CloudCard implements Board{
         this.id_cloud = id_cloud;
     }
 
-
-
     public void setStudents(ArrayList<Student> students) {
         this.students = students;
     }
@@ -38,7 +36,8 @@ public class CloudCard implements Board{
     }
 
     @Override
-    public String getID() {
+    public Collection<Student> getStudents(ColorStudent colorStudent) {
         return null;
     }
+
 }

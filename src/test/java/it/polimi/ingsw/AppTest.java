@@ -220,22 +220,15 @@ public class AppTest {
         ArrayList<Tower> towersBlack = new ArrayList<Tower>();
         ArrayList<Tower> towersWhite = new ArrayList<Tower>();
 
-        towersBlack.add(new Tower(ColorTower.BLACK)); //repeat 8 times for blacks
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersWhite.add(new Tower(ColorTower.WHITE)); //repeat 8 times for whites
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
+        //repeat 8 times for black
+        for(int i = 0; i < 8; i++){
+            towersBlack.add(new Tower(ColorTower.BLACK));
+        }
+
+        //repeat 8 times for whites
+        for(int i = 0; i < 8; i++){
+            towersBlack.add(new Tower(ColorTower.WHITE));
+        }
 
         //creation of students container
         ArrayList<Student> green = new ArrayList<>();
@@ -245,37 +238,11 @@ public class AppTest {
         ArrayList<Student> blue = new ArrayList<>();
 
         //adding 26 students for each container
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-
-
-
-
-
+        for(int i = 0; i < 26; i++){
+            yellow.add(new Student(ColorStudent.YELLOW));
+            green.add(new Student(ColorStudent.GREEN));
+            red.add(new Student(ColorStudent.RED));
+        }
 
         //creating 12 islands
         Collection<Student> studentsIsland1 = new ArrayList<Student>(); //new Array for the students in the island
@@ -283,18 +250,16 @@ public class AppTest {
         Collection<Student> studentsIsland2 = new ArrayList<Student>();
         studentsIsland1.add(yellow.get(1));
 
-
-        IslandCard island1 = new IslandCard(1, studentsIsland1,null, null,true,null,false);
-        IslandCard island2 = new IslandCard(2, studentsIsland2 ,null,null,false,null,null);
-
+        IslandCard island1 = new IslandCard(1, studentsIsland1, null, null, true, null, false);
+        IslandCard island2 = new IslandCard(2, studentsIsland2, null, null, false, null, null);
 
         //adding 12 islands to circularArray
         islandsCircularArray.add(island1);
         islandsCircularArray.add(island2);
 
-
-        assertTrue("false because there isn't motherNature in the first island",islandsCircularArray.get(0).getMotherNature());
+        assertTrue("false because there isn't motherNature in the first island", islandsCircularArray.get(0).getMotherNature());
         assertFalse(islandsCircularArray.get(1).getMotherNature());
+    }
 
     //SchoolBoard test
     @Test
@@ -303,7 +268,7 @@ public class AppTest {
         ColorTower[] colors =  ColorTower.values();
         Collection<Student> students = new ArrayList<>();
         int numberOfPlayers = 3;
-        Student student = new Student();
+        Student student = new Student(ColorStudent.RED);
 
         students.add(student);
 
@@ -321,7 +286,7 @@ public class AppTest {
         ColorTower[] colors =  ColorTower.values();
         Collection<Student> students = new ArrayList<>();
         int numberOfPlayers = 3;
-        Student student = new Student();
+        Student student = new Student(ColorStudent.RED);
         ColorTower black = ColorTower.BLACK;
         ColorTower white = ColorTower.WHITE;
         ColorTower grey = ColorTower.GREY;
@@ -341,8 +306,8 @@ public class AppTest {
     @Test
     public void moveTowerFromSchoolBoard1(){
         ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student());
-        IslandCard islandCard = new IslandCard();
+        students.add(new Student(ColorStudent.RED));
+        IslandCard islandCard = new IslandCard(0, null, null, null, null, null, null);
 
         SchoolBoard schoolBoard= new SchoolBoard(ColorTower.BLACK, 2, students);
 
@@ -356,8 +321,8 @@ public class AppTest {
     @Test
     public void moveTowerFromSchoolBoard2(){
         ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student());
-        IslandCard islandCard = new IslandCard();
+        students.add(new Student(ColorStudent.RED));
+        IslandCard islandCard = new IslandCard(0, null, null, null, null, null, null);
 
         SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 3, students);
 
@@ -371,8 +336,8 @@ public class AppTest {
     @Test
     public void move9Towers(){
         ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student());
-        IslandCard islandCard = new IslandCard();
+        students.add(new Student(ColorStudent.RED));
+        IslandCard islandCard = new IslandCard(0, null, null, null, null, null, null);
 
         SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 3, students);
 
@@ -388,7 +353,6 @@ public class AppTest {
     //CANT TESTED UNTIL SOMEONE WRITES STUDENT
     @Test
     public void movingStudent(){
-
 
     }
 }

@@ -1,23 +1,22 @@
 package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
-
-
-public class DiningRoom extends Board{
+public class DiningRoom implements Board {
     private final ColorStudent color;
-    private ArrayList<Student> occupation; //array of occupations
+    private ArrayList<Student> students; //array of occupations
     private Professor professor;
     private int coinsGiven;
 
     public DiningRoom(ColorStudent color){
-        this.occupation = new ArrayList<>();
+        this.students = new ArrayList<>();
         this.color = color;
         this.professor = null;
     }
 
     public void addStudent(Student student){
-        occupation.add(student);
+        students.add(student);
     }
 
     //who will call this function have to control the number of the students with the same color for all Players
@@ -31,64 +30,26 @@ public class DiningRoom extends Board{
 
     }
 
-    public int getOccupation(){
-        return occupation.size();
+    public int getStudentsSize(){
+        return students.size();
     }
 
     //says if it is possible to earn a coin
     public boolean giveCoin(){
-        if(occupation.size() % 3 == 0){
-            return true;
-        }
-        return false;
+        return students.size() % 3 == 0;
     }
 
-
-    public DiningRoom(ColorStudent color, it.polimi.ingsw.model.SchoolBoard schoolBoard, ArrayList<Boolean> occupation, it.polimi.ingsw.model.Professor professor, int coinsGiven) {
-        Color = color;
-        SchoolBoard = schoolBoard;
-        Occupation = occupation;
-        Professor = professor;
-        CoinsGiven = coinsGiven;
+    public ColorStudent getColor(){
+        return this.color;
     }
 
-    public ColorStudent getColor() {
-        return Color;
+    @Override
+    public Collection<Student> getStudents() {
+        return students;
     }
 
-    public void setColor(ColorStudent color) {
-        Color = color;
+    @Override
+    public Collection<Student> getStudents(ColorStudent colorStudent) {
+        return students;
     }
-
-    public it.polimi.ingsw.model.SchoolBoard getSchoolBoard() {
-        return SchoolBoard;
-    }
-
-    public void setSchoolBoard(it.polimi.ingsw.model.SchoolBoard schoolBoard) {
-        SchoolBoard = schoolBoard;
-    }
-
-    public ArrayList<Boolean> getOccupation() {
-        return Occupation;
-    }
-
-    public void setOccupation(ArrayList<Boolean> occupation) {
-        Occupation = occupation;
-    }
-
-    public it.polimi.ingsw.model.Professor getProfessor() {
-        return Professor;
-    }
-
-    public void setProfessor(it.polimi.ingsw.model.Professor professor) {
-        Professor = professor;
-    }
-
-    public int getCoinsGiven() {
-        return CoinsGiven;
-    }
-
-    public void setCoinsGiven(int coinsGiven) {
-        CoinsGiven = coinsGiven;
-    }
-
+}

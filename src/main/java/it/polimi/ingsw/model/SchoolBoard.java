@@ -1,17 +1,16 @@
 package it.polimi.ingsw.model;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
 
-public class SchoolBoard extends Board{
+public class SchoolBoard implements Board {
 
     private final ArrayList<Tower> towers;
     private final ArrayList<DiningRoom> diningRooms; //a class is an array of students
     private final Entrance entrance;
 
-    //Costructor
+    //Constructor
     public SchoolBoard(ColorTower colorTower, int numOfPlayers, Collection<Student> students){
 
         this.towers = new ArrayList<>();
@@ -67,7 +66,7 @@ public class SchoolBoard extends Board{
     public void moveStudent(int position){
         Student student = this.chooseStudentFromEntrance(position);
         DiningRoom diningRoom = (DiningRoom) diningRooms.stream().filter(diningRoom1 -> diningRoom1.getColor().equals(student.getColor()));
-        student.setPosition(diningRoom);
+        student.setPosition((Board) diningRoom);
         diningRoom.addStudent(student);
     }
 
@@ -84,8 +83,24 @@ public class SchoolBoard extends Board{
     }
 
     //get the occupation of a specified color
-    public int getOccupation(ColorStudent colorStudent){
-         return this.getDiningRoom(colorStudent).getOccupation();
+    public int getStudentSize(ColorStudent colorStudent){
+         return this.getDiningRoom(colorStudent).getStudentsSize();
+    }
+
+    @Override
+    public Collection<Student> getStudents() {
+        ColorStudent[] colors = ColorStudent.values();
+        Collection<Student> allStudents = new ArrayList<>();
+        for(ColorStudent tempColor : colors){
+            allStudents.addAll(this.getDiningRoom(tempColor).getStudents(tempColor));
+        }
+        return allStudents;
+    }
+
+    //returns a set of students
+    @Override
+    public Collection<Student> getStudents(ColorStudent colorStudent) {
+        return this.getDiningRoom(colorStudent).getStudents(colorStudent);
     }
 
     //check if it is possible to earn a coin from a dining room

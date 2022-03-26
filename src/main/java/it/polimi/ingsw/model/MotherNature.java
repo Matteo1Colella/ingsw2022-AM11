@@ -21,8 +21,9 @@ public class MotherNature implements Moovable{
     }
 
     @Override
-    public Board setPosition() {
-        return null;
+    public void setPosition() {
+
     }
+
     // End of Getters, Setters, Constructor
 }
