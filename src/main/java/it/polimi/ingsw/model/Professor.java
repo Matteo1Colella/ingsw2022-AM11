@@ -10,12 +10,17 @@ public class Professor extends Piece {
         this.position = null;
     }
 
-    public void setPosition(DiningRoom diningRoom){
+    public void setPosition(Board diningRoom){
         this.position = diningRoom;
     }
 
     public ColorStudent getColor(){
         return this.color;
+
+    }
+
+    @Override
+    public void setPosition() {
 
     }
 }
