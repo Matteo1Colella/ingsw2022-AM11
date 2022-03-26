@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public class MotherNature {
+public class MotherNature implements Moovable{
 
     private IslandCard Position;
 
@@ -18,6 +18,11 @@ public class MotherNature {
     public void setPosition(IslandCard position) {
 
         Position = position;
+    }
+
+    @Override
+    public Board setPosition() {
+        return null;
     }
     // End of Getters, Setters, Constructor
 }
