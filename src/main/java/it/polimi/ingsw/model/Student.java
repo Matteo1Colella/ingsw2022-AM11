@@ -17,9 +17,8 @@ public class Student extends Piece{
         Color = color;
     }
 
-    //override of interface moovable
     @Override
-    public Board setPosition() {
-        return null;
+    public void setPosition() {
+
     }
 }

@@ -5,6 +5,6 @@ import java.util.Collection;
 public interface Board {
 
     public Collection<Student> getStudents();
-    public String getID();
+    public Collection<Student> getStudents(ColorStudent colorStudent);
 
 }

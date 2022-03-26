@@ -26,9 +26,8 @@ public class Tower extends Piece{
         return this.colorTower;
     }
 
-    //override of interface moovable
     @Override
-    public Board setPosition() {
-        return null;
+    public void setPosition() {
+
     }
 }
