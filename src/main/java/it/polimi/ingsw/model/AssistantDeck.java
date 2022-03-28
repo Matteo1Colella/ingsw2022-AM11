@@ -1,30 +1,30 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class AssistantDeck {
 
 
-    private Mage mage;
+    private final Mage mage;
     private boolean free;
-    private int RemainingCards;
-    private Collection<Card> Cards;
+    private int remainingCards;
+    private final ArrayList<Card> cards;
 
     //Constructor
     public AssistantDeck(Mage mage, boolean free, int remainingCards, Collection<Card> cards) {
+
+        this.cards = new ArrayList<>();
+
         this.mage = mage;
         this.free = free;
-        RemainingCards = remainingCards;
-        Cards = cards;
+        this.remainingCards = remainingCards;
+        this.cards.addAll(cards);
     }
 
     //getter and setter methods
     public Mage getMage() {
         return mage;
-    }
-
-    public void setMage(Mage mage) {
-        this.mage = mage;
     }
 
     public boolean isFree() {
@@ -35,29 +35,37 @@ public class AssistantDeck {
         this.free = free;
     }
 
-    public int getRemainingCards() {
-        return RemainingCards;
-    }
-
-    public void setRemainingCards(int remainingCards) {
-        RemainingCards = remainingCards;
-    }
-
     public Collection<Card> getCards() {
-        return Cards;
-    }
-
-    public void setCards(Collection<Card> cards) {
-        Cards = cards;
+        return cards;
     }
 
     //returns the number of the cars remaining
-    public int LeftCard(){
-        return 0;
+    public int leftCard(){
+        return remainingCards;
     }
 
     //choose a card from the deck
-    public Card chooseCard(){
-        return null;
+    public Card chooseCard(int i){
+
+        if(remainingCards == 0){
+            System.out.println("No cards remaining.");
+            return null;
+        }
+
+        if(cards.get(i).isUsed()){
+            System.out.println("You can't choose this cars, it has been already choosen.");
+            return null;
+        }
+
+        Card retCard = cards.get(i);
+        cards.get(i).setUsed(true);
+        remainingCards--;
+        System.out.println("You choose" + retCard);
+
+        if(remainingCards == 0){
+            System.out.println("No cards remaining.");
+            return null;
+        }
+        return retCard;
     }
 }

@@ -1,11 +1,11 @@
 package it.polimi.ingsw.model;
 
 public class Card {
-    private String Name;
-    private int Steps;
-    private int Influence;
+    private final String Name;
+    private final int Steps;
+    private final int Influence;
     private boolean used;
-    private Mage mage;
+    private final Mage mage;
 
     //Costructor
 
@@ -23,24 +23,12 @@ public class Card {
         return Name;
     }
 
-    public void setName(String name) {
-        Name = name;
-    }
-
     public int getSteps() {
         return Steps;
     }
 
-    public void setSteps(int steps) {
-        Steps = steps;
-    }
-
     public int getInfluence() {
         return Influence;
-    }
-
-    public void setInfluence(int influence) {
-        Influence = influence;
     }
 
     public boolean isUsed() {
@@ -55,7 +43,13 @@ public class Card {
         return mage;
     }
 
-    public void setMage(Mage mage) {
-        this.mage = mage;
+    @Override
+    public String toString() {
+        return "Card{" +
+                "Name='" + Name + '\'' +
+                ", Steps=" + Steps +
+                ", Influence=" + Influence +
+                ", mage=" + mage +
+                '}';
     }
 }
