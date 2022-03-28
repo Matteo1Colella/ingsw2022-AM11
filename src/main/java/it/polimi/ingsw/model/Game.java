@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Components.Archipelago;
 import it.polimi.ingsw.model.Components.CircularArrayList;
 
 import java.util.*;
@@ -12,7 +11,7 @@ public class Game {
     private GameComponents GameComponents;
     private int ID;
     private int numPlayers;
-    private PlayersManager playersManager;
+    private ComplexLobby complexLobby;
 
     // Start of Getters, Setters, Constructor
 
