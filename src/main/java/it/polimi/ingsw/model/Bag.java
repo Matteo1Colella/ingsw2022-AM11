@@ -72,7 +72,9 @@ public class Bag {
     }
     // End Getters, Setters, Constructor
 
-    public void Draw(){}
+    public Student draw(){
+        return null;
+    }
     public boolean IsEmpty(){
         return false;
     }

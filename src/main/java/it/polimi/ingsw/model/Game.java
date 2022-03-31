@@ -161,8 +161,8 @@ public class Game {
         studentsIsland1.add(yellow.get(1));
 
 
-        IslandCard island1 = new IslandCard(1, studentsIsland1,null, null,true,null,false);
-        IslandCard island2 = new IslandCard(2, studentsIsland2 ,null,null,false,null,null);
+        IslandCard island1 = new IslandCard(1, null);
+        IslandCard island2 = new IslandCard(2, null);
 
 
         //adding 12 islands to circularArray

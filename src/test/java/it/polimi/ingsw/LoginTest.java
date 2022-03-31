@@ -56,19 +56,19 @@ public class LoginTest {
         boolean added = GM.login("Cole", 3, true);
         assertTrue("not added first player", added);
 
-        boolean decksuccess = GM.deckRequest(GM.getPlayerLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        boolean decksuccess = GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
         assertTrue("not added deck", decksuccess);
 
         added = GM.login("Leo", 3, true);
         assertTrue("not added player", added);
 
-        decksuccess = GM.deckRequest(GM.getPlayerLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        decksuccess = GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
         assertTrue("not added deck", decksuccess);
 
         added = GM.login("Ale", 3, true);
         assertTrue("not added player", added);
 
-        decksuccess = GM.deckRequest(GM.getPlayerLobby("Ale").getID(), Mage.MAGE3, "Ale");
+        decksuccess = GM.deckRequest(GM.getPlayerComplexLobby("Ale").getID(), Mage.MAGE3, "Ale");
         assertTrue("not added deck", decksuccess);
 
     }
@@ -81,31 +81,31 @@ public class LoginTest {
         boolean added = GM.login("Cole", 3, true);
         assertTrue("not added first player", added);
 
-        boolean decksuccess = GM.deckRequest(GM.getPlayerLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        boolean decksuccess = GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
         assertTrue("not added deck", decksuccess);
 
         added = GM.login("Leo", 3, true);
         assertTrue("not added player", added);
 
-        decksuccess = GM.deckRequest(GM.getPlayerLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        decksuccess = GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
         assertTrue("not added deck", decksuccess);
 
         added = GM.login("Ale", 3, true);
         assertTrue("not added player", added);
 
-        decksuccess = GM.deckRequest(GM.getPlayerLobby("Ale").getID(), Mage.MAGE3, "Ale");
+        decksuccess = GM.deckRequest(GM.getPlayerComplexLobby("Ale").getID(), Mage.MAGE3, "Ale");
         assertTrue("not added deck", decksuccess);
 
         added = GM.login("Gian", 3, true);
         assertTrue("not added player", added);
 
-        decksuccess = GM.deckRequest(GM.getPlayerLobby("Gian").getID(), Mage.MAGE1, "Gian");
+        decksuccess = GM.deckRequest(GM.getPlayerComplexLobby("Gian").getID(), Mage.MAGE1, "Gian");
         assertTrue("not added deck", decksuccess);
 
         added = GM.login("Pore", 3, true);
         assertTrue("not added player", added);
 
-        decksuccess = GM.deckRequest(GM.getPlayerLobby("Pore").getID(), Mage.MAGE2, "Pore");
+        decksuccess = GM.deckRequest(GM.getPlayerComplexLobby("Pore").getID(), Mage.MAGE2, "Pore");
         assertTrue("not added deck", decksuccess);
 
     }

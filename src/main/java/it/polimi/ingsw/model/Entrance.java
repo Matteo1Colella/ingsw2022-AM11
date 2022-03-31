@@ -7,10 +7,13 @@ public class Entrance {
 
     private final ArrayList<Student> students;
 
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
     //the entrance is initialized with 7 students
-    public Entrance(Collection<Student> students){
+    public Entrance(){
         this.students = new ArrayList<>();
-        this.students.addAll(students);
     }
     //the caller have the control of the drawing of the students
     public void addStudents(Collection<Student> students){

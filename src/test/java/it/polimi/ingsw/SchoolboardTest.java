@@ -1,9 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.ColorStudent;
-import it.polimi.ingsw.model.ColorTower;
-import it.polimi.ingsw.model.SchoolBoard;
-import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -53,5 +50,4 @@ public class SchoolboardTest {
         assertEquals(schoolBoard.get(1).schoolBoardTowerColor(), white);
         assertEquals(schoolBoard.get(2).schoolBoardTowerColor(), grey);
     }
-
 }
