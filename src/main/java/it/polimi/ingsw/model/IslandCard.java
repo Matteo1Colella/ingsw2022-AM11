@@ -14,11 +14,11 @@ public class IslandCard implements Board {
     private IslandCard next;  //pointer of the next Island in the circularArrayList
 
     //start constructors, getters, setters
-    public IslandCard(int id_island, Player playerOwner) {
+    public IslandCard(int id_island) {
         this.id_island = id_island;
         this.students = new ArrayList<>();
         this.tower = null;
-        this.playerOwner = playerOwner;
+        this.playerOwner = null;
         this.motherNature = false;
         this.mergedWith = new ArrayList<>();
         this.locked = null;

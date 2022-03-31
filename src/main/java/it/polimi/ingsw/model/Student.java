@@ -1,16 +1,16 @@
 package it.polimi.ingsw.model;
 
 public class Student extends Piece{
-    private ColorStudent Color;
+    private ColorStudent color;
     private Board position;
 
     public Student(ColorStudent color) {
-        Color = color;
+        this.color = color;
         position = null;
     }
 
     public ColorStudent getColor() {
-        return Color;
+        return color;
     }
 
     @Override
