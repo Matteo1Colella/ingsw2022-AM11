@@ -263,10 +263,7 @@ public class Game {
 
         //if isPro ==> generate coins, character cards, prohibition cards
         if(isPro==true){
-            ArrayList<Coin> coins = new ArrayList<>();
-            for(int i = 1; i<21;i++){
-                coins.add(new Coin(i));
-            }
+
             CoinReserve coinContainer = new CoinReserve();
 
             ArrayList<NoEntryTile> prohibitionCards = new ArrayList<>();
