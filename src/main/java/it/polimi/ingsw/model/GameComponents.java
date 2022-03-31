@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Components.Archipelago;
-
 import java.util.Collection;
 
 public class GameComponents {
@@ -10,10 +8,40 @@ public class GameComponents {
     private Collection<SchoolBoard> SchoolBoards;
     private Bag Bag;
     private Collection<CloudCard> CloudCards;
+    private Collection<Professor> professorCollection;
+    private CoinReserve coins;
+    private Collection<NoEntryTile> prohibitionCards;
+    private CharacterDeck specialDeck;
 
 
 
     // Start of Getters, Setters, Constructor
+
+    //constructor pro
+
+
+    public GameComponents(Collection<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards, Collection<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
+        Archipelago = archipelago;
+        Mothernature = mothernature;
+        SchoolBoards = schoolBoards;
+        Bag = bag;
+        CloudCards = cloudCards;
+        this.professorCollection = professorCollection;
+        this.coins = coins;
+        this.prohibitionCards = prohibitionCards;
+        this.specialDeck = specialDeck;
+    }
+
+    //normal constructor
+    public GameComponents(Collection<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards, Collection<Professor> professorCollection) {
+        Archipelago = archipelago;
+        Mothernature = mothernature;
+        SchoolBoards = schoolBoards;
+        Bag = bag;
+        CloudCards = cloudCards;
+        this.professorCollection = professorCollection;
+    }
+
     public Collection<IslandCard> getArchipelago() {
 
         return Archipelago;
@@ -63,13 +91,14 @@ public class GameComponents {
         CloudCards = cloudCards;
     }
 
-    public GameComponents(Collection<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards) {
-        Archipelago = archipelago;
-        Mothernature = mothernature;
-        SchoolBoards = schoolBoards;
-        Bag = bag;
-        CloudCards = cloudCards;
+    public Collection<Professor> getProfessorCollection() {
+        return professorCollection;
     }
+
+    public void setProfessorCollection(Collection<Professor> professorCollection) {
+        this.professorCollection = professorCollection;
+    }
+
     // End of Getters, Setters, Constructor
 
 

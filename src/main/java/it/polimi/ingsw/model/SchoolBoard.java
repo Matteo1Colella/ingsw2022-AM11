@@ -88,7 +88,7 @@ public class SchoolBoard implements Board {
 
     //get the occupation of a specified color
     public int getStudentSize(ColorStudent colorStudent){
-         return this.getDiningRoom(colorStudent).getStudentsSize();
+        return this.getDiningRoom(colorStudent).getStudentsSize();
     }
 
     @Override
@@ -125,7 +125,9 @@ public class SchoolBoard implements Board {
         DiningRoom retDiningRoom = null;
         for(DiningRoom tempDiningRoom : diningRooms){
             if(tempDiningRoom.getColor().equals(color)){
+
                retDiningRoom = tempDiningRoom;
+
             }
         }
         return retDiningRoom;
