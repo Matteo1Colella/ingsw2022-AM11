@@ -27,7 +27,7 @@ public class Tower extends Piece{
     }
 
     @Override
-    public void setPosition() {
+    public void setPosition(Board position) {
 
     }
 }

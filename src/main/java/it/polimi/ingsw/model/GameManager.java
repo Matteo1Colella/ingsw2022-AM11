@@ -5,27 +5,27 @@ import java.util.ArrayList;
 public class GameManager {
     private final int maxplayers = 4;
     // list of lobbies
-    private ArrayList<ComplexLobby> Lobbies;
+    private ArrayList<ComplexLobby> complexLobbies;
     // list of chosen ids from players
     private ArrayList<String> usednames;
     // constructor
-    public GameManager(ArrayList<ComplexLobby> lobbies) {
+    public GameManager(ArrayList<ComplexLobby> complexLobbies) {
         usednames = new ArrayList<>();
-        Lobbies = lobbies;
+        this.complexLobbies = complexLobbies;
     }
 
 
     // Looks For the last Lobby matching with player preferences and returns, if exists, else it returns null
-    public ComplexLobby getLobby(int Numplayers, boolean Gametype){
+    public ComplexLobby getComplexlobby(int Numplayers, boolean Gametype){
         ComplexLobby Chosen = null;
         int ID = -1;
-        if (Lobbies == null){
+        if (complexLobbies == null){
             ArrayList<Player> Players = new ArrayList<Player>();
             ComplexLobby firstComplexLobby = new ComplexLobby(Numplayers, Gametype, 0, Players);
-            Lobbies.add(firstComplexLobby);
+            complexLobbies.add(firstComplexLobby);
             return firstComplexLobby;
         }
-        for (ComplexLobby Temp : Lobbies)
+        for (ComplexLobby Temp : complexLobbies)
         {
             if (Temp.getNumPlayers() == Numplayers && Temp.isGameType() == Gametype && Temp.getID() > ID) {
                 ID = Temp.getID();
@@ -39,7 +39,7 @@ public class GameManager {
     // if busy, it returns false
     public boolean deckRequest(int ID, Mage mage, String IDplayer){
         //looks for lobby (ID)
-        ComplexLobby room = GameManagerSearch(ID);
+        ComplexLobby room = ComplexLobbySearch(ID);
 
 
         System.out.println("searching for mage " + mage);
@@ -73,9 +73,9 @@ public class GameManager {
         return true;
     }
     // returns lobby with ID
-    public ComplexLobby GameManagerSearch(int ID){
+    public ComplexLobby ComplexLobbySearch(int ID){
 
-        for(ComplexLobby temp : Lobbies){
+        for(ComplexLobby temp : complexLobbies){
             if (temp.getID()==ID) return temp;
         }
         return null;
@@ -99,16 +99,16 @@ public class GameManager {
 
         // adds id to usednames
         usednames.add(ID.toUpperCase());
-        ComplexLobby existingComplexLobby = getLobby(numplayers, Gametype);
+        ComplexLobby existingComplexLobby = getComplexlobby(numplayers, Gametype);
 
         // if no lobby avaiable it creates one
         if (existingComplexLobby == null)
             {
                 System.out.println("Creating First Lobby, with ID 0");
                 ArrayList<Player> Players = new ArrayList<Player>();
-                ComplexLobby newComplexLobby = new ComplexLobby(numplayers, Gametype, this.Lobbies.size(), Players);
+                ComplexLobby newComplexLobby = new ComplexLobby(numplayers, Gametype, this.complexLobbies.size(), Players);
                 newComplexLobby.AddPlayer(ID);
-                this.Lobbies.add(newComplexLobby);
+                this.complexLobbies.add(newComplexLobby);
                 System.out.println("Added Player "+ ID + " to Lobby with ID " + newComplexLobby.getID());
                 System.out.println("Players in Lobby:");
                 newComplexLobby.getPlayers().stream().map(name -> name.getID_player()).forEach(System.out::println);
@@ -119,11 +119,11 @@ public class GameManager {
         // if there's one lobby but full it creates new one
         if (existingComplexLobby.isReady()){
             ArrayList<Player> Players = new ArrayList<Player>();
-            ComplexLobby newComplexLobby = new ComplexLobby(numplayers, Gametype, this.Lobbies.size(), Players);
+            ComplexLobby newComplexLobby = new ComplexLobby(numplayers, Gametype, this.complexLobbies.size(), Players);
             newComplexLobby.AddPlayer(ID);
-            this.Lobbies.add(newComplexLobby);
+            this.complexLobbies.add(newComplexLobby);
             System.out.println("All lobbies are Full");
-            System.out.println("Creating Another Lobby, with ID " + (this.Lobbies.size() - 1));
+            System.out.println("Creating Another Lobby, with ID " + (this.complexLobbies.size() - 1));
             System.out.println("Players in Lobby:");
             newComplexLobby.getPlayers().stream().map(name -> name.getID_player()).forEach(System.out::println);
             System.out.println("");
@@ -143,8 +143,8 @@ public class GameManager {
             }
     }
     // returns the lobby in which plays the player
-    public ComplexLobby getPlayerLobby(String player){
-        for(ComplexLobby temp : Lobbies){
+    public ComplexLobby getPlayerComplexLobby(String player){
+        for(ComplexLobby temp : complexLobbies){
             for(Player p : temp.getPlayers()){
                 if (p.getID_player().equals(player)) {return temp;}
             }
