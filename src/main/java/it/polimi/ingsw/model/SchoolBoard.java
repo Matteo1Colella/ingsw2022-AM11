@@ -24,7 +24,7 @@ public class SchoolBoard implements Board {
             this.diningRooms.add(diningRoom);
         }
 
-        this.entrance = new Entrance(students);
+        this.entrance = new Entrance();
     }
 
     //Getter and setter methods
@@ -63,6 +63,7 @@ public class SchoolBoard implements Board {
         }
     }
 
+    //move a student in the dining room
     public void moveStudent(int position){
         Student student = this.chooseStudentFromEntrance(position);
         DiningRoom diningRoom = (DiningRoom) diningRooms.stream().filter(diningRoom1 -> diningRoom1.getColor().equals(student.getColor()));
@@ -79,12 +80,15 @@ public class SchoolBoard implements Board {
 
     //set the professor of the color specified color
     public void setProfessor(Professor professor){
-        this.getDiningRoom(professor.getColor()).setProfessor(professor);
+        DiningRoom diningRoom = this.getDiningRoom(professor.getColor());
+        assert diningRoom != null;
+        diningRoom.setProfessor(professor);
+        professor.setPosition(diningRoom);
     }
 
     //get the occupation of a specified color
     public int getStudentSize(ColorStudent colorStudent){
-         return this.getDiningRoom(colorStudent).getStudentsSize();
+        return this.getDiningRoom(colorStudent).getStudentsSize();
     }
 
     @Override
@@ -92,15 +96,9 @@ public class SchoolBoard implements Board {
         ColorStudent[] colors = ColorStudent.values();
         Collection<Student> allStudents = new ArrayList<>();
         for(ColorStudent tempColor : colors){
-            allStudents.addAll(this.getDiningRoom(tempColor).getStudents(tempColor));
+            allStudents.addAll(this.getDiningRoom(tempColor).getStudents());
         }
         return allStudents;
-    }
-
-    //returns a set of students
-    @Override
-    public Collection<Student> getStudents(ColorStudent colorStudent) {
-        return this.getDiningRoom(colorStudent).getStudents(colorStudent);
     }
 
     //check if it is possible to earn a coin from a dining room
@@ -124,10 +122,16 @@ public class SchoolBoard implements Board {
     }
 
     private DiningRoom getDiningRoom(ColorStudent color) {
-        return (DiningRoom) diningRooms.stream().filter(diningRoom1 -> diningRoom1.getColor().equals(color));
+        DiningRoom retDiningRoom = null;
+        for(DiningRoom tempDiningRoom : diningRooms){
+            if(tempDiningRoom.getColor().equals(color)){
+                retDiningRoom = tempDiningRoom;
+            }
+        }
+        return retDiningRoom;
     }
 
-    private Entrance getEntrance(){
+    public Entrance getEntrance(){
         return entrance;
 
     }

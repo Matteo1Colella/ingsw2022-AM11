@@ -22,7 +22,10 @@ public class DiningRoom implements Board {
     //who will call this function have to control the number of the students with the same color for all Players
     public void setProfessor(Professor professor){
         this.professor = professor;
-        professor.setPosition(this);
+    }
+
+    public Professor getProfessor() {
+        return professor;
     }
 
     public void removeProfessor(){
@@ -45,11 +48,6 @@ public class DiningRoom implements Board {
 
     @Override
     public Collection<Student> getStudents() {
-        return students;
-    }
-
-    @Override
-    public Collection<Student> getStudents(ColorStudent colorStudent) {
         return students;
     }
 }

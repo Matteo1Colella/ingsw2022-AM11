@@ -56,14 +56,12 @@ public class IslandsTest {
             red.add(new Student(ColorStudent.RED));
         }
 
-        //creating 12 islands
-        Collection<Student> studentsIsland1 = new ArrayList<Student>(); //new Array for the students in the island
-        studentsIsland1.add(yellow.get(0)); //adding 1 student
-        Collection<Student> studentsIsland2 = new ArrayList<Student>();
-        studentsIsland1.add(yellow.get(1));
 
-        IslandCard island1 = new IslandCard(1, studentsIsland1, null, null, true, null, false);
-        IslandCard island2 = new IslandCard(2, studentsIsland2, null, null, false, null, null);
+
+        IslandCard island1 = new IslandCard(1);
+        IslandCard island2 = new IslandCard(2);
+        island1.setMotherNature(true);
+
 
         //adding 12 islands to circularArray
         islandsCircularArray.add(island1);

@@ -168,18 +168,31 @@ public class Game {
         initialBag.remove(index);
 
 
-        IslandCard island1 = new IslandCard(1, studentsIsland1,null, null,true,null,false);
-        IslandCard island2 = new IslandCard(2, studentsIsland2 ,null,null,false,null,false);
-        IslandCard island3 = new IslandCard(3, studentsIsland3 ,null,null,false,null,false);
-        IslandCard island4 = new IslandCard(4, studentsIsland4 ,null,null,false,null,false);
-        IslandCard island5 = new IslandCard(5, studentsIsland5 ,null,null,false,null,false);
-        IslandCard island6 = new IslandCard(6, studentsIsland6 ,null,null,false,null,false);
-        IslandCard island7 = new IslandCard(7, studentsIsland7 ,null,null,false,null,false);
-        IslandCard island8 = new IslandCard(8, studentsIsland8 ,null,null,false,null,false);
-        IslandCard island9 = new IslandCard(9, studentsIsland9 ,null,null,false,null,false);
-        IslandCard island10 = new IslandCard(10, studentsIsland10 ,null,null,false,null,false);
-        IslandCard island11 = new IslandCard(11, studentsIsland11 ,null,null,false,null,false);
-        IslandCard island12 = new IslandCard(12, studentsIsland12 ,null,null,false,null,false);
+        IslandCard island1 = new IslandCard(1);
+        island1.setStudents(studentsIsland1);
+        island1.setMotherNature(true);
+        IslandCard island2 = new IslandCard(2);
+        island2.setStudents(studentsIsland2);
+        IslandCard island3 = new IslandCard(3);
+        island3.setStudents(studentsIsland3);
+        IslandCard island4 = new IslandCard(4);
+        island4.setStudents(studentsIsland4);
+        IslandCard island5 = new IslandCard(5);
+        island5.setStudents(studentsIsland5);
+        IslandCard island6 = new IslandCard(6);
+        island6.setStudents(studentsIsland6);
+        IslandCard island7 = new IslandCard(7);
+        island7.setStudents(studentsIsland7);
+        IslandCard island8 = new IslandCard(8);
+        island8.setStudents(studentsIsland8);
+        IslandCard island9 = new IslandCard(9);
+        island9.setStudents(studentsIsland9);
+        IslandCard island10 = new IslandCard(10);
+        island10.setStudents(studentsIsland10);
+        IslandCard island11 = new IslandCard(11);
+        island11.setStudents(studentsIsland11);
+        IslandCard island12 = new IslandCard(12);
+        island12.setStudents(studentsIsland12);
 
         //adding 12 islands to circularArray
         islandsCircularArray.add(island1);
