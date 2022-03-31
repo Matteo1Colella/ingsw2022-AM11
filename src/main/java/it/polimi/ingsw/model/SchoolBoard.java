@@ -131,7 +131,7 @@ public class SchoolBoard implements Board {
         return retDiningRoom;
     }
 
-    private Entrance getEntrance(){
+    public Entrance getEntrance(){
         return entrance;
 
     }

@@ -11,10 +11,12 @@ public class Player {
     private AssistantDeck deck;
     private boolean Status;
     private SchoolBoard schoolBoard;
-    private Collection<Coin> coins;
-    private Collection<Tower> towers;
-    private Game playerGame;
-    private int gameID;
+
+    private Collection<Coin> Coins;
+    private Collection<Tower> Towers;
+    private Game PlayerGame;
+    private int GameID;
+    private int MotherNatureMoves;
 
     // Start of Getters, Setters, Constructor
 
@@ -22,6 +24,14 @@ public class Player {
         coins = new ArrayList<>();
         playerNum = playerNum;
         this.ID_player = ID_player;
+    }
+
+    public int getMotherNatureMoves() {
+        return MotherNatureMoves;
+    }
+
+    public void setMotherNatureMoves(int motherNatureMoves) {
+        MotherNatureMoves = motherNatureMoves;
     }
 
     public int getGameID() {
