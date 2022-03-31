@@ -44,7 +44,7 @@ public class CharacterCard {
         switch (this.num) {
             case 1:
                 //waits for position input and passes into setPosition
-                students.get(1).setPosition();
+                students.get(1).setPosition(null);
                 students.remove(1);
                 students.add(bag.draw());
                 break;

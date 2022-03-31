@@ -9,13 +9,13 @@ public class Player {
     private int playerNum;
     private String ID_player;
     private AssistantDeck deck;
-    private boolean Status;
+    private boolean status;
     private SchoolBoard schoolBoard;
 
-    private Collection<Coin> Coins;
-    private Collection<Tower> Towers;
-    private Game PlayerGame;
-    private int GameID;
+    private Collection<Coin> coins;
+    private Collection<Tower> towers;
+    private Game playerGame;
+    private int gameID;
     private int MotherNatureMoves;
 
     // Start of Getters, Setters, Constructor
@@ -67,11 +67,11 @@ public class Player {
     }
 
     public boolean isStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(boolean status) {
-        Status = status;
+        this.status = status;
     }
 
     public SchoolBoard getSchoolBoard() {
