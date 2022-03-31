@@ -35,7 +35,7 @@ public class IslandsTest {
             System.out.println(studenti.get(i).getColor());
         }
     }
-
+    /*
     @Test
     public void TestPrintIslands() {
         //trying with circular array
@@ -85,6 +85,8 @@ public class IslandsTest {
         assertTrue("false because there isn't motherNature in the first island", islandsCircularArray.get(0).getMotherNature());
         assertFalse(islandsCircularArray.get(1).getMotherNature());
     }
+
+     */
 
     @Test
     public void addStudentsToIsland(){
