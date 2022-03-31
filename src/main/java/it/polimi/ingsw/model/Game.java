@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Components.CircularArrayList;
-
 import java.util.*;
 
 public class Game {
@@ -63,17 +61,9 @@ public class Game {
 
     // End of Getters, Setters, Constructor
 
-    public void endTurn(){}
-
-    public Player activePlayer(){
-        return null;
-    }
-
     public Set<Player> playerList(){
         return null;
     }
-
-    public void changeActivePlayer(){ }
 
     public Set<Student> drawStudents(){
         return null;
@@ -87,164 +77,211 @@ public class Game {
         return null;
     }
 
+    public GameComponents generateBoard2players(Boolean isPro){
 
-    public void generateBoard2players(){
+        ArrayList<Student> initialBag = new ArrayList<>();
 
-        //trying with circular array
-        CircularArrayList<IslandCard> islandsCircularArray = new CircularArrayList<>(12);
-
-        //creation of tower container
-        ArrayList<Tower> towersBlack = new ArrayList<Tower>();
-        ArrayList<Tower> towersWhite = new ArrayList<Tower>();
-
-        towersBlack.add(new Tower(ColorTower.BLACK)); //repeat 8 times for blacks
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersBlack.add(new Tower(ColorTower.BLACK));
-        towersWhite.add(new Tower(ColorTower.WHITE)); //repeat 8 times for whites
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
-        towersWhite.add(new Tower(ColorTower.WHITE));
+        //IslandsArray
+        ArrayList<IslandCard> islandsCircularArray = new ArrayList<>();
 
         //creation of students container
         ArrayList<Student> green = new ArrayList<>();
         ArrayList<Student> yellow = new ArrayList<>();
         ArrayList<Student> red = new ArrayList<>();
         ArrayList<Student> pink = new ArrayList<>();
-        ArrayList<Student> blue = new ArrayList<>();
-
+        ArrayList<Student> blu = new ArrayList<>();
         //adding 26 students for each container
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
-        yellow.add(new Student(ColorStudent.YELLOW));green.add(new Student(ColorStudent.GREEN));red.add(new Student(ColorStudent.RED));
+        for(int i=0;i<26;i++){
+            yellow.add(new Student(ColorStudent.YELLOW));
+            green.add(new Student(ColorStudent.GREEN));
+            red.add(new Student(ColorStudent.RED));
+            pink.add(new Student(ColorStudent.PINK));
+            blu.add(new Student(ColorStudent.BLU));
+        }
+        //creating 12 islands, and containers in the island
+        ArrayList<Student> studentsIsland1 = new ArrayList<Student>(); //new Array for the students in the island
+        ArrayList<Student> studentsIsland2 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland3 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland4 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland5 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland6 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland7 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland8 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland9 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland10 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland11 = new ArrayList<Student>();
+        ArrayList<Student> studentsIsland12 = new ArrayList<Student>();
 
+        //random choice
+        for(int i=0; i<2; i++){
+            initialBag.add(yellow.get(i));
+            initialBag.add(red.get(i));
+            initialBag.add(green.get(i));
+            initialBag.add(pink.get(i));
+            initialBag.add(blu.get(i));
+            yellow.remove(i);
+            red.remove(i);
+            green.remove(i);
+            pink.remove(i);
+            blu.remove(i);
+        }
 
+        //adding random students
+        int index = (int) (Math.random() * initialBag.size());
+        studentsIsland2.add(initialBag.get(index)); //adding 1 student
+        initialBag.remove(index);
 
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland3.add(initialBag.get(index));
+        initialBag.remove(index);
 
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland4.add(initialBag.get(index));
+        initialBag.remove(index);
 
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland5.add(initialBag.get(index));
+        initialBag.remove(index);
 
-        //creating 12 islands
-        Collection<Student> studentsIsland1 = new ArrayList<Student>(); //new Array for the students in the island
-        studentsIsland1.add(yellow.get(0)); //adding 1 student
-        Collection<Student> studentsIsland2 = new ArrayList<Student>();
-        studentsIsland1.add(yellow.get(1));
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland6.add(initialBag.get(index));
+        initialBag.remove(index);
+
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland8.add(initialBag.get(index));
+        initialBag.remove(index);
+
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland9.add(initialBag.get(index));
+        initialBag.remove(index);
+
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland10.add(initialBag.get(index));
+        initialBag.remove(index);
+
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland11.add(initialBag.get(index));
+        initialBag.remove(index);
+
+        index = (int) (Math.random() * initialBag.size());
+        studentsIsland12.add(initialBag.get(index));
+        initialBag.remove(index);
 
 
         IslandCard island1 = new IslandCard(1, studentsIsland1,null, null,true,null,false);
-        IslandCard island2 = new IslandCard(2, studentsIsland2 ,null,null,false,null,null);
-
+        IslandCard island2 = new IslandCard(2, studentsIsland2 ,null,null,false,null,false);
+        IslandCard island3 = new IslandCard(2, studentsIsland3 ,null,null,false,null,false);
+        IslandCard island4 = new IslandCard(2, studentsIsland4 ,null,null,false,null,false);
+        IslandCard island5 = new IslandCard(2, studentsIsland5 ,null,null,false,null,false);
+        IslandCard island6 = new IslandCard(2, studentsIsland6 ,null,null,false,null,false);
+        IslandCard island7 = new IslandCard(2, studentsIsland7 ,null,null,false,null,false);
+        IslandCard island8 = new IslandCard(2, studentsIsland8 ,null,null,false,null,false);
+        IslandCard island9 = new IslandCard(2, studentsIsland9 ,null,null,false,null,false);
+        IslandCard island10 = new IslandCard(2, studentsIsland10 ,null,null,false,null,false);
+        IslandCard island11 = new IslandCard(2, studentsIsland11 ,null,null,false,null,false);
+        IslandCard island12 = new IslandCard(2, studentsIsland12 ,null,null,false,null,false);
 
         //adding 12 islands to circularArray
         islandsCircularArray.add(island1);
         islandsCircularArray.add(island2);
+        islandsCircularArray.add(island3);
+        islandsCircularArray.add(island4);
+        islandsCircularArray.add(island5);
+        islandsCircularArray.add(island6);
+        islandsCircularArray.add(island7);
+        islandsCircularArray.add(island8);
+        islandsCircularArray.add(island9);
+        islandsCircularArray.add(island10);
+        islandsCircularArray.add(island11);
+        islandsCircularArray.add(island12);
 
-        for (int i = 0; i < islandsCircularArray.size(); i++) {
-            System.out.println(islandsCircularArray.get(i).getMotherNature());
+        //create MotherNature and set the position to the first island
+        MotherNature motherPiece = new MotherNature(islandsCircularArray.get(0));
+
+        //create Bag
+        ArrayList<Student> bagStudents = new ArrayList<>();
+        bagStudents.addAll(yellow);
+        bagStudents.addAll(red);
+        bagStudents.addAll(green);
+        bagStudents.addAll(blu);
+        bagStudents.addAll(pink);
+
+        Bag container = new Bag(yellow.size()+pink.size()+red.size()+blu.size()+ green.size(),bagStudents);
+
+        //create Clouds
+        ArrayList<CloudCard> cloudContainer = new ArrayList<>();
+        ArrayList<Student> cloudStudents1 = new ArrayList<>();
+        ArrayList<Student> cloudStudents2 = new ArrayList<>();
+        //Clouds are initially empty
+        cloudContainer.add(new CloudCard(1, cloudStudents1));
+        cloudContainer.add(new CloudCard(2, cloudStudents2));
+
+        //create Professors
+        ArrayList<Professor> professors = new ArrayList<>();
+        Professor redProf = new Professor(ColorStudent.RED);
+        Professor pinkProf = new Professor(ColorStudent.PINK);
+        Professor bluProf = new Professor(ColorStudent.BLU);
+        Professor greenProf = new Professor(ColorStudent.GREEN);
+        Professor yellowProf = new Professor(ColorStudent.YELLOW);
+        professors.add(redProf);
+        professors.add(pinkProf);
+        professors.add(bluProf);
+        professors.add(greenProf);
+        professors.add(yellowProf);
+
+        //create schoolBoard
+        ArrayList<SchoolBoard> schools = new ArrayList<>();
+
+        ArrayList<Student> entrancePlayer1 = new ArrayList<>();
+        ArrayList<Student> entrancePlayer2 = new ArrayList<>();
+        for(int i=0;i<7;i++) {
+            entrancePlayer1.add(container.Draw());
+            entrancePlayer2.add(container.Draw());
         }
 
-        //not finished yet
-        MotherNature motherPiece = new MotherNature(islandsCircularArray.get(0));
-        ArrayList<SchoolBoard> school = new ArrayList<>();
-        Bag container = new Bag(130,yellow,pink,red,green,blue); //e array da 26 studenti
-        ArrayList<CloudCard> cloudContainer = new ArrayList<>();
-        cloudContainer.add(new CloudCard(1, (ArrayList<Student>) container.getYellow()));
+
+        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,2,entrancePlayer1);
+        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,2,entrancePlayer2);
+
+        schools.add(boardPlayer1);
+        schools.add(boardPlayer2);
 
 
+        //if isPro ==> generate coins, character cards, prohibition cards
+        if(isPro==true){
+            ArrayList<Coin> coins = new ArrayList<>();
+            for(int i = 0; i<20;i++){
+                coins.add(new Coin());
+            }
+            CoinReserve coinContainer = new CoinReserve(coins);
 
+            ArrayList<NoEntryTile> prohibitionCards = new ArrayList<>();
+            for(int i = 0; i<4;i++) {
+                prohibitionCards.add(new NoEntryTile(false, null));
+            }
 
-        GameComponents table = new GameComponents(islandsCircularArray, motherPiece, school,container,cloudContainer);
+            CharacterDeck specialCards = new CharacterDeck(null,3);
 
+            GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools,container,cloudContainer,professors,coinContainer,prohibitionCards,specialCards);
+            return table;
+        }
 
-         /**
+        GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools,container,cloudContainer,professors);
 
-        //first try of creation:
-        Archipelago islands = new Archipelago();
-        islands.createCircularLinkedList();
-        islands.printIslands();
-
-        ArrayList<Student> allstudents = new ArrayList<Student>();
-        ArrayList<Student> studentscloud = new ArrayList<Student>();
-        ArrayList<Student> player1_student = new ArrayList<Student>();
-
-        ArrayList<Tower> towerswhite = new ArrayList<Tower>();
-
-        towerswhite.add(new Tower(ColorTower.WHITE)); //repeat 8 times
-        towerswhite.add(new Tower(ColorTower.WHITE));
-        towerswhite.add(new Tower(ColorTower.WHITE));
-        towerswhite.add(new Tower(ColorTower.WHITE));
-        towerswhite.add(new Tower(ColorTower.WHITE));
-        towerswhite.add(new Tower(ColorTower.WHITE));
-        towerswhite.add(new Tower(ColorTower.WHITE));
-        towerswhite.add(new Tower(ColorTower.WHITE));
-
-        ArrayList<DiningRoom> player1_diningroom = new ArrayList<DiningRoom>();
-
-        Entrance entrance1 = new Entrance(player1_student);
-
-        //mothernature in position: first island
-        MotherNature motherNature = new MotherNature(islands.next());
-
-        SchoolBoard schoolBoard = new SchoolBoard(towersBlack, player1_diningroom, AddPlayer().getID_player(), entrance1 );
-
-        //Bag
-
-        CloudCard cloud1 = new CloudCard(1,studentscloud);
-        **/
-
-
-
-
-
-
+        return table;
 
     }
 
+    public GameComponents generateBoard3players(Boolean isPro){
+        return null;
+    }
     public void addChosenCard(){}
 
     public void pickCharacters(){}
 
     public void startGame(){}
 
-    public Player AddPlayer(){
-        return null;
-    }
-
-    public boolean IsIn(String ID){
-        return false;
-    }
-
-    public void AddPlayer(String ID){}
+    public void winCondition(){}
 
     /*
     If two adjacent island are dominated by two towers
@@ -265,4 +302,11 @@ public class Game {
            previousIsland = tempIsland;
         }
     }
+    public void moveMotherNature(int steps){
+        IslandCard temp = GameComponents.getMothernature().getPosition();
+        int pos = 0;
+
+
+        }
+
 }
