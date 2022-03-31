@@ -190,18 +190,7 @@ public class IslandsTest {
 
      
 
-    @Test
-    public void addStudentsToIsland(){
-        Collection<Student> students= new ArrayList<>();
-        Student student = new Student(ColorStudent.BLU);
-        Player player = new Player(1, "leo");
-        IslandCard islandCard = new IslandCard(1, player);
-
-        students.add(student);
-        islandCard.setStudents(students);
-
-        assertNotNull(islandCard.getStudents());
-    }
+    
 
 
 }
