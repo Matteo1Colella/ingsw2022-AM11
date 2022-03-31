@@ -127,7 +127,7 @@ public class SchoolBoard implements Board {
         return (DiningRoom) diningRooms.stream().filter(diningRoom1 -> diningRoom1.getColor().equals(color));
     }
 
-    private Entrance getEntrance(){
+    public Entrance getEntrance(){
         return entrance;
 
     }

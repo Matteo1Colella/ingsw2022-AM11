@@ -14,12 +14,21 @@ public class Player {
     private Collection<Tower> Towers;
     private Game PlayerGame;
     private int GameID;
+    int MotherNatureMoves;
 
     // Start of Getters, Setters, Constructor
 
     public Player(int playerNum, String ID_player) {
         PlayerNum = playerNum;
         this.ID_player = ID_player;
+    }
+
+    public int getMotherNatureMoves() {
+        return MotherNatureMoves;
+    }
+
+    public void setMotherNatureMoves(int motherNatureMoves) {
+        MotherNatureMoves = motherNatureMoves;
     }
 
     public int getGameID() {

@@ -7,6 +7,10 @@ public class Entrance {
 
     private final ArrayList<Student> students;
 
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
     //the entrance is initialized with 7 students
     public Entrance(Collection<Student> students){
         this.students = new ArrayList<>();
