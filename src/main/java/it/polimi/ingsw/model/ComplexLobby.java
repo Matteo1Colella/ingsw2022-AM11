@@ -99,9 +99,5 @@ private DeckManager DM;
         if (GameType){
             //coins reserve and character cards creation
         }
-
-
     }
-
-
 }
