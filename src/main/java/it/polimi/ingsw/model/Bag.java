@@ -34,7 +34,7 @@ public class Bag {
     // End Getters, Setters, Constructor
 
 
-    public Student Draw(){
+    public Student draw(){
         int index = (int) (Math.random() * bagStudents.size());
         Student studentToReturn = bagStudents.get(index);
         bagStudents.remove(index);
