@@ -3,6 +3,7 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.model.*;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -15,14 +16,13 @@ public class IslandsTest {
     public void tryPrintAnArray () {
         ArrayList<Student> studenti;
         Student first = new Student(ColorStudent.YELLOW);
-        first.setColor(ColorStudent.YELLOW);
         studenti = new ArrayList<Student>();
         studenti.add(first);
         for (int i = 0; i < studenti.size(); i++) {
             System.out.println(studenti.get(i).getColor());
         }
     }
-
+    
     @Test
     public void TestPrintIslands() {
         //trying with circular array
@@ -58,9 +58,11 @@ public class IslandsTest {
 
 
 
+
         IslandCard island1 = new IslandCard(1);
         IslandCard island2 = new IslandCard(2);
         island1.setMotherNature(true);
+
 
 
         //adding 12 islands to circularArray
@@ -70,6 +72,7 @@ public class IslandsTest {
         assertTrue("false because there isn't motherNature in the first island", islandsCircularArray.get(0).getMotherNature());
         assertFalse(islandsCircularArray.get(1).getMotherNature());
     }
+
 
     @Test
     public void testRemove() {
@@ -184,4 +187,21 @@ public class IslandsTest {
                 System.out.println(studentsIsland12.get(0).getColor());
 
     }
+
+     
+
+    @Test
+    public void addStudentsToIsland(){
+        Collection<Student> students= new ArrayList<>();
+        Student student = new Student(ColorStudent.BLU);
+        Player player = new Player(1, "leo");
+        IslandCard islandCard = new IslandCard(1, player);
+
+        students.add(student);
+        islandCard.setStudents(students);
+
+        assertNotNull(islandCard.getStudents());
+    }
+
+
 }

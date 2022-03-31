@@ -1,41 +1,53 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
 public class Player {
 
-    private int PlayerNum;
+    private int playerNum;
     private String ID_player;
-    private AssistantDeck Deck;
-    private boolean Status;
+    private AssistantDeck deck;
+    private boolean status;
     private SchoolBoard schoolBoard;
-    private Collection<Coin> Coins;
-    private Collection<Tower> Towers;
-    private Game PlayerGame;
-    private int GameID;
+
+    private Collection<Coin> coins;
+    private Collection<Tower> towers;
+    private Game playerGame;
+    private int gameID;
+    private int MotherNatureMoves;
 
     // Start of Getters, Setters, Constructor
 
     public Player(int playerNum, String ID_player) {
-        PlayerNum = playerNum;
+        coins = new ArrayList<>();
+        playerNum = playerNum;
         this.ID_player = ID_player;
     }
 
+    public int getMotherNatureMoves() {
+        return MotherNatureMoves;
+    }
+
+    public void setMotherNatureMoves(int motherNatureMoves) {
+        MotherNatureMoves = motherNatureMoves;
+    }
+
     public int getGameID() {
-        return GameID;
+        return gameID;
     }
 
     public void setGameID(int gameID) {
-        GameID = gameID;
+        this.gameID = gameID;
     }
 
     public int getPlayerNum() {
-        return PlayerNum;
+        return playerNum;
     }
 
     public void setPlayerNum(int playerNum) {
-        PlayerNum = playerNum;
+        this.playerNum = playerNum;
     }
 
     public String getID_player() {
@@ -47,19 +59,19 @@ public class Player {
     }
 
     public AssistantDeck getDeck() {
-        return Deck;
+        return deck;
     }
 
     public void setDeck(AssistantDeck deck) {
-        Deck = deck;
+        this.deck = deck;
     }
 
     public boolean isStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(boolean status) {
-        Status = status;
+        this.status = status;
     }
 
     public SchoolBoard getSchoolBoard() {
@@ -71,27 +83,28 @@ public class Player {
     }
 
     public Collection<Coin> getCoins() {
-        return Coins;
+        return coins;
     }
 
-    public void setCoins(Collection<Coin> coins) {
-        Coins = coins;
+    //this method add a coin to the owned ones
+    public void addCoins(Coin coin) {
+        this.coins.add(coin);
     }
 
     public Collection<Tower> getTowers() {
-        return Towers;
+        return towers;
     }
 
     public void setTowers(Collection<Tower> towers) {
-        Towers = towers;
+        this.towers = towers;
     }
 
     public Game getPlayerGame() {
-        return PlayerGame;
+        return playerGame;
     }
 
     public void setPlayerGame(Game playerGame) {
-        PlayerGame = playerGame;
+        this.playerGame = playerGame;
     }
     // End of Getters, Setters, Constructor
 

@@ -77,6 +77,7 @@ public class Game {
         return null;
     }
 
+
     public GameComponents generateBoard2players(Boolean isPro){
 
         ArrayList<Student> initialBag = new ArrayList<>();
@@ -291,6 +292,7 @@ public class Game {
     public GameComponents generateBoard4players(Boolean isPro){
         return null;
     }
+
     public void addChosenCard(){}
 
     public void pickCharacters(){}

@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class PiecesTest {
     //move tower test with 2 players
@@ -55,4 +56,23 @@ public class PiecesTest {
         assertEquals(0, towerSize);
     }
 
+    @Test
+    public void professorPosition(){
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 2, null);
+        Professor professor = new Professor(ColorStudent.RED);
+
+        schoolBoard.setProfessor(professor);
+
+        assertNotNull("the professor's position is null", professor.getPosition());
+    }
+
+    @Test
+    public void setStudentPosition(){
+        Student student = new Student(ColorStudent.BLU);
+        IslandCard islandCard = new IslandCard(1);
+
+        student.setPosition(islandCard);
+
+        assertNotNull("la positzione dello student è null", student.getPosition());
+    }
 }

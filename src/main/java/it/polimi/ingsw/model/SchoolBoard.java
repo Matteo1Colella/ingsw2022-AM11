@@ -125,7 +125,9 @@ public class SchoolBoard implements Board {
         DiningRoom retDiningRoom = null;
         for(DiningRoom tempDiningRoom : diningRooms){
             if(tempDiningRoom.getColor().equals(color)){
-                retDiningRoom = tempDiningRoom;
+
+               retDiningRoom = tempDiningRoom;
+
             }
         }
         return retDiningRoom;

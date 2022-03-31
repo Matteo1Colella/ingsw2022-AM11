@@ -50,4 +50,6 @@ public class DiningRoom implements Board {
     public Collection<Student> getStudents() {
         return students;
     }
+
 }
+

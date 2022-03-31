@@ -6,10 +6,6 @@ import java.util.Collection;
 public class DeckManager {
     private final ArrayList<AssistantDeck> assistantDecks;
 
-    public ArrayList<AssistantDeck> getAssistantDecks() {
-        return assistantDecks;
-    }
-
     //Creation of deck ready to be chosen
     public DeckManager() {
         Mage[] mages = {Mage.MAGE1, Mage.MAGE2, Mage.MAGE3, Mage.MAGE4};
@@ -21,6 +17,10 @@ public class DeckManager {
             AssistantDeck deck = new AssistantDeck(tempMage,  true, 10, generateCards(tempMage));
             assistantDecks.add(deck);
         }
+    }
+
+    public ArrayList<AssistantDeck> getAssistantDecks() {
+        return assistantDecks;
     }
 
     /*

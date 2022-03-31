@@ -1,24 +1,25 @@
 package it.polimi.ingsw.model;
 
 public class Student extends Piece{
-    private ColorStudent Color;
-
+    private ColorStudent color;
+    private Board position;
 
     public Student(ColorStudent color) {
-        Color = color;
+        this.color = color;
+        position = null;
     }
-
 
     public ColorStudent getColor() {
-        return Color;
-    }
-
-    public void setColor(ColorStudent color) {
-        Color = color;
+        return color;
     }
 
     @Override
-    public void setPosition() {
+    public Board getPosition() {
+        return position;
+    }
 
+    @Override
+    public void setPosition(Board position) {
+        this.position = position;
     }
 }
