@@ -170,16 +170,16 @@ public class Game {
 
         IslandCard island1 = new IslandCard(1, studentsIsland1,null, null,true,null,false);
         IslandCard island2 = new IslandCard(2, studentsIsland2 ,null,null,false,null,false);
-        IslandCard island3 = new IslandCard(2, studentsIsland3 ,null,null,false,null,false);
-        IslandCard island4 = new IslandCard(2, studentsIsland4 ,null,null,false,null,false);
-        IslandCard island5 = new IslandCard(2, studentsIsland5 ,null,null,false,null,false);
-        IslandCard island6 = new IslandCard(2, studentsIsland6 ,null,null,false,null,false);
-        IslandCard island7 = new IslandCard(2, studentsIsland7 ,null,null,false,null,false);
-        IslandCard island8 = new IslandCard(2, studentsIsland8 ,null,null,false,null,false);
-        IslandCard island9 = new IslandCard(2, studentsIsland9 ,null,null,false,null,false);
-        IslandCard island10 = new IslandCard(2, studentsIsland10 ,null,null,false,null,false);
-        IslandCard island11 = new IslandCard(2, studentsIsland11 ,null,null,false,null,false);
-        IslandCard island12 = new IslandCard(2, studentsIsland12 ,null,null,false,null,false);
+        IslandCard island3 = new IslandCard(3, studentsIsland3 ,null,null,false,null,false);
+        IslandCard island4 = new IslandCard(4, studentsIsland4 ,null,null,false,null,false);
+        IslandCard island5 = new IslandCard(5, studentsIsland5 ,null,null,false,null,false);
+        IslandCard island6 = new IslandCard(6, studentsIsland6 ,null,null,false,null,false);
+        IslandCard island7 = new IslandCard(7, studentsIsland7 ,null,null,false,null,false);
+        IslandCard island8 = new IslandCard(8, studentsIsland8 ,null,null,false,null,false);
+        IslandCard island9 = new IslandCard(9, studentsIsland9 ,null,null,false,null,false);
+        IslandCard island10 = new IslandCard(10, studentsIsland10 ,null,null,false,null,false);
+        IslandCard island11 = new IslandCard(11, studentsIsland11 ,null,null,false,null,false);
+        IslandCard island12 = new IslandCard(12, studentsIsland12 ,null,null,false,null,false);
 
         //adding 12 islands to circularArray
         islandsCircularArray.add(island1);
@@ -275,6 +275,9 @@ public class Game {
     public GameComponents generateBoard3players(Boolean isPro){
         return null;
     }
+    public GameComponents generateBoard4players(Boolean isPro){
+        return null;
+    }
     public void addChosenCard(){}
 
     public void pickCharacters(){}
@@ -287,7 +290,13 @@ public class Game {
     If two adjacent island are dominated by two towers
       of the same colors, then the island are merged.
     */
-    public void mergeIsland(){
+    public ArrayList<IslandCard> mergeIsland(ArrayList<IslandCard> islands){
+        //IslandCard currentIsland = islands.stream().findAny().get().getMotherNature().compareTo(true);
+        //IslandCard c = islands.stream().findFirst().get().getMotherNature().compareTo(true)
+
+
+
+        /*
         Collection<IslandCard> Archipelago = GameComponents.getArchipelago();
         IslandCard courrentIsland = GameComponents.getMothernature().getPosition();
         IslandCard previousIsland = null;
@@ -295,18 +304,37 @@ public class Game {
         for(IslandCard tempIsland : Archipelago){
             if(tempIsland.equals(courrentIsland)){
                 if((previousIsland.getTower()) == (courrentIsland.getTower())){
-
                 }
             }
-
            previousIsland = tempIsland;
         }
+
+         */
+        return null;
     }
-    public void moveMotherNature(int steps){
-        IslandCard temp = GameComponents.getMothernature().getPosition();
-        int pos = 0;
 
+    /**
+     * @param islands ArrayList of the islands on the board
+     * @param steps number of steps to take
+     * @param motherNat with initial ID_island
+     * @return motherNature with the new position where ends
+     */
+    public MotherNature moveMotherNature(int steps, MotherNature motherNat, ArrayList<IslandCard> islands) {
 
+        int id_final_island = 0;
+        if ((motherNat.getPosition().getId_island() + steps) <= 12) {
+            id_final_island = motherNat.getPosition().getId_island() + steps;
+            islands.get(motherNat.getPosition().getId_island()-1).setMotherNature(false);
+            motherNat.setPosition(islands.get(id_final_island - 1));
+            islands.get(id_final_island - 1).setMotherNature(true);
+            return motherNat;
         }
-
+        //if (steps + ID_island) is > 12
+        id_final_island = motherNat.getPosition().getId_island() + steps;
+        id_final_island = id_final_island - 12;
+        islands.get(motherNat.getPosition().getId_island()-1).setMotherNature(false);
+        motherNat.setPosition(islands.get(id_final_island - 1));
+        islands.get(id_final_island - 1).setMotherNature(true);
+        return motherNat;
+    }
 }
