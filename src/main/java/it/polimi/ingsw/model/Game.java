@@ -249,8 +249,8 @@ public class Game {
         ArrayList<Student> entrancePlayer1 = new ArrayList<>();
         ArrayList<Student> entrancePlayer2 = new ArrayList<>();
         for(int i=0;i<7;i++) {
-            entrancePlayer1.add(container.Draw());
-            entrancePlayer2.add(container.Draw());
+            entrancePlayer1.add(container.draw());
+            entrancePlayer2.add(container.draw());
         }
 
 
@@ -264,17 +264,17 @@ public class Game {
         //if isPro ==> generate coins, character cards, prohibition cards
         if(isPro==true){
             ArrayList<Coin> coins = new ArrayList<>();
-            for(int i = 0; i<20;i++){
-                coins.add(new Coin());
+            for(int i = 1; i<21;i++){
+                coins.add(new Coin(i));
             }
-            CoinReserve coinContainer = new CoinReserve(coins);
+            CoinReserve coinContainer = new CoinReserve();
 
             ArrayList<NoEntryTile> prohibitionCards = new ArrayList<>();
             for(int i = 0; i<4;i++) {
                 prohibitionCards.add(new NoEntryTile(false, null));
             }
 
-            CharacterDeck specialCards = new CharacterDeck(null,3);
+            CharacterDeck specialCards = new CharacterDeck();
 
             GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools,container,cloudContainer,professors,coinContainer,prohibitionCards,specialCards);
             return table;
