@@ -14,7 +14,7 @@ public class PiecesTest {
     public void moveTowerFromSchoolBoard1(){
         ArrayList<Student> students = new ArrayList<>();
         students.add(new Student(ColorStudent.RED));
-        IslandCard islandCard = new IslandCard(0,  null);
+        IslandCard islandCard = new IslandCard(0);
 
         SchoolBoard schoolBoard= new SchoolBoard(ColorTower.BLACK, 2, students);
 
@@ -29,7 +29,7 @@ public class PiecesTest {
     public void moveTowerFromSchoolBoard2(){
         ArrayList<Student> students = new ArrayList<>();
         students.add(new Student(ColorStudent.RED));
-        IslandCard islandCard = new IslandCard(0, null);
+        IslandCard islandCard = new IslandCard(0);
 
         SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 3, students);
 
@@ -44,7 +44,7 @@ public class PiecesTest {
     public void move9Towers(){
         ArrayList<Student> students = new ArrayList<>();
         students.add(new Student(ColorStudent.RED));
-        IslandCard islandCard = new IslandCard(0,  null);
+        IslandCard islandCard = new IslandCard(0);
 
         SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 3, students);
 
@@ -69,7 +69,7 @@ public class PiecesTest {
     @Test
     public void setStudentPosition(){
         Student student = new Student(ColorStudent.BLU);
-        IslandCard islandCard = new IslandCard(1, null);
+        IslandCard islandCard = new IslandCard(1);
 
         student.setPosition(islandCard);
 
