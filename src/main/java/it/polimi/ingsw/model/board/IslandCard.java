@@ -87,4 +87,7 @@ public class IslandCard implements Board {
         return new ArrayList<>(students);
     }
 
+    public void addStudent(Student student){
+        this.students.add(student);
+    }
 }
