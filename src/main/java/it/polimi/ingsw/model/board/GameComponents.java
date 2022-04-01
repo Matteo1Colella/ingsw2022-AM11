@@ -11,10 +11,10 @@ import java.util.Collection;
 public class GameComponents {
     private ArrayList<IslandCard> Archipelago;
     private MotherNature Mothernature;
-    private Collection<SchoolBoard> SchoolBoards;
+    private ArrayList<SchoolBoard> SchoolBoards;
     private Bag Bag;
     private Collection<CloudCard> CloudCards;
-    private Collection<Professor> professorCollection;
+    private ArrayList<Professor> professorCollection;
     private CoinReserve coins;
     private Collection<NoEntryTile> prohibitionCards;
     private CharacterDeck specialDeck;
@@ -26,7 +26,7 @@ public class GameComponents {
     //constructor pro
 
 
-    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.board.Bag bag, Collection<CloudCard> cloudCards, Collection<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, ArrayList<SchoolBoard> schoolBoards, it.polimi.ingsw.model.board.Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
         Archipelago = archipelago;
         Mothernature = mothernature;
         SchoolBoards = schoolBoards;
@@ -39,7 +39,7 @@ public class GameComponents {
     }
 
     //normal constructor
-    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.board.Bag bag, Collection<CloudCard> cloudCards, Collection<Professor> professorCollection) {
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, ArrayList<SchoolBoard> schoolBoards, it.polimi.ingsw.model.board.Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection) {
         Archipelago = archipelago;
         Mothernature = mothernature;
         SchoolBoards = schoolBoards;
@@ -67,12 +67,12 @@ public class GameComponents {
         Mothernature = mothernature;
     }
 
-    public Collection<SchoolBoard> getSchoolBoards() {
+    public ArrayList<SchoolBoard> getSchoolBoards() {
 
         return SchoolBoards;
     }
 
-    public void setSchoolBoards(Collection<SchoolBoard> schoolBoards) {
+    public void setSchoolBoards(ArrayList<SchoolBoard> schoolBoards) {
 
         SchoolBoards = schoolBoards;
     }
@@ -97,11 +97,11 @@ public class GameComponents {
         CloudCards = cloudCards;
     }
 
-    public Collection<Professor> getProfessorCollection() {
+    public ArrayList<Professor> getProfessorCollection() {
         return professorCollection;
     }
 
-    public void setProfessorCollection(Collection<Professor> professorCollection) {
+    public void setProfessorCollection(ArrayList<Professor> professorCollection) {
         this.professorCollection = professorCollection;
     }
 

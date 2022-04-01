@@ -12,7 +12,7 @@ private it.polimi.ingsw.model.Game Game;
 private boolean GameType;
 private int NumPlayers;
 private int ID;
-private ArrayList<Player> Players;
+private ArrayList<Player> players;
 private boolean ready;
 private CoinReserve coinReserve;
 private DeckManager DM;
@@ -23,7 +23,7 @@ private DeckManager DM;
         this.GameType = gametype;
         this.NumPlayers = numplayers;
         this.ID = ID;
-        this.Players = Players;
+        this.players = Players;
         this.DM = new DeckManager();
     }
 
@@ -69,13 +69,13 @@ private DeckManager DM;
         this.ID = ID;
     }
 
-    public Collection<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
 
-        return Players;
+        return players;
     }
 
     public void setPlayers(ArrayList<Player> players) {
-        Players = players;
+        this.players = players;
     }
     public boolean isReady() {
         return ready;
@@ -88,10 +88,10 @@ private DeckManager DM;
 
     // adds a player to the lobby, if it fills up the game starts
     public void AddPlayer(String ID){
-        Player New = new Player(Players.size(), ID);
+        Player New = new Player(players.size(), ID);
         New.setGameID(this.ID);
-        this.Players.add(New);
-        if (Players.size() == this.NumPlayers) {
+        this.players.add(New);
+        if (players.size() == this.NumPlayers) {
             this.setReady(true);
         };
     }
@@ -100,8 +100,6 @@ private DeckManager DM;
         System.out.println("All set! Starting Game...");
         System.out.println("");
         this.Game = new Game(GameType, ID, NumPlayers);
-        if (GameType){
-            //coins reserve and character cards creation
-        }
+        this.Game.setComplexLobby(this);
     }
 }

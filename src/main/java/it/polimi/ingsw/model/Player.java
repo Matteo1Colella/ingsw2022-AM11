@@ -18,9 +18,8 @@ public class Player {
     private AssistantDeck deck;
     private boolean status;
     private SchoolBoard schoolBoard;
-
+    private int influencePoints;
     private Collection<Coin> coins;
-    private Collection<Tower> towers;
     private Game playerGame;
     private int gameID;
     private int MotherNatureMoves;
@@ -31,6 +30,15 @@ public class Player {
         coins = new ArrayList<>();
         playerNum = playerNum;
         this.ID_player = ID_player;
+        influencePoints = 0;
+    }
+
+    public int getInfluencePoints() {
+        return influencePoints;
+    }
+
+    public void setInfluencePoints(int influencePoints) {
+        this.influencePoints = influencePoints;
     }
 
     public int getMotherNatureMoves() {
@@ -98,14 +106,6 @@ public class Player {
         this.coins.add(coin);
     }
 
-    public Collection<Tower> getTowers() {
-        return towers;
-    }
-
-    public void setTowers(Collection<Tower> towers) {
-        this.towers = towers;
-    }
-
     public Game getPlayerGame() {
         return playerGame;
     }
@@ -114,7 +114,6 @@ public class Player {
         this.playerGame = playerGame;
     }
     // End of Getters, Setters, Constructor
-
 
     //choose card from deck
     public Card playCard(){

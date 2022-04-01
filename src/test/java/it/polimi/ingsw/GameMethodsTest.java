@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.board.IslandCard;
 import it.polimi.ingsw.model.*;

@@ -24,6 +24,14 @@ public class Game {
         this.numPlayers = numPlayers;
     }
 
+    public ComplexLobby getComplexLobby() {
+        return complexLobby;
+    }
+
+    public void setComplexLobby(ComplexLobby complexLobby) {
+        this.complexLobby = complexLobby;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -78,8 +86,130 @@ public class Game {
         return null;
     }
 
-    public ArrayList<IslandCard> islandDominance(){
-        return null;
+    public void islandDominance(){
+
+        IslandCard selectedIsland = null;
+        ArrayList<ColorStudent> presentColors = new ArrayList<>();
+        ArrayList<Player> players = this.complexLobby.getPlayers();
+        int indexIsland;
+        int numGreen = 0;
+        int numYellow = 0;
+        int numRed = 0;
+        int numBlue = 0;
+        int numPink = 0;
+        Player kingPlayer = null;
+
+        // gets island where mother nature is
+        for (IslandCard tempIsland : this.getGameComponents().getArchipelago())
+        {
+            if (tempIsland.getMotherNature()){
+                selectedIsland = tempIsland;
+                indexIsland = tempIsland.getId_island();
+                break;
+            }
+        }
+
+        //calculates how many students of each color are on the island
+        for(Student temp : selectedIsland.getStudents())
+        {
+            switch (temp.getColor()){
+                case RED:
+                    numRed++;
+                    break;
+                case PINK:
+                    numPink++;
+                    break;
+                case BLU:
+                    numBlue++;
+                    break;
+                case YELLOW:
+                    numYellow ++;
+                    break;
+                case GREEN:
+                    numGreen ++;
+                    break;
+            }
+            if (!presentColors.contains(temp.getColor())){
+                presentColors.add(temp.getColor());
+        }
+        }
+
+        // if no students no dominance
+        if (presentColors.size()==0) return;
+
+        //checks which players has color dominance of the students on the island and calculates influences
+        int i = 0;
+        for (ColorStudent tempColor : presentColors){
+            for (Player tempPlayer : players){
+                if (tempPlayer.getSchoolBoard().getDiningRoomByColor(tempColor).IsProfessor()){
+                    switch (tempColor){
+                        case RED:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numRed);
+                            break;
+                        case PINK:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numPink);
+                            break;
+                        case BLU:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numBlue);
+                            break;
+                        case YELLOW:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numYellow);
+                            break;
+                        case GREEN:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numGreen);
+                            break;
+                    }
+                }
+                // if the island has a tower and matches color of tower of the selected player he gets +1 points
+                if ( i== 0 && selectedIsland.getTower()!= null && selectedIsland.getTower().getColor().equals(tempPlayer.getSchoolBoard().getTowers().get(0).getColor())){
+                    tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+1);
+                    kingPlayer = tempPlayer;
+                    i++;
+                }
+            }
+        }
+
+        // setting max calculation
+        Player maxPlayer = players.get(0);
+
+        // calculates who's the king of the island
+        for (Player tempPlayer : players)
+        {
+           if (tempPlayer.getInfluencePoints() > maxPlayer.getInfluencePoints())
+           {
+               maxPlayer = tempPlayer;
+           }
+
+        }
+
+        // if max influence is 0, no dominance
+        if (maxPlayer.getInfluencePoints()==0) return;
+
+        // if there's a draw nothing happens
+        for(Player tempPlayer : players)
+        {
+            if (tempPlayer.getInfluencePoints() == maxPlayer.getInfluencePoints() && !tempPlayer.equals(maxPlayer)){
+                return;
+        }
+        }
+
+        // if the king of the island hasn't changed nothing happens
+        if (maxPlayer.equals(kingPlayer)){
+            return;
+        }
+
+        // if there wasn't the king a new king is declared
+        if (kingPlayer == null){
+            selectedIsland.setTower(maxPlayer.getSchoolBoard().getTowers().get(0));
+            maxPlayer.getSchoolBoard().getTowers().remove(0);
+            return;
+        }
+
+        // if there was a king that was beaten, it gets substitued
+        kingPlayer.getSchoolBoard().getTowers().add(selectedIsland.getTower());
+        selectedIsland.setTower(maxPlayer.getSchoolBoard().getTowers().get(0));
+        maxPlayer.getSchoolBoard().getTowers().remove(0);
+
     }
 
 

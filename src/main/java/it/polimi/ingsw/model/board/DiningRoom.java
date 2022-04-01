@@ -49,7 +49,9 @@ public class DiningRoom implements Board {
     public ColorStudent getColor(){
         return this.color;
     }
-
+    public boolean IsProfessor(){
+        return this.professor != null;
+    }
     @Override
     public Collection<Student> getStudents() {
         return students;
