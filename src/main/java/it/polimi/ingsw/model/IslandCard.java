@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class IslandCard implements Board {
-    private final int id_island;
+    private int id_island;
     private Collection<Student> students;
     private Tower tower;
     private final Player playerOwner;
     private Boolean motherNature;
-    private Collection<IslandCard> mergedWith; //array of integers
+    private Collection<IslandCard> mergedWith; //array of islands
     private Boolean locked;
-    private IslandCard next;  //pointer of the next Island in the circularArrayList
 
     //start constructors, getters, setters
     public IslandCard(int id_island) {
@@ -22,6 +21,10 @@ public class IslandCard implements Board {
         this.motherNature = false;
         this.mergedWith = new ArrayList<>();
         this.locked = null;
+    }
+
+    public void setId_island(int id_island) {
+        this.id_island = id_island;
     }
 
     public int getId_island() {
@@ -58,14 +61,6 @@ public class IslandCard implements Board {
 
     public boolean isLocked(){
         return locked;
-    }
-
-    public IslandCard getNext() {
-        return next;
-    }
-
-    public void setNext(IslandCard next) {
-        this.next = next;
     }
 
     public boolean isMerged(){

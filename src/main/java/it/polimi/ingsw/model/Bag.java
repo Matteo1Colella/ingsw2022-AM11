@@ -1,51 +1,50 @@
 package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
+import java.util.Random;
 
 public class Bag {
     private int remaining;
-    private ArrayList<Student> bagStudents;
+    private final ArrayList<Student> students;
+
 
     // Start Getters, Setters, Constructor
 
-
-    public Bag(int remaining, ArrayList<Student> bagStudents) {
-        this.remaining = remaining;
-        this.bagStudents = bagStudents;
+    public Bag() {
+        this.students = new ArrayList<>();
+        //generates all the 120 students, 24 for each color
+        int totStudentsColor = 24;
+        for(int i = 0; i < totStudentsColor; i++){
+            for(ColorStudent tempColor : ColorStudent.values()){
+                students.add(new Student(tempColor));
+            }
+        }
+        this.remaining = students.size();
     }
 
-    public int getRemaining() {
-        return remaining;
-    }
-
-    public void setRemaining(int remaining) {
-        this.remaining = remaining;
-    }
-
-    public ArrayList<Student> getBagStudents() {
-        return bagStudents;
-    }
-
-    public void setBagStudents(ArrayList<Student> bagStudents) {
-        this.bagStudents = bagStudents;
-    }
-    // End Getters, Setters, Constructor
-
-
+    //Returns a pseudo-random student caught from the bag. The student is removed from the bag.
+    //If there is no student in the bag, it will return null.
     public Student draw(){
-        int index = (int) (Math.random() * bagStudents.size());
-        Student studentToReturn = bagStudents.get(index);
-        bagStudents.remove(index);
-        return studentToReturn;
+        Random random = new Random();
+        //generates a number between 0 and remaining
+        int randInt = random.nextInt(remaining);
+
+        if(remaining != 0){
+            Student retStudent = students.get(randInt);
+            students.remove(retStudent);
+            remaining = students.size();
+            //System.out.println("The color of the student is" + " " + retStudent.getColor());
+            return retStudent;
+        } else {
+            return null;
+        }
     }
 
-
-    public boolean IsEmpty(){
-        return false;
+    public boolean isEmpty(){
+        return students.size() == 0;
     }
-    public int Left(){
-        return 0;
+
+    public int left(){
+        return remaining;
     }
 }
