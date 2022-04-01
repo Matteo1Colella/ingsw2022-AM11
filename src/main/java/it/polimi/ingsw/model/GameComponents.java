@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class GameComponents {
-    private Collection<IslandCard> Archipelago;
+    private ArrayList<IslandCard> Archipelago;
     private MotherNature Mothernature;
     private Collection<SchoolBoard> SchoolBoards;
     private Bag Bag;
@@ -20,7 +21,7 @@ public class GameComponents {
     //constructor pro
 
 
-    public GameComponents(Collection<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards, Collection<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards, Collection<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
         Archipelago = archipelago;
         Mothernature = mothernature;
         SchoolBoards = schoolBoards;
@@ -33,7 +34,7 @@ public class GameComponents {
     }
 
     //normal constructor
-    public GameComponents(Collection<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards, Collection<Professor> professorCollection) {
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, Collection<SchoolBoard> schoolBoards, it.polimi.ingsw.model.Bag bag, Collection<CloudCard> cloudCards, Collection<Professor> professorCollection) {
         Archipelago = archipelago;
         Mothernature = mothernature;
         SchoolBoards = schoolBoards;
@@ -42,12 +43,12 @@ public class GameComponents {
         this.professorCollection = professorCollection;
     }
 
-    public Collection<IslandCard> getArchipelago() {
+    public ArrayList<IslandCard> getArchipelago() {
 
         return Archipelago;
     }
 
-    public void setArchipelago(Collection<IslandCard> archipelago) {
+    public void setArchipelago(ArrayList<IslandCard> archipelago) {
 
         Archipelago = archipelago;
     }
