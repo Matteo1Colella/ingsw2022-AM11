@@ -1,10 +1,14 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
+
+import it.polimi.ingsw.model.board.CoinReserve;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class ComplexLobby {
-private Game Game;
+private it.polimi.ingsw.model.Game Game;
 private boolean GameType;
 private int NumPlayers;
 private int ID;

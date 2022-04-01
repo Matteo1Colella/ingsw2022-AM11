@@ -1,4 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.cards;
+
+import it.polimi.ingsw.model.pieces.NoEntryTile;
+import it.polimi.ingsw.model.pieces.Student;
+import it.polimi.ingsw.model.board.Bag;
+import it.polimi.ingsw.model.Player;
 
 import java.util.ArrayList;
 

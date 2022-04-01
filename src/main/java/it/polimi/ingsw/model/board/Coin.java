@@ -1,4 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.board;
+
+import it.polimi.ingsw.model.cards.CharacterCard;
+import it.polimi.ingsw.model.Player;
 
 public class Coin {
     private final int ID_coin;

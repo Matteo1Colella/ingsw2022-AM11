@@ -1,4 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.pieces;
+
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.ColorTower;
 
 public class Tower extends Piece{
 

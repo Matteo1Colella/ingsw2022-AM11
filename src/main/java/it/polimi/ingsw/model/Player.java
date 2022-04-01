@@ -1,5 +1,12 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.cards.AssistantDeck;
+import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.pieces.Piece;
+import it.polimi.ingsw.model.pieces.Tower;
+import it.polimi.ingsw.model.board.Coin;
+import it.polimi.ingsw.model.board.SchoolBoard;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;

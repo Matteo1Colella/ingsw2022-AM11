@@ -2,8 +2,8 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.model.ColorTower;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.GameComponents;
-import it.polimi.ingsw.model.Tower;
+import it.polimi.ingsw.model.board.GameComponents;
+import it.polimi.ingsw.model.pieces.Tower;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

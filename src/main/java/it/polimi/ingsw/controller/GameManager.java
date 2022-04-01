@@ -1,4 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
+
+import it.polimi.ingsw.model.cards.AssistantDeck;
+import it.polimi.ingsw.model.Mage;
+import it.polimi.ingsw.model.Player;
 
 import java.util.ArrayList;
 

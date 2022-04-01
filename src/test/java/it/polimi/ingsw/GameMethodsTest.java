@@ -1,10 +1,11 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.board.GameComponents;
+import it.polimi.ingsw.model.board.IslandCard;
 import it.polimi.ingsw.model.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import static org.junit.Assert.*;
 

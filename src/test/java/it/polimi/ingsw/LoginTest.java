@@ -1,8 +1,8 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.GameManager;
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Mage;
-import it.polimi.ingsw.model.ComplexLobby;
+import it.polimi.ingsw.controller.ComplexLobby;
 import org.junit.Test;
 
 import java.util.ArrayList;

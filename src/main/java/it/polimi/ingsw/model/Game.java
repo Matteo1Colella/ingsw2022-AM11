@@ -1,5 +1,10 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.cards.CharacterDeck;
+import it.polimi.ingsw.controller.ComplexLobby;
+import it.polimi.ingsw.model.pieces.*;
+import it.polimi.ingsw.model.board.*;
+
 import java.util.*;
 
 public class Game {

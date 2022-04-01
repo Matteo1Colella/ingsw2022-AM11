@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.cards;
+
+import it.polimi.ingsw.model.Mage;
 
 import java.util.ArrayList;
 import java.util.Collection;
