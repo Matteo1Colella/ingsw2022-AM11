@@ -1,4 +1,10 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.board;
+
+import it.polimi.ingsw.model.pieces.Professor;
+import it.polimi.ingsw.model.pieces.Student;
+import it.polimi.ingsw.model.pieces.Tower;
+import it.polimi.ingsw.model.ColorStudent;
+import it.polimi.ingsw.model.ColorTower;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,6 +38,10 @@ public class SchoolBoard implements Board {
         return towers;
     }
 
+    public ArrayList<DiningRoom> getDiningRooms() {
+        return diningRooms;
+    }
+
     private void generateTowers(int numOfPlayers, ColorTower colorTower){
         if(numOfPlayers == 3){
             for(int i = 0; i < 6; i++){
@@ -62,6 +72,13 @@ public class SchoolBoard implements Board {
             System.out.println("The player has won.");
         }
     }
+    // get a dining room by color
+    public DiningRoom getDiningRoomByColor(ColorStudent color){
+        for(DiningRoom temp : diningRooms){
+            if (temp.getColor().equals(color)) return temp;
+        }
+        return null;
+    }
 
     //move a student in the dining room
     public void moveStudent(int position){
@@ -78,7 +95,7 @@ public class SchoolBoard implements Board {
     }
     //a student can be placed in the dining room
 
-    //set the professor of the color specified color
+    //set the professor of the specified color
     public void setProfessor(Professor professor){
         DiningRoom diningRoom = this.getDiningRoom(professor.getColor());
         assert diningRoom != null;
@@ -88,7 +105,7 @@ public class SchoolBoard implements Board {
 
     //get the occupation of a specified color
     public int getStudentSize(ColorStudent colorStudent){
-         return this.getDiningRoom(colorStudent).getStudentsSize();
+        return this.getDiningRoom(colorStudent).getStudentsSize();
     }
 
     @Override
@@ -125,7 +142,9 @@ public class SchoolBoard implements Board {
         DiningRoom retDiningRoom = null;
         for(DiningRoom tempDiningRoom : diningRooms){
             if(tempDiningRoom.getColor().equals(color)){
+
                retDiningRoom = tempDiningRoom;
+
             }
         }
         return retDiningRoom;

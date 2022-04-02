@@ -2,7 +2,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.model.*;
 
-import it.polimi.ingsw.model.Components.*;
+
 import org.junit.Test;
 
 

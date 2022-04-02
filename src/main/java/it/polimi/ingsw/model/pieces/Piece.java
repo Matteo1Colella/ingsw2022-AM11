@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.pieces;
+
+import it.polimi.ingsw.model.board.Board;
 
 public abstract class Piece implements Moovable {
     private Board position;

@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.cards;
+
+import it.polimi.ingsw.model.Game;
 
 import java.util.ArrayList;
 
@@ -13,7 +15,7 @@ public class CharacterDeck {
         int min = 1;
         for (int i = 0; i < 3; i++){
         int random = (int)Math.floor(Math.random()*(numCards-min+1)+min);
-        CharacterCard card = new CharacterCard(random, game.getGameStructure().getBag());
+        CharacterCard card = new CharacterCard(random, game.getGameComponents().getBag());
         cards.add(card);
         }
     }

@@ -1,8 +1,8 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.AssistantDeck;
-import it.polimi.ingsw.model.Card;
-import it.polimi.ingsw.model.DeckManager;
+import it.polimi.ingsw.model.cards.AssistantDeck;
+import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.controller.DeckManager;
 import it.polimi.ingsw.model.Mage;
 import org.junit.Test;
 

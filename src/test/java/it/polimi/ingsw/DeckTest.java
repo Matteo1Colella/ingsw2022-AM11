@@ -1,16 +1,12 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.cards.AssistantDeck;
+import it.polimi.ingsw.controller.DeckManager;
 import it.polimi.ingsw.model.*;
 
-import it.polimi.ingsw.model.Components.*;
+
 import org.junit.Test;
 
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import java.util.Iterator;
 
 import static org.junit.Assert.*;
 

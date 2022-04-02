@@ -1,6 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.pieces;
 
-public class MotherNature implements Moovable{
+import it.polimi.ingsw.model.board.Board;
+import it.polimi.ingsw.model.board.IslandCard;
+
+public class MotherNature implements Moovable {
 
     private IslandCard position;
 

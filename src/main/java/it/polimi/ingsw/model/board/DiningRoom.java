@@ -1,4 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.board;
+
+import it.polimi.ingsw.model.pieces.Professor;
+import it.polimi.ingsw.model.pieces.Student;
+import it.polimi.ingsw.model.ColorStudent;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,9 +49,13 @@ public class DiningRoom implements Board {
     public ColorStudent getColor(){
         return this.color;
     }
-
+    public boolean IsProfessor(){
+        return this.professor != null;
+    }
     @Override
     public Collection<Student> getStudents() {
         return students;
     }
+
 }
+
