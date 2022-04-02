@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.Colors.ColorStudent;
+import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.controller.ColorTower;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
