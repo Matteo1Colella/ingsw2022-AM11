@@ -1,10 +1,11 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.Colors.ColorStudent;
+import it.polimi.ingsw.controller.ColorTower;
 import it.polimi.ingsw.model.pieces.Professor;
 import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.model.board.IslandCard;
 import it.polimi.ingsw.model.board.SchoolBoard;
-import it.polimi.ingsw.model.*;
 import org.junit.Test;
 
 import java.util.ArrayList;

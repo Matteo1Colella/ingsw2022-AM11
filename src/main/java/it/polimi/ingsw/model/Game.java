@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.Colors.ColorStudent;
+import it.polimi.ingsw.controller.ColorTower;
 import it.polimi.ingsw.model.cards.CharacterDeck;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.pieces.*;
