@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.board;
 import it.polimi.ingsw.model.pieces.Professor;
 import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.model.pieces.Tower;
-import it.polimi.ingsw.Colors.ColorStudent;
+import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.controller.ColorTower;
 
 import java.util.ArrayList;
