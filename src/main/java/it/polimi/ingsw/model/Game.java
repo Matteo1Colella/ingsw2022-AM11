@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.controller.ColorTower;
 import it.polimi.ingsw.model.cards.CharacterDeck;
@@ -15,6 +16,7 @@ public class Game {
     private boolean isPro;
     private int MovedPieces;
     private GameComponents GameComponents;
+    private CharacterDeck characterDeck;
     private int ID;
     private int numPlayers;
     private ComplexLobby complexLobby;
@@ -82,12 +84,8 @@ public class Game {
 
     // End of Getters, Setters, Constructor
 
-    public Set<Player> playerList(){
-        return null;
-    }
-
-    public Set<Student> drawStudents(){
-        return null;
+    public ArrayList<Player> playerList(){
+        return this.complexLobby.getPlayers();
     }
 
     public Map<ColorStudent, Player> colorDominance(){
@@ -349,14 +347,17 @@ public class Game {
     }
 
     //shows the 3 Character cards that a player can use?
-    public void pickCharacters(){}
+    public void pickCharacters(){
+    }
 
     //selects a random player to begin
-    public void startGame(){}
+    public Player startGameWithRandomPlayer(){
+        int index = (int) (Math.random() * this.complexLobby.getPlayers().size());
+        return this.complexLobby.getPlayers().get(index);
+    }
 
     //checks if the game ends
     public void winCondition(){
-
     }
 
     /*

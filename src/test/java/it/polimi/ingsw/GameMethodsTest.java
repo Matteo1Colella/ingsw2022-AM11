@@ -39,4 +39,5 @@ public class GameMethodsTest {
         game.addChosenCard(third,3);
         assertEquals(1,game.getChosenCards().size()); //At this moment begins a new round
     }
+
 }
