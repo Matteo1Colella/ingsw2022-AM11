@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.pieces;
 
 
 import it.polimi.ingsw.model.board.Board;
-import it.polimi.ingsw.model.ColorStudent;
+import it.polimi.ingsw.Colors.ColorStudent;
 
 public class Professor extends Piece {
     private final ColorStudent color;
