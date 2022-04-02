@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Colors;
+package it.polimi.ingsw.model.colors;
 
 public enum ColorStudent {
     GREEN,
