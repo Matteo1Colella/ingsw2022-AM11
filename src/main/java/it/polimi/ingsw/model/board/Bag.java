@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.board;
 
 import it.polimi.ingsw.model.pieces.Student;
-import it.polimi.ingsw.model.ColorStudent;
+import it.polimi.ingsw.Colors.ColorStudent;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,6 +16,7 @@ public class Bag {
     public Bag() {
         this.students = new ArrayList<>();
         //generates all the 120 students, 24 for each color
+        //the first 10 students are managed in the class Game to init the board
         int totStudentsColor = 24;
         for(int i = 0; i < totStudentsColor; i++){
             for(ColorStudent tempColor : ColorStudent.values()){

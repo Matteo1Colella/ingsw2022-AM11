@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.model.ColorTower;
+import it.polimi.ingsw.controller.ColorTower;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.pieces.Tower;
