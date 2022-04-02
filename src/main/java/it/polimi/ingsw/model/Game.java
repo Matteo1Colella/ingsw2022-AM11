@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.controller.ColorTower;
 import it.polimi.ingsw.model.cards.CharacterDeck;
@@ -17,6 +18,8 @@ public class Game {
     private int ID;
     private int numPlayers;
     private ComplexLobby complexLobby;
+    private ArrayList<Card> chosenCards;
+
 
     // Start of Getters, Setters, Constructor
 
@@ -24,7 +27,10 @@ public class Game {
         this.isPro = isPro;
         this.ID = ID;
         this.numPlayers = numPlayers;
+        this.chosenCards = new ArrayList<>();
     }
+
+    public ArrayList<Card> getChosenCards() {return chosenCards;}
 
     public ComplexLobby getComplexLobby() {
         return complexLobby;
@@ -139,7 +145,7 @@ public class Game {
         // if no students no dominance
         if (presentColors.size()==0) return;
 
-        //checks which players has color dominance of the students on the island and calculates influences
+        //checks which player has color dominance of the students on the island and calculates influences
         int i = 0;
         for (ColorStudent tempColor : presentColors){
             for (Player tempPlayer : players){
@@ -215,7 +221,7 @@ public class Game {
     }
 
 
-    public GameComponents generateBoard2players(Boolean isPro, int numOfPlayers){
+    public GameComponents generateBoard(Boolean isPro, int numOfPlayers){
 
         ArrayList<Student> initialBag = new ArrayList<>();
 
@@ -326,20 +332,32 @@ public class Game {
 
     }
 
-    public GameComponents generateBoard3players(Boolean isPro){
-        return null;
-    }
-    public GameComponents generateBoard4players(Boolean isPro){
-        return null;
+    //adds the Card to the Array of chosen cards
+    public void addChosenCard(Card chosen, int numOfPlayers){
+
+        //necessary because, in the new round, a Player can play the card played by the last player at the previous round
+        if(this.chosenCards.size() == numOfPlayers)
+            this.chosenCards.clear(); //clear the array if already full
+
+        if (this.chosenCards.contains(chosen)) {
+            System.out.println("ERROR: You can't play this card in this round because someone has already played that");
+            return;
+        }
+
+        //chosenCards is a private attribute of game, it has the same size as numOfPlayers, at the end of a round becomes empty
+        this.chosenCards.add(chosen);
     }
 
-    public void addChosenCard(){}
-
+    //shows the 3 Character cards that a player can use?
     public void pickCharacters(){}
 
+    //selects a random player to begin
     public void startGame(){}
 
-    public void winCondition(){}
+    //checks if the game ends
+    public void winCondition(){
+
+    }
 
     /*
     If two adjacent island are dominated by two towers
