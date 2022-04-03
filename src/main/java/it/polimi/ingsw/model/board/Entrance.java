@@ -23,7 +23,13 @@ public class Entrance {
 
     }
 
+    public int getStudentPosition(Student student){
+        return students.indexOf(student);
+    }
+
     public Student chooseStudent(int position){
-        return students.get(position);
+        Student retStudent = students.get(position);
+        students.remove(retStudent);
+        return retStudent;
     }
 }
