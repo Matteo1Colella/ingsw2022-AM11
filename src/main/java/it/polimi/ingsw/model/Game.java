@@ -218,7 +218,6 @@ public class Game {
 
     }
 
-
     public GameComponents generateBoard(Boolean isPro, int numOfPlayers){
 
         ArrayList<Student> initialBag = new ArrayList<>();
@@ -238,7 +237,7 @@ public class Game {
             islandsContainers.add(new ArrayList<>());
             IslandCard island = new IslandCard(i);
             int index = (int) (Math.random() * initialBag.size());
-            if (i != 0 && i != 7){
+            if (i != 0 && i != 6){
                 islandsContainers.get(i).add(initialBag.get(index));
                 island.setStudents(islandsContainers.get(i));
                 initialBag.remove(index);
@@ -320,11 +319,11 @@ public class Game {
             CharacterDeck specialCards = new CharacterDeck();
 
             GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools,studentsBag,cloudContainer,professors,coinContainer,prohibitionCards,specialCards);
+            this.GameComponents = table;
             return table;
         }
 
         GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools,studentsBag,cloudContainer,professors);
-
         this.GameComponents = table;
         return table;
 
@@ -348,6 +347,9 @@ public class Game {
 
     //shows the 3 Character cards that a player can use?
     public void pickCharacters(){
+        for (int i=0; i<3; i++) {
+            System.out.println(this.GameComponents.getSpecialDeck().getCards().get(i));
+        }
     }
 
     //selects a random player to begin
@@ -356,11 +358,100 @@ public class Game {
         return this.complexLobby.getPlayers().get(index);
     }
 
-    //checks if the game ends
-    public void winCondition(){
+    //checks if the game ends, returns the winner player
+    public Player winCondition() {
+
+        //check if a player finished his free towers in his schoolboard
+        for(int i = 0; i<this.complexLobby.getPlayers().size(); i++)
+            if (this.getGameComponents().getSchoolBoards().get(i).getTowers().size() == 0)
+                return this.complexLobby.getPlayers().get(i);
+
+
+        //there are three archipelagos
+        if (this.GameComponents.getArchipelago().size() == 3) {
+
+            //tower counters
+            int grey = -1;
+            int black = 0;
+            int white = 0;
+
+            if (this.complexLobby.getPlayers().size() == 3)
+                grey = 0;
+
+            for (IslandCard tempIsland : this.GameComponents.getArchipelago()) {
+                switch (tempIsland.getTower().getColor()) {
+                    case BLACK:
+                        black++;
+                    case WHITE:
+                        white++;
+                    case GREY:
+                        grey++;
+                }
+            }
+
+            // winner of: game with 2,4 players
+            if ((black > white && grey == -1) || (black > white && black > grey))
+                return this.complexLobby.getPlayers().get(0);
+
+            else if ((black < white && grey == -1) || (black < white && white > grey))
+                return this.complexLobby.getPlayers().get(1);
+
+                // winner of: game with 3 players
+            else if (black > white && black > grey)
+                return this.complexLobby.getPlayers().get(0);
+
+            else if (black < white && white > grey)
+                return this.complexLobby.getPlayers().get(1);
+
+            else if (grey > black && grey > white)
+                return this.complexLobby.getPlayers().get(2);
+
+                //condition of draw: the winner is the player with more professors
+            else if (grey == black && black == white) {
+
+                int numProfBlackPlayer = 0;
+                int numProfWhitePlayer = 0;
+                int numProfGreyPlayer = 0;
+
+                for (int i = 0; i < this.GameComponents.getSchoolBoards().size(); i++) {
+                    for (DiningRoom diningRoom : this.GameComponents.getSchoolBoards().get(i).getDiningRooms()) {
+                        if (diningRoom.IsProfessor() == true) {
+                            switch (i) {
+                                case 0:
+                                    numProfBlackPlayer++;
+                                case 1:
+                                    numProfWhitePlayer++;
+                                case 2:
+                                    numProfGreyPlayer++;
+                            }
+                        }
+                    }
+                }
+                if(numProfBlackPlayer > numProfWhitePlayer && numProfBlackPlayer > numProfGreyPlayer)
+                    return this.complexLobby.getPlayers().get(0);
+
+                if(numProfBlackPlayer < numProfWhitePlayer && numProfWhitePlayer > numProfGreyPlayer)
+                    return this.complexLobby.getPlayers().get(1);
+
+                if(numProfGreyPlayer > numProfWhitePlayer && numProfBlackPlayer < numProfGreyPlayer)
+                    return this.complexLobby.getPlayers().get(2);
+            }
+        }
+
+        //if a player finishes his playable cards
+        for (Player p: this.complexLobby.getPlayers()) {
+            if(p.getDeck().leftCard()==0)
+                return p;
+        }
+
+        //recursion to check the winner if there isn't any student in the bag
+        if(this.GameComponents.getBag().left()==0)
+            return winCondition();
+
+        return null; //if there isn't a winner yet
     }
 
-    /*
+    /**
     If two adjacent island are dominated by two towers
       of the same colors, then the island are merged.
     */

@@ -48,6 +48,30 @@ public class GameComponents {
         this.professorCollection = professorCollection;
     }
 
+    public CoinReserve getCoins() {
+        return coins;
+    }
+
+    public void setCoins(CoinReserve coins) {
+        this.coins = coins;
+    }
+
+    public Collection<NoEntryTile> getProhibitionCards() {
+        return prohibitionCards;
+    }
+
+    public void setProhibitionCards(Collection<NoEntryTile> prohibitionCards) {
+        this.prohibitionCards = prohibitionCards;
+    }
+
+    public CharacterDeck getSpecialDeck() {
+        return specialDeck;
+    }
+
+    public void setSpecialDeck(CharacterDeck specialDeck) {
+        this.specialDeck = specialDeck;
+    }
+
     public ArrayList<IslandCard> getArchipelago() {
 
         return Archipelago;
