@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.controller.DeckManager;
@@ -46,5 +47,42 @@ public class AssistantDeckTest {
         choosenCard = assistantDeck.chooseCard(1);
 
         assertNull(choosenCard);
+    }
+
+    @Test
+    public void printCards(){
+        Player player = new Player(1, "leo");
+        DeckManager deckManager = new DeckManager();
+        AssistantDeck assistantDeck = deckManager.generateDeck(Mage.MAGE1);
+        player.setDeck(assistantDeck);
+
+        player.printRemainingCard();
+    }
+
+    @Test
+    public void printCardsAfterPlayingOne(){
+        Player player = new Player(1, "leo");
+        DeckManager deckManager = new DeckManager();
+        AssistantDeck assistantDeck = deckManager.generateDeck(Mage.MAGE1);
+        player.setDeck(assistantDeck);
+
+        Card card = player.playCard(4);
+        player.printRemainingCard();
+        assertNotNull(card);
+    }
+
+    @Test
+    public void playTenCards(){
+        Player player = new Player(1, "leo");
+        DeckManager deckManager = new DeckManager();
+        AssistantDeck assistantDeck = deckManager.generateDeck(Mage.MAGE1);
+        player.setDeck(assistantDeck);
+        player.printRemainingCard();
+        Card card = null;
+        for(int i = 0; i < 10; i++){
+            card = player.playCard(i);
+        }
+        assertNull(card);
+        player.printRemainingCard();
     }
 }

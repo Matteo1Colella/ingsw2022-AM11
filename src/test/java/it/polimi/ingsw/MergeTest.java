@@ -11,7 +11,7 @@ public class MergeTest {
     @Test
     public void TestMergeNext() {
         Game game = new Game(false, 0, 2);
-        GameComponents gameComponents = game.generateBoard2players(false, 2);
+        GameComponents gameComponents = game.generateBoard(false, 2);
         game.moveMotherNature(3, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(3, gameComponents.getMothernature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
@@ -25,7 +25,7 @@ public class MergeTest {
     @Test
     public void testMergePrev() {
         Game game = new Game(false, 0, 2);
-        GameComponents gameComponents = game.generateBoard2players(false, 2);
+        GameComponents gameComponents = game.generateBoard(false, 2);
         game.moveMotherNature(2, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(2, gameComponents.getMothernature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
@@ -39,7 +39,7 @@ public class MergeTest {
     @Test
     public void testPrevAndNext() {
         Game game = new Game(false, 0, 2);
-        GameComponents gameComponents = game.generateBoard2players(false, 2);
+        GameComponents gameComponents = game.generateBoard(false, 2);
         game.moveMotherNature(3, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(3, gameComponents.getMothernature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
@@ -56,7 +56,7 @@ public class MergeTest {
     @Test
     public void cornerCase() {
         Game game = new Game(false, 0, 2);
-        GameComponents gameComponents = game.generateBoard2players(false, 2);
+        GameComponents gameComponents = game.generateBoard(false, 2);
         game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
@@ -70,7 +70,7 @@ public class MergeTest {
     @Test
     public void sequentialMerging() {
         Game game = new Game(false, 0, 2);
-        GameComponents gameComponents = game.generateBoard2players(false, 2);
+        GameComponents gameComponents = game.generateBoard(false, 2);
         game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
@@ -95,7 +95,7 @@ public class MergeTest {
     @Test
     public void multiSequentialMerging() {
         Game game = new Game(false, 0, 2);
-        GameComponents gameComponents = game.generateBoard2players(false, 2);
+        GameComponents gameComponents = game.generateBoard(false, 2);
         game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());

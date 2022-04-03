@@ -62,12 +62,20 @@ public class AssistantDeck {
         Card retCard = cards.get(i);
         cards.get(i).setUsed(true);
         remainingCards--;
-        System.out.println("You choose" + retCard);
+        System.out.println("You choose " + retCard);
 
         if(remainingCards == 0){
             System.out.println("No cards remaining.");
             return null;
         }
         return retCard;
+    }
+
+    public void printCards(){
+        for (Card card : cards) {
+            if (!card.isUsed()) {
+                System.out.println(card);
+            }
+        }
     }
 }

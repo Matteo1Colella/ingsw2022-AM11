@@ -9,6 +9,7 @@ public class CharacterDeck {
     private ArrayList<CharacterCard> cards;
     private final int numCards = 12;
     private Game game;
+
     // Start of Getters, Setters, Constructor
 
     public CharacterDeck() {
