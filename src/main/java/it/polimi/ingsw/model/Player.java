@@ -1,15 +1,12 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.pieces.Piece;
-import it.polimi.ingsw.model.pieces.Tower;
-import it.polimi.ingsw.model.board.Coin;
-import it.polimi.ingsw.model.board.SchoolBoard;
+import it.polimi.ingsw.model.pieces.Student;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 
 public class Player {
 
@@ -19,7 +16,7 @@ public class Player {
     private boolean status;
     private SchoolBoard schoolBoard;
     private int influencePoints;
-    private Collection<Coin> coins;
+    private ArrayList<Coin> coins;
     private Game playerGame;
     private int gameID;
     private int MotherNatureMoves;
@@ -27,10 +24,10 @@ public class Player {
     // Start of Getters, Setters, Constructor
 
     public Player(int playerNum, String ID_player) {
-        coins = new ArrayList<>();
-        playerNum = playerNum;
+        this.coins = new ArrayList<>();
+        this.playerNum = playerNum;
         this.ID_player = ID_player;
-        influencePoints = 0;
+        this.influencePoints = 0;
     }
 
     public int getInfluencePoints() {
@@ -113,30 +110,53 @@ public class Player {
     public void setPlayerGame(Game playerGame) {
         this.playerGame = playerGame;
     }
-    // End of Getters, Setters, Constructor
 
-    //choose card from deck
-    public Card playCard(){
-        return null;
+    //choose card from deck and play it
+    public Card playCard(int i){
+        if(deck.leftCard() > 0){
+            return this.deck.chooseCard(i);
+        } else {
+            System.out.println("All the cards has been chosen");
+            return  null;
+        }
+
     }
 
-    //move a piece
-    public void movePiece(){}
-
-    //draw assistants from the bag
-    public Set<Piece> Draw(){
-        return null;
+    //move a piece (student) in the dining room of his School board
+    public void movePiece(Student student){
+        schoolBoard.moveStudent(student);
     }
 
-    //merge two or more islands
-    public void aggregateIslands(){}
+    //move a piece (student) in the specified island
+    public void movePiece(Student student, IslandCard islandCard){
+        schoolBoard.moveStudent(student, islandCard);
+    }
+
+
+    //draw students from the bag. The number of drawings can be choosed.
+    public ArrayList<Student> Draw(Bag bag, int numOfDrawings){
+        ArrayList<Student> students = new ArrayList<>();
+
+        for(int i = 0; i < numOfDrawings; i++){
+            Student student = bag.draw();
+            students.add(student);
+        }
+
+        return students;
+    }
 
     //get the number of coin owned
     public int getCoinOwned(){
-        return 0;
+        return coins.size();
     }
 
     //use a coin on a character
-    public void useCoin(){}
+    public void useCoin(){
+        coins.remove(coins.get(coins.size() - 1));
+    }
+
+    public void printRemainingCard(){
+        this.deck.printCards();
+    }
 
 }

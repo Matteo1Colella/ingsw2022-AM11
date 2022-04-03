@@ -81,17 +81,19 @@ public class SchoolBoard implements Board {
     }
 
     //move a student in the dining room
-    public void moveStudent(int position){
-        Student student = this.chooseStudentFromEntrance(position);
-        DiningRoom diningRoom = (DiningRoom) diningRooms.stream().filter(diningRoom1 -> diningRoom1.getColor().equals(student.getColor()));
+    public void moveStudent(Student student){
+        int position = this.getStudentPosition(student);
+        Student movedStudent = this.chooseStudentFromEntrance(position);
+        DiningRoom diningRoom = (DiningRoom) diningRooms.stream().filter(diningRoom1 -> diningRoom1.getColor().equals(movedStudent.getColor()));
         student.setPosition((Board) diningRoom);
-        diningRoom.addStudent(student);
+        diningRoom.addStudent(movedStudent);
     }
 
     //a student can be placed on an island
-    public void moveStudent(int position, IslandCard islandCard){
-        Student student = this.chooseStudentFromEntrance(position);
-        student.setPosition(islandCard);
+    public void moveStudent(Student student, IslandCard islandCard){
+        int position = this.getStudentPosition(student);
+        Student movedStudent = this.chooseStudentFromEntrance(position);
+        movedStudent.setPosition(islandCard);
     }
     //a student can be placed in the dining room
 
@@ -148,6 +150,10 @@ public class SchoolBoard implements Board {
             }
         }
         return retDiningRoom;
+    }
+
+    private int getStudentPosition(Student student){
+        return this.entrance.getStudentPosition(student);
     }
 
     public Entrance getEntrance(){
