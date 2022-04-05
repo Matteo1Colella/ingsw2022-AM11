@@ -13,17 +13,20 @@ public class GameManager {
     // list of chosen ids from players
     private ArrayList<String> usednames;
     // constructor
-    public GameManager(ArrayList<ComplexLobby> complexLobbies) {
+    public GameManager() {
         usednames = new ArrayList<>();
-        this.complexLobbies = complexLobbies;
+        this.complexLobbies = new ArrayList<ComplexLobby>();
     }
 
+    public ArrayList<ComplexLobby> getComplexLobbies() {
+        return complexLobbies;
+    }
 
     // Looks For the last Lobby matching with player preferences and returns, if exists, else it returns null
     public ComplexLobby getComplexlobby(int Numplayers, boolean Gametype){
         ComplexLobby Chosen = null;
         int ID = -1;
-        if (complexLobbies == null){
+        if (complexLobbies.isEmpty()){
             ArrayList<Player> Players = new ArrayList<Player>();
             ComplexLobby firstComplexLobby = new ComplexLobby(Numplayers, Gametype, 0, Players);
             complexLobbies.add(firstComplexLobby);

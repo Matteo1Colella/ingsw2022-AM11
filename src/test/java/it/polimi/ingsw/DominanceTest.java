@@ -22,15 +22,14 @@ public class DominanceTest {
     @Test
     public void test2PlayersDominance(){
         // game creation
-        ArrayList<ComplexLobby> Lobbies = new ArrayList<ComplexLobby>();
-        GameManager GM = new GameManager(Lobbies);
+        GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
         GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
-        Game newGame = Lobbies.get(0).getGame();
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard(false, 2);
         // end game creation
 
@@ -49,32 +48,31 @@ public class DominanceTest {
         gameComponents.getArchipelago().get(2).addStudent(yellow);
 
         // giving players their schoolboard
-        Lobbies.get(0).getPlayers().get(0).setSchoolBoard(gameComponents.getSchoolBoards().get(0));
-        Lobbies.get(0).getPlayers().get(1).setSchoolBoard(gameComponents.getSchoolBoards().get(1));
+        GM.getComplexLobbies().get(0).getPlayers().get(0).setSchoolBoard(gameComponents.getSchoolBoards().get(0));
+        GM.getComplexLobbies().get(0).getPlayers().get(1).setSchoolBoard(gameComponents.getSchoolBoards().get(1));
 
         // giving players some professors
-        Lobbies.get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(0));
-        Lobbies.get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(1));
-        Lobbies.get(0).getPlayers().get(1).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(3));
+        GM.getComplexLobbies().get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(0));
+        GM.getComplexLobbies().get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(1));
+        GM.getComplexLobbies().get(0).getPlayers().get(1).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(3));
 
         //launching dominance
         newGame.islandDominance();
 
-        assertEquals(Lobbies.get(0).getPlayers().get(0).getSchoolBoard().getTowers().get(0).getColor(), gameComponents.getArchipelago().get(2).getTower().getColor());
+        assertEquals(GM.getComplexLobbies().get(0).getPlayers().get(0).getSchoolBoard().getTowers().get(0).getColor(), gameComponents.getArchipelago().get(2).getTower().getColor());
     }
 
     @Test
     public void test2PlayersDominanceWithATower(){
         // game creation
-        ArrayList<ComplexLobby> Lobbies = new ArrayList<ComplexLobby>();
-        GameManager GM = new GameManager(Lobbies);
+        GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
         GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
-        Game newGame = Lobbies.get(0).getGame();
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard(false, 2);
         // end game creation
 
@@ -97,20 +95,20 @@ public class DominanceTest {
         gameComponents.getArchipelago().get(2).setTower(tower);
 
         // giving players their schoolboard
-        Lobbies.get(0).getPlayers().get(0).setSchoolBoard(gameComponents.getSchoolBoards().get(0));
-        Lobbies.get(0).getPlayers().get(1).setSchoolBoard(gameComponents.getSchoolBoards().get(1));
+        GM.getComplexLobbies().get(0).getPlayers().get(0).setSchoolBoard(gameComponents.getSchoolBoards().get(0));
+        GM.getComplexLobbies().get(0).getPlayers().get(1).setSchoolBoard(gameComponents.getSchoolBoards().get(1));
 
-        System.out.println(Lobbies.get(0).getPlayers().get(0).getSchoolBoard().getTowers().get(0).getColor());
-        System.out.println( Lobbies.get(0).getPlayers().get(1).getSchoolBoard().getTowers().get(0).getColor());
+        System.out.println(GM.getComplexLobbies().get(0).getPlayers().get(0).getSchoolBoard().getTowers().get(0).getColor());
+        System.out.println( GM.getComplexLobbies().get(0).getPlayers().get(1).getSchoolBoard().getTowers().get(0).getColor());
 
         // giving players some professors
-        Lobbies.get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(0));
-        Lobbies.get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(1));
-        Lobbies.get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(2));
+        GM.getComplexLobbies().get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(0));
+        GM.getComplexLobbies().get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(1));
+        GM.getComplexLobbies().get(0).getPlayers().get(0).getSchoolBoard().setProfessor(gameComponents.getProfessorCollection().get(2));
 
         //launching dominance
         newGame.islandDominance();
 
-        assertEquals(Lobbies.get(0).getPlayers().get(0).getSchoolBoard().getTowers().get(0).getColor(), gameComponents.getArchipelago().get(2).getTower().getColor());
+        assertEquals(GM.getComplexLobbies().get(0).getPlayers().get(0).getSchoolBoard().getTowers().get(0).getColor(), gameComponents.getArchipelago().get(2).getTower().getColor());
     }
 }

@@ -14,8 +14,7 @@ public class LoginTest {
     // testing lobbies functionalities
     @Test
     public void TestSameID() {
-        ArrayList<ComplexLobby> Lobbies = new ArrayList<ComplexLobby>();
-        GameManager GM = new GameManager(Lobbies);
+        GameManager GM = new GameManager();
         boolean added = GM.login("Cole", 3, true);
         assertTrue("not added first player", added);
         added = GM.login("Leo", 3, true);
@@ -33,14 +32,13 @@ public class LoginTest {
         added = GM.login("Cole3", 3, true);
         assertTrue("added duplicate player Cole", added);
 
-        int nOFLobbies = Lobbies.size();
+        int nOFLobbies = GM.getComplexLobbies().size();
         assertTrue("Lobbies must be 2 but are " + nOFLobbies, nOFLobbies == 2);
     }
 
     @Test
     public void TestFullLobby() {
-        ArrayList<ComplexLobby> Lobbies = new ArrayList<ComplexLobby>();
-        GameManager GM = new GameManager(Lobbies);
+        GameManager GM = new GameManager();
         GM.login("Cole", 3, true);
         GM.login("Leo", 3, true);
         GM.login("Ale", 3, true);
@@ -50,8 +48,7 @@ public class LoginTest {
     @Test
     // testing deck requests
     public void TestLoginAndDeck() {
-        ArrayList<ComplexLobby> Lobbies = new ArrayList<ComplexLobby>();
-        GameManager GM = new GameManager(Lobbies);
+        GameManager GM = new GameManager();
 
         boolean added = GM.login("Cole", 3, true);
         assertTrue("not added first player", added);
@@ -75,8 +72,7 @@ public class LoginTest {
 
     @Test
     public void TestLoginAndDeckMultipleLobbies() {
-        ArrayList<ComplexLobby> Lobbies = new ArrayList<ComplexLobby>();
-        GameManager GM = new GameManager(Lobbies);
+        GameManager GM = new GameManager();
 
         boolean added = GM.login("Cole", 3, true);
         assertTrue("not added first player", added);
@@ -112,8 +108,7 @@ public class LoginTest {
 
     @Test
     public void TestLoginAndDuplicateDeck() {
-        ArrayList<ComplexLobby> Lobbies = new ArrayList<ComplexLobby>();
-        GameManager GM = new GameManager(Lobbies);
+        GameManager GM = new GameManager();
 
         boolean added = GM.login("Cole", 3, true);
         assertTrue("not added first player", added);

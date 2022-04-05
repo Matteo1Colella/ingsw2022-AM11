@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.ComplexLobby;
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.board.IslandCard;
 import it.polimi.ingsw.model.*;
@@ -15,11 +16,19 @@ import static org.junit.Assert.*;
 public class GameMethodsTest {
     @Test
     public void moveMotherNatureTest() {
-        Game game = new Game(false,1,2);
-        GameComponents components = game.generateBoard(false, 2);
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+
+        Game game = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = game.generateBoard(false, 2);
+
         //motherNature starts at the position: ID_island 1 (the island with the index 0 in the ArrayList
-        game.moveMotherNature(15, components.getMothernature(), (ArrayList<IslandCard>) components.getArchipelago());
-        assertEquals(3,components.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(15, game.getGameComponents().getMothernature(), (ArrayList<IslandCard>) game.getGameComponents().getArchipelago());
+        assertEquals(3,game.getGameComponents().getMothernature().getPosition().getId_island());
     }
 
     @Test

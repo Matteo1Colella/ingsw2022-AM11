@@ -23,7 +23,6 @@ public class Game {
     private ComplexLobby complexLobby;
     private ArrayList<Card> chosenCards;
     private HashMap<ColorStudent, Player> dominanceMap;
-    private ArrayList<Professor> professors;
 
 
     // Start of Getters, Setters, Constructor
@@ -34,10 +33,6 @@ public class Game {
         this.numPlayers = numPlayers;
         this.chosenCards = new ArrayList<>();
         this.dominanceMap = new HashMap<>();
-        this.professors = new ArrayList<>();
-        for(ColorStudent tempColor : ColorStudent.values()){
-            professors.add(new Professor(tempColor));
-        }
     }
 
     public ArrayList<Card> getChosenCards() {return chosenCards;}
@@ -154,9 +149,9 @@ public class Game {
             Player player = this.dominanceMap.get(tempColor);
             if(player != null){
                 // find the correct proifessor in the professors' array
-                for(i = 0; i < this.professors.size(); i++){
-                    if(this.professors.get(i).getColor().equals(tempColor)){
-                        professor = this.professors.get(i);
+                for(i = 0; i < this.getGameComponents().getProfessorCollection().size(); i++){
+                    if(this.getGameComponents().getProfessorCollection().get(i).getColor().equals(tempColor)){
+                        professor = this.getGameComponents().getProfessorCollection().get(i);
                         break;
                     }
                 }
@@ -375,6 +370,12 @@ public class Game {
                         SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,numOfPlayers,entrancePlayer);
                         schools.add(boardPlayer2);
                         this.playerList().get(i).setSchoolBoard(boardPlayer2);
+                        break;
+                    case 2:
+                    case 3:
+                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(numOfPlayers,entrancePlayer);
+                        schools.add(boardPlayerWithNoTowers);
+                        this.playerList().get(i).setSchoolBoard(boardPlayerWithNoTowers);
                         break;
                 }
             } else {
