@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.*;
 
 
@@ -28,5 +29,7 @@ public class AppTest {
     public void movingStudent(){
 
     }
+
+
 }
 

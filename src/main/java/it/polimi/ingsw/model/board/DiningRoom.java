@@ -20,7 +20,9 @@ public class DiningRoom implements Board {
     }
 
     public void addStudent(Student student){
-        students.add(student);
+        if(student.getColor().equals(this.getColor())){
+            students.add(student);
+        }
     }
 
     //who will call this function have to control the number of the students with the same color for all Players

@@ -99,7 +99,6 @@ public class CharacterCard {
                 }
 
                 activePlayer.getSchoolBoard().getEntrance().addStudents(chosenstudents);
-
                 break;
 
             case 8:
@@ -128,9 +127,5 @@ public class CharacterCard {
                 //activePlayer.getPlayerGame().effect12();
                 break;
         }
-
-
-
     }
-
 }
