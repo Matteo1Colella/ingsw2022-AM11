@@ -376,6 +376,12 @@ public class Game {
                         schools.add(boardPlayer2);
                         this.playerList().get(i).setSchoolBoard(boardPlayer2);
                         break;
+                    case 2:
+                    case 3:
+                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(numOfPlayers,entrancePlayer);
+                        schools.add(boardPlayerWithNoTowers);
+                        this.playerList().get(i).setSchoolBoard(boardPlayerWithNoTowers);
+                        break;
                 }
             } else {
                 for(int j=0; j<8; j++) {
