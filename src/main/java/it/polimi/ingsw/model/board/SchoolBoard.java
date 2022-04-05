@@ -33,6 +33,21 @@ public class SchoolBoard implements Board {
         this.entrance = new Entrance();
     }
 
+    public SchoolBoard( int numOfPlayers, Collection<Student> students){
+
+        this.towers = new ArrayList<>();
+        towers.clear();
+        this.diningRooms = new ArrayList<>();
+
+        ColorStudent[] colorStudent = ColorStudent.values();
+        for(ColorStudent tempColor : colorStudent){
+            DiningRoom diningRoom = new DiningRoom(tempColor);
+            this.diningRooms.add(diningRoom);
+        }
+
+        this.entrance = new Entrance();
+    }
+
     //Getter and setter methods
     public ArrayList<Tower> getTowers() {
         return towers;

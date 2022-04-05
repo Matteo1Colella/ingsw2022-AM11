@@ -28,4 +28,6 @@ public class WinConditionTest {
 
         assertEquals(player1, game.winCondition());
     }
+
+
 }
