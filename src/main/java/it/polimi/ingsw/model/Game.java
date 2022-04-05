@@ -9,6 +9,7 @@ import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.pieces.*;
 import it.polimi.ingsw.model.board.*;
 
+import java.awt.*;
 import java.util.*;
 
 public class Game {
@@ -21,6 +22,8 @@ public class Game {
     private int numPlayers;
     private ComplexLobby complexLobby;
     private ArrayList<Card> chosenCards;
+    private HashMap<ColorStudent, Player> dominanceMap;
+    private ArrayList<Professor> professors;
 
 
     // Start of Getters, Setters, Constructor
@@ -30,6 +33,11 @@ public class Game {
         this.ID = ID;
         this.numPlayers = numPlayers;
         this.chosenCards = new ArrayList<>();
+        this.dominanceMap = new HashMap<>();
+        this.professors = new ArrayList<>();
+        for(ColorStudent tempColor : ColorStudent.values()){
+            professors.add(new Professor(tempColor));
+        }
     }
 
     public ArrayList<Card> getChosenCards() {return chosenCards;}
@@ -88,8 +96,90 @@ public class Game {
         return this.complexLobby.getPlayers();
     }
 
-    public Map<ColorStudent, Player> colorDominance(){
-        return null;
+    //checks if a player earns a professor
+    public void colorDominance(){
+        ArrayList<Player> players = this.complexLobby.getPlayers();
+        HashMap<Player, int[]> sizeMap = new HashMap<>();
+        int i = 0, j = 0;
+        int[] colorVector = new int[5];
+        int max = 0, indexMax = 0, countMax = 0;
+
+        //for al player, fill the sizeMap with the size of the students in the dining rooms
+        for(Player player : players){
+            int[] sizeVector = new int[5];
+            for(ColorStudent tempColor : ColorStudent.values()){
+               sizeVector[i] = player.getSchoolBoard().getDiningRoomByColor(tempColor).getStudentsSize();
+               i++;
+            }
+            sizeMap.put(player, sizeVector);
+            i = 0;
+        }
+
+        //for each color, calculate the player that has the largest number of students
+
+        //for each color, assign the player which has the dominance
+        //if two or more players have the same dominance in the same color, nothing changes for this color
+        for(ColorStudent tempColor : ColorStudent.values()){
+            i = 0;
+            //for all color, valuesVector is filled with the number of the players' students of the same color.
+            for(Player player : players){
+                int[] valuesVector = sizeMap.get(player);
+                colorVector[i] = valuesVector[j];
+                i++;
+            }
+            //find the max of ValuesVector and assign the dominance at the correct player
+            for(i = 0; i < colorVector.length; i++){
+                if(colorVector[i] > max){
+                    max = colorVector[i];
+                    indexMax = i;
+                }
+            }
+            //check if there is multiple max
+            for (int value : colorVector) {
+                if (value == max) {
+                    countMax++;
+                }
+            }
+            if(countMax == 1){
+                this.dominanceMap.put(tempColor, players.get(indexMax));
+            }
+            j++;
+            max = 0;
+            indexMax = 0;
+            countMax = 0;
+        }
+        //set the professors
+        for(ColorStudent tempColor : ColorStudent.values()){
+            Professor professor = null;
+            Player player = this.dominanceMap.get(tempColor);
+            if(player != null){
+                // find the correct proifessor in the professors' array
+                for(i = 0; i < this.professors.size(); i++){
+                    if(this.professors.get(i).getColor().equals(tempColor)){
+                        professor = this.professors.get(i);
+                        break;
+                    }
+                }
+                if(professor.getPosition() == null){
+                    player.getSchoolBoard().setProfessor(professor);
+                    professor.setPosition(player.getSchoolBoard().getDiningRoom(tempColor));
+                } else {
+                    // find the former possessor
+                    for(Player tempPlayer : this.playerList()){
+                        if(tempPlayer.getSchoolBoard().getProfessor(tempColor) != null){
+                            tempPlayer.getSchoolBoard().setProfessorNull(tempColor);
+                        }
+                        break;
+                    }
+                    player.getSchoolBoard().setProfessor(professor);
+                    professor.setPosition(player.getSchoolBoard().getDiningRoom(tempColor));
+                }
+            }
+        }
+    }
+
+    public HashMap<ColorStudent, Player> getDominanceMap(){
+        return this.dominanceMap;
     }
 
     public void islandDominance(){
@@ -137,7 +227,7 @@ public class Game {
             }
             if (!presentColors.contains(temp.getColor())){
                 presentColors.add(temp.getColor());
-        }
+            }
         }
 
         // if no students no dominance
@@ -196,7 +286,7 @@ public class Game {
         {
             if (tempPlayer.getInfluencePoints() == maxPlayer.getInfluencePoints() && !tempPlayer.equals(maxPlayer)){
                 return;
-        }
+            }
         }
 
         // if the king of the island hasn't changed nothing happens
@@ -279,10 +369,12 @@ public class Game {
                     case 0:
                         SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,numOfPlayers,entrancePlayer);
                         schools.add(boardPlayer1);
+                        this.playerList().get(i).setSchoolBoard(boardPlayer1);
                         break;
                     case 1:
                         SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,numOfPlayers,entrancePlayer);
                         schools.add(boardPlayer2);
+                        this.playerList().get(i).setSchoolBoard(boardPlayer2);
                         break;
                 }
             } else {
@@ -293,14 +385,17 @@ public class Game {
                     case 0:
                         SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,numOfPlayers,entrancePlayer);
                         schools.add(boardPlayer1);
+                        this.playerList().get(i).setSchoolBoard(boardPlayer1);
                         break;
                     case 1:
                         SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,numOfPlayers,entrancePlayer);
                         schools.add(boardPlayer2);
+                        this.playerList().get(i).setSchoolBoard(boardPlayer2);
                         break;
-                    case 3:
+                    case 2:
                         SchoolBoard boardPlayer3 = new SchoolBoard(ColorTower.GREY,numOfPlayers,entrancePlayer);
                         schools.add(boardPlayer3);
+                        this.playerList().get(i).setSchoolBoard(boardPlayer3);
                         break;
                 }
             }
@@ -318,12 +413,12 @@ public class Game {
 
             CharacterDeck specialCards = new CharacterDeck();
 
-            GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools,studentsBag,cloudContainer,professors,coinContainer,prohibitionCards,specialCards);
+            GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,specialCards);
             this.GameComponents = table;
             return table;
         }
 
-        GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools,studentsBag,cloudContainer,professors);
+        GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors);
         this.GameComponents = table;
         return table;
 
@@ -406,7 +501,7 @@ public class Game {
             else if (grey > black && grey > white)
                 return this.complexLobby.getPlayers().get(2);
 
-                //condition of draw: the winner is the player with more professors
+            //condition of draw: the winner is the player with more professors
             else if (grey == black && black == white) {
 
                 int numProfBlackPlayer = 0;
@@ -415,7 +510,7 @@ public class Game {
 
                 for (int i = 0; i < this.GameComponents.getSchoolBoards().size(); i++) {
                     for (DiningRoom diningRoom : this.GameComponents.getSchoolBoards().get(i).getDiningRooms()) {
-                        if (diningRoom.IsProfessor() == true) {
+                        if (diningRoom.IsProfessor()) {
                             switch (i) {
                                 case 0:
                                     numProfBlackPlayer++;
@@ -503,7 +598,6 @@ public class Game {
             islands.remove(prev.getId_island());
             islands.remove(next.getId_island()-1);
         }
-
 
         System.out.println("Archipelago after merging");
         islands.stream().map(IslandCard::getId_island).forEach(System.out::println);

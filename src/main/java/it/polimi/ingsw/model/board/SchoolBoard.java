@@ -140,7 +140,7 @@ public class SchoolBoard implements Board {
         return this.getEntrance().chooseStudent(position);
     }
 
-    private DiningRoom getDiningRoom(ColorStudent color) {
+    public DiningRoom getDiningRoom(ColorStudent color) {
         DiningRoom retDiningRoom = null;
         for(DiningRoom tempDiningRoom : diningRooms){
             if(tempDiningRoom.getColor().equals(color)){
@@ -158,6 +158,14 @@ public class SchoolBoard implements Board {
 
     public Entrance getEntrance(){
         return entrance;
+    }
 
+    //if the return is null, there is no professor
+    public Professor getProfessor(ColorStudent color){
+        return this.getDiningRoom(color).getProfessor();
+    }
+
+    public void setProfessorNull(ColorStudent color){
+        this.getDiningRoom(color).setProfessor(null);
     }
 }
