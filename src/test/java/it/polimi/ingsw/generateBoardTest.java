@@ -11,6 +11,30 @@ import static org.junit.Assert.*;
 
 public class generateBoardTest {
     @Test
+    public void generateBoard2Player(){
+        Player player1 = new Player(1, "leo");
+        Player player2 = new Player(2, "cole");
+        ArrayList<Player> players = new ArrayList<>();
+
+        players.add(player1);
+        players.add(player2);
+
+        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
+        complexLobby.CreateGame(2, 0, true);
+        Game game = complexLobby.getGame();
+
+        game.generateBoard(false, 2);
+
+        assertNotNull(player1.getSchoolBoard());
+        assertNotNull(player2.getSchoolBoard());
+        assertNotNull(game.getGameComponents().getArchipelago());
+        assertNotNull(game.getGameComponents().getMothernature());
+        assertNotNull(game.getGameComponents().getBag());
+        assertNotNull(game.getGameComponents().getSchoolBoards());
+        assertNotNull(game.getGameComponents().getCloudCards());
+    }
+
+    @Test
     public void generateBoard3Player(){
         Player player1 = new Player(1, "leo");
         Player player2 = new Player(2, "cole");
@@ -30,5 +54,33 @@ public class generateBoardTest {
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());
         assertNotNull(player3.getSchoolBoard());
+        assertNotNull(game.getGameComponents().getArchipelago());
+        assertNotNull(game.getGameComponents().getMothernature());
+        assertNotNull(game.getGameComponents().getBag());
+        assertNotNull(game.getGameComponents().getSchoolBoards());
+    }
+
+    @Test
+    public void generateBoard2PlayerPro(){
+        Player player1 = new Player(1, "leo");
+        Player player2 = new Player(2, "cole");
+        ArrayList<Player> players = new ArrayList<>();
+
+        players.add(player1);
+        players.add(player2);
+
+        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
+        complexLobby.CreateGame(2, 0, true);
+        Game game = complexLobby.getGame();
+
+        game.generateBoard(false, 2);
+
+        assertNotNull(player1.getSchoolBoard());
+        assertNotNull(player2.getSchoolBoard());
+        assertNotNull(game.getGameComponents().getArchipelago());
+        assertNotNull(game.getGameComponents().getMothernature());
+        assertNotNull(game.getGameComponents().getBag());
+        assertNotNull(game.getGameComponents().getSchoolBoards());
+
     }
 }
