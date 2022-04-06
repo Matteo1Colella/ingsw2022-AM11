@@ -464,7 +464,7 @@ public class Game {
 
 
         //there are three archipelagos
-        if (this.GameComponents.getArchipelago().size() == 3) {
+        if (this.GameComponents.getArchipelago().size() == 3 || (this.GameComponents.getBag().left()==0 ) ){
 
             //tower counters
             int grey = -1;
@@ -475,21 +475,23 @@ public class Game {
                 grey = 0;
 
             for (IslandCard tempIsland : this.GameComponents.getArchipelago()) {
-                switch (tempIsland.getTower().getColor()) {
-                    case BLACK:
+                if(tempIsland.getTower()==null)
+                    ;
+                else {
+                    if(tempIsland.getTower().getColor()==ColorTower.BLACK)
                         black++;
-                    case WHITE:
+                    else if (tempIsland.getTower().getColor()==ColorTower.WHITE)
                         white++;
-                    case GREY:
+                    else if (tempIsland.getTower().getColor()==ColorTower.GREY)
                         grey++;
                 }
             }
 
             // winner of: game with 2,4 players
-            if ((black > white && grey == -1) || (black > white && black > grey))
+            if ((black > white && grey == -1) )
                 return this.complexLobby.getPlayers().get(0);
 
-            else if ((black < white && grey == -1) || (black < white && white > grey))
+            else if ((black < white && grey == -1) )
                 return this.complexLobby.getPlayers().get(1);
 
                 // winner of: game with 3 players
@@ -512,14 +514,12 @@ public class Game {
                 for (int i = 0; i < this.GameComponents.getSchoolBoards().size(); i++) {
                     for (DiningRoom diningRoom : this.GameComponents.getSchoolBoards().get(i).getDiningRooms()) {
                         if (diningRoom.IsProfessor()) {
-                            switch (i) {
-                                case 0:
-                                    numProfBlackPlayer++;
-                                case 1:
-                                    numProfWhitePlayer++;
-                                case 2:
-                                    numProfGreyPlayer++;
-                            }
+                            if(i==0)
+                                numProfBlackPlayer++;
+                            else if (i==1)
+                                numProfWhitePlayer++;
+                            else if(i==2)
+                                numProfGreyPlayer++;
                         }
                     }
                 }
@@ -536,13 +536,11 @@ public class Game {
 
         //if a player finishes his playable cards
         for (Player p: this.complexLobby.getPlayers()) {
-            if(p.getDeck().leftCard()==0)
+            if(p.getDeck()==null)
+                System.out.println("ERROR: the player "+ p.getID_player()+" doesn't have a deck!");
+            else if(p.getDeck().leftCard()==0)
                 return p;
         }
-
-        //recursion to check the winner if there isn't any student in the bag
-        if(this.GameComponents.getBag().left()==0)
-            return winCondition();
 
         return null; //if there isn't a winner yet
     }
