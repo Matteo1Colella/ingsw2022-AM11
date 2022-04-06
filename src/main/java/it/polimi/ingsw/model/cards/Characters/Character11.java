@@ -12,9 +12,11 @@ public class Character11 extends CharacterCard {
     private int num;
 
     public Character11(int num) {
+        super.setNum(num);
         this.num = num;
         this.students = new ArrayList<>();
     }
+
 
     public void effect(Player activePlayer, Student givenStudent, int takenStudent){
         DiningRoom d = activePlayer.getSchoolBoard().getDiningRoomByColor(this.students.get(takenStudent).getColor());

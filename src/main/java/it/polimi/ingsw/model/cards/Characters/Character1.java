@@ -11,10 +11,10 @@ public class Character1 extends CharacterCard {
     private ArrayList<Student> students;
     private int num;
     public Character1(int num) {
+        super.setNum(num);
         this.num = num;
-        this.students = new ArrayList<>();
+        this.students = super.getStudents();
     }
-
     public void effect(Player activePlayer, IslandCard island, int input){
         students.get(input).setPosition(island);
         island.addStudent(students.get(input));

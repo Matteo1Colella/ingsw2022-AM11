@@ -8,6 +8,7 @@ public class Character2 extends CharacterCard {
 
     public Character2(int num) {
         this.num = num;
+        super.setNum(num);
     }
 
     public void effect(Player activePlayer){

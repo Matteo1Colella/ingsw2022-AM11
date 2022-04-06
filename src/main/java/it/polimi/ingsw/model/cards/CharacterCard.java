@@ -14,7 +14,23 @@ public class CharacterCard {
     private int num;
     private ArrayList<Student> students;
     private ArrayList<NoEntryTile> tiles;
-    public CharacterCard() {}
+    public CharacterCard() {
+        this.students = new ArrayList<>();
+        this.tiles = new ArrayList<>();
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
+    }
+
     public int getNum() {
         return num;
     }
@@ -24,4 +40,18 @@ public class CharacterCard {
     public void addTile(NoEntryTile tile){
         this.tiles.add(tile);
     }
+
+    public void effect(Player activePlayer, IslandCard island, int input){}
+    public void effect(Player activePlayer){}
+    public void effect(Player activePlayer, IslandCard island){}
+    public void effect(Player activePlayer, IslandCard island, int[] selectionFromSchoolboard, int[] selectionFromCard){}
+    public void effect(Player activePlayer, ColorStudent color){}
+    public void effect(Player activePlayer, ArrayList<Student> selectionFromDiningRoom, int[] selectionFromEntrance){}
+    public void effect(Player activePlayer, Student givenStudent, int takenStudent){}
+
+
+
+
+
+
 }

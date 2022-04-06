@@ -9,6 +9,7 @@ public class Character3 extends CharacterCard {
 
     public Character3(int num) {
         this.num = num;
+        super.setNum(num);
     }
 
     public void effect(Player activePlayer, IslandCard island){

@@ -14,6 +14,7 @@ public class Character7 extends CharacterCard {
 
     public Character7(int num) {
         this.students = new ArrayList<>();
+        super.setNum(num);
         this.num = num;
     }
 

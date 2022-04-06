@@ -11,6 +11,7 @@ public class Character10 extends CharacterCard {
     private int num;
 
     public Character10(int num) {
+        super.setNum(num);
         this.num = num;
     }
 

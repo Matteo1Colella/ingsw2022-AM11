@@ -13,6 +13,7 @@ public class Character5 extends CharacterCard {
     public Character5(int num) {
         this.tiles = new ArrayList<>();
         this.num = num;
+        super.setNum(num);
     }
 
     public void effect(Player activePlayer, IslandCard island){
