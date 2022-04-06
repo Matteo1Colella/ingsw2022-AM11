@@ -12,6 +12,7 @@ private it.polimi.ingsw.model.Game Game;
 private boolean GameType;
 private int NumPlayers;
 private int ID;
+private Player activePlayer;
 private ArrayList<Player> players;
 private boolean ready;
 private CoinReserve coinReserve;
@@ -25,6 +26,14 @@ private DeckManager DM;
         this.ID = ID;
         this.players = Players;
         this.DM = new DeckManager();
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public void setActivePlayer(Player activePlayer) {
+        this.activePlayer = activePlayer;
     }
 
     public DeckManager getDM() {

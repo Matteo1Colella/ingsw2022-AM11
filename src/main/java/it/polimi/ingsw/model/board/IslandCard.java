@@ -24,7 +24,11 @@ public class IslandCard implements Board {
         this.playerOwner = null;
         this.motherNature = false;
         this.mergedWith = new ArrayList<>();
-        this.locked = null;
+        this.locked = false;
+    }
+
+    public Boolean getLocked() {
+        return locked;
     }
 
     public void setId_island(int id_island) {
