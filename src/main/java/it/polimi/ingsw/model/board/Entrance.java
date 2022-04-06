@@ -22,7 +22,12 @@ public class Entrance {
         this.students.addAll(students);
 
     }
-
+    public void addStudent(Student student){
+        this.students.add(student);
+    }
+    public void removeStudent(Student student){
+        this.students.remove(student);
+    }
     public int getStudentPosition(Student student){
         return students.indexOf(student);
     }
