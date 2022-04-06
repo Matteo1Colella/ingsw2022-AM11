@@ -9,9 +9,10 @@ public class Character4 extends CharacterCard {
 
     public Character4(int num) {
         this.num = num;
+        super.setNum(num);
     }
 
-    private void effect(Player activePlayer){
+    public void effect(Player activePlayer){
         activePlayer.setMotherNatureMoves(activePlayer.getMotherNatureMoves()+2);
     }
 }

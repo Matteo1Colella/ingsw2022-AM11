@@ -8,6 +8,7 @@ public class Character8 extends CharacterCard {
     private int num;
 
     public Character8(int num) {
+        super.setNum(num);
         this.num = num;
     }
 

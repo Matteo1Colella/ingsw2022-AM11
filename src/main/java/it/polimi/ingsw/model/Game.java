@@ -609,9 +609,15 @@ public class Game {
                 prohibitionCards.add(new NoEntryTile(false, null));
             }
 
-            CharacterDeck specialCards = new CharacterDeck(this);
+            CharacterDeck temp = null;
 
+            GameComponents temptable = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,temp);
+            this.GameComponents = temptable;
+
+            CharacterDeck specialCards = new CharacterDeck(this);
             GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,specialCards);
+
+
             this.GameComponents = table;
             return table;
         }

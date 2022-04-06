@@ -110,5 +110,8 @@ private DeckManager DM;
         System.out.println("");
         this.Game = new Game(GameType, ID, NumPlayers);
         this.Game.setComplexLobby(this);
+        for(Player temp : this.players){
+            temp.setPlayerGame(this.Game);
+        }
     }
 }
