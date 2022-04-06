@@ -47,7 +47,32 @@ public class GameMethodsTest {
         assertEquals(3,game.getChosenCards().size());
         game.addChosenCard(third,3);
         assertEquals(1,game.getChosenCards().size()); //At this moment begins a new round
+
     }
+    @Test
+    public void otherMethodsGameClass(){
+        Player player1 = new Player(1, "leo");
+        Player player2 = new Player(2, "cole");
+        ArrayList<Player> players = new ArrayList<>();
+
+        players.add(player1);
+        players.add(player2);
+
+        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
+        complexLobby.CreateGame(2, 0, true);
+        Game game = complexLobby.getGame();
+
+        game.generateBoard(false, 2);
+        assertNotNull(game.startGameWithRandomPlayer());
+        assertNotNull(game.getComplexLobby());
+        game.setStatus(Status.ONLINE);
+        assertNotNull(game.getStatus());
+        game.setPro(false);
+        assertNotNull(game.isPro());
+
+
+    }
+
 
 
 }
