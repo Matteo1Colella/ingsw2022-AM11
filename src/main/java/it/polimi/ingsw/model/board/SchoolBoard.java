@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.pieces.Tower;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.controller.ColorTower;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -31,12 +32,12 @@ public class SchoolBoard implements Board {
         }
 
         this.entrance = new Entrance();
+        this.entrance.addStudents(students);
     }
 
     public SchoolBoard( int numOfPlayers, Collection<Student> students){
 
         this.towers = new ArrayList<>();
-        towers.clear();
         this.diningRooms = new ArrayList<>();
 
         ColorStudent[] colorStudent = ColorStudent.values();
@@ -46,6 +47,7 @@ public class SchoolBoard implements Board {
         }
 
         this.entrance = new Entrance();
+        this.entrance.addStudents(students);
     }
 
     //Getter and setter methods
@@ -97,18 +99,23 @@ public class SchoolBoard implements Board {
 
     //move a student in the dining room
     public void moveStudent(Student student){
-        int position = this.getStudentPosition(student);
-        Student movedStudent = this.chooseStudentFromEntrance(position);
-        DiningRoom diningRoom = (DiningRoom) diningRooms.stream().filter(diningRoom1 -> diningRoom1.getColor().equals(movedStudent.getColor()));
-        student.setPosition((Board) diningRoom);
-        diningRoom.addStudent(movedStudent);
+        Student movedStudent = this.chooseStudentFromEntrance(student);
+
+        for(ColorStudent colorStudent : ColorStudent.values()){
+            if(colorStudent.equals(student.getColor())){
+                DiningRoom diningRoom = this.getDiningRoom(colorStudent);
+                student.setPosition(diningRoom);
+                diningRoom.addStudent(movedStudent);
+                break;
+            }
+        }
     }
 
     //a student can be placed on an island
     public void moveStudent(Student student, IslandCard islandCard){
-        int position = this.getStudentPosition(student);
-        Student movedStudent = this.chooseStudentFromEntrance(position);
+        Student movedStudent = this.chooseStudentFromEntrance(student);
         movedStudent.setPosition(islandCard);
+        islandCard.addStudent(student);
     }
     //a student can be placed in the dining room
 
@@ -141,8 +148,12 @@ public class SchoolBoard implements Board {
     }
 
     //add students to the entrance
-    public void addStudetsToEntrance(Collection<Student> students){
-        this.getEntrance().addStudents(students);
+    public void addStudetsToEntrance(ArrayList<Student> students){
+        int sizeStudent = students.size();
+
+        if(this.getEntrance().getStudents().size() + sizeStudent <= 10){
+            this.getEntrance().addStudents(students);
+        }
     }
 
     //it returns the color of the tower
@@ -151,8 +162,8 @@ public class SchoolBoard implements Board {
     }
 
     //choose a student from the entrance
-    public Student chooseStudentFromEntrance(int position){
-        return this.getEntrance().chooseStudent(position);
+    public Student chooseStudentFromEntrance(Student student){
+        return this.getEntrance().chooseStudent(student);
     }
 
     public DiningRoom getDiningRoom(ColorStudent color) {
@@ -167,10 +178,6 @@ public class SchoolBoard implements Board {
         return retDiningRoom;
     }
 
-    private int getStudentPosition(Student student){
-        return this.entrance.getStudentPosition(student);
-    }
-
     public Entrance getEntrance(){
         return entrance;
     }
@@ -181,6 +188,6 @@ public class SchoolBoard implements Board {
     }
 
     public void setProfessorNull(ColorStudent color){
-        this.getDiningRoom(color).setProfessor(null);
+        this.getDiningRoom(color).removeProfessor();
     }
 }

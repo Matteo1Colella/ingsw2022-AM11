@@ -13,7 +13,7 @@ public class IslandCard implements Board {
     private Tower tower;
     private final Player playerOwner;
     private Boolean motherNature;
-    private Collection<IslandCard> mergedWith; //array of islands
+    private ArrayList<IslandCard> mergedWith; //array of islands
     private Boolean locked;
 
     //start constructors, getters, setters
@@ -72,7 +72,7 @@ public class IslandCard implements Board {
     }
 
     public boolean isMerged(){
-        return mergedWith.size() != 0;
+        return mergedWith.isEmpty();
     }
 
     public void setMergedWith(IslandCard islandCard){
@@ -81,13 +81,21 @@ public class IslandCard implements Board {
         }
     }
 
+    public void addMergedWith(ArrayList<IslandCard> islands){
+        this.mergedWith.addAll(islands);
+    }
+
+    public ArrayList<IslandCard> getMergedWith(){
+        return new ArrayList<>(this.mergedWith);
+    }
+
     public void setStudents(Collection<Student> students) {
         this.students.addAll(students);
     }
 
     //override of interface Board
     @Override
-    public Collection<Student> getStudents() {
+    public ArrayList<Student> getStudents() {
         return new ArrayList<>(students);
     }
 

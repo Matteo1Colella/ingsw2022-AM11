@@ -1,5 +1,7 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.model.board.Entrance;
+import it.polimi.ingsw.model.board.IslandCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.controller.ColorTower;
 import it.polimi.ingsw.model.pieces.Student;
@@ -52,5 +54,94 @@ public class SchoolboardTest {
         assertEquals(schoolBoard.get(0).schoolBoardTowerColor(), black);
         assertEquals(schoolBoard.get(1).schoolBoardTowerColor(), white);
         assertEquals(schoolBoard.get(2).schoolBoardTowerColor(), grey);
+    }
+
+    @Test
+    public void addStudentToEntrance(){
+        ArrayList<Student> students = new ArrayList<>();
+        for(int i = 0; i < 7; i ++ ){
+            students.add(new Student(ColorStudent.RED));
+        }
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 2, students);
+
+        Student movedStudent1 = schoolBoard.chooseStudentFromEntrance(students.get(0));
+        Student movedStudent2 = schoolBoard.chooseStudentFromEntrance(students.get(1));
+        Student movedStudent3 = schoolBoard.chooseStudentFromEntrance(students.get(2));
+
+        schoolBoard.moveStudent(movedStudent1);
+        schoolBoard.moveStudent(movedStudent2);
+        schoolBoard.moveStudent(movedStudent3);
+
+        ArrayList<Student> addingStudents = new ArrayList<>();
+        for(int i = 0; i < 3; i ++ ){
+            addingStudents.add(new Student(ColorStudent.PINK));
+        }
+
+        schoolBoard.addStudetsToEntrance(addingStudents);
+        assertEquals(schoolBoard.getEntrance().getStudents().size(), 7);
+    }
+    @Test
+    public void noAddStudentToEntrance(){
+        ArrayList<Student> students = new ArrayList<>();
+        for(int i = 0; i < 7; i ++ ){
+            students.add(new Student(ColorStudent.RED));
+        }
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 2, students);
+
+        Student movedStudent1 = schoolBoard.chooseStudentFromEntrance(students.get(0));
+        Student movedStudent2 = schoolBoard.chooseStudentFromEntrance(students.get(1));
+        Student movedStudent3 = schoolBoard.chooseStudentFromEntrance(students.get(2));
+
+        schoolBoard.moveStudent(movedStudent1);
+        schoolBoard.moveStudent(movedStudent2);
+        schoolBoard.moveStudent(movedStudent3);
+
+        ArrayList<Student> addingStudents = new ArrayList<>();
+        for(int i = 0; i < 7; i ++ ){
+            addingStudents.add(new Student(ColorStudent.PINK));
+        }
+
+        schoolBoard.addStudetsToEntrance(addingStudents);
+        assertEquals(schoolBoard.getEntrance().getStudents().size(), 4);
+    }
+
+    @Test
+    public void moveStudentToIsland(){
+        ArrayList<Student> students = new ArrayList<>();
+        for(int i = 0; i < 7; i ++ ){
+            students.add(new Student(ColorStudent.RED));
+        }
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 2, students);
+
+        IslandCard islandCard = new IslandCard(1);
+
+        Student movedStudent1 = schoolBoard.chooseStudentFromEntrance(students.get(0));
+
+        schoolBoard.moveStudent(movedStudent1, islandCard);
+
+
+        assertEquals(islandCard.getStudents().get(0), movedStudent1);
+        assertEquals(schoolBoard.getEntrance().getStudents().size(), 6);
+    }
+
+    @Test
+    public void moveMultipleStudentToIsland(){
+        ArrayList<Student> students = new ArrayList<>();
+        for(int i = 0; i < 7; i ++ ){
+            students.add(new Student(ColorStudent.RED));
+        }
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 2, students);
+
+        IslandCard islandCard = new IslandCard(1);
+
+        ArrayList<Student> studentsOnIsland = new ArrayList<>();
+        for(int i = 0; i < 2; i++){
+            Student movedStudent = schoolBoard.chooseStudentFromEntrance(students.get(i));
+            studentsOnIsland.add(movedStudent);
+            schoolBoard.moveStudent(studentsOnIsland.get(i), islandCard);
+        }
+
+        assertEquals(islandCard.getStudents(), studentsOnIsland);
+        assertEquals(schoolBoard.getEntrance().getStudents().size(), 5);
     }
 }
