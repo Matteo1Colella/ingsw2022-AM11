@@ -19,6 +19,14 @@ public class CharacterCard {
         this.tiles = new ArrayList<>();
     }
 
+    public ArrayList<NoEntryTile> getTiles() {
+        return tiles;
+    }
+
+    public void setTiles(ArrayList<NoEntryTile> tiles) {
+        this.tiles = tiles;
+    }
+
     public void setNum(int num) {
         this.num = num;
     }
@@ -44,7 +52,7 @@ public class CharacterCard {
     public void effect(Player activePlayer, IslandCard island, int input){}
     public void effect(Player activePlayer){}
     public void effect(Player activePlayer, IslandCard island){}
-    public void effect(Player activePlayer, IslandCard island, int[] selectionFromSchoolboard, int[] selectionFromCard){}
+    public void effect(Player activePlayer,  int[] selectionFromSchoolboard, int[] selectionFromCard){}
     public void effect(Player activePlayer, ColorStudent color){}
     public void effect(Player activePlayer, ArrayList<Student> selectionFromDiningRoom, int[] selectionFromEntrance){}
     public void effect(Player activePlayer, Student givenStudent, int takenStudent){}

@@ -18,12 +18,13 @@ public class Character5 extends CharacterCard {
 
     public void effect(Player activePlayer, IslandCard island){
         NoEntryTile temp = null;
-        for(NoEntryTile t : tiles){
+        for(NoEntryTile t : super.getTiles()){
             if (!t.isUsed()) {
                 temp = t;
             }
         }
         if (temp == null) return;
+        island.setLocked(true);
         temp.setPosition(island);
         temp.setUsed(true);
     }
