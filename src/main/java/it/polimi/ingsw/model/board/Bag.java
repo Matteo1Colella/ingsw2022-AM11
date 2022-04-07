@@ -25,7 +25,9 @@ public class Bag {
         }
         this.remaining = students.size();
     }
-
+    public void addStudent(Student student){
+        this.students.add(student);
+    }
     //Returns a pseudo-random student caught from the bag. The student is removed from the bag.
     //If there is no student in the bag, it will return null.
     public Student draw(){
