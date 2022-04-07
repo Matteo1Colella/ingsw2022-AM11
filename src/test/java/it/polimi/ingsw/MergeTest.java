@@ -194,6 +194,7 @@ public class MergeTest {
         assertEquals(7, gameComponents .getArchipelago().size());
     }
 
+
     @Test
     public void getMergedIsland() {
         GameManager GM = new GameManager();
@@ -266,3 +267,4 @@ public class MergeTest {
 
     }
 }
+

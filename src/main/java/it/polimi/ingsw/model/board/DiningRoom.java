@@ -18,6 +18,9 @@ public class DiningRoom implements Board {
         this.color = color;
         this.professor = null;
     }
+    public void removeStudent(Student student){
+        this.students.remove(student);
+    }
 
     public void addStudent(Student student){
         if(student.getColor().equals(this.getColor())){
@@ -56,7 +59,7 @@ public class DiningRoom implements Board {
     }
 
     @Override
-    public Collection<Student> getStudents() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 

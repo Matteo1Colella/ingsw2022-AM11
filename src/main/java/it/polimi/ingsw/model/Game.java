@@ -15,9 +15,11 @@ import java.util.*;
 public class Game {
     private Status status;
     private boolean isPro;
+    private boolean noTower;
+    private ColorStudent excludedColor;
+    private int characterUsed;
     private int MovedPieces;
     private GameComponents GameComponents;
-    private CharacterDeck characterDeck;
     private int ID;
     private int numPlayers;
     private ComplexLobby complexLobby;
@@ -33,6 +35,16 @@ public class Game {
         this.numPlayers = numPlayers;
         this.chosenCards = new ArrayList<>();
         this.dominanceMap = new HashMap<>();
+        this.noTower = false;
+        this.excludedColor = null;
+    }
+
+    public ColorStudent getExcludedColor() {
+        return excludedColor;
+    }
+
+    public void setExcludedColor(ColorStudent excludedColor) {
+        this.excludedColor = excludedColor;
     }
 
     public ArrayList<Card> getChosenCards() {return chosenCards;}
@@ -51,6 +63,14 @@ public class Game {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public boolean isNoTower() {
+        return noTower;
+    }
+
+    public void setNoTower(boolean noTower) {
+        this.noTower = noTower;
     }
 
     public boolean isPro() {
@@ -200,6 +220,12 @@ public class Game {
             }
         }
 
+        if (selectedIsland == null) return;
+
+        if (selectedIsland.getLocked()) return;
+
+        if (selectedIsland.getStudents().isEmpty()) return;
+
         //calculates how many students of each color are on the island
         for(Student temp : selectedIsland.getStudents())
         {
@@ -224,6 +250,30 @@ public class Game {
                 presentColors.add(temp.getColor());
             }
         }
+
+        //check excludedColor
+        if (excludedColor == null){
+
+        } else switch(this.excludedColor){
+            case RED:
+                numRed = 0;
+                break;
+            case PINK:
+                numPink = 0;
+                break;
+            case YELLOW:
+                numYellow = 0;
+                break;
+            case BLU:
+                numBlue = 0;
+                break;
+            case GREEN:
+                numGreen = 0;
+                break;
+        }
+
+        //resets excludedColor
+        this.excludedColor = null;
 
         // if no students no dominance
         if (presentColors.size()==0) return;
@@ -252,14 +302,14 @@ public class Game {
                     }
                 }
                 // if the island has a tower and matches color of tower of the selected player he gets +1 points
-                if ( i== 0 && selectedIsland.getTower()!= null && selectedIsland.getTower().getColor().equals(tempPlayer.getSchoolBoard().getTowers().get(0).getColor())){
+                if (!noTower && i== 0 && selectedIsland.getTower()!= null && selectedIsland.getTower().getColor().equals(tempPlayer.getSchoolBoard().getTowers().get(0).getColor())){
                     tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+1);
                     kingPlayer = tempPlayer;
                     i++;
                 }
             }
         }
-
+        this.noTower = false;
         // setting max calculation
         Player maxPlayer = players.get(0);
 
@@ -302,6 +352,153 @@ public class Game {
         maxPlayer.getSchoolBoard().getTowers().remove(0);
 
     }
+
+    public void islandDominance(IslandCard island){
+
+        IslandCard selectedIsland = null;
+        ArrayList<ColorStudent> presentColors = new ArrayList<>();
+        ArrayList<Player> players = this.complexLobby.getPlayers();
+        int indexIsland;
+        int numGreen = 0;
+        int numYellow = 0;
+        int numRed = 0;
+        int numBlue = 0;
+        int numPink = 0;
+        Player kingPlayer = null;
+
+        // gets selected island
+        selectedIsland = island;
+
+        if (selectedIsland.getLocked()) return;
+
+        if (selectedIsland.getStudents().isEmpty()) return;
+
+        //calculates how many students of each color are on the island
+        for(Student temp : selectedIsland.getStudents())
+        {
+            switch (temp.getColor()){
+                case RED:
+                    numRed++;
+                    break;
+                case PINK:
+                    numPink++;
+                    break;
+                case BLU:
+                    numBlue++;
+                    break;
+                case YELLOW:
+                    numYellow ++;
+                    break;
+                case GREEN:
+                    numGreen ++;
+                    break;
+            }
+            if (!presentColors.contains(temp.getColor())){
+                presentColors.add(temp.getColor());
+            }
+        }
+
+
+        // if no students no dominance
+        if (presentColors.size()==0) return;
+
+        //check excludedColor
+        switch(this.excludedColor){
+            case RED:
+                numRed = 0;
+                break;
+            case PINK:
+                numPink = 0;
+                break;
+            case YELLOW:
+                numYellow = 0;
+                break;
+            case BLU:
+                numBlue = 0;
+                break;
+            case GREEN:
+                numGreen = 0;
+                break;
+        }
+
+        //resets excludedColor
+        this.excludedColor = null;
+
+        //checks which player has color dominance of the students on the island and calculates influences
+        int i = 0;
+        for (ColorStudent tempColor : presentColors){
+            for (Player tempPlayer : players){
+                if (tempPlayer.getSchoolBoard().getDiningRoomByColor(tempColor).IsProfessor()){
+                    switch (tempColor){
+                        case RED:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numRed);
+                            break;
+                        case PINK:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numPink);
+                            break;
+                        case BLU:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numBlue);
+                            break;
+                        case YELLOW:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numYellow);
+                            break;
+                        case GREEN:
+                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numGreen);
+                            break;
+                    }
+                }
+                // if the island has a tower and matches color of tower of the selected player he gets +1 points
+                if (!noTower && i== 0 && selectedIsland.getTower()!= null && selectedIsland.getTower().getColor().equals(tempPlayer.getSchoolBoard().getTowers().get(0).getColor())){
+                    tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+1);
+                    kingPlayer = tempPlayer;
+                    i++;
+                }
+            }
+        }
+
+        // setting max calculation
+        Player maxPlayer = players.get(0);
+
+        // calculates who's the king of the island
+        for (Player tempPlayer : players)
+        {
+            if (tempPlayer.getInfluencePoints() > maxPlayer.getInfluencePoints())
+            {
+                maxPlayer = tempPlayer;
+            }
+
+        }
+
+        // if max influence is 0, no dominance
+        if (maxPlayer.getInfluencePoints()==0) return;
+
+        // if there's a draw nothing happens
+        for(Player tempPlayer : players)
+        {
+            if (tempPlayer.getInfluencePoints() == maxPlayer.getInfluencePoints() && !tempPlayer.equals(maxPlayer)){
+                return;
+            }
+        }
+
+        // if the king of the island hasn't changed nothing happens
+        if (maxPlayer.equals(kingPlayer)){
+            return;
+        }
+
+        // if there wasn't the king a new king is declared
+        if (kingPlayer == null){
+            selectedIsland.setTower(maxPlayer.getSchoolBoard().getTowers().get(0));
+            maxPlayer.getSchoolBoard().getTowers().remove(0);
+            return;
+        }
+
+        // if there was a king that was beaten, it gets substitued
+        kingPlayer.getSchoolBoard().getTowers().add(selectedIsland.getTower());
+        selectedIsland.setTower(maxPlayer.getSchoolBoard().getTowers().get(0));
+        maxPlayer.getSchoolBoard().getTowers().remove(0);
+
+    }
+
 
     public GameComponents generateBoard(Boolean isPro, int numOfPlayers){
 
@@ -412,9 +609,15 @@ public class Game {
                 prohibitionCards.add(new NoEntryTile(false, null));
             }
 
-            CharacterDeck specialCards = new CharacterDeck();
+            CharacterDeck temp = null;
 
+            GameComponents temptable = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,temp);
+            this.GameComponents = temptable;
+
+            CharacterDeck specialCards = new CharacterDeck(this);
             GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,specialCards);
+
+
             this.GameComponents = table;
             return table;
         }
@@ -464,7 +667,7 @@ public class Game {
 
 
         //there are three archipelagos
-        if (this.GameComponents.getArchipelago().size() == 3) {
+        if (this.GameComponents.getArchipelago().size() == 3 || (this.GameComponents.getBag().left()==0 ) ){
 
             //tower counters
             int grey = -1;
@@ -475,21 +678,23 @@ public class Game {
                 grey = 0;
 
             for (IslandCard tempIsland : this.GameComponents.getArchipelago()) {
-                switch (tempIsland.getTower().getColor()) {
-                    case BLACK:
+                if(tempIsland.getTower()==null)
+                    ;
+                else {
+                    if(tempIsland.getTower().getColor()==ColorTower.BLACK)
                         black++;
-                    case WHITE:
+                    else if (tempIsland.getTower().getColor()==ColorTower.WHITE)
                         white++;
-                    case GREY:
+                    else if (tempIsland.getTower().getColor()==ColorTower.GREY)
                         grey++;
                 }
             }
 
             // winner of: game with 2,4 players
-            if ((black > white && grey == -1) || (black > white && black > grey))
+            if ((black > white && grey == -1) )
                 return this.complexLobby.getPlayers().get(0);
 
-            else if ((black < white && grey == -1) || (black < white && white > grey))
+            else if ((black < white && grey == -1) )
                 return this.complexLobby.getPlayers().get(1);
 
                 // winner of: game with 3 players
@@ -512,14 +717,12 @@ public class Game {
                 for (int i = 0; i < this.GameComponents.getSchoolBoards().size(); i++) {
                     for (DiningRoom diningRoom : this.GameComponents.getSchoolBoards().get(i).getDiningRooms()) {
                         if (diningRoom.IsProfessor()) {
-                            switch (i) {
-                                case 0:
-                                    numProfBlackPlayer++;
-                                case 1:
-                                    numProfWhitePlayer++;
-                                case 2:
-                                    numProfGreyPlayer++;
-                            }
+                            if(i==0)
+                                numProfBlackPlayer++;
+                            else if (i==1)
+                                numProfWhitePlayer++;
+                            else if(i==2)
+                                numProfGreyPlayer++;
                         }
                     }
                 }
@@ -536,13 +739,11 @@ public class Game {
 
         //if a player finishes his playable cards
         for (Player p: this.complexLobby.getPlayers()) {
-            if(p.getDeck().leftCard()==0)
+            if(p.getDeck()==null)
+                System.out.println("ERROR: the player "+ p.getID_player()+" doesn't have a deck!");
+            else if(p.getDeck().leftCard()==0)
                 return p;
         }
-
-        //recursion to check the winner if there isn't any student in the bag
-        if(this.GameComponents.getBag().left()==0)
-            return winCondition();
 
         return null; //if there isn't a winner yet
     }
@@ -656,5 +857,9 @@ public class Game {
         motherNat.setPosition(islands.get(id_final_island ));
         islands.get(id_final_island ).setMotherNature(true);
         return motherNat;
+    }
+
+    public void useEffect(int characterUsed){
+
     }
 }

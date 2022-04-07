@@ -20,10 +20,11 @@ public class Entrance {
 
     //the caller have the control of the drawing of the students
     public void addStudents(Collection<Student> students){
+
         Collection<Student> addingStudents = new ArrayList<>(students);
         this.students.addAll(addingStudents);
-    }
-
+    }   
+   
     public Student chooseStudent(Student student){
         students.remove(student);
         return student;
