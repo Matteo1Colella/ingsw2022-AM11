@@ -103,7 +103,7 @@ public class Game {
         for(Player player : players){
             int[] sizeVector = new int[5];
             for(ColorStudent tempColor : ColorStudent.values()){
-               sizeVector[i] = player.getSchoolBoard().getDiningRoomByColor(tempColor).getStudentsSize();
+               sizeVector[i] = player.getSchoolBoard().getStudentSize(tempColor);
                i++;
             }
             sizeMap.put(player, sizeVector);
@@ -553,8 +553,8 @@ public class Game {
     */
     public ArrayList<IslandCard> mergeIsland(){
         ArrayList<IslandCard> islands = this.GameComponents.getArchipelago();
-        System.out.println("Archipelago before merging");
-        islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
+        //System.out.println("Archipelago before merging");
+        //islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
         IslandCard selectedIsland = null, next = null, prev = null;
         int indexIsland = 0;
         for (IslandCard tempIsland: islands){
@@ -582,26 +582,44 @@ public class Game {
         Tower nextTower = next.getTower();
         Tower prevTower = prev.getTower();
 
+        //if nextTower is null or has a different color then the selected, the prev is merged with the selected
         if ((nextTower == null || !nextTower.getColor().equals(currTower.getColor())) && prevTower!=null && currTower.getColor().equals(prevTower.getColor())){
             selectedIsland.setMergedWith(prev);
-            next.setMergedWith(selectedIsland);
+            //next.setMergedWith(selectedIsland);
+            if(!prev.getMergedWith().isEmpty()){
+                selectedIsland.addMergedWith(prev.getMergedWith());
+            }
             islands.remove(prev.getId_island());
-        } else if (( prevTower == null || !prevTower.getColor().equals(currTower.getColor())) && nextTower!=null && currTower.getColor().equals(nextTower.getColor())){
+        }
+        //if prevTower is null or has a different color then the selected, the prev is merged with the selected
+        else if (( prevTower == null || !prevTower.getColor().equals(currTower.getColor())) && nextTower!=null && currTower.getColor().equals(nextTower.getColor())){
             selectedIsland.setMergedWith(next);
-            prev.setMergedWith(selectedIsland);
+            //prev.setMergedWith(selectedIsland);
+            if(!next.getMergedWith().isEmpty()){
+                selectedIsland.addMergedWith(next.getMergedWith());
+            }
             islands.remove(next.getId_island());
-        } else if (prevTower!=null && nextTower!=null && currTower.getColor().equals(nextTower.getColor()) && currTower.getColor().equals(prevTower.getColor())){
-            System.out.println("entering");
+        }
+        // if prevTower and nextTower have the same color of selectedTower, they are both merged with selected
+        else if (prevTower!=null && nextTower!=null && currTower.getColor().equals(nextTower.getColor()) && currTower.getColor().equals(prevTower.getColor())){
             selectedIsland.setMergedWith(prev);
             selectedIsland.setMergedWith(next);
-            next.setMergedWith(selectedIsland);
-            prev.setMergedWith(selectedIsland);
+            //next.setMergedWith(selectedIsland);
+            //prev.setMergedWith(selectedIsland);
+
+            if(!prev.getMergedWith().isEmpty()){
+                selectedIsland.addMergedWith(prev.getMergedWith());
+            }
+            if(!next.getMergedWith().isEmpty()){
+                selectedIsland.addMergedWith(next.getMergedWith());
+            }
             islands.remove(prev.getId_island());
-            islands.remove(next.getId_island()-1);
+            //islands.remove(next.getId_island()-1);
+            islands.remove(next.getId_island());
         }
 
-        System.out.println("Archipelago after merging");
-        islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
+        //System.out.println("Archipelago after merging");
+        //islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
 
         int i = 0;
         for(IslandCard temp : islands){
@@ -610,8 +628,8 @@ public class Game {
         }
 
         this.GameComponents.setArchipelago(islands);
-        System.out.println("Archipelago after mapping and merging");
-        islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
+        //System.out.println("Archipelago after mapping and merging");
+        //islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
         return islands;
     }
 

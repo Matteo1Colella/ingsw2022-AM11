@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.board.SchoolBoard;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -63,7 +64,10 @@ public class PiecesTest {
 
     @Test
     public void professorPosition(){
-        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 2, null);
+        ArrayList<Student> students = new ArrayList<>();
+        Student student = new Student(ColorStudent.BLU);
+        students.add(student);
+        SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 2, students);
         Professor professor = new Professor(ColorStudent.RED);
 
         schoolBoard.setProfessor(professor);
