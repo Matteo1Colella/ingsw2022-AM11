@@ -18,10 +18,9 @@ public class Character7 extends CharacterCard {
         this.num = num;
     }
 
-    public void effect(Player activePlayer, IslandCard island, int[] selectionFromSchoolboard, int[] selectionFromCard){
+    public void effect(Player activePlayer, int[] selectionFromSchoolboard, int[] selectionFromCard){
         ArrayList<Student> chosen1 = new ArrayList<>();
         ArrayList<Student> chosen2 = new ArrayList<>();
-        int i =0;
 
         // stores students from schoolboard to this card
         for (int temp : selectionFromSchoolboard) {
@@ -31,8 +30,8 @@ public class Character7 extends CharacterCard {
 
         //stores students from this card to schoolboard
         for (int temp : selectionFromCard) {
-            chosen2.add(this.students.get(temp));
-            activePlayer.getSchoolBoard().getEntrance().addStudent(this.students.get(temp));
+            chosen2.add(super.getStudents().get(temp));
+            activePlayer.getSchoolBoard().getEntrance().addStudent(super.getStudents().get(temp));
         }
 
         //removes the students
@@ -42,10 +41,10 @@ public class Character7 extends CharacterCard {
 
         //removes the students
         for(Student temp : chosen2){
-            this.students.remove(temp);
+            super.getStudents().remove(temp);
         }
     }
     public void addSudent(Student student){
-        this.students.add(student);
+        super.getStudents().add(student);
     }
 }
