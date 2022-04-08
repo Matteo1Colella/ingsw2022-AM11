@@ -615,6 +615,8 @@ public class Game {
 
 
             this.GameComponents = table;
+            System.out.println("Game with PRO rules... \n");
+            pickCharacters();
             return table;
         }
 
@@ -626,8 +628,9 @@ public class Game {
 
     //shows the 3 Character cards that a player can use?
     public void pickCharacters(){
+        System.out.println("Character cards chosen for this game: ");
         for (int i=0; i<3; i++) {
-            System.out.println(this.GameComponents.getSpecialDeck().getCards().get(i));
+            System.out.println(this.GameComponents.getSpecialDeck().getCards().get(i).getNum());
         }
     }
 
