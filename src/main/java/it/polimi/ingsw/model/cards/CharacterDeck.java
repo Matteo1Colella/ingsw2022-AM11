@@ -54,6 +54,7 @@ public class CharacterDeck {
                     for(int j = 0; j < 4; j++){
                         NoEntryTile tile = new NoEntryTile(false, null);
                         card5.addTile(tile);
+
                     }
                     this.cards.add(card5);
                     break;

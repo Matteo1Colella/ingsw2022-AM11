@@ -12,7 +12,7 @@ public class Character8 extends CharacterCard {
         this.num = num;
     }
 
-    public void effect8(Player activePlayer){
+    public void effect(Player activePlayer){
         activePlayer.setInfluencePoints(activePlayer.getInfluencePoints()+2);
     }
 }

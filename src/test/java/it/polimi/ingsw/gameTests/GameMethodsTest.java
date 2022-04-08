@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.gameTests;
 
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
@@ -24,31 +24,13 @@ public class GameMethodsTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = game.generateBoard(false, 2);
+        GameComponents gameComponents = game.generateBoard();
 
         //motherNature starts at the position: ID_island 1 (the island with the index 0 in the ArrayList
         game.moveMotherNature(15, game.getGameComponents().getMothernature(), (ArrayList<IslandCard>) game.getGameComponents().getArchipelago());
         assertEquals(3,game.getGameComponents().getMothernature().getPosition().getId_island());
     }
 
-    @Test
-    public void addChosenCardTest() {
-        Game game = new Game(false,1,3);
-        Card first = new Card("cat",5,1,false,Mage.MAGE1);
-        Card second = new Card("dog",4,2,false,Mage.MAGE1);
-        Card third = new Card("hippo",3,3,false,Mage.MAGE1);
-        game.addChosenCard(first,3);
-        assertEquals(1,game.getChosenCards().size());
-        game.addChosenCard(first, 3); //prints: can't play this card
-        assertEquals(1,game.getChosenCards().size());
-        game.addChosenCard(second,3);
-        game.addChosenCard(second,3); //prints: can't play this card
-        game.addChosenCard(third,3);
-        assertEquals(3,game.getChosenCards().size());
-        game.addChosenCard(third,3);
-        assertEquals(1,game.getChosenCards().size()); //At this moment begins a new round
-
-    }
     @Test
     public void otherMethodsGameClass(){
         Player player1 = new Player(1, "leo");
@@ -59,10 +41,10 @@ public class GameMethodsTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.CreateGame(2, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 2);
+        game.generateBoard();
         assertNotNull(game.startGameWithRandomPlayer());
         assertNotNull(game.getComplexLobby());
         game.setStatus(Status.ONLINE);

@@ -1,8 +1,7 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.gameTests;
 
 import it.polimi.ingsw.model.colors.ColorStudent;
-import it.polimi.ingsw.controller.ColorTower;
-import it.polimi.ingsw.controller.ComplexLobby;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.*;
@@ -12,8 +11,6 @@ import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.model.pieces.Tower;
 import org.junit.Test;
 
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -30,7 +27,7 @@ public class DominanceTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(false, 2);
+        GameComponents gameComponents = newGame.generateBoard();
         // end game creation
 
         //game settings:
@@ -73,7 +70,7 @@ public class DominanceTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(false, 2);
+        GameComponents gameComponents = newGame.generateBoard();
         // end game creation
 
         //game settings:

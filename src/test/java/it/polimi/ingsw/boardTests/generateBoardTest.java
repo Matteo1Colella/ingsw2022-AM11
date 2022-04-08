@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.boardTests;
 
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.Game;
@@ -20,10 +20,10 @@ public class generateBoardTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.CreateGame(2, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 2);
+        game.generateBoard();
 
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());
@@ -46,10 +46,10 @@ public class generateBoardTest {
         players.add(player3);
 
         ComplexLobby complexLobby = new ComplexLobby(3, false, 0, players);
-        complexLobby.CreateGame(3, 0, true);
+        complexLobby.CreateGame(3, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 3);
+        game.generateBoard();
 
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());
@@ -59,38 +59,6 @@ public class generateBoardTest {
         assertNotNull(game.getGameComponents().getBag());
         assertNotNull(game.getGameComponents().getSchoolBoards());
     }
-
-    /*
-    @Test
-    public void generateBoard2PlayerPro(){
-        Player player1 = new Player(1, "leo");
-        Player player2 = new Player(2, "cole");
-        ArrayList<Player> players = new ArrayList<>();
-
-        players.add(player1);
-        players.add(player2);
-
-        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
-        complexLobby.CreateGame(2, 0, true);
-        Game game = complexLobby.getGame();
-
-        game.generateBoard(true, 2);
-
-        assertNotNull(player1.getSchoolBoard());
-        assertNotNull(player2.getSchoolBoard());
-        assertNotNull(game.getGameComponents().getArchipelago());
-        assertNotNull(game.getGameComponents().getMothernature());
-        assertNotNull(game.getGameComponents().getBag());
-        assertNotNull(game.getGameComponents().getSchoolBoards());
-        assertNotNull(game.getGameComponents().getCloudCards());
-        assertNotNull(game.getGameComponents().getProfessorCollection());
-        assertNotNull(game.getGameComponents().getProhibitionCards());
-        assertNotNull(game.getGameComponents().getProhibitionCards());
-        assertNotNull(game.getGameComponents().getCoins());
-        assertNotNull(game.getGameComponents().getSpecialDeck());
-
-    }
-   */
 
     @Test
     public void generateBoard4Player(){
@@ -106,15 +74,40 @@ public class generateBoardTest {
         players.add(player4);
 
         ComplexLobby complexLobby = new ComplexLobby(4, false, 0, players);
-        complexLobby.CreateGame(4, 0, true);
+        complexLobby.CreateGame(4, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 4);
+        game.generateBoard();
 
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());
         assertNotNull(player3.getSchoolBoard());
         assertEquals(0,player3.getSchoolBoard().getTowers().size());
+    }
+    @Test
+    public void generateProBoard2Player(){
+        Player player1 = new Player(1, "leo");
+        Player player2 = new Player(2, "cole");
+        ArrayList<Player> players = new ArrayList<>();
+
+        players.add(player1);
+        players.add(player2);
+
+        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
+        complexLobby.CreateGame(2, 0, true);
+        Game game = complexLobby.getGame();
+
+        game.generateBoard();
+
+        assertNotNull(player1.getSchoolBoard());
+        assertNotNull(player2.getSchoolBoard());
+        assertNotNull(game.getGameComponents().getArchipelago());
+        assertNotNull(game.getGameComponents().getMothernature());
+        assertNotNull(game.getGameComponents().getBag());
+        assertNotNull(game.getGameComponents().getSchoolBoards());
+        assertNotNull(game.getGameComponents().getCloudCards());
+
+
     }
 
 }

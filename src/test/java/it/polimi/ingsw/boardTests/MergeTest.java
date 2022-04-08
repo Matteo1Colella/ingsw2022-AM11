@@ -1,6 +1,6 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.boardTests;
 
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Mage;
@@ -25,7 +25,7 @@ public class MergeTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(false, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         newGame.moveMotherNature(3, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(3, gameComponents.getMothernature().getPosition().getId_island());
@@ -47,7 +47,7 @@ public class MergeTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = game.generateBoard(false, 2);
+        GameComponents gameComponents = game.generateBoard();
 
         game.moveMotherNature(2, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(2, gameComponents.getMothernature().getPosition().getId_island());
@@ -69,7 +69,7 @@ public class MergeTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = game.generateBoard(false, 2);
+        GameComponents gameComponents = game.generateBoard();
 
         game.moveMotherNature(3, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(3, gameComponents.getMothernature().getPosition().getId_island());
@@ -94,7 +94,7 @@ public class MergeTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = game.generateBoard(false, 2);
+        GameComponents gameComponents = game.generateBoard();
 
         game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
@@ -117,7 +117,7 @@ public class MergeTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = game.generateBoard(false, 2);
+        GameComponents gameComponents = game.generateBoard();
 
         game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
@@ -155,7 +155,7 @@ public class MergeTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = game.generateBoard(false, 2);
+        GameComponents gameComponents = game.generateBoard();
 
         game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
@@ -214,7 +214,7 @@ public class MergeTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = game.generateBoard(false, 2);
+        GameComponents gameComponents = game.generateBoard();
 
         game.moveMotherNature(1, gameComponents.getMothernature(), gameComponents.getArchipelago());
         assertEquals(1, gameComponents.getMothernature().getPosition().getId_island());

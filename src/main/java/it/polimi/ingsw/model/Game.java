@@ -1,15 +1,12 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.model.cards.CharacterDeck;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.pieces.*;
 import it.polimi.ingsw.model.board.*;
 
-import java.awt.*;
 import java.util.*;
 
 public class Game {
@@ -23,7 +20,6 @@ public class Game {
     private int ID;
     private int numPlayers;
     private ComplexLobby complexLobby;
-    private ArrayList<Card> chosenCards;
     private HashMap<ColorStudent, Player> dominanceMap;
 
 
@@ -33,7 +29,6 @@ public class Game {
         this.isPro = isPro;
         this.ID = ID;
         this.numPlayers = numPlayers;
-        this.chosenCards = new ArrayList<>();
         this.dominanceMap = new HashMap<>();
         this.noTower = false;
         this.excludedColor = null;
@@ -46,8 +41,6 @@ public class Game {
     public void setExcludedColor(ColorStudent excludedColor) {
         this.excludedColor = excludedColor;
     }
-
-    public ArrayList<Card> getChosenCards() {return chosenCards;}
 
     public ComplexLobby getComplexLobby() {
         return complexLobby;
@@ -123,8 +116,8 @@ public class Game {
         for(Player player : players){
             int[] sizeVector = new int[5];
             for(ColorStudent tempColor : ColorStudent.values()){
-               sizeVector[i] = player.getSchoolBoard().getStudentSize(tempColor);
-               i++;
+                sizeVector[i] = player.getSchoolBoard().getStudentSize(tempColor);
+                i++;
             }
             sizeMap.put(player, sizeVector);
             i = 0;
@@ -150,13 +143,34 @@ public class Game {
                 }
             }
             //check if there is multiple max
-            for (int value : colorVector) {
-                if (value == max) {
-                    countMax++;
+            if(max != 0){
+                for (int value : colorVector) {
+                    if (value == max) {
+                        countMax++;
+                    }
                 }
             }
+
             if(countMax == 1){
+                // if there is only a player with the maximum number of student in a dining room, he earns the dominance
                 this.dominanceMap.put(tempColor, players.get(indexMax));
+            } else if (isPro && countMax > 1 && colorVector[j] != 0) {
+                // if there are multiple player with the same number of student in a dining room,
+                // only the player who uses the character 2 will earn the dominance.
+                // in no one player is using charachter 2, nothing change
+                for(Player player: players){
+                    SchoolBoard schoolBoardPlayer = player.getSchoolBoard();
+                    if(schoolBoardPlayer.isCharachter2used()){
+                        if(schoolBoardPlayer.getDiningRoom(tempColor).getStudentsSize() == max){
+                            this.dominanceMap.put(tempColor, player);
+                            //the character2's validity lasts only one turn
+                            player.getSchoolBoard().setCharachter2used(false);
+                            break;
+                        }
+                    }
+                }
+            } else {
+                this.dominanceMap.put(tempColor, null);
             }
             j++;
             max = 0;
@@ -168,10 +182,11 @@ public class Game {
             Professor professor = null;
             Player player = this.dominanceMap.get(tempColor);
             if(player != null){
-                // find the correct proifessor in the professors' array
+                // find the correct professor in the professors' array
                 for(i = 0; i < this.getGameComponents().getProfessorCollection().size(); i++){
-                    if(this.getGameComponents().getProfessorCollection().get(i).getColor().equals(tempColor)){
-                        professor = this.getGameComponents().getProfessorCollection().get(i);
+                    ArrayList<Professor> professors = this.getGameComponents().getProfessorCollection();
+                    if(professors.get(i).getColor().equals(tempColor)){
+                        professor = professors.get(i);
                         break;
                     }
                 }
@@ -183,8 +198,9 @@ public class Game {
                     for(Player tempPlayer : this.playerList()){
                         if(tempPlayer.getSchoolBoard().getProfessor(tempColor) != null){
                             tempPlayer.getSchoolBoard().setProfessorNull(tempColor);
+                            break;
                         }
-                        break;
+
                     }
                     player.getSchoolBoard().setProfessor(professor);
                     professor.setPosition(player.getSchoolBoard().getDiningRoom(tempColor));
@@ -500,7 +516,7 @@ public class Game {
     }
 
 
-    public GameComponents generateBoard(Boolean isPro, int numOfPlayers){
+    public GameComponents generateBoard(){
 
         ArrayList<Student> initialBag = new ArrayList<>();
 
@@ -536,7 +552,7 @@ public class Game {
 
         //create Clouds
         ArrayList<CloudCard> cloudContainer = new ArrayList<>();
-        for (int i = 0; i < numOfPlayers; i++){
+        for (int i = 0; i < this.numPlayers; i++){
             ArrayList<Student> cloudStudents = new ArrayList<>();
             cloudContainer.add(new CloudCard(i, cloudStudents));
         }
@@ -551,26 +567,26 @@ public class Game {
 
         //create schoolBoard
         ArrayList<SchoolBoard> schools = new ArrayList<>();
-        for (int i = 0; i < numOfPlayers; i++){
+        for (int i = 0; i < this.numPlayers; i++){
             ArrayList<Student> entrancePlayer = new ArrayList<>();
-            if (numOfPlayers == 2 || numOfPlayers == 4){
+            if (this.numPlayers == 2 || this.numPlayers == 4){
                 for(int j=0; j<7; j++) {
                     entrancePlayer.add(studentsBag.draw());
                 }
                 switch(i){
                     case 0:
-                        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer1);
                         this.playerList().get(i).setSchoolBoard(boardPlayer1);
                         break;
                     case 1:
-                        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer2);
                         this.playerList().get(i).setSchoolBoard(boardPlayer2);
                         break;
                     case 2:
                     case 3:
-                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(this.numPlayers,entrancePlayer);
                         schools.add(boardPlayerWithNoTowers);
                         this.playerList().get(i).setSchoolBoard(boardPlayerWithNoTowers);
                         break;
@@ -581,17 +597,17 @@ public class Game {
                 }
                 switch(i){
                     case 0:
-                        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer1);
                         this.playerList().get(i).setSchoolBoard(boardPlayer1);
                         break;
                     case 1:
-                        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer2);
                         this.playerList().get(i).setSchoolBoard(boardPlayer2);
                         break;
                     case 2:
-                        SchoolBoard boardPlayer3 = new SchoolBoard(ColorTower.GREY,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer3 = new SchoolBoard(ColorTower.GREY,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer3);
                         this.playerList().get(i).setSchoolBoard(boardPlayer3);
                         break;
@@ -619,6 +635,8 @@ public class Game {
 
 
             this.GameComponents = table;
+            System.out.println("Game with PRO rules... \n");
+            pickCharacters();
             return table;
         }
 
@@ -628,26 +646,11 @@ public class Game {
 
     }
 
-    //adds the Card to the Array of chosen cards
-    public void addChosenCard(Card chosen, int numOfPlayers){
-
-        //necessary because, in the new round, a Player can play the card played by the last player at the previous round
-        if(this.chosenCards.size() == numOfPlayers)
-            this.chosenCards.clear(); //clear the array if already full
-
-        if (this.chosenCards.contains(chosen)) {
-            System.out.println("ERROR: You can't play this card in this round because someone has already played that");
-            return;
-        }
-
-        //chosenCards is a private attribute of game, it has the same size as numOfPlayers, at the end of a round becomes empty
-        this.chosenCards.add(chosen);
-    }
-
     //shows the 3 Character cards that a player can use?
     public void pickCharacters(){
+        System.out.println("Character cards chosen for this game: ");
         for (int i=0; i<3; i++) {
-            System.out.println(this.GameComponents.getSpecialDeck().getCards().get(i));
+            System.out.println(this.GameComponents.getSpecialDeck().getCards().get(i).getNum());
         }
     }
 

@@ -4,9 +4,8 @@ import it.polimi.ingsw.model.pieces.Professor;
 import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.model.pieces.Tower;
 import it.polimi.ingsw.model.colors.ColorStudent;
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -16,6 +15,7 @@ public class SchoolBoard implements Board {
     private final ArrayList<Tower> towers;
     private final ArrayList<DiningRoom> diningRooms; //a class is an array of students
     private final Entrance entrance;
+    private boolean charachter2used;
 
     //Constructor
     public SchoolBoard(ColorTower colorTower, int numOfPlayers, Collection<Student> students){
@@ -33,6 +33,7 @@ public class SchoolBoard implements Board {
 
         this.entrance = new Entrance();
         this.entrance.addStudents(students);
+        charachter2used = false;
     }
 
     public SchoolBoard( int numOfPlayers, Collection<Student> students){
@@ -171,7 +172,7 @@ public class SchoolBoard implements Board {
         for(DiningRoom tempDiningRoom : diningRooms){
             if(tempDiningRoom.getColor().equals(color)){
 
-               retDiningRoom = tempDiningRoom;
+                retDiningRoom = tempDiningRoom;
 
             }
         }
@@ -189,5 +190,13 @@ public class SchoolBoard implements Board {
 
     public void setProfessorNull(ColorStudent color){
         this.getDiningRoom(color).removeProfessor();
+    }
+
+    public boolean isCharachter2used() {
+        return this.charachter2used;
+    }
+
+    public void setCharachter2used(boolean used){
+        this.charachter2used = used;
     }
 }
