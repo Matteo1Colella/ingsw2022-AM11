@@ -20,10 +20,10 @@ public class generateBoardTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.CreateGame(2, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 2);
+        game.generateBoard();
 
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());
@@ -46,10 +46,10 @@ public class generateBoardTest {
         players.add(player3);
 
         ComplexLobby complexLobby = new ComplexLobby(3, false, 0, players);
-        complexLobby.CreateGame(3, 0, true);
+        complexLobby.CreateGame(3, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 3);
+        game.generateBoard();
 
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());
@@ -106,10 +106,10 @@ public class generateBoardTest {
         players.add(player4);
 
         ComplexLobby complexLobby = new ComplexLobby(4, false, 0, players);
-        complexLobby.CreateGame(4, 0, true);
+        complexLobby.CreateGame(4, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 4);
+        game.generateBoard();
 
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());

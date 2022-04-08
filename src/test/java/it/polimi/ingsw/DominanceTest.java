@@ -30,7 +30,7 @@ public class DominanceTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(false, 2);
+        GameComponents gameComponents = newGame.generateBoard();
         // end game creation
 
         //game settings:
@@ -73,7 +73,7 @@ public class DominanceTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(false, 2);
+        GameComponents gameComponents = newGame.generateBoard();
         // end game creation
 
         //game settings:

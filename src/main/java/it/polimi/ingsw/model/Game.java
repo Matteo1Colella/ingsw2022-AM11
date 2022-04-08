@@ -23,7 +23,6 @@ public class Game {
     private int ID;
     private int numPlayers;
     private ComplexLobby complexLobby;
-    private ArrayList<Card> chosenCards;
     private HashMap<ColorStudent, Player> dominanceMap;
 
 
@@ -33,7 +32,6 @@ public class Game {
         this.isPro = isPro;
         this.ID = ID;
         this.numPlayers = numPlayers;
-        this.chosenCards = new ArrayList<>();
         this.dominanceMap = new HashMap<>();
         this.noTower = false;
         this.excludedColor = null;
@@ -46,8 +44,6 @@ public class Game {
     public void setExcludedColor(ColorStudent excludedColor) {
         this.excludedColor = excludedColor;
     }
-
-    public ArrayList<Card> getChosenCards() {return chosenCards;}
 
     public ComplexLobby getComplexLobby() {
         return complexLobby;
@@ -500,7 +496,7 @@ public class Game {
     }
 
 
-    public GameComponents generateBoard(Boolean isPro, int numOfPlayers){
+    public GameComponents generateBoard(){
 
         ArrayList<Student> initialBag = new ArrayList<>();
 
@@ -536,7 +532,7 @@ public class Game {
 
         //create Clouds
         ArrayList<CloudCard> cloudContainer = new ArrayList<>();
-        for (int i = 0; i < numOfPlayers; i++){
+        for (int i = 0; i < this.numPlayers; i++){
             ArrayList<Student> cloudStudents = new ArrayList<>();
             cloudContainer.add(new CloudCard(i, cloudStudents));
         }
@@ -551,26 +547,26 @@ public class Game {
 
         //create schoolBoard
         ArrayList<SchoolBoard> schools = new ArrayList<>();
-        for (int i = 0; i < numOfPlayers; i++){
+        for (int i = 0; i < this.numPlayers; i++){
             ArrayList<Student> entrancePlayer = new ArrayList<>();
-            if (numOfPlayers == 2 || numOfPlayers == 4){
+            if (this.numPlayers == 2 || this.numPlayers == 4){
                 for(int j=0; j<7; j++) {
                     entrancePlayer.add(studentsBag.draw());
                 }
                 switch(i){
                     case 0:
-                        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer1);
                         this.playerList().get(i).setSchoolBoard(boardPlayer1);
                         break;
                     case 1:
-                        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer2);
                         this.playerList().get(i).setSchoolBoard(boardPlayer2);
                         break;
                     case 2:
                     case 3:
-                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(this.numPlayers,entrancePlayer);
                         schools.add(boardPlayerWithNoTowers);
                         this.playerList().get(i).setSchoolBoard(boardPlayerWithNoTowers);
                         break;
@@ -581,17 +577,17 @@ public class Game {
                 }
                 switch(i){
                     case 0:
-                        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer1 = new SchoolBoard(ColorTower.BLACK,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer1);
                         this.playerList().get(i).setSchoolBoard(boardPlayer1);
                         break;
                     case 1:
-                        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer2 = new SchoolBoard(ColorTower.WHITE,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer2);
                         this.playerList().get(i).setSchoolBoard(boardPlayer2);
                         break;
                     case 2:
-                        SchoolBoard boardPlayer3 = new SchoolBoard(ColorTower.GREY,numOfPlayers,entrancePlayer);
+                        SchoolBoard boardPlayer3 = new SchoolBoard(ColorTower.GREY,this.numPlayers,entrancePlayer);
                         schools.add(boardPlayer3);
                         this.playerList().get(i).setSchoolBoard(boardPlayer3);
                         break;
@@ -626,22 +622,6 @@ public class Game {
         this.GameComponents = table;
         return table;
 
-    }
-
-    //adds the Card to the Array of chosen cards
-    public void addChosenCard(Card chosen, int numOfPlayers){
-
-        //necessary because, in the new round, a Player can play the card played by the last player at the previous round
-        if(this.chosenCards.size() == numOfPlayers)
-            this.chosenCards.clear(); //clear the array if already full
-
-        if (this.chosenCards.contains(chosen)) {
-            System.out.println("ERROR: You can't play this card in this round because someone has already played that");
-            return;
-        }
-
-        //chosenCards is a private attribute of game, it has the same size as numOfPlayers, at the end of a round becomes empty
-        this.chosenCards.add(chosen);
     }
 
     //shows the 3 Character cards that a player can use?

@@ -26,7 +26,7 @@ public class giveProfessorTest {
         complexLobby.CreateGame(2, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 2);
+        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -56,10 +56,10 @@ public class giveProfessorTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.CreateGame(2, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 2);
+        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -89,10 +89,10 @@ public class giveProfessorTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.CreateGame(2, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 2);
+        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -122,10 +122,10 @@ public class giveProfessorTest {
         players.add(player3);
 
         ComplexLobby complexLobby = new ComplexLobby(3, false, 0, players);
-        complexLobby.CreateGame(3, 0, true);
+        complexLobby.CreateGame(3, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 3);
+        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
