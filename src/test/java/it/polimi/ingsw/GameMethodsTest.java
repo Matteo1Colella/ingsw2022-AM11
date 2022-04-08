@@ -24,7 +24,7 @@ public class GameMethodsTest {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = game.generateBoard(false, 2);
+        GameComponents gameComponents = game.generateBoard();
 
         //motherNature starts at the position: ID_island 1 (the island with the index 0 in the ArrayList
         game.moveMotherNature(15, game.getGameComponents().getMothernature(), (ArrayList<IslandCard>) game.getGameComponents().getArchipelago());
@@ -41,10 +41,10 @@ public class GameMethodsTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.CreateGame(2, 0, false);
         Game game = complexLobby.getGame();
 
-        game.generateBoard(false, 2);
+        game.generateBoard();
         assertNotNull(game.startGameWithRandomPlayer());
         assertNotNull(game.getComplexLobby());
         game.setStatus(Status.ONLINE);

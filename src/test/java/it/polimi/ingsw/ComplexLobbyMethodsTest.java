@@ -34,4 +34,6 @@ public class ComplexLobbyMethodsTest {
         assertEquals(1,lobby.getChosenCards().size()); //At this moment begins a new round
 
     }
+
+
 }

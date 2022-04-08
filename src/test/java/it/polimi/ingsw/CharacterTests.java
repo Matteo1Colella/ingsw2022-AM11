@@ -28,7 +28,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
         newGame.getGameComponents().getSpecialDeck().getCards().stream().map(CharacterCard::getNum).forEach(System.out::println);
 
         assertEquals(newGame.getGameComponents().getSpecialDeck().getCards().size(), 3);
@@ -44,7 +44,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 
@@ -78,7 +78,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 
@@ -99,7 +99,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 
@@ -124,7 +124,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 
@@ -150,7 +150,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 
@@ -182,7 +182,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 
@@ -206,7 +206,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 
@@ -263,7 +263,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 
@@ -287,7 +287,7 @@ public class CharacterTests {
         GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
-        GameComponents gameComponents = newGame.generateBoard(true, 2);
+        GameComponents gameComponents = newGame.generateBoard();
 
         ArrayList<CharacterCard> cards = new ArrayList<>();
 

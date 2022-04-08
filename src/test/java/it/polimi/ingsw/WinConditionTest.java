@@ -30,7 +30,7 @@ public class WinConditionTest {
         players.add(player1);
         players.add(player2);
         game.setComplexLobby(new ComplexLobby(2,false,1,players));
-        game.setGameStructure(game.generateBoard(false,2));
+        game.setGameStructure(game.generateBoard());
         assertEquals(2,game.getGameComponents().getSchoolBoards().size());
 
         game.getGameComponents().getSchoolBoards().get(0).getTowers().clear();
@@ -49,7 +49,7 @@ public class WinConditionTest {
         players.add(player1);
         players.add(player2);
         game.setComplexLobby(new ComplexLobby(2,false,1,players));
-        game.setGameStructure(game.generateBoard(false,2));
+        game.setGameStructure(game.generateBoard());
         assertEquals(2,game.getGameComponents().getSchoolBoards().size());
 
         ArrayList<IslandCard> islandCards = new ArrayList<>();
@@ -84,7 +84,7 @@ public class WinConditionTest {
         player1.setDeck(deckManager.generateDeck(Mage.MAGE1));
         player2.setDeck(deckManager.generateDeck(Mage.MAGE2));
         game.setComplexLobby(new ComplexLobby(2,false,1,players));
-        game.setGameStructure(game.generateBoard(false,2));
+        game.setGameStructure(game.generateBoard());
         assertEquals(2,game.getGameComponents().getSchoolBoards().size());
 
         ArrayList<IslandCard> islandCards = new ArrayList<>();
@@ -111,10 +111,10 @@ public class WinConditionTest {
     @Test
 
     public void OtherWinWith3Archipelagos3Players() {
-        Game game = new Game(false,1,2);
+        Game game = new Game(false,1,3);
         ArrayList<Player> players = new ArrayList<>();
         Player player1 = new Player(1,"ale");
-        Player player2 = new Player(1,"leo");
+        Player player2 = new Player(2,"leo");
         players.add(player1);
         players.add(player2);
         players.add(new Player(3,"cole"));
@@ -124,7 +124,7 @@ public class WinConditionTest {
         player2.setDeck(deckManager.generateDeck(Mage.MAGE2));
         players.get(2).setDeck(deckManager.generateDeck(Mage.MAGE3));
         game.setComplexLobby(new ComplexLobby(3,false,1,players));
-        game.setGameStructure(game.generateBoard(false,3));
+        game.setGameStructure(game.generateBoard());
         assertEquals(3,game.getGameComponents().getSchoolBoards().size());
 
         ArrayList<IslandCard> islandCards = new ArrayList<>();
@@ -152,10 +152,10 @@ public class WinConditionTest {
     @Test
 
     public void WinWithNumProf() {
-        Game game = new Game(false,1,2);
+        Game game = new Game(false,1,3);
         ArrayList<Player> players = new ArrayList<>();
         Player player1 = new Player(1,"ale");
-        Player player2 = new Player(1,"leo");
+        Player player2 = new Player(2,"leo");
         players.add(player1);
         players.add(player2);
         players.add(new Player(3,"cole"));
@@ -165,7 +165,7 @@ public class WinConditionTest {
         player2.setDeck(deckManager.generateDeck(Mage.MAGE2));
         players.get(2).setDeck(deckManager.generateDeck(Mage.MAGE3));
         game.setComplexLobby(new ComplexLobby(3,false,1,players));
-        game.setGameStructure(game.generateBoard(false,3));
+        game.setGameStructure(game.generateBoard());
         assertEquals(3,game.getGameComponents().getSchoolBoards().size());
 
         ArrayList<IslandCard> islandCards = new ArrayList<>();
@@ -195,10 +195,10 @@ public class WinConditionTest {
     @Test
 
     public void WinWithNoMoreCardsTest() {
-        Game game = new Game(false,1,2);
+        Game game = new Game(false,1,3);
         ArrayList<Player> players = new ArrayList<>();
         Player player1 = new Player(1,"ale");
-        Player player2 = new Player(1,"leo");
+        Player player2 = new Player(2,"leo");
         players.add(player1);
         players.add(player2);
         players.add(new Player(3,"cole"));
@@ -221,7 +221,7 @@ public class WinConditionTest {
         assertEquals(0,players.get(2).getDeck().leftCard());
 
         game.setComplexLobby(new ComplexLobby(3,false,1,players));
-        game.setGameStructure(game.generateBoard(false,3));
+        game.setGameStructure(game.generateBoard());
 
         assertEquals(3,game.getGameComponents().getSchoolBoards().size());
 
@@ -253,10 +253,10 @@ public class WinConditionTest {
     @Test
 
     public void NoMoreStudentTest() {
-        Game game = new Game(false,1,2);
+        Game game = new Game(false,1,3);
         ArrayList<Player> players = new ArrayList<>();
         Player player1 = new Player(1,"ale");
-        Player player2 = new Player(1,"leo");
+        Player player2 = new Player(2,"leo");
         players.add(player1);
         players.add(player2);
         players.add(new Player(3,"cole"));
@@ -268,7 +268,7 @@ public class WinConditionTest {
 
 
         game.setComplexLobby(new ComplexLobby(3,false,1,players));
-        game.setGameStructure(game.generateBoard(false,3));
+        game.setGameStructure(game.generateBoard());
 
         assertEquals(96, game.getGameComponents().getBag().left());
         game.getGameComponents().getBag().draw();
