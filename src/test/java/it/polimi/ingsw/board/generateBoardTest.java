@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.board;
 
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.Game;

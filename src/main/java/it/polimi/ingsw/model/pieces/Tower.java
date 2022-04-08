@@ -21,7 +21,7 @@ public class Tower extends Piece{
 
     //returns the position of the tower
     public Board getPosition(){
-        return null;
+        return super.getPosition();
     }
 
     //returns the color of the tower
@@ -31,6 +31,6 @@ public class Tower extends Piece{
 
     @Override
     public void setPosition(Board position) {
-
+        super.setPosition(position);
     }
 }
