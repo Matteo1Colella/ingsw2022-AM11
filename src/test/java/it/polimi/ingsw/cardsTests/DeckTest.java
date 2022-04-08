@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.cardsTests;
 
 import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.controller.DeckManager;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.boardTests;
 
 
 import it.polimi.ingsw.model.board.Bag;

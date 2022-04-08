@@ -1,7 +1,7 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.boardTests;
 
 import it.polimi.ingsw.model.colors.ColorStudent;
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.model.pieces.Tower;
 import it.polimi.ingsw.model.board.IslandCard;

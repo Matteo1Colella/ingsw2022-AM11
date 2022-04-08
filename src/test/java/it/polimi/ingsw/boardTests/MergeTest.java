@@ -1,6 +1,6 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.boardTests;
 
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Mage;

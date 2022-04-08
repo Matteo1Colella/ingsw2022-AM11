@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.cardsTests;
 
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.AssistantDeck;

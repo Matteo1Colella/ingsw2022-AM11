@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.gameTests;
 
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Mage;

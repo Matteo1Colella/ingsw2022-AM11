@@ -1,15 +1,12 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.model.cards.CharacterDeck;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.pieces.*;
 import it.polimi.ingsw.model.board.*;
 
-import java.awt.*;
 import java.util.*;
 
 public class Game {
