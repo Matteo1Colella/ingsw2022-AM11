@@ -1,8 +1,7 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.gameTests;
 
 import it.polimi.ingsw.model.colors.ColorStudent;
-import it.polimi.ingsw.controller.ColorTower;
-import it.polimi.ingsw.controller.ComplexLobby;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.*;
@@ -12,8 +11,6 @@ import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.model.pieces.Tower;
 import org.junit.Test;
 
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 

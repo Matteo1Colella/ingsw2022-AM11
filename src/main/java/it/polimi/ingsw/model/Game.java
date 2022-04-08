@@ -1,15 +1,12 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.cards.Card;
-import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.model.cards.CharacterDeck;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.pieces.*;
 import it.polimi.ingsw.model.board.*;
 
-import java.awt.*;
 import java.util.*;
 
 public class Game {
@@ -119,8 +116,8 @@ public class Game {
         for(Player player : players){
             int[] sizeVector = new int[5];
             for(ColorStudent tempColor : ColorStudent.values()){
-               sizeVector[i] = player.getSchoolBoard().getStudentSize(tempColor);
-               i++;
+                sizeVector[i] = player.getSchoolBoard().getStudentSize(tempColor);
+                i++;
             }
             sizeMap.put(player, sizeVector);
             i = 0;
@@ -146,13 +143,34 @@ public class Game {
                 }
             }
             //check if there is multiple max
-            for (int value : colorVector) {
-                if (value == max) {
-                    countMax++;
+            if(max != 0){
+                for (int value : colorVector) {
+                    if (value == max) {
+                        countMax++;
+                    }
                 }
             }
+
             if(countMax == 1){
+                // if there is only a player with the maximum number of student in a dining room, he earns the dominance
                 this.dominanceMap.put(tempColor, players.get(indexMax));
+            } else if (isPro && countMax > 1 && colorVector[j] != 0) {
+                // if there are multiple player with the same number of student in a dining room,
+                // only the player who uses the character 2 will earn the dominance.
+                // in no one player is using charachter 2, nothing change
+                for(Player player: players){
+                    SchoolBoard schoolBoardPlayer = player.getSchoolBoard();
+                    if(schoolBoardPlayer.isCharachter2used()){
+                        if(schoolBoardPlayer.getDiningRoom(tempColor).getStudentsSize() == max){
+                            this.dominanceMap.put(tempColor, player);
+                            //the character2's validity lasts only one turn
+                            player.getSchoolBoard().setCharachter2used(false);
+                            break;
+                        }
+                    }
+                }
+            } else {
+                this.dominanceMap.put(tempColor, null);
             }
             j++;
             max = 0;
@@ -164,10 +182,11 @@ public class Game {
             Professor professor = null;
             Player player = this.dominanceMap.get(tempColor);
             if(player != null){
-                // find the correct proifessor in the professors' array
+                // find the correct professor in the professors' array
                 for(i = 0; i < this.getGameComponents().getProfessorCollection().size(); i++){
-                    if(this.getGameComponents().getProfessorCollection().get(i).getColor().equals(tempColor)){
-                        professor = this.getGameComponents().getProfessorCollection().get(i);
+                    ArrayList<Professor> professors = this.getGameComponents().getProfessorCollection();
+                    if(professors.get(i).getColor().equals(tempColor)){
+                        professor = professors.get(i);
                         break;
                     }
                 }
@@ -179,8 +198,9 @@ public class Game {
                     for(Player tempPlayer : this.playerList()){
                         if(tempPlayer.getSchoolBoard().getProfessor(tempColor) != null){
                             tempPlayer.getSchoolBoard().setProfessorNull(tempColor);
+                            break;
                         }
-                        break;
+
                     }
                     player.getSchoolBoard().setProfessor(professor);
                     professor.setPosition(player.getSchoolBoard().getDiningRoom(tempColor));
@@ -615,6 +635,8 @@ public class Game {
 
 
             this.GameComponents = table;
+            System.out.println("Game with PRO rules... \n");
+            pickCharacters();
             return table;
         }
 
@@ -626,8 +648,9 @@ public class Game {
 
     //shows the 3 Character cards that a player can use?
     public void pickCharacters(){
+        System.out.println("Character cards chosen for this game: ");
         for (int i=0; i<3; i++) {
-            System.out.println(this.GameComponents.getSpecialDeck().getCards().get(i));
+            System.out.println(this.GameComponents.getSpecialDeck().getCards().get(i).getNum());
         }
     }
 

@@ -1,15 +1,12 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.gameTests;
 
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.DeckManager;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.board.Bag;
 import it.polimi.ingsw.model.board.IslandCard;
-import it.polimi.ingsw.model.cards.AssistantDeck;
-import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Professor;
 import it.polimi.ingsw.model.pieces.Tower;

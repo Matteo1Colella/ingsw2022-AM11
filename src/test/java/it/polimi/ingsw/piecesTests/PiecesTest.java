@@ -1,7 +1,7 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.piecesTests;
 
 import it.polimi.ingsw.model.colors.ColorStudent;
-import it.polimi.ingsw.controller.ColorTower;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.model.pieces.Professor;
 import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.model.board.IslandCard;
@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.board.SchoolBoard;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
