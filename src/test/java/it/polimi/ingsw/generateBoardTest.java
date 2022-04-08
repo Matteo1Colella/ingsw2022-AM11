@@ -107,7 +107,7 @@ public class generateBoardTest {
         assertNotNull(game.getGameComponents().getSchoolBoards());
         assertNotNull(game.getGameComponents().getCloudCards());
 
-        
+
     }
 
 }

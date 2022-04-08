@@ -12,6 +12,9 @@ public class Character2 extends CharacterCard {
     }
 
     public void effect(Player activePlayer){
-        // nardo needs to do this
+        //set an attribute in the activePlayer's schoolboard who indicates thad the character 2 is used.
+        // in Game, the function colorDominance will take into account this boolean value to calculate
+        // correctly the setting of professors.
+        activePlayer.getSchoolBoard().setCharachter2used(true);
     }
 }
