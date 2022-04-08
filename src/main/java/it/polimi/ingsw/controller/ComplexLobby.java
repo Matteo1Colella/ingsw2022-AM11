@@ -3,29 +3,35 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.cards.Card;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class ComplexLobby {
-private it.polimi.ingsw.model.Game Game;
-private boolean GameType;
-private int NumPlayers;
-private int ID;
-private Player activePlayer;
-private ArrayList<Player> players;
-private boolean ready;
-private CoinReserve coinReserve;
-private DeckManager DM;
+    private it.polimi.ingsw.model.Game Game;
+    private boolean GameType;
+    private int NumPlayers;
+    private int ID;
+    private Player activePlayer;
+    private ArrayList<Player> players;
+    private boolean ready;
+    private CoinReserve coinReserve;
+    private DeckManager DM;
+    private ArrayList<Card> chosenCards;
 
     // Start of Getters, Setters, Constructor
     public ComplexLobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
-
+        this.chosenCards = new ArrayList<>();
         this.GameType = gametype;
         this.NumPlayers = numplayers;
         this.ID = ID;
         this.players = Players;
         this.DM = new DeckManager();
+    }
+
+    public ArrayList<Card> getChosenCards() {
+        return chosenCards;
     }
 
     public Player getActivePlayer() {
@@ -113,5 +119,21 @@ private DeckManager DM;
         for(Player temp : this.players){
             temp.setPlayerGame(this.Game);
         }
+    }
+
+    //adds the Card to the Array of chosen cards
+    public void addChosenCard(Card chosen) {
+
+        //necessary because, in the new round, a Player can play the card played by the last player at the previous round
+        if (this.chosenCards.size() == this.NumPlayers)
+            this.chosenCards.clear(); //clear the array if already full
+
+        for (Card temp : this.chosenCards)
+            if (temp.getName().equals(chosen.getName())) {
+                System.out.println("ERROR: You can't play this card in this round because someone has already played that");
+                return;
+            }
+        //chosenCards is a private attribute of game, it has the same size as numOfPlayers, at the end of a round becomes empty
+        this.chosenCards.add(chosen);
     }
 }

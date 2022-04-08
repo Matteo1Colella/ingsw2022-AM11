@@ -23,7 +23,6 @@ public class Game {
     private int ID;
     private int numPlayers;
     private ComplexLobby complexLobby;
-    private ArrayList<Card> chosenCards;
     private HashMap<ColorStudent, Player> dominanceMap;
 
 
@@ -33,7 +32,6 @@ public class Game {
         this.isPro = isPro;
         this.ID = ID;
         this.numPlayers = numPlayers;
-        this.chosenCards = new ArrayList<>();
         this.dominanceMap = new HashMap<>();
         this.noTower = false;
         this.excludedColor = null;
@@ -46,8 +44,6 @@ public class Game {
     public void setExcludedColor(ColorStudent excludedColor) {
         this.excludedColor = excludedColor;
     }
-
-    public ArrayList<Card> getChosenCards() {return chosenCards;}
 
     public ComplexLobby getComplexLobby() {
         return complexLobby;
@@ -626,22 +622,6 @@ public class Game {
         this.GameComponents = table;
         return table;
 
-    }
-
-    //adds the Card to the Array of chosen cards
-    public void addChosenCard(Card chosen, int numOfPlayers){
-
-        //necessary because, in the new round, a Player can play the card played by the last player at the previous round
-        if(this.chosenCards.size() == numOfPlayers)
-            this.chosenCards.clear(); //clear the array if already full
-
-        if (this.chosenCards.contains(chosen)) {
-            System.out.println("ERROR: You can't play this card in this round because someone has already played that");
-            return;
-        }
-
-        //chosenCards is a private attribute of game, it has the same size as numOfPlayers, at the end of a round becomes empty
-        this.chosenCards.add(chosen);
     }
 
     //shows the 3 Character cards that a player can use?

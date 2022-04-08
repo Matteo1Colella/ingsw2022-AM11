@@ -32,24 +32,6 @@ public class GameMethodsTest {
     }
 
     @Test
-    public void addChosenCardTest() {
-        Game game = new Game(false,1,3);
-        Card first = new Card("cat",5,1,false,Mage.MAGE1);
-        Card second = new Card("dog",4,2,false,Mage.MAGE1);
-        Card third = new Card("hippo",3,3,false,Mage.MAGE1);
-        game.addChosenCard(first,3);
-        assertEquals(1,game.getChosenCards().size());
-        game.addChosenCard(first, 3); //prints: can't play this card
-        assertEquals(1,game.getChosenCards().size());
-        game.addChosenCard(second,3);
-        game.addChosenCard(second,3); //prints: can't play this card
-        game.addChosenCard(third,3);
-        assertEquals(3,game.getChosenCards().size());
-        game.addChosenCard(third,3);
-        assertEquals(1,game.getChosenCards().size()); //At this moment begins a new round
-
-    }
-    @Test
     public void otherMethodsGameClass(){
         Player player1 = new Player(1, "leo");
         Player player2 = new Player(2, "cole");
