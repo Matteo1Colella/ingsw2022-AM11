@@ -19,7 +19,9 @@ public class Character12 extends CharacterCard {
         ArrayList<Player> players = activePlayer.getPlayerGame().playerList();
         for(Player temp : players){
             DiningRoom d = temp.getSchoolBoard().getDiningRoomByColor(color);
+
             for (int i = 0; i <3; i++) {
+
                 if (d.getStudentsSize() > 0) {
                     activePlayer.getPlayerGame().getGameComponents().getBag().addStudent(d.getStudents().get(0));
                     d.removeStudent(d.getStudents().get(0));
