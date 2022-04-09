@@ -55,7 +55,7 @@ public class CharacterCard {
     public void effect(Player activePlayer,  int[] selectionFromSchoolboard, int[] selectionFromCard){}
     public void effect(Player activePlayer, ColorStudent color){}
     public void effect(Player activePlayer, ArrayList<Student> selectionFromDiningRoom, int[] selectionFromEntrance){}
-    public void effect(Player activePlayer, Student givenStudent, int takenStudent){}
+    public void effect(Player activePlayer, int takenStudent){}
 
 
 

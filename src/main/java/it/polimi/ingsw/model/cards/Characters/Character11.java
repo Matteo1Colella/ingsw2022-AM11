@@ -18,13 +18,11 @@ public class Character11 extends CharacterCard {
     }
 
 
-    public void effect(Player activePlayer, Student givenStudent, int takenStudent){
-        DiningRoom d = activePlayer.getSchoolBoard().getDiningRoomByColor(this.students.get(takenStudent).getColor());
-        this.students.add(givenStudent);
-        d.addStudent(this.students.get(takenStudent));
-        this.students.remove(givenStudent);
-        this.students.add(activePlayer.getPlayerGame().getGameComponents().getBag().draw());
-
+    public void effect(Player activePlayer, int takenStudent){
+        DiningRoom d = activePlayer.getSchoolBoard().getDiningRoomByColor(super.getStudents().get(takenStudent).getColor());
+        d.addStudent(super.getStudents().get(takenStudent));
+        super.getStudents().remove(takenStudent);
+        super.addSudent(activePlayer.getPlayerGame().getGameComponents().getBag().draw());
     }
 
 }

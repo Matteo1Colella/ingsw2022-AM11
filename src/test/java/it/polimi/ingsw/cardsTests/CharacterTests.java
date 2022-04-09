@@ -300,4 +300,171 @@ public class CharacterTests {
 
         assertEquals(ColorStudent.RED, GM.getPlayerComplexLobby("Cole").getGame().getExcludedColor());
     }
+
+    @Test
+    public void Effect10Test() {
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.generateBoard();
+
+        ArrayList<CharacterCard> cards = new ArrayList<>();
+
+        CharacterCard card10 = new Character10(10);
+        assertNotEquals(null, card10);
+
+        //initializing students chosen from diningRoom
+        ArrayList<Student> chosen1 = new ArrayList<>();
+        for (int i = 0; i < 2; i++){
+            Student s = new Student(ColorStudent.RED);
+            chosen1.add(s);
+            GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.RED).addStudent(s);
+        }
+
+        //initializing students chosen from entrance
+        int[] chosen2 = {0, 0, 0};
+        for (int i = 0; i < 2; i++){
+            Student s = new Student(ColorStudent.BLU);
+            chosen2[i]=i+7;
+            GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().addStudent(s);
+        }
+
+        cards.add(card10);
+        System.out.println("pre function:");
+        System.out.println("Entrance:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("RedDining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("Blue dining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.BLU).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+
+        newGame.getGameComponents().getSpecialDeck().setCards(cards);
+
+        newGame.getGameComponents().getSpecialDeck().getcard(10).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), chosen1, chosen2);
+        System.out.println("post function:");
+        System.out.println("Entrance:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("RedDining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("Blue dining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.BLU).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+
+        for (int i = 0; i < 2; i++) {
+            assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().getStudents().get(i+7).getColor(), ColorStudent.RED );
+        }
+        for (int i = 0; i < 2; i++) {
+            assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.BLU).getColor(), ColorStudent.BLU );
+        }
+    }
+
+    @Test
+    public void Effect11Test() {
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.generateBoard();
+
+        ArrayList<CharacterCard> cards = new ArrayList<>();
+
+        CharacterCard card11 = new Character11(11);
+        for(int j = 0; j < 4; j++){
+            card11.addSudent(newGame.getGameComponents().getBag().draw());
+        }
+        cards.add(card11);
+        newGame.getGameComponents().getSpecialDeck().setCards(cards);
+
+        Student oldCard = card11.getStudents().get(0);
+
+
+        System.out.println("pre function:");
+        System.out.println("Dining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(oldCard.getColor()).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("OnCard");
+        card11.getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+
+        //lauching character11 effect
+        newGame.getGameComponents().getSpecialDeck().getcard(11).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), 0);
+
+        System.out.println("post function:");
+        System.out.println("Dining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(oldCard.getColor()).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("OnCard");
+        card11.getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+
+        assertEquals(oldCard.getColor(), GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoomByColor(oldCard.getColor()).getStudents().get(0).getColor());
+    }
+
+    @Test
+    public void Effect12Test() {
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.generateBoard();
+
+        ArrayList<CharacterCard> cards = new ArrayList<>();
+
+        CharacterCard card12 = new Character12(12);
+        assertNotEquals(null, card12);
+
+        cards.add(card12);
+
+        for (int i = 0; i < 3; i++){
+            Student s = new Student(ColorStudent.RED);
+            GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.RED).addStudent(s);
+        }
+
+        System.out.println(" ");
+        System.out.println("Dining Cole pre:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+
+        for (int i = 0; i < 5; i++){
+            Student s = new Student(ColorStudent.RED);
+            GM.getPlayerComplexLobby("Leo").getPlayers().get(1).getSchoolBoard().getDiningRoom(ColorStudent.RED).addStudent(s);
+        }
+
+        System.out.println("Dining Leo pre:");
+        GM.getPlayerComplexLobby("Leo").getPlayers().get(1).getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+
+        newGame.getGameComponents().getSpecialDeck().setCards(cards);
+
+        newGame.getGameComponents().getSpecialDeck().getcard(12).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), ColorStudent.RED);
+
+        System.out.println("Dining Cole post:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+
+        System.out.println("Dining Leo post:");
+        GM.getPlayerComplexLobby("Leo").getPlayers().get(1).getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        
+        assertEquals(0, GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).getStudents().size());
+        assertEquals(2, GM.getPlayerComplexLobby("Leo").getPlayers().get(1).getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).getStudents().size());
+    }
 }
