@@ -23,9 +23,6 @@ public class CharacterCard {
         return tiles;
     }
 
-    public void setTiles(ArrayList<NoEntryTile> tiles) {
-        this.tiles = tiles;
-    }
 
     public void setNum(int num) {
         this.num = num;
