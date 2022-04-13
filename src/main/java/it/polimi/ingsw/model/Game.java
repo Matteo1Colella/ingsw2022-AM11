@@ -18,9 +18,9 @@ public class Game {
     private int MovedPieces;
     private GameComponents GameComponents;
     private int ID;
-    private int numPlayers;
+    private final int numPlayers;
     private ComplexLobby complexLobby;
-    private HashMap<ColorStudent, Player> dominanceMap;
+    private final HashMap<ColorStudent, Player> dominanceMap;
 
 
     // Start of Getters, Setters, Constructor
@@ -88,14 +88,6 @@ public class Game {
 
     public void setGameStructure(GameComponents gameComponents) {
         GameComponents = gameComponents;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     // End of Getters, Setters, Constructor
@@ -586,7 +578,7 @@ public class Game {
                         break;
                     case 2:
                     case 3:
-                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(this.numPlayers,entrancePlayer);
+                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(entrancePlayer);
                         schools.add(boardPlayerWithNoTowers);
                         this.playerList().get(i).setSchoolBoard(boardPlayerWithNoTowers);
                         break;
@@ -632,9 +624,8 @@ public class Game {
 
             CharacterDeck specialCards = new CharacterDeck(this);
             GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,specialCards);
-
-
             this.GameComponents = table;
+
             System.out.println("Game with PRO rules... \n");
             pickCharacters();
             return table;
@@ -755,7 +746,7 @@ public class Game {
     If two adjacent island are dominated by two towers
       of the same colors, then the island are merged.
     */
-    public ArrayList<IslandCard> mergeIsland(){
+    public void mergeIsland(){
         ArrayList<IslandCard> islands = this.GameComponents.getArchipelago();
         //System.out.println("Archipelago before merging");
         //islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
@@ -780,7 +771,7 @@ public class Game {
         }
         if (selectedIsland == null || prev == null || next == null){
             System.out.println("error not found island");
-            return null;
+            return;
         }
         Tower currTower = selectedIsland.getTower();
         Tower nextTower = next.getTower();
@@ -834,7 +825,6 @@ public class Game {
         this.GameComponents.setArchipelago(islands);
         //System.out.println("Archipelago after mapping and merging");
         //islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
-        return islands;
     }
 
     /**
@@ -865,4 +855,18 @@ public class Game {
     public void useEffect(int characterUsed){
 
     }
+
+    //function which, at the end of each turn, check if a player can earn some conis
+    public void coinGiver(){
+        for(Player player : this.complexLobby.getPlayers()){
+            SchoolBoard schoolBoard = player.getSchoolBoard();
+            //for all color check if the player can earn a coin
+            for(ColorStudent colorStudent : ColorStudent.values()){
+                if(schoolBoard.giveCoin(colorStudent)){
+                    this.getGameComponents().getCoins().giveCoin(player);
+                }
+            }
+        }
+    }
+
 }

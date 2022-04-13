@@ -9,10 +9,12 @@ import java.util.ArrayList;
 
 public class Character10 extends CharacterCard {
     private int num;
+    private final int necessaryCoin;
 
     public Character10(int num) {
         super.setNum(num);
         this.num = num;
+        this.necessaryCoin = 1;
     }
 
     public void effect(Player activePlayer, ArrayList<Student> selectionFromDiningRoom, int[] selectionFromEntrance){
@@ -46,5 +48,8 @@ public class Character10 extends CharacterCard {
         }
     }
 
-
+    @Override
+    public int getNecessaryCoin() {
+        return necessaryCoin;
+    }
 }

@@ -48,25 +48,15 @@ public class ComplexLobby {
         return DM;
     }
 
-    public void setDM(DeckManager DM) {
-        this.DM = DM;
-    }
-
     public boolean isGameType() {
         return GameType;
     }
 
-    public void setGameType(boolean gameType) {
-        GameType = gameType;
-    }
 
     public int getNumPlayers() {
         return NumPlayers;
     }
 
-    public void setNumPlayers(int numPlayers) {
-        NumPlayers = numPlayers;
-    }
 
     public Game getGame() {
         return Game;
@@ -79,11 +69,6 @@ public class ComplexLobby {
     public int getID() {
 
         return ID;
-    }
-
-    public void setID(int ID) {
-
-        this.ID = ID;
     }
 
     public ArrayList<Player> getPlayers() {

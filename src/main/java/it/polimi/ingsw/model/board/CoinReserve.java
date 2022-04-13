@@ -6,20 +6,15 @@ import java.util.ArrayList;
 
 public class CoinReserve {
 
-    private ArrayList<Coin> coins;
-    private final int totCoins = 20;
+    private final ArrayList<Coin> coins;
 
     //constructor
     public CoinReserve() {
         coins = new ArrayList<>();
+        int totCoins = 20;
         for(int i = 0; i < totCoins; i++){
             coins.add(new Coin(i));
         }
-    }
-
-    //assign a player to a coin
-    public ArrayList<Coin> getCoins() {
-        return coins;
     }
 
     //give a coin to a player
@@ -28,8 +23,9 @@ public class CoinReserve {
             if(tempCoin.getOwnerPlayer() == null){
                 tempCoin.setOwnerPlayer(player);
                 player.addCoins(tempCoin);
+                this.coins.remove(tempCoin);
+                break;
             }
-            break;
         }
     }
 
@@ -37,5 +33,9 @@ public class CoinReserve {
     //the caller have to call this function for each coin on the card
     public void addCoin(Coin coin){
         this.coins.add(coin);
+    }
+
+    public int getCoins() {
+        return this.coins.size();
     }
 }

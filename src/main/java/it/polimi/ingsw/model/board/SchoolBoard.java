@@ -36,7 +36,7 @@ public class SchoolBoard implements Board {
         charachter2used = false;
     }
 
-    public SchoolBoard( int numOfPlayers, Collection<Student> students){
+    public SchoolBoard( Collection<Student> students){
 
         this.towers = new ArrayList<>();
         this.diningRooms = new ArrayList<>();
