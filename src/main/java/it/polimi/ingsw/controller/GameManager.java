@@ -50,12 +50,12 @@ public class GameManager {
 
 
         System.out.println("searching for mage " + mage);
-        AssistantDeck d = room.getDM().generateDeck(mage);
+        AssistantDeck d = room.getDm().generateDeck(mage);
 
         // if mage is not avaible returns false
         if (d == null){
             System.out.println("Mage Already Chosen, here are remaining Mages");
-            room.getDM().getAssistantDecks().stream().filter(name -> name.isFree()).map(name -> name.getMage()).forEach(System.out::println);
+            room.getDm().getAssistantDecks().stream().filter(AssistantDeck::isFree).map(AssistantDeck::getMage).forEach(System.out::println);
             System.out.println("");
             return false;
         }
@@ -70,7 +70,7 @@ public class GameManager {
         }
         System.out.println("Added deck " + d.getMage() + " to " + IDplayer);
         System.out.println("Here are remaining Mages");
-        room.getDM().getAssistantDecks().stream().filter(name -> name.isFree()).map(name -> name.getMage()).forEach(System.out::println);
+        room.getDm().getAssistantDecks().stream().filter(AssistantDeck::isFree).map(AssistantDeck::getMage).forEach(System.out::println);
         System.out.println("");
         p0.setDeck(d);
 
@@ -118,7 +118,7 @@ public class GameManager {
                 this.complexLobbies.add(newComplexLobby);
                 System.out.println("Added Player "+ ID + " to Lobby with ID " + newComplexLobby.getID());
                 System.out.println("Players in Lobby:");
-                newComplexLobby.getPlayers().stream().map(name -> name.getID_player()).forEach(System.out::println);
+                newComplexLobby.getPlayers().stream().map(Player::getID_player).forEach(System.out::println);
                 System.out.println("");
 
                 return true;
@@ -132,7 +132,7 @@ public class GameManager {
             System.out.println("All lobbies are Full");
             System.out.println("Creating Another Lobby, with ID " + (this.complexLobbies.size() - 1));
             System.out.println("Players in Lobby:");
-            newComplexLobby.getPlayers().stream().map(name -> name.getID_player()).forEach(System.out::println);
+            newComplexLobby.getPlayers().stream().map(Player::getID_player).forEach(System.out::println);
             System.out.println("");
             return true;
             // if lobby is free adds the player
@@ -140,7 +140,7 @@ public class GameManager {
                 existingComplexLobby.AddPlayer(ID);
                 System.out.println("Added Player "+ ID + " to Lobby with ID " + existingComplexLobby.getID());
                 System.out.println("Players in Lobby:");
-                existingComplexLobby.getPlayers().stream().map(name -> name.getID_player()).forEach(System.out::println);
+                existingComplexLobby.getPlayers().stream().map(Player::getID_player).forEach(System.out::println);
                 if (existingComplexLobby.isReady()){
                     System.out.println("The Lobby is ready");
                     System.out.println("");
