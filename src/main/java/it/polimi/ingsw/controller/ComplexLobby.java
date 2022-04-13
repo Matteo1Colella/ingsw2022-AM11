@@ -6,30 +6,29 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.Card;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
 public class ComplexLobby {
-    private it.polimi.ingsw.model.Game Game;
-    private boolean GameType;
-    private int NumPlayers;
+    private it.polimi.ingsw.model.Game game;
+    private boolean gameType;
+    private int numPlayers;
     private int ID;
     private Player activePlayer;
     private ArrayList<Player> players;
     private boolean ready;
     private CoinReserve coinReserve;
-    private DeckManager DM;
+    private DeckManager dm;
     private ArrayList<Card> chosenCards;
 
     // Start of Getters, Setters, Constructor
     public ComplexLobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
         this.chosenCards = new ArrayList<>();
-        this.GameType = gametype;
-        this.NumPlayers = numplayers;
+        this.gameType = gametype;
+        this.numPlayers = numplayers;
         this.ID = ID;
         this.players = Players;
-        this.DM = new DeckManager();
+        this.dm = new DeckManager();
     }
 
     public ArrayList<Card> getChosenCards() {
@@ -44,26 +43,26 @@ public class ComplexLobby {
         this.activePlayer = activePlayer;
     }
 
-    public DeckManager getDM() {
-        return DM;
+    public DeckManager getDm() {
+        return dm;
     }
 
     public boolean isGameType() {
-        return GameType;
+        return gameType;
     }
 
 
     public int getNumPlayers() {
-        return NumPlayers;
+        return numPlayers;
     }
 
 
     public Game getGame() {
-        return Game;
+        return game;
     }
 
     public void setGame(Game game) {
-        Game = game;
+        this.game = game;
     }
 
     public int getID() {
@@ -93,7 +92,7 @@ public class ComplexLobby {
         Player New = new Player(players.size(), ID);
         New.setGameID(this.ID);
         this.players.add(New);
-        if (players.size() == this.NumPlayers) {
+        if (players.size() == this.numPlayers) {
             this.setReady(true);
         };
     }
@@ -101,11 +100,12 @@ public class ComplexLobby {
     public void CreateGame(int NumPlayers, int ID, boolean GameType) {
         System.out.println("All set! Starting Game...");
         System.out.println("");
-        this.Game = new Game(GameType, ID, NumPlayers);
-        this.Game.setComplexLobby(this);
+        this.game = new Game(GameType, ID, NumPlayers);
+        this.game.setComplexLobby(this);
         for(Player temp : this.players){
-            temp.setPlayerGame(this.Game);
+            temp.setPlayerGame(this.game);
         }
+        this.game.generateBoard();
     }
 
     //adds the Card to the Array of chosen cards
@@ -113,7 +113,7 @@ public class ComplexLobby {
     public void addChosenCard(Card chosen) {
 
         //necessary because, in the new round, a Player can play the card played by the last player at the previous round
-        if (this.chosenCards.size() == this.NumPlayers)
+        if (this.chosenCards.size() == this.numPlayers)
             this.chosenCards.clear(); //clear the array if already full
 
         for (Card temp : this.chosenCards)
@@ -129,33 +129,33 @@ public class ComplexLobby {
     public void modifyPlayerTurn(){
 
         System.out.println("Player list in the previous round: ");
-        for(int i=0; i<this.NumPlayers; i++)
+        for(int i = 0; i<this.numPlayers; i++)
             System.out.println(this.players.get(i).getID_player());
 
-        if(this.chosenCards.size()==this.NumPlayers){
+        if(this.chosenCards.size()==this.numPlayers){
 
             HashMap<Card, Player> h = new HashMap<Card, Player>();
             HashMap<Card, Player> k = new HashMap<>();
 
-            for(int i= 0; i<this.NumPlayers; i++)
+            for(int i = 0; i<this.numPlayers; i++)
                 h.put(this.chosenCards.get(i), this.getPlayers().get(i));
 
 
             Collections.sort(this.chosenCards,new OrderComparator());
 
-            for(int i= 0; i<this.NumPlayers; i++)
+            for(int i = 0; i<this.numPlayers; i++)
                 System.out.println(this.chosenCards.get(i).getName());
 
 
 
-            for(int i= 0; i<this.NumPlayers; i++) {
+            for(int i = 0; i<this.numPlayers; i++) {
                 Player temp = h.get(this.chosenCards.get(i));
                 k.put(this.chosenCards.get(i), h.get(this.chosenCards.get(i)));
             }
 
             h.clear();
 
-            for(int i= 0; i<this.NumPlayers; i++)
+            for(int i = 0; i<this.numPlayers; i++)
                 h.put(this.chosenCards.get(i), this.getPlayers().get(i));
 
 
@@ -165,7 +165,7 @@ public class ComplexLobby {
 
             System.out.println("");
             System.out.println("Player list in the next round: ");
-            for(int i= 0; i<this.NumPlayers; i++)
+            for(int i = 0; i<this.numPlayers; i++)
                 System.out.println(this.getPlayers().get(i).getID_player());
 
             }
