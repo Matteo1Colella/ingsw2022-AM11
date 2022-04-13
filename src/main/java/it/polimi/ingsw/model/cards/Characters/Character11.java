@@ -10,13 +10,14 @@ import java.util.ArrayList;
 public class Character11 extends CharacterCard {
     private ArrayList<Student> students;
     private int num;
+    private final int necessaryCoin;
 
     public Character11(int num) {
         super.setNum(num);
         this.num = num;
         this.students = new ArrayList<>();
+        this.necessaryCoin = 2;
     }
-
 
     public void effect(Player activePlayer, int takenStudent){
         DiningRoom d = activePlayer.getSchoolBoard().getDiningRoomByColor(super.getStudents().get(takenStudent).getColor());
@@ -25,4 +26,8 @@ public class Character11 extends CharacterCard {
         super.addSudent(activePlayer.getPlayerGame().getGameComponents().getBag().draw());
     }
 
+    @Override
+    public int getNecessaryCoin() {
+        return necessaryCoin;
+    }
 }
