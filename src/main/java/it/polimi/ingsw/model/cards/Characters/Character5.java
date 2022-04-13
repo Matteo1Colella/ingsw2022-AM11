@@ -10,10 +10,13 @@ import java.util.ArrayList;
 public class Character5 extends CharacterCard {
     private ArrayList<NoEntryTile> tiles;
     private int num;
+    private final int necessaryCoin;
+
     public Character5(int num) {
         this.tiles = new ArrayList<>();
         this.num = num;
         super.setNum(num);
+        this.necessaryCoin = 2;
     }
 
     public void effect(Player activePlayer, IslandCard island){
@@ -27,5 +30,10 @@ public class Character5 extends CharacterCard {
         island.setLocked(true);
         temp.setPosition(island);
         temp.setUsed(true);
+    }
+
+    @Override
+    public int getNecessaryCoin() {
+        return necessaryCoin;
     }
 }

@@ -26,7 +26,7 @@ public class GameComponents {
     //constructor pro
 
 
-    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, ArrayList<SchoolBoard> schoolBoards, it.polimi.ingsw.model.board.Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, ArrayList<SchoolBoard> schoolBoards, Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
         Archipelago = archipelago;
         Mothernature = mothernature;
         SchoolBoards = schoolBoards;
@@ -39,7 +39,7 @@ public class GameComponents {
     }
 
     //normal constructor
-    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, ArrayList<SchoolBoard> schoolBoards, it.polimi.ingsw.model.board.Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection) {
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, ArrayList<SchoolBoard> schoolBoards,Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection) {
         Archipelago = archipelago;
         Mothernature = mothernature;
         SchoolBoards = schoolBoards;
@@ -50,10 +50,6 @@ public class GameComponents {
 
     public CoinReserve getCoins() {
         return coins;
-    }
-
-    public void setCoins(CoinReserve coins) {
-        this.coins = coins;
     }
 
     public Collection<NoEntryTile> getProhibitionCards() {

@@ -14,6 +14,8 @@ public class CharacterCard {
     private int num;
     private ArrayList<Student> students;
     private ArrayList<NoEntryTile> tiles;
+    private int necessaryCoin;
+
     public CharacterCard() {
         this.students = new ArrayList<>();
         this.tiles = new ArrayList<>();
@@ -37,6 +39,10 @@ public class CharacterCard {
 
     public void setStudents(ArrayList<Student> students) {
         this.students = students;
+    }
+
+    public int getNecessaryCoin(){
+        return  this.necessaryCoin;
     }
 
     public int getNum() {
