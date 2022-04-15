@@ -81,6 +81,7 @@ public class AssistantDeckTest {
         Card card = null;
         for(int i = 0; i < 9; i++){
             card = player.playCard(i);
+            player.setMotherNatureMoves(card.getSteps());
             assertNotNull(card);
         }
         card = player.playCard(9);

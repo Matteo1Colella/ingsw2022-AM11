@@ -44,11 +44,14 @@ public class GameMethodsTest {
 
         game.generateBoard();
         assertNotNull(game.startGameWithRandomPlayer());
+        assertEquals(2, game.getComplexLobby().getPlayers().size());
         assertNotNull(game.getComplexLobby());
         game.setStatus(Status.ONLINE);
         assertNotNull(game.getStatus());
         game.setPro(false);
         assertNotNull(game.isPro());
+
+
 
 
     }
