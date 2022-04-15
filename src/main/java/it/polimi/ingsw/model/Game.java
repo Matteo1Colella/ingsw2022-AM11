@@ -244,7 +244,7 @@ public class Game {
                 case PINK:
                     numPink++;
                     break;
-                case BLU:
+                case BLUE:
                     numBlue++;
                     break;
                 case YELLOW:
@@ -272,7 +272,7 @@ public class Game {
             case YELLOW:
                 numYellow = 0;
                 break;
-            case BLU:
+            case BLUE:
                 numBlue = 0;
                 break;
             case GREEN:
@@ -298,7 +298,7 @@ public class Game {
                         case PINK:
                             tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numPink);
                             break;
-                        case BLU:
+                        case BLUE:
                             tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numBlue);
                             break;
                         case YELLOW:
@@ -391,7 +391,7 @@ public class Game {
                 case PINK:
                     numPink++;
                     break;
-                case BLU:
+                case BLUE:
                     numBlue++;
                     break;
                 case YELLOW:
@@ -421,7 +421,7 @@ public class Game {
             case YELLOW:
                 numYellow = 0;
                 break;
-            case BLU:
+            case BLUE:
                 numBlue = 0;
                 break;
             case GREEN:
@@ -444,7 +444,7 @@ public class Game {
                         case PINK:
                             tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numPink);
                             break;
-                        case BLU:
+                        case BLUE:
                             tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numBlue);
                             break;
                         case YELLOW:
@@ -545,6 +545,17 @@ public class Game {
         ArrayList<CloudCard> cloudContainer = new ArrayList<>();
         for (int i = 0; i < this.numPlayers; i++){
             ArrayList<Student> cloudStudents = new ArrayList<>();
+            if(this.numPlayers == 2 || this.numPlayers == 4){
+                for(int j = 0; j < 3; j++){
+                    Student student = studentsBag.draw();
+                    cloudStudents.add(student);
+                }
+            } else if (this.numPlayers == 3){
+                for(int j = 0; j < 4; j++){
+                    Student student = studentsBag.draw();
+                    cloudStudents.add(student);
+                }
+            }
             cloudContainer.add(new CloudCard(i, cloudStudents));
         }
 
@@ -576,14 +587,18 @@ public class Game {
                         this.playerList().get(i).setSchoolBoard(boardPlayer2);
                         break;
                     case 2:
+                        SchoolBoard boardPlayerWithNoTowers1 = new SchoolBoard(entrancePlayer);
+                        schools.add(boardPlayerWithNoTowers1);
+                        this.playerList().get(i).setSchoolBoard(boardPlayerWithNoTowers1);
+                        break;
                     case 3:
-                        SchoolBoard boardPlayerWithNoTowers = new SchoolBoard(entrancePlayer);
-                        schools.add(boardPlayerWithNoTowers);
-                        this.playerList().get(i).setSchoolBoard(boardPlayerWithNoTowers);
+                        SchoolBoard boardPlayerWithNoTowers2 = new SchoolBoard(entrancePlayer);
+                        schools.add(boardPlayerWithNoTowers2);
+                        this.playerList().get(i).setSchoolBoard(boardPlayerWithNoTowers2);
                         break;
                 }
             } else {
-                for(int j=0; j<8; j++) {
+                for(int j=0; j<9; j++) {
                     entrancePlayer.add(studentsBag.draw());
                 }
                 switch(i){
@@ -632,6 +647,9 @@ public class Game {
 
         GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors);
         this.GameComponents = table;
+
+        this.startGameWithRandomPlayer();
+
         return table;
 
     }
@@ -883,4 +901,24 @@ public class Game {
         }
     }
 
+    public void refillCloudCards(){
+        ArrayList<CloudCard> cloudCards = this.getGameComponents().getCloudCards();
+        for(CloudCard cloudCard : cloudCards){
+            if(this.numPlayers == 2 || this.numPlayers == 4){
+                ArrayList<Student> students = new ArrayList<>();
+                for(int j = 0; j < 3; j++){
+                    Student student = this.getGameComponents().getBag().draw();
+                    students.add(student);
+                }
+                cloudCard.setStudents(students);
+            } else if (this.numPlayers == 3){
+                ArrayList<Student> students = new ArrayList<>();
+                for(int j = 0; j < 4; j++){
+                    Student student = this.getGameComponents().getBag().draw();
+                    students.add(student);
+                }
+                cloudCard.setStudents(students);
+            }
+        }
+    }
 }

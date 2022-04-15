@@ -48,7 +48,7 @@ public class AssistantDeck {
 
     //choose a card from the deck
     public Card chooseCard(int i){
-
+        i--;
         if(remainingCards == 0){
             System.out.println("No cards remaining.");
             return null;

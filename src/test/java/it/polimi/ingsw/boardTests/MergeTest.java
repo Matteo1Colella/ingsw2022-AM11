@@ -82,6 +82,7 @@ public class MergeTest {
         gameComponents.getArchipelago().get(4).setTower(tower2);
         game.mergeIsland();
         assertEquals(10, gameComponents .getArchipelago().size());
+        game.getGameComponents().printArchipelago();
     }
 
     @Test
@@ -199,7 +200,7 @@ public class MergeTest {
     public void getMergedIsland() {
         GameManager GM = new GameManager();
         ArrayList<Student> students1 = new ArrayList<>();
-        students1.add(new Student(ColorStudent.BLU));
+        students1.add(new Student(ColorStudent.BLUE));
         students1.add(new Student(ColorStudent.YELLOW));
         ArrayList<Student> students2 = new ArrayList<>();
         students2.add(new Student(ColorStudent.GREEN));

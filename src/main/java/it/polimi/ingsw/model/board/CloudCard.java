@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public class CloudCard implements Board{
     private final int id_cloud;
-    private Collection<Student> students;
+    private ArrayList<Student> students;
 
     public CloudCard(int id_cloud, Collection<Student> students) {
 
@@ -23,7 +23,7 @@ public class CloudCard implements Board{
 
     //fill the students' arraylist
     //the sise of the new array have to be exactly 3: the control on that is left to the caller
-    public void setStudents(Collection<Student> students){
+    public void setStudents(ArrayList<Student> students){
         if(this.students.isEmpty()){
             this.students.addAll(students);
         }
@@ -32,9 +32,12 @@ public class CloudCard implements Board{
     //override of interface Board
     @Override
     public ArrayList<Student> getStudents() {
-        ArrayList<Student> retStudents = new ArrayList<>(this.students);
-        this.students = null;
+       return this.students;
+    }
 
+    public ArrayList<Student> drawStudents(){
+        ArrayList<Student> retStudents = new ArrayList<>(this.students);
+        this.students.clear();
         return retStudents;
     }
 
