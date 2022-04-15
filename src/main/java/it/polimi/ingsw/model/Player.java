@@ -112,13 +112,15 @@ public class Player {
     }
 
     //choose card from deck and play it
-    public Card playCard(int i){
-        if(deck.leftCard() > 0){
+    public Card playCard(int i) {
+        if (deck.leftCard() > 0) {
             return this.deck.chooseCard(i);
-        } else {
-            System.out.println("All the cards has been chosen");
-            return  null;
         }
+         else {
+            System.out.println("All the cards has been chosen");
+            return null;
+        }
+
 
     }
 
