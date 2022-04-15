@@ -648,7 +648,22 @@ public class Game {
     //selects a random player to begin
     public Player startGameWithRandomPlayer(){
         int index = (int) (Math.random() * this.complexLobby.getPlayers().size());
-        return this.complexLobby.getPlayers().get(index);
+        this.complexLobby.setActivePlayer(this.complexLobby.getPlayers().get(index));
+        ArrayList<Player> startingList = new ArrayList<>();
+        startingList.add(this.complexLobby.getPlayers().get(index));
+
+        for(int i=0; i<this.complexLobby.getNumPlayers(); i++)
+            if(startingList.contains(this.complexLobby.getPlayers().get(i)))
+                ;
+            else
+                startingList.add(this.complexLobby.getPlayers().get(i));
+
+
+        this.complexLobby.setPlayerOrder(startingList);
+        this.complexLobby.setPlayers(startingList);
+
+        this.complexLobby.setActivePlayer(this.complexLobby.getPlayers().get(0));
+        return this.complexLobby.getPlayers().get(0);
     }
 
     //checks if the game ends, returns the winner player
