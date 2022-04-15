@@ -134,9 +134,9 @@ public class SchoolBoard implements Board {
     }
 
     @Override
-    public Collection<Student> getStudents() {
+    public ArrayList<Student> getStudents() {
         ColorStudent[] colors = ColorStudent.values();
-        Collection<Student> allStudents = new ArrayList<>();
+        ArrayList<Student> allStudents = new ArrayList<>();
         for(ColorStudent tempColor : colors){
             allStudents.addAll(this.getDiningRoom(tempColor).getStudents());
         }
@@ -198,5 +198,23 @@ public class SchoolBoard implements Board {
 
     public void setCharachter2used(boolean used){
         this.charachter2used = used;
+    }
+
+    public void printSchoolBoard(){
+        Entrance entrance = this.getEntrance();
+        System.out.println("School board: ");
+        System.out.println("Students in the entrance:");
+        for(int i = 0; i < entrance.getStudents().size(); i++){
+            System.out.println("Student: " + i +  " Color : " + entrance.getStudents().get(i));
+        }
+        for(ColorStudent colorStudent : ColorStudent.values()){
+            System.out.println("Dining room color: " + colorStudent);
+            System.out.println("Size of students: " + this.getStudentSize(colorStudent));
+            if(this.getProfessor(colorStudent) == null){
+                System.out.println("Professor  = false ");
+            } else {
+                System.out.println("Professor  = true ");
+            }
+        }
     }
 }

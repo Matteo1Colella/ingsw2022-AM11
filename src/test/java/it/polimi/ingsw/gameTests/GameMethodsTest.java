@@ -5,8 +5,6 @@ import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.board.IslandCard;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.cards.AssistantDeck;
-import it.polimi.ingsw.model.cards.Card;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,8 +25,8 @@ public class GameMethodsTest {
         GameComponents gameComponents = game.generateBoard();
 
         //motherNature starts at the position: ID_island 1 (the island with the index 0 in the ArrayList
-        game.moveMotherNature(15, game.getGameComponents().getMothernature(), (ArrayList<IslandCard>) game.getGameComponents().getArchipelago());
-        assertEquals(3,game.getGameComponents().getMothernature().getPosition().getId_island());
+        game.moveMotherNature(15, game.getGameComponents().getMotherNature(), (ArrayList<IslandCard>) game.getGameComponents().getArchipelago());
+        assertEquals(3,game.getGameComponents().getMotherNature().getPosition().getId_island());
     }
 
     @Test

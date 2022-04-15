@@ -27,8 +27,8 @@ public class MergeTest {
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
 
-        newGame.moveMotherNature(3, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(3, gameComponents.getMothernature().getPosition().getId_island());
+        newGame.moveMotherNature(3, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(3, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
         Tower tower1 = new Tower(ColorTower.BLACK);
         Tower tower2 = new Tower(ColorTower.BLACK);
@@ -49,8 +49,8 @@ public class MergeTest {
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
 
-        game.moveMotherNature(2, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(2, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(2, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(2, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
         Tower tower1 = new Tower(ColorTower.BLACK);
         Tower tower2 = new Tower(ColorTower.BLACK);
@@ -71,8 +71,8 @@ public class MergeTest {
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
 
-        game.moveMotherNature(3, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(3, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(3, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(3, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
         Tower tower1 = new Tower(ColorTower.BLACK);
         Tower tower2 = new Tower(ColorTower.BLACK);
@@ -96,8 +96,8 @@ public class MergeTest {
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
 
-        game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(11, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(11, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
         Tower tower1 = new Tower(ColorTower.BLACK);
         Tower tower2 = new Tower(ColorTower.BLACK);
@@ -119,8 +119,8 @@ public class MergeTest {
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
 
-        game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(11, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(11, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
         Tower tower1 = new Tower(ColorTower.BLACK);
         Tower tower2 = new Tower(ColorTower.BLACK);
@@ -129,8 +129,8 @@ public class MergeTest {
         game.mergeIsland();
         assertEquals(11, gameComponents .getArchipelago().size());
 
-        game.moveMotherNature(3, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(2, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(3, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(2, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(11, gameComponents.getArchipelago().size());
         Tower tower6 = new Tower(ColorTower.BLACK);
         Tower tower7 = new Tower(ColorTower.BLACK);
@@ -157,8 +157,8 @@ public class MergeTest {
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
 
-        game.moveMotherNature(11, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(11, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(11, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(11, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
         Tower tower1 = new Tower(ColorTower.BLACK);
         Tower tower2 = new Tower(ColorTower.BLACK);
@@ -167,8 +167,8 @@ public class MergeTest {
         game.mergeIsland();
         assertEquals(11, gameComponents .getArchipelago().size());
 
-        game.moveMotherNature(3, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(2, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(3, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(2, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(11, gameComponents.getArchipelago().size());
         Tower tower6 = new Tower(ColorTower.BLACK);
         Tower tower7 = new Tower(ColorTower.BLACK);
@@ -177,16 +177,16 @@ public class MergeTest {
         game.mergeIsland();
         assertEquals(10, gameComponents .getArchipelago().size());
 
-        game.moveMotherNature(8, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(0, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(8, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(0, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(10, gameComponents.getArchipelago().size());
         Tower tower8 = new Tower(ColorTower.BLACK);
         gameComponents.getArchipelago().get(0).setTower(tower7);
         game.mergeIsland();
         assertEquals(9, gameComponents .getArchipelago().size());
 
-        game.moveMotherNature(1, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(1, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(1, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(1, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(9, gameComponents.getArchipelago().size());
         Tower tower9 = new Tower(ColorTower.BLACK);
         gameComponents.getArchipelago().get(1).setTower(tower9);
@@ -216,8 +216,8 @@ public class MergeTest {
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
 
-        game.moveMotherNature(1, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(1, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(1, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(1, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(12, gameComponents.getArchipelago().size());
         Tower tower1 = new Tower(ColorTower.BLACK);
         Tower tower2 = new Tower(ColorTower.BLACK);
@@ -233,8 +233,8 @@ public class MergeTest {
         }
         System.out.println("");
 
-        game.moveMotherNature(1, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(2, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(1, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(2, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(11, gameComponents.getArchipelago().size());
         Tower tower3 = new Tower(ColorTower.BLACK);
 
@@ -249,8 +249,8 @@ public class MergeTest {
 
         assertEquals(10, gameComponents .getArchipelago().size());
 
-        game.moveMotherNature(1, gameComponents.getMothernature(), gameComponents.getArchipelago());
-        assertEquals(2, gameComponents.getMothernature().getPosition().getId_island());
+        game.moveMotherNature(1, gameComponents.getMotherNature(), gameComponents.getArchipelago());
+        assertEquals(2, gameComponents.getMotherNature().getPosition().getId_island());
         assertEquals(10, gameComponents.getArchipelago().size());
         Tower tower4 = new Tower(ColorTower.BLACK);
 

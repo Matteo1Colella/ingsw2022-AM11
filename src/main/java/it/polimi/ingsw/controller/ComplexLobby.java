@@ -61,11 +61,9 @@ public class ComplexLobby {
         return gameType;
     }
 
-
     public int getNumPlayers() {
         return numPlayers;
     }
-
 
     public Game getGame() {
         return game;
@@ -205,7 +203,6 @@ public class ComplexLobby {
             setActivePlayer(this.players.get(index+1));
         else
             System.out.println("Error: First you need to call the method 'modifyPlayerTurn' to change round and set the new ActivePlayer, in this round everyone made their move!");
-
     }
 
 }

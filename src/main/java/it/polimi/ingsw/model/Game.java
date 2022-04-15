@@ -507,7 +507,6 @@ public class Game {
 
     }
 
-
     public GameComponents generateBoard(){
 
         ArrayList<Student> initialBag = new ArrayList<>();
