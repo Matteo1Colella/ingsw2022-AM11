@@ -118,22 +118,26 @@ public class ComplexLobby {
 
     //adds the Card to the Array of chosen cards
     //in a turn this method is called a (int)numPlayers times
-    public void checkIfPlayable(Card chosen) {
+    public boolean checkIfPlayable(Card chosen) {
 
 
         //necessary because, in the new round, a Player can play the card played by the last player at the previous round
         if (this.chosenCards.size() == this.numPlayers)
             this.chosenCards.clear(); //clear the array if already full
 
-        for (Card temp : this.chosenCards)
+        for (Card temp : this.chosenCards){
+            if(chosen == null){
+                return false;
+            }
             if (temp.getName().equals(chosen.getName())) {
                 System.out.println("ERROR: You can't play this card in this round because someone has already played that");
-                return;
+                return false;
             }
-
+        }
 
         //chosenCards is a private attribute of game, it has the same size as numOfPlayers, at the end of a round becomes empty
         this.chosenCards.add(chosen);
+        return true;
     }
 
     //turn manager
@@ -201,8 +205,6 @@ public class ComplexLobby {
 
         if((index+1)<this.numPlayers)
             setActivePlayer(this.players.get(index+1));
-        else
-            System.out.println("Error: First you need to call the method 'modifyPlayerTurn' to change round and set the new ActivePlayer, in this round everyone made their move!");
-    }
+       }
 
 }

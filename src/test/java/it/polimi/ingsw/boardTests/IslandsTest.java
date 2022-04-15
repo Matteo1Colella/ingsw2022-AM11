@@ -113,7 +113,7 @@ public class IslandsTest {
             green.add(new Student(ColorStudent.GREEN));
             red.add(new Student(ColorStudent.RED));
             pink.add(new Student(ColorStudent.PINK));
-            blu.add(new Student(ColorStudent.BLU));
+            blu.add(new Student(ColorStudent.BLUE));
         }
         //random choice
         for(int i=0; i<2; i++){

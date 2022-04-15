@@ -64,7 +64,7 @@ public class PiecesTest {
     @Test
     public void professorPosition(){
         ArrayList<Student> students = new ArrayList<>();
-        Student student = new Student(ColorStudent.BLU);
+        Student student = new Student(ColorStudent.BLUE);
         students.add(student);
         SchoolBoard schoolBoard = new SchoolBoard(ColorTower.BLACK, 2, students);
         Professor professor = new Professor(ColorStudent.RED);
@@ -76,7 +76,7 @@ public class PiecesTest {
 
     @Test
     public void setStudentPosition(){
-        Student student = new Student(ColorStudent.BLU);
+        Student student = new Student(ColorStudent.BLUE);
         IslandCard islandCard = new IslandCard(1);
 
         student.setPosition(islandCard);
