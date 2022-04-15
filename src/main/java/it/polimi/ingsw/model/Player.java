@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.pieces.Student;
 
 import java.util.ArrayList;
@@ -10,24 +11,24 @@ import java.util.Collection;
 
 public class Player {
 
-    private int playerNum;
-    private String ID_player;
+    private final int playerNum;
+    private final String ID_player;
     private AssistantDeck deck;
     private boolean status;
     private SchoolBoard schoolBoard;
     private int influencePoints;
-    private ArrayList<Coin> coins;
+    private final ArrayList<Coin> coins;
     private Game playerGame;
     private int gameID;
     private int MotherNatureMoves;
 
     // Start of Getters, Setters, Constructor
 
-    public Player(int playerNum, String ID_player) {
-        this.coins = new ArrayList<>();
+    public Player(int playerNum, String ID_player) {;
         this.playerNum = playerNum;
         this.ID_player = ID_player;
         this.influencePoints = 0;
+        this.coins = new ArrayList<>();
     }
 
     public int getInfluencePoints() {
@@ -58,16 +59,8 @@ public class Player {
         return playerNum;
     }
 
-    public void setPlayerNum(int playerNum) {
-        this.playerNum = playerNum;
-    }
-
     public String getID_player() {
         return ID_player;
-    }
-
-    public void setID_player(String ID_player) {
-        this.ID_player = ID_player;
     }
 
     public AssistantDeck getDeck() {
@@ -78,24 +71,12 @@ public class Player {
         this.deck = deck;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public SchoolBoard getSchoolBoard() {
         return schoolBoard;
     }
 
     public void setSchoolBoard(SchoolBoard schoolBoard) {
         this.schoolBoard = schoolBoard;
-    }
-
-    public Collection<Coin> getCoins() {
-        return coins;
     }
 
     //this method add a coin to the owned ones
@@ -115,10 +96,12 @@ public class Player {
     public Card playCard(int i) {
         if (deck.leftCard() > 0) {
             return this.deck.chooseCard(i);
+
         }
          else {
             System.out.println("All the cards has been chosen");
             return null;
+
         }
 
 
@@ -152,9 +135,19 @@ public class Player {
         return coins.size();
     }
 
-    //use a coin on a character
-    public void useCoin(){
-        coins.remove(coins.get(coins.size() - 1));
+    //use some coin on a character
+    public void playCharacter(CharacterCard character, CoinReserve coinReserve){
+        int numCoin = character.getNecessaryCoin();
+        int coinsSize = this.coins.size() - 1;
+        if(numCoin <= this.coins.size()){
+            for(int i = 0; i < numCoin; i++){
+                Coin coin = coins.get(coinsSize - i);
+                this.coins.remove(coins.get(coinsSize - i));
+                coinReserve.addCoin(coin);
+            }
+        } else {
+            System.out.println("There are not enough coins");
+        }
     }
 
     public void printRemainingCard(){

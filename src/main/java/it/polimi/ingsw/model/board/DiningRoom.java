@@ -11,7 +11,7 @@ public class DiningRoom implements Board {
     private final ColorStudent color;
     private ArrayList<Student> students; //array of occupations
     private Professor professor;
-    private int coinsGiven;
+    private boolean coinGiven;
 
     public DiningRoom(ColorStudent color){
         this.students = new ArrayList<>();
@@ -23,8 +23,15 @@ public class DiningRoom implements Board {
     }
 
     public void addStudent(Student student){
+        int sizeBeforeAdding = getStudentsSize();
         if(student.getColor().equals(this.getColor())){
             students.add(student);
+        }
+        int sizeAfterAdding = getStudentsSize();
+        if(!(sizeBeforeAdding % 3 == 0)){
+            if(!(sizeAfterAdding % 3 == 0)){
+                coinGiven = false;
+            }
         }
     }
 
@@ -47,7 +54,18 @@ public class DiningRoom implements Board {
 
     //says if it is possible to earn a coin
     public boolean giveCoin(){
-        return students.size() % 3 == 0;
+        if(!students.isEmpty() && students.size() != 1 && students.size() != 2){
+            if(students.size() % 3 == 0){
+                coinGiven = true;
+                return true;
+            } else {
+                if(!coinGiven){
+                    coinGiven = true;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public ColorStudent getColor(){

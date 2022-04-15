@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.ComplexLobby;
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.*;
 
 
@@ -20,16 +21,8 @@ import static org.junit.Assert.*;
 /**
  * Unit test for simple App.
  */
-public class AppTest {
-
-
-    //move a student on an island or dashboard
-    //CANT TESTED UNTIL SOMEONE WRITES STUDENT
-    @Test
-    public void movingStudent(){
-
-    }
-
+public class FullGameTest {
+    
 
 }
 

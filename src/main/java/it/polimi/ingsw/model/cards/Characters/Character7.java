@@ -11,11 +11,13 @@ public class Character7 extends CharacterCard {
 
     private ArrayList<Student> students;
     private int num;
+    private final int necessaryCoin;
 
     public Character7(int num) {
         this.students = new ArrayList<>();
         super.setNum(num);
         this.num = num;
+        this.necessaryCoin = 1;
     }
 
     public void effect(Player activePlayer, int[] selectionFromSchoolboard, int[] selectionFromCard){
@@ -46,5 +48,10 @@ public class Character7 extends CharacterCard {
     }
     public void addSudent(Student student){
         super.getStudents().add(student);
+    }
+
+    @Override
+    public int getNecessaryCoin() {
+        return necessaryCoin;
     }
 }
