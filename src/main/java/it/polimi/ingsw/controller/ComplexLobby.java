@@ -29,7 +29,7 @@ public class ComplexLobby {
         this.numPlayers = numplayers;
         this.ID = ID;
         this.players = Players;
-        this.DM = new DeckManager();
+        this.dm = new DeckManager();
         this.playerOrder = new ArrayList<>();
     }
 
@@ -147,7 +147,7 @@ public class ComplexLobby {
 
 
 
-        if(this.chosenCards.size()==this.NumPlayers){
+        if(this.chosenCards.size()==this.numPlayers){
 
             HashMap<Card, Player> h = new HashMap<Card, Player>();
             HashMap<Card, Player> k = new HashMap<>();
@@ -160,13 +160,13 @@ public class ComplexLobby {
 
 
             ArrayList<Player> tempList = new ArrayList<>();
-            for(int i= 0; i<this.NumPlayers; i++) {
+            for(int i= 0; i<this.numPlayers; i++) {
 
                 Player temp = h.get(this.chosenCards.get(i));
                 tempList.add(temp);
             }
 
-            for(int i= 0; i<this.NumPlayers; i++)
+            for(int i= 0; i<this.numPlayers; i++)
                 k.put(this.chosenCards.get(i), tempList.get(i));
 
             h.clear();
@@ -182,7 +182,7 @@ public class ComplexLobby {
             System.out.println("");
             System.out.println("Player list in the next round: ");
 
-            for(int i= 0; i<this.NumPlayers; i++)
+            for(int i= 0; i<this.numPlayers; i++)
                 System.out.println(this.getPlayerOrder().get(i).getID_player());
 
 
@@ -196,12 +196,12 @@ public class ComplexLobby {
     public void changeActivePlayer(){
 
         int index = 0;
-        for (int i = 0; i<this.NumPlayers; i++ ){
+        for (int i = 0; i<this.numPlayers; i++ ){
             if (this.players.get(i)==this.getActivePlayer())
                 index = i;
         }
 
-        if((index+1)<this.NumPlayers)
+        if((index+1)<this.numPlayers)
             setActivePlayer(this.players.get(index+1));
         else
             System.out.println("Error: First you need to call the method 'modifyPlayerTurn' to change round and set the new ActivePlayer, in this round everyone made their move!");
