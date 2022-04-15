@@ -51,11 +51,9 @@ public class ComplexLobby {
         return gameType;
     }
 
-
     public int getNumPlayers() {
         return numPlayers;
     }
-
 
     public Game getGame() {
         return game;
@@ -171,8 +169,6 @@ public class ComplexLobby {
             }
         else
             System.out.println("ERROR: not all the players have played their Assistant card! \n");
-
-
     }
 
 }

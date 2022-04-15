@@ -9,29 +9,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class GameComponents {
-    private ArrayList<IslandCard> Archipelago;
-    private MotherNature Mothernature;
+    private ArrayList<IslandCard> archipelago;
+    private MotherNature motherNature;
     private ArrayList<SchoolBoard> SchoolBoards;
-    private Bag Bag;
-    private Collection<CloudCard> CloudCards;
+    private Bag bag;
+    private Collection<CloudCard> cloudCards;
     private ArrayList<Professor> professorCollection;
     private CoinReserve coins;
     private Collection<NoEntryTile> prohibitionCards;
     private CharacterDeck specialDeck;
 
-
-
     // Start of Getters, Setters, Constructor
 
     //constructor pro
-
-
-    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, ArrayList<SchoolBoard> schoolBoards, Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
-        Archipelago = archipelago;
-        Mothernature = mothernature;
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature motherNature, ArrayList<SchoolBoard> schoolBoards, Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
+        this.archipelago = archipelago;
+        this.motherNature = motherNature;
         SchoolBoards = schoolBoards;
-        Bag = bag;
-        CloudCards = cloudCards;
+        this.bag = bag;
+        this.cloudCards = cloudCards;
         this.professorCollection = professorCollection;
         this.coins = coins;
         this.prohibitionCards = prohibitionCards;
@@ -39,12 +35,12 @@ public class GameComponents {
     }
 
     //normal constructor
-    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature mothernature, ArrayList<SchoolBoard> schoolBoards,Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection) {
-        Archipelago = archipelago;
-        Mothernature = mothernature;
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature motherNature, ArrayList<SchoolBoard> schoolBoards, Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection) {
+        this.archipelago = archipelago;
+        this.motherNature = motherNature;
         SchoolBoards = schoolBoards;
-        Bag = bag;
-        CloudCards = cloudCards;
+        this.bag = bag;
+        this.cloudCards = cloudCards;
         this.professorCollection = professorCollection;
     }
 
@@ -70,21 +66,21 @@ public class GameComponents {
 
     public ArrayList<IslandCard> getArchipelago() {
 
-        return Archipelago;
+        return archipelago;
     }
 
     public void setArchipelago(ArrayList<IslandCard> archipelago) {
 
-        Archipelago = archipelago;
+        this.archipelago = archipelago;
     }
 
-    public MotherNature getMothernature() {
-        return Mothernature;
+    public MotherNature getMotherNature() {
+        return motherNature;
     }
 
-    public void setMothernature(MotherNature mothernature) {
+    public void setMotherNature(MotherNature motherNature) {
 
-        Mothernature = mothernature;
+        this.motherNature = motherNature;
     }
 
     public ArrayList<SchoolBoard> getSchoolBoards() {
@@ -99,22 +95,22 @@ public class GameComponents {
 
     public it.polimi.ingsw.model.board.Bag getBag() {
 
-        return Bag;
+        return bag;
     }
 
     public void setBag(it.polimi.ingsw.model.board.Bag bag) {
 
-        Bag = bag;
+        this.bag = bag;
     }
 
     public Collection<CloudCard> getCloudCards() {
 
-        return CloudCards;
+        return cloudCards;
     }
 
     public void setCloudCards(Collection<CloudCard> cloudCards) {
 
-        CloudCards = cloudCards;
+        this.cloudCards = cloudCards;
     }
 
     public ArrayList<Professor> getProfessorCollection() {
@@ -127,6 +123,34 @@ public class GameComponents {
 
     // End of Getters, Setters, Constructor
 
+    public void printClouds(){
+        int j = 1;
+        System.out.println("Cloud cards: ");
+        for(CloudCard cloudCard : this.cloudCards){
+            System.out.println("Cloud card " + j + " students: ");
+            for(int i = 0; i < cloudCard.getStudents().size(); i++){
+                System.out.println("Student " + i + " color: " + cloudCard.getStudents().get(i));
+            }
+        }
+    }
 
-
+    public void printArchipelago(){
+        int i = 0;
+        System.out.println("Archipelago: ");
+        for(IslandCard islandCard : this.archipelago){
+            System.out.println("Island: " + i + "\tTower : " + this.getArchipelago().get(i).getTower().getColor());
+            System.out.println("Students:");
+            for(int j = 0; j < islandCard.getStudents().size(); j++){
+                System.out.println("Student " + j + "color : " + islandCard.getStudents().get(j));
+            }
+            System.out.println("Merged with: ");
+            for(int j = 0; j < islandCard.getMergedWith().size(); i++){
+                IslandCard tempIslandCard = islandCard.getMergedWith().get(j);
+                for(int k = 0; k < tempIslandCard.getStudents().size(); k++){
+                    System.out.println("Student " + k + "color : " + islandCard.getStudents().get(k));
+                }
+            }
+            i++;
+        }
+    }
 }

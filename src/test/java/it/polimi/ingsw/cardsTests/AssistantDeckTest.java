@@ -79,9 +79,11 @@ public class AssistantDeckTest {
         player.setDeck(assistantDeck);
         player.printRemainingCard();
         Card card = null;
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 9; i++){
             card = player.playCard(i);
+            assertNotNull(card);
         }
+        card = player.playCard(9);
         assertNull(card);
         player.printRemainingCard();
     }

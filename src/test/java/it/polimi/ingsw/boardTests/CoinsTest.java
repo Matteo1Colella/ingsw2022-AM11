@@ -159,6 +159,7 @@ public class CoinsTest {
         Game game = complexLobby.getGame();
 
         game.generateBoard();
+        coinReserve = game.getGameComponents().getCoins();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -167,6 +168,11 @@ public class CoinsTest {
         game.coinGiver();
 
         assertEquals(player1.getCoinOwned(), 1);
+
+        player1.playCharacter(character, coinReserve);
+
+        assertEquals(player1.getCoinOwned(), 1);
+        assertEquals(coinReserve.getCoins(), 19);
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -187,8 +193,6 @@ public class CoinsTest {
         assertEquals(player1.getSchoolBoard().getStudentSize(ColorStudent.RED), 9);
 
         assertEquals(player1.getCoinOwned(), 3);
-
-        coinReserve = game.getGameComponents().getCoins();
 
         player1.playCharacter(character, coinReserve);
 

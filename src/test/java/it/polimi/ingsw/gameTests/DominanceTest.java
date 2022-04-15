@@ -32,7 +32,7 @@ public class DominanceTest {
 
         //game settings:
         //moving mother nature to island 2
-        newGame.moveMotherNature(2, gameComponents.getMothernature(), gameComponents.getArchipelago());
+        newGame.moveMotherNature(2, gameComponents.getMotherNature(), gameComponents.getArchipelago());
 
         //loading some students on island
         Student green = new Student(ColorStudent.GREEN);
@@ -75,7 +75,7 @@ public class DominanceTest {
 
         //game settings:
         //moving mother nature to island 2
-        newGame.moveMotherNature(2, gameComponents.getMothernature(), gameComponents.getArchipelago());
+        newGame.moveMotherNature(2, gameComponents.getMotherNature(), gameComponents.getArchipelago());
 
         //loading some students on island
         Student green = new Student(ColorStudent.GREEN);
