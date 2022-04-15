@@ -25,4 +25,9 @@ public class Student extends Piece{
     public void setPosition(Board position) {
         this.position = position;
     }
+
+    @Override
+    public String toString() {
+        return this.color.toString();
+    }
 }

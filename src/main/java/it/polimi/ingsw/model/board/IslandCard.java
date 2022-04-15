@@ -96,7 +96,7 @@ public class IslandCard implements Board {
     //override of interface Board
     @Override
     public ArrayList<Student> getStudents() {
-        return new ArrayList<>(students);
+        return new ArrayList<>(this.students);
     }
 
     public void addStudent(Student student){

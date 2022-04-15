@@ -64,10 +64,10 @@ public class giveProfessorTest {
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
-        player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLU).addStudent(new Student(ColorStudent.BLU));
+        player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLUE).addStudent(new Student(ColorStudent.BLUE));
         game.colorDominance();
         assertNotNull("The red professor in p1 is null",player1.getSchoolBoard().getProfessor(ColorStudent.RED));
-        assertNotNull("The blu professor in p1 is null",player1.getSchoolBoard().getProfessor(ColorStudent.BLU));
+        assertNotNull("The blu professor in p1 is null",player1.getSchoolBoard().getProfessor(ColorStudent.BLUE));
 
         player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.GREEN).addStudent(new Student(ColorStudent.GREEN));
         player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.GREEN).addStudent(new Student(ColorStudent.GREEN));
@@ -75,9 +75,9 @@ public class giveProfessorTest {
         assertNotNull("The green professor in p2 is null",player2.getSchoolBoard().getProfessor(ColorStudent.GREEN));
 
 
-        player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLU).addStudent(new Student(ColorStudent.BLU));
+        player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLUE).addStudent(new Student(ColorStudent.BLUE));
         game.colorDominance();
-        assertNull("The green professor in p2 is not null",player2.getSchoolBoard().getProfessor(ColorStudent.BLU));
+        assertNull("The green professor in p2 is not null",player2.getSchoolBoard().getProfessor(ColorStudent.BLUE));
     }
 
     @Test

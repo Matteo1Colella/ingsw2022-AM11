@@ -61,30 +61,6 @@ public class generateBoardTest {
     }
 
     @Test
-    public void generateBoard4Player(){
-        Player player1 = new Player(1, "leo");
-        Player player2 = new Player(2, "cole");
-        Player player3 = new Player(3, "ale");
-        Player player4 = new Player(3, "guise");
-        ArrayList<Player> players = new ArrayList<>();
-
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
-        players.add(player4);
-
-        ComplexLobby complexLobby = new ComplexLobby(4, false, 0, players);
-        complexLobby.CreateGame(4, 0, false);
-        Game game = complexLobby.getGame();
-
-        game.generateBoard();
-
-        assertNotNull(player1.getSchoolBoard());
-        assertNotNull(player2.getSchoolBoard());
-        assertNotNull(player3.getSchoolBoard());
-        assertEquals(0,player3.getSchoolBoard().getTowers().size());
-    }
-    @Test
     public void generateProBoard2Player(){
         Player player1 = new Player(1, "leo");
         Player player2 = new Player(2, "cole");

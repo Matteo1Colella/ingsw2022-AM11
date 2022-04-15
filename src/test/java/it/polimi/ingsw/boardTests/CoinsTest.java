@@ -5,8 +5,6 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.cards.CharacterCard;
-import it.polimi.ingsw.model.cards.Characters.Character1;
-import it.polimi.ingsw.model.cards.Characters.Character2;
 import it.polimi.ingsw.model.cards.Characters.Character3;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
@@ -115,8 +113,8 @@ public class CoinsTest {
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.GREEN).addStudent(new Student(ColorStudent.GREEN));
         player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.GREEN).addStudent(new Student(ColorStudent.GREEN));
-        player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLU).addStudent(new Student(ColorStudent.BLU));
-        player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLU).addStudent(new Student(ColorStudent.BLU));
+        player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLUE).addStudent(new Student(ColorStudent.BLUE));
+        player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLUE).addStudent(new Student(ColorStudent.BLUE));
         player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.PINK).addStudent(new Student(ColorStudent.PINK));
 
         game.coinGiver();
@@ -130,7 +128,7 @@ public class CoinsTest {
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.GREEN).addStudent(new Student(ColorStudent.GREEN));
         player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.GREEN).addStudent(new Student(ColorStudent.GREEN));
-        player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLU).addStudent(new Student(ColorStudent.BLU));
+        player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.BLUE).addStudent(new Student(ColorStudent.BLUE));
         player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.PINK).addStudent(new Student(ColorStudent.PINK));
         player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.PINK).addStudent(new Student(ColorStudent.PINK));
 

@@ -13,7 +13,7 @@ public class GameComponents {
     private MotherNature motherNature;
     private ArrayList<SchoolBoard> SchoolBoards;
     private Bag bag;
-    private Collection<CloudCard> cloudCards;
+    private ArrayList<CloudCard> cloudCards;
     private ArrayList<Professor> professorCollection;
     private CoinReserve coins;
     private Collection<NoEntryTile> prohibitionCards;
@@ -22,7 +22,7 @@ public class GameComponents {
     // Start of Getters, Setters, Constructor
 
     //constructor pro
-    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature motherNature, ArrayList<SchoolBoard> schoolBoards, Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature motherNature, ArrayList<SchoolBoard> schoolBoards, Bag bag, ArrayList<CloudCard> cloudCards, ArrayList<Professor> professorCollection, CoinReserve coins, Collection<NoEntryTile> prohibitionCards, CharacterDeck specialDeck) {
         this.archipelago = archipelago;
         this.motherNature = motherNature;
         SchoolBoards = schoolBoards;
@@ -35,7 +35,7 @@ public class GameComponents {
     }
 
     //normal constructor
-    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature motherNature, ArrayList<SchoolBoard> schoolBoards, Bag bag, Collection<CloudCard> cloudCards, ArrayList<Professor> professorCollection) {
+    public GameComponents(ArrayList<IslandCard> archipelago, MotherNature motherNature, ArrayList<SchoolBoard> schoolBoards, Bag bag, ArrayList<CloudCard> cloudCards, ArrayList<Professor> professorCollection) {
         this.archipelago = archipelago;
         this.motherNature = motherNature;
         SchoolBoards = schoolBoards;
@@ -93,7 +93,7 @@ public class GameComponents {
         SchoolBoards = schoolBoards;
     }
 
-    public it.polimi.ingsw.model.board.Bag getBag() {
+    public Bag getBag() {
 
         return bag;
     }
@@ -103,12 +103,12 @@ public class GameComponents {
         this.bag = bag;
     }
 
-    public Collection<CloudCard> getCloudCards() {
+    public ArrayList<CloudCard> getCloudCards() {
 
         return cloudCards;
     }
 
-    public void setCloudCards(Collection<CloudCard> cloudCards) {
+    public void setCloudCards(ArrayList<CloudCard> cloudCards) {
 
         this.cloudCards = cloudCards;
     }
@@ -131,6 +131,7 @@ public class GameComponents {
             for(int i = 0; i < cloudCard.getStudents().size(); i++){
                 System.out.println("Student " + i + " color: " + cloudCard.getStudents().get(i));
             }
+            j++;
         }
     }
 
@@ -138,16 +139,20 @@ public class GameComponents {
         int i = 0;
         System.out.println("Archipelago: ");
         for(IslandCard islandCard : this.archipelago){
-            System.out.println("Island: " + i + "\tTower : " + this.getArchipelago().get(i).getTower().getColor());
+            if(this.getArchipelago().get(i).getTower() != null){
+                System.out.println("Island: " + i + "\tTower : " + this.getArchipelago().get(i).getTower().getColor().toString());
+            } else {
+                System.out.println("Island: " + i + "\tTower : no tower");
+            }
             System.out.println("Students:");
             for(int j = 0; j < islandCard.getStudents().size(); j++){
-                System.out.println("Student " + j + "color : " + islandCard.getStudents().get(j));
+                System.out.println("Student " + j + " color : " + islandCard.getStudents().get(j));
             }
             System.out.println("Merged with: ");
-            for(int j = 0; j < islandCard.getMergedWith().size(); i++){
+            for(int j = 0; j < islandCard.getMergedWith().size(); j++){
                 IslandCard tempIslandCard = islandCard.getMergedWith().get(j);
                 for(int k = 0; k < tempIslandCard.getStudents().size(); k++){
-                    System.out.println("Student " + k + "color : " + islandCard.getStudents().get(k));
+                    System.out.println("Student " + k + " color : " + tempIslandCard.getStudents().get(k));
                 }
             }
             i++;

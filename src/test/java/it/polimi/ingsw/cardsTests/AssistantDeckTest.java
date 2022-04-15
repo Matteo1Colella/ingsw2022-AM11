@@ -30,7 +30,7 @@ public class AssistantDeckTest {
         AssistantDeck assistantDeck = deckManager.generateDeck(Mage.MAGE1);
 
         for(int i = 0; i < 10; i++){
-            Card choosenCard = assistantDeck.chooseCard(i);
+            Card choosenCard = assistantDeck.chooseCard(i+1);
         }
 
         assertEquals(0, assistantDeck.leftCard());
@@ -80,11 +80,11 @@ public class AssistantDeckTest {
         player.printRemainingCard();
         Card card = null;
         for(int i = 0; i < 9; i++){
-            card = player.playCard(i);
+            card = player.playCard(i+1);
             player.setMotherNatureMoves(card.getSteps());
             assertNotNull(card);
         }
-        card = player.playCard(9);
+        card = player.playCard(10);
         assertNull(card);
         player.printRemainingCard();
     }
