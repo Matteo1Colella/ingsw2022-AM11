@@ -28,7 +28,7 @@ public class generateBoardTest {
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());
         assertNotNull(game.getGameComponents().getArchipelago());
-        assertNotNull(game.getGameComponents().getMothernature());
+        assertNotNull(game.getGameComponents().getMotherNature());
         assertNotNull(game.getGameComponents().getBag());
         assertNotNull(game.getGameComponents().getSchoolBoards());
         assertNotNull(game.getGameComponents().getCloudCards());
@@ -55,7 +55,7 @@ public class generateBoardTest {
         assertNotNull(player2.getSchoolBoard());
         assertNotNull(player3.getSchoolBoard());
         assertNotNull(game.getGameComponents().getArchipelago());
-        assertNotNull(game.getGameComponents().getMothernature());
+        assertNotNull(game.getGameComponents().getMotherNature());
         assertNotNull(game.getGameComponents().getBag());
         assertNotNull(game.getGameComponents().getSchoolBoards());
     }
@@ -102,12 +102,10 @@ public class generateBoardTest {
         assertNotNull(player1.getSchoolBoard());
         assertNotNull(player2.getSchoolBoard());
         assertNotNull(game.getGameComponents().getArchipelago());
-        assertNotNull(game.getGameComponents().getMothernature());
+        assertNotNull(game.getGameComponents().getMotherNature());
         assertNotNull(game.getGameComponents().getBag());
         assertNotNull(game.getGameComponents().getSchoolBoards());
         assertNotNull(game.getGameComponents().getCloudCards());
-
-
     }
 
 }

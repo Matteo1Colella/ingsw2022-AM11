@@ -31,8 +31,8 @@ public class CloudCard implements Board{
 
     //override of interface Board
     @Override
-    public Collection<Student> getStudents() {
-        Collection<Student> retStudents = new ArrayList<>(this.students);
+    public ArrayList<Student> getStudents() {
+        ArrayList<Student> retStudents = new ArrayList<>(this.students);
         this.students = null;
 
         return retStudents;

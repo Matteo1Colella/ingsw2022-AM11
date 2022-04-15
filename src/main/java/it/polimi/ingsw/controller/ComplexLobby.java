@@ -20,6 +20,7 @@ public class ComplexLobby {
     private CoinReserve coinReserve;
     private DeckManager dm;
     private ArrayList<Card> chosenCards;
+    private ArrayList<Player> playerOrder;
 
     // Start of Getters, Setters, Constructor
     public ComplexLobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
@@ -29,6 +30,15 @@ public class ComplexLobby {
         this.ID = ID;
         this.players = Players;
         this.dm = new DeckManager();
+        this.playerOrder = new ArrayList<>();
+    }
+
+    public ArrayList<Player> getPlayerOrder() {
+        return playerOrder;
+    }
+
+    public void setPlayerOrder(ArrayList<Player> playerOrder) {
+        this.playerOrder = playerOrder;
     }
 
     public ArrayList<Card> getChosenCards() {
@@ -51,11 +61,9 @@ public class ComplexLobby {
         return gameType;
     }
 
-
     public int getNumPlayers() {
         return numPlayers;
     }
-
 
     public Game getGame() {
         return game;
@@ -110,7 +118,8 @@ public class ComplexLobby {
 
     //adds the Card to the Array of chosen cards
     //in a turn this method is called a (int)numPlayers times
-    public void addChosenCard(Card chosen) {
+    public void checkIfPlayable(Card chosen) {
+
 
         //necessary because, in the new round, a Player can play the card played by the last player at the previous round
         if (this.chosenCards.size() == this.numPlayers)
@@ -121,16 +130,20 @@ public class ComplexLobby {
                 System.out.println("ERROR: You can't play this card in this round because someone has already played that");
                 return;
             }
+
+
         //chosenCards is a private attribute of game, it has the same size as numOfPlayers, at the end of a round becomes empty
         this.chosenCards.add(chosen);
     }
 
     //turn manager
-    public void modifyPlayerTurn(){
+    public void modifyPlayerTurn(){ //gestire caso ultimo turno
 
         System.out.println("Player list in the previous round: ");
         for(int i = 0; i<this.numPlayers; i++)
             System.out.println(this.players.get(i).getID_player());
+
+
 
         if(this.chosenCards.size()==this.numPlayers){
 
@@ -140,39 +153,56 @@ public class ComplexLobby {
             for(int i = 0; i<this.numPlayers; i++)
                 h.put(this.chosenCards.get(i), this.getPlayers().get(i));
 
-
             Collections.sort(this.chosenCards,new OrderComparator());
 
-            for(int i = 0; i<this.numPlayers; i++)
-                System.out.println(this.chosenCards.get(i).getName());
 
 
+            ArrayList<Player> tempList = new ArrayList<>();
+            for(int i= 0; i<this.numPlayers; i++) {
 
-            for(int i = 0; i<this.numPlayers; i++) {
                 Player temp = h.get(this.chosenCards.get(i));
-                k.put(this.chosenCards.get(i), h.get(this.chosenCards.get(i)));
+                tempList.add(temp);
             }
+
+            for(int i= 0; i<this.numPlayers; i++)
+                k.put(this.chosenCards.get(i), tempList.get(i));
 
             h.clear();
 
             for(int i = 0; i<this.numPlayers; i++)
                 h.put(this.chosenCards.get(i), this.getPlayers().get(i));
 
+            this.setPlayerOrder(tempList);
 
 
-            ArrayList<Player> list = new ArrayList(h.values());
-            this.setPlayers(list);
+            this.setPlayers(tempList);
 
             System.out.println("");
             System.out.println("Player list in the next round: ");
-            for(int i = 0; i<this.numPlayers; i++)
-                System.out.println(this.getPlayers().get(i).getID_player());
+
+            for(int i= 0; i<this.numPlayers; i++)
+                System.out.println(this.getPlayerOrder().get(i).getID_player());
+
 
             }
         else
             System.out.println("ERROR: not all the players have played their Assistant card! \n");
 
+        setActivePlayer(this.players.get(0));
+    }
 
+    public void changeActivePlayer(){
+
+        int index = 0;
+        for (int i = 0; i<this.numPlayers; i++ ){
+            if (this.players.get(i)==this.getActivePlayer())
+                index = i;
+        }
+
+        if((index+1)<this.numPlayers)
+            setActivePlayer(this.players.get(index+1));
+        else
+            System.out.println("Error: First you need to call the method 'modifyPlayerTurn' to change round and set the new ActivePlayer, in this round everyone made their move!");
     }
 
 }
