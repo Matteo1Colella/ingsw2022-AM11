@@ -24,6 +24,8 @@ public class GameMethodsTest {
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
 
+        game.refillCloudCards();
+
         //motherNature starts at the position: ID_island 1 (the island with the index 0 in the ArrayList
         game.moveMotherNature(15, game.getGameComponents().getMotherNature(), (ArrayList<IslandCard>) game.getGameComponents().getArchipelago());
         assertEquals(3,game.getGameComponents().getMotherNature().getPosition().getId_island());
