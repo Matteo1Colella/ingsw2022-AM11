@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gameTests;
 
+import it.polimi.ingsw.controller.GameManager;
+import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.DeckManager;
@@ -18,7 +20,7 @@ import static org.junit.Assert.*;
 
 
 public class WinConditionTest {
-    /*
+
     @Test
     public void winWithNoTowersTest() {
         Game game = new Game(false,1,2);
@@ -29,26 +31,36 @@ public class WinConditionTest {
         players.add(player2);
         game.setComplexLobby(new ComplexLobby(2,false,1,players));
         game.setGameStructure(game.generateBoard());
+
+
         assertEquals(2,game.getGameComponents().getSchoolBoards().size());
 
-        game.getGameComponents().getSchoolBoards().get(0).getTowers().clear();
-        assertEquals(0,game.getGameComponents().getSchoolBoards().get(0).getTowers().size());
+        System.out.println(game.getComplexLobby().getActivePlayer().getID_player());
+        game.getComplexLobby().changeActivePlayer();
+        game.getComplexLobby().getActivePlayer().getSchoolBoard().getTowers().clear();
 
-        assertEquals(player1, game.winCondition());
+        assertEquals(0,game.getComplexLobby().getActivePlayer().getSchoolBoard().getTowers().size());
+
+        assertEquals(game.getComplexLobby().getActivePlayer().getID_player(), game.winCondition().getID_player());
     }
-     */
+
 
     @Test
     public void DrawWith3Archipelagos() {
-        Game game = new Game(false,1,2);
-        ArrayList<Player> players = new ArrayList<>();
-        Player player1 = new Player(1,"ale");
-        Player player2 = new Player(1,"leo");
-        players.add(player1);
-        players.add(player2);
-        game.setComplexLobby(new ComplexLobby(2,false,1,players));
-        game.setGameStructure(game.generateBoard());
-        assertEquals(2,game.getGameComponents().getSchoolBoards().size());
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, false);
+        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, false);
+        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.getGameComponents();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.setComplexLobby(new ComplexLobby(2,false,1,lobby.getPlayers()));
+        newGame.setGameStructure(newGame.generateBoard());
+        assertEquals(2,newGame.getGameComponents().getSchoolBoards().size());
 
         ArrayList<IslandCard> islandCards = new ArrayList<>();
         islandCards.add(new IslandCard(1));
@@ -57,18 +69,18 @@ public class WinConditionTest {
 
 
 
-        game.getGameComponents().setArchipelago(islandCards);
+        newGame.getGameComponents().setArchipelago(islandCards);
 
 
 
-        assertEquals(player1,players.get(0));
-        assertEquals(ColorTower.BLACK,players.get(0).getSchoolBoard().getTowers().get(0).getColor());
-        assertEquals(ColorTower.WHITE,players.get(1).getSchoolBoard().getTowers().get(0).getColor());
+        assertEquals(lobby.getPlayers().get(0),lobby.getPlayers().get(0));
+        assertEquals(ColorTower.BLACK,lobby.getPlayers().get(0).getSchoolBoard().getTowers().get(0).getColor());
+        assertEquals(ColorTower.WHITE,lobby.getPlayers().get(1).getSchoolBoard().getTowers().get(0).getColor());
 
 
-        assertEquals(null, game.winCondition());
+        assertEquals(null, newGame.winCondition());
     }
-    /*
+
     @Test
     public void WinWith3Archipelagos() {
         Game game = new Game(false,1,2);
@@ -88,9 +100,9 @@ public class WinConditionTest {
         islandCards.add(new IslandCard(1));
         islandCards.add(new IslandCard(2));
         islandCards.add(new IslandCard(3));
-        islandCards.get(0).setTower(new Tower(ColorTower.BLACK));
+        islandCards.get(0).setTower(new Tower(ColorTower.WHITE));
         islandCards.get(1).setTower(new Tower(ColorTower.BLACK));
-        islandCards.get(2).setTower(new Tower(ColorTower.WHITE));
+        islandCards.get(2).setTower(new Tower(ColorTower.BLACK));
 
 
         game.getGameComponents().setArchipelago(islandCards);
@@ -105,9 +117,9 @@ public class WinConditionTest {
         assertEquals(players.get(0), game.winCondition());
     }
 
-     */
 
-    /*
+
+
     @Test
     public void OtherWinWith3Archipelagos3Players() {
         Game game = new Game(false,1,3);
@@ -148,9 +160,9 @@ public class WinConditionTest {
         assertEquals(players.get(2), game.winCondition());
 
     }
-     */
 
-    /*
+
+
     @Test
     public void WinWithNumProf() {
         Game game = new Game(false,1,3);
@@ -189,13 +201,16 @@ public class WinConditionTest {
         assertEquals(ColorTower.GREY,players.get(2).getSchoolBoard().getTowers().get(0).getColor());
 
         game.getGameComponents().getSchoolBoards().get(2).getDiningRooms().get(1).setProfessor(new Professor(ColorStudent.PINK));
+        game.getGameComponents().getSchoolBoards().get(2).getDiningRooms().get(0).setProfessor(new Professor(ColorStudent.RED));
+        game.getGameComponents().getSchoolBoards().get(1).getDiningRooms().get(0).setProfessor(new Professor(ColorStudent.BLUE));
+        game.getGameComponents().getSchoolBoards().get(0).getDiningRooms().get(0).setProfessor(new Professor(ColorStudent.YELLOW));
         assertEquals(players.get(2), game.winCondition());
 
     }
 
-     */
 
-    /*
+
+
     @Test
     public void WinWithNoMoreCardsTest() {
         Game game = new Game(false,1,3);
@@ -248,15 +263,16 @@ public class WinConditionTest {
         assertEquals(ColorTower.WHITE,players.get(1).getSchoolBoard().getTowers().get(0).getColor());
         assertEquals(ColorTower.GREY,players.get(2).getSchoolBoard().getTowers().get(0).getColor());
 
-        game.getGameComponents().getSchoolBoards().get(2).getDiningRooms().get(1).setProfessor(new Professor(ColorStudent.PINK));
+        game.getGameComponents().getSchoolBoards().get(1).getDiningRooms().get(1).setProfessor(new Professor(ColorStudent.PINK));
+        game.getGameComponents().getSchoolBoards().get(1).getDiningRooms().get(2).setProfessor(new Professor(ColorStudent.YELLOW));
 
         assertEquals(players.get(2), game.winCondition());
 
     }
 
-     */
 
-    /*
+
+
     @Test
     public void NoMoreStudentTest() {
         Game game = new Game(false,1,3);
@@ -276,11 +292,11 @@ public class WinConditionTest {
         game.setComplexLobby(new ComplexLobby(3,false,1,players));
         game.setGameStructure(game.generateBoard());
 
-        assertEquals(84, game.getGameComponents().getBag().left());
+        assertEquals(81, game.getGameComponents().getBag().left());
         game.getGameComponents().getBag().draw();
-        assertEquals(83, game.getGameComponents().getBag().left());
+        assertEquals(80, game.getGameComponents().getBag().left());
 
-        for(int i = 0; i < 83; i++){
+        for(int i = 0; i < 80; i++){
             game.getGameComponents().getBag().draw();
         }
 
@@ -301,5 +317,5 @@ public class WinConditionTest {
 
         assertEquals(players.get(1), game.winCondition());
     }
-    */
+
 }
