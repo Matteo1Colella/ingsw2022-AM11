@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class ComplexLobbyMethodsTest {
     @Test
@@ -32,6 +33,8 @@ public class ComplexLobbyMethodsTest {
         lobby.checkIfPlayable(third);
         assertEquals(1,lobby.getChosenCards().size()); //At this moment begins a new round
         lobby.modifyPlayerTurn();
+        assertFalse(lobby.checkIfPlayable(null));
+
     }
     @Test
     public void modifyTurnTest() {

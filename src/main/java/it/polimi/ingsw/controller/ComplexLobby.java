@@ -69,9 +69,7 @@ public class ComplexLobby {
         return game;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
+
 
     public int getID() {
 
@@ -187,6 +185,7 @@ public class ComplexLobby {
             for(int i= 0; i<this.numPlayers; i++)
                 System.out.println(this.getPlayerOrder().get(i).getID_player());
 
+            System.out.println("");
 
             }
         else
@@ -199,12 +198,12 @@ public class ComplexLobby {
 
         int index = 0;
         for (int i = 0; i<this.numPlayers; i++ ){
-            if (this.players.get(i)==this.getActivePlayer())
+            if (this.playerOrder.get(i)==this.getActivePlayer())
                 index = i;
         }
 
         if((index+1)<this.numPlayers)
-            setActivePlayer(this.players.get(index+1));
+            setActivePlayer(this.playerOrder.get(index+1));
        }
 
 }

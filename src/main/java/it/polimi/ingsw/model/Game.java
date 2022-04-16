@@ -14,8 +14,6 @@ public class Game {
     private boolean isPro;
     private boolean noTower;
     private ColorStudent excludedColor;
-    private int characterUsed;
-    private int MovedPieces;
     private GameComponents GameComponents;
     private int ID;
     private final int numPlayers;
@@ -72,14 +70,6 @@ public class Game {
 
     public void setPro(boolean pro) {
         isPro = pro;
-    }
-
-    public int getMovedPieces() {
-        return MovedPieces;
-    }
-
-    public void setMovedPieces(int movedPieces) {
-        MovedPieces = movedPieces;
     }
 
     public GameComponents getGameComponents() {
@@ -677,18 +667,18 @@ public class Game {
 
 
         this.complexLobby.setPlayerOrder(startingList);
-        this.complexLobby.setPlayers(startingList);
 
-        this.complexLobby.setActivePlayer(this.complexLobby.getPlayers().get(0));
-        return this.complexLobby.getPlayers().get(0);
+
+        this.complexLobby.setActivePlayer(this.complexLobby.getPlayerOrder().get(0));
+        return this.complexLobby.getPlayerOrder().get(0);
     }
 
     //checks if the game ends, returns the winner player
     public Player winCondition() {
 
-        //check if a player finished his free towers in his schoolboard
+        //check if a player finished his free towers in his schoolBoard
         for(int i = 0; i<this.complexLobby.getPlayers().size(); i++)
-            if (this.getGameComponents().getSchoolBoards().get(i).getTowers().size() == 0)
+            if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0)
                 return this.complexLobby.getPlayers().get(i);
 
 
@@ -741,7 +731,7 @@ public class Game {
                 int numProfGreyPlayer = 0;
 
                 for (int i = 0; i < this.GameComponents.getSchoolBoards().size(); i++) {
-                    for (DiningRoom diningRoom : this.GameComponents.getSchoolBoards().get(i).getDiningRooms()) {
+                    for (DiningRoom diningRoom : this.complexLobby.getPlayers().get(i).getSchoolBoard().getDiningRooms()) {
                         if (diningRoom.IsProfessor()) {
                             if(i==0)
                                 numProfBlackPlayer++;
