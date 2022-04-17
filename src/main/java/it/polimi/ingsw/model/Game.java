@@ -301,7 +301,7 @@ public class Game {
                 }
                 // if the island has a tower and matches color of tower of the selected player he gets +1 points
                 if (!noTower && i== 0 && selectedIsland.getTower()!= null && selectedIsland.getTower().getColor().equals(tempPlayer.getSchoolBoard().getTowers().get(0).getColor())){
-                    tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+1);
+                    tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+1 + selectedIsland.getMergedWith().size());
                     kingPlayer = tempPlayer;
                     i++;
                 }
