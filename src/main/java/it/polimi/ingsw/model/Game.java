@@ -172,7 +172,7 @@ public class Game {
                         break;
                     }
                 }
-                if(professor.getPosition() == null){
+                if(professor != null && professor.getPosition() == null){
                     player.getSchoolBoard().setProfessor(professor);
                     professor.setPosition(player.getSchoolBoard().getDiningRoom(tempColor));
                 } else {
