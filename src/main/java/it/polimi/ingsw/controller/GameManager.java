@@ -68,6 +68,7 @@ public class GameManager {
                 p0 = p;
             }
         }
+        if (p0 == null) return false;
         System.out.println("Added deck " + d.getMage() + " to " + IDplayer);
         System.out.println("Here are remaining Mages");
         room.getDm().getAssistantDecks().stream().filter(AssistantDeck::isFree).map(AssistantDeck::getMage).forEach(System.out::println);
