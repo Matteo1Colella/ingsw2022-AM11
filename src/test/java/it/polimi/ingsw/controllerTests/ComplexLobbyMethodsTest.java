@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gameTests;
+package it.polimi.ingsw.controllerTests;
 
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.Mage;
@@ -55,6 +55,30 @@ public class ComplexLobbyMethodsTest {
         lobby.checkIfPlayable(third);
         assertEquals(3,lobby.getChosenCards().size());
         lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.checkIfPlayable(first);
+        lobby.checkIfPlayable(second);
+        lobby.checkIfPlayable(third);
+        lobby.modifyPlayerTurn();
+        lobby.checkIfPlayable(third);
+        lobby.checkIfPlayable(second);
+        lobby.checkIfPlayable(first);
+        lobby.modifyPlayerTurn();
+        lobby.checkIfPlayable(second);
+        lobby.checkIfPlayable(second); //print error
+        lobby.checkIfPlayable(first);
+        lobby.checkIfPlayable(third);
+        lobby.modifyPlayerTurn();
+        lobby.checkIfPlayable(first);
+        lobby.checkIfPlayable(second);
+        lobby.checkIfPlayable(first);
+        lobby.modifyPlayerTurn(); //corner case
+
     }
 
     @Test
@@ -86,13 +110,29 @@ public class ComplexLobbyMethodsTest {
         Card first = new Card("cat",1,1,false, Mage.MAGE1);
         Card second = new Card("dog",1,2,false,Mage.MAGE1);
         Card third = new Card("hippo",1,10,false,Mage.MAGE1);
-        Card fourth = new Card("rat",1,4,false,Mage.MAGE1);
+        Card fourth = new Card("rat",1,3,false,Mage.MAGE1);
         lobby.checkIfPlayable(first);
         assertEquals(1,lobby.getChosenCards().size());
         lobby.checkIfPlayable(second);
         lobby.checkIfPlayable(third);
         assertEquals(3,lobby.getChosenCards().size());
         lobby.checkIfPlayable(fourth);
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.modifyPlayerTurn();
+        lobby.checkIfPlayable(first);
+        lobby.checkIfPlayable(second);
+        lobby.checkIfPlayable(fourth);
+        lobby.checkIfPlayable(fourth);
+        lobby.modifyPlayerTurn();
+        assertEquals(7,lobby.getRoundCounter());
+        lobby.checkIfPlayable(fourth);
+        lobby.checkIfPlayable(first);
+        lobby.checkIfPlayable(second);
+        lobby.checkIfPlayable(third);
         lobby.modifyPlayerTurn();
     }
 
