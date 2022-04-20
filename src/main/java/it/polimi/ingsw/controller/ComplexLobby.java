@@ -21,6 +21,8 @@ public class ComplexLobby {
     private DeckManager dm;
     private ArrayList<Card> chosenCards;
     private ArrayList<Player> playerOrder;
+    private int roundCounter;
+    private boolean cornerCase;
 
     // Start of Getters, Setters, Constructor
     public ComplexLobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
@@ -31,6 +33,12 @@ public class ComplexLobby {
         this.players = Players;
         this.dm = new DeckManager();
         this.playerOrder = new ArrayList<>();
+        this.roundCounter=0;
+        this.cornerCase=false;
+    }
+
+    public int getRoundCounter() {
+        return roundCounter;
     }
 
     public ArrayList<Player> getPlayerOrder() {
@@ -128,6 +136,18 @@ public class ComplexLobby {
                 return false;
             }
             if (temp.getName().equals(chosen.getName())) {
+                //corner case
+                if(this.numPlayers==3 && roundCounter>=7 && this.chosenCards.size()==2){
+                    this.chosenCards.add(chosen);
+                    this.cornerCase=true;
+                    return true;
+                }
+                //corner case
+                if (this.numPlayers==4 && roundCounter>=6 && this.chosenCards.size()==3){
+                    this.chosenCards.add(chosen);
+                    this.cornerCase=true;
+                    return true;
+                }
                 System.out.println("ERROR: You can't play this card in this round because someone has already played that");
                 return false;
             }
@@ -140,6 +160,19 @@ public class ComplexLobby {
 
     //turn manager
     public void modifyPlayerTurn(){ //gestire caso ultimo turno
+
+        //corner case
+        roundCounter++;
+        if((this.numPlayers==3 && roundCounter>=7 && cornerCase) || (this.numPlayers==4 && roundCounter>=6 && cornerCase)){
+            setActivePlayer(this.players.get(0));
+            System.out.println("CORNER CASE: Player list is the same of the previous round! ");
+            for(int i = 0; i<this.numPlayers; i++)
+                System.out.println(this.players.get(i).getID_player());
+            System.out.println("");
+            this.cornerCase=false;
+            return;
+        }
+
 
         System.out.println("Player list in the previous round: ");
         for(int i = 0; i<this.numPlayers; i++)

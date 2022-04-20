@@ -1,11 +1,8 @@
-package it.polimi.ingsw.gameTests;
+package it.polimi.ingsw.controllerTests;
 
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Mage;
-import it.polimi.ingsw.controller.ComplexLobby;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
