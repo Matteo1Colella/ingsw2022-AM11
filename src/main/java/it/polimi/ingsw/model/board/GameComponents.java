@@ -52,17 +52,11 @@ public class GameComponents {
         return prohibitionCards;
     }
 
-    public void setProhibitionCards(Collection<NoEntryTile> prohibitionCards) {
-        this.prohibitionCards = prohibitionCards;
-    }
 
     public CharacterDeck getSpecialDeck() {
         return specialDeck;
     }
 
-    public void setSpecialDeck(CharacterDeck specialDeck) {
-        this.specialDeck = specialDeck;
-    }
 
     public ArrayList<IslandCard> getArchipelago() {
 
@@ -78,48 +72,28 @@ public class GameComponents {
         return motherNature;
     }
 
-    public void setMotherNature(MotherNature motherNature) {
-
-        this.motherNature = motherNature;
-    }
-
     public ArrayList<SchoolBoard> getSchoolBoards() {
 
         return SchoolBoards;
     }
 
-    public void setSchoolBoards(ArrayList<SchoolBoard> schoolBoards) {
-
-        SchoolBoards = schoolBoards;
-    }
 
     public Bag getBag() {
 
         return bag;
     }
 
-    public void setBag(it.polimi.ingsw.model.board.Bag bag) {
-
-        this.bag = bag;
-    }
 
     public ArrayList<CloudCard> getCloudCards() {
 
         return cloudCards;
     }
 
-    public void setCloudCards(ArrayList<CloudCard> cloudCards) {
-
-        this.cloudCards = cloudCards;
-    }
 
     public ArrayList<Professor> getProfessorCollection() {
         return professorCollection;
     }
 
-    public void setProfessorCollection(ArrayList<Professor> professorCollection) {
-        this.professorCollection = professorCollection;
-    }
 
     // End of Getters, Setters, Constructor
 

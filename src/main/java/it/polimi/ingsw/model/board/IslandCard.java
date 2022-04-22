@@ -47,9 +47,6 @@ public class IslandCard implements Board {
         this.tower = tower;
     }
 
-    public Player getPlayerOwner() {
-        return playerOwner;
-    }
 
     public Boolean getMotherNature() {
         return motherNature;
@@ -59,20 +56,12 @@ public class IslandCard implements Board {
         this.motherNature = motherNature;
     }
 
-    public boolean isMotherNature(){
-        return motherNature;
-    }
-
     public void setLocked(Boolean locked) {
         this.locked = locked;
     }
 
     public boolean isLocked(){
         return locked;
-    }
-
-    public boolean isMerged(){
-        return mergedWith.isEmpty();
     }
 
     public void setMergedWith(IslandCard islandCard){

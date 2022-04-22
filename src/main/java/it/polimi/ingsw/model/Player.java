@@ -47,16 +47,9 @@ public class Player {
         MotherNatureMoves = motherNatureMoves;
     }
 
-    public int getGameID() {
-        return gameID;
-    }
 
     public void setGameID(int gameID) {
         this.gameID = gameID;
-    }
-
-    public int getPlayerNum() {
-        return playerNum;
     }
 
     public String getID_player() {
@@ -107,28 +100,10 @@ public class Player {
 
     }
 
-    //move a piece (student) in the dining room of his School board
-    public void movePiece(Student student){
-        schoolBoard.moveStudent(student);
-    }
-
-    //move a piece (student) in the specified island
-    public void movePiece(Student student, IslandCard islandCard){
-        schoolBoard.moveStudent(student, islandCard);
-    }
 
 
-    //draw students from the bag. The number of drawings can be choosed.
-    public ArrayList<Student> Draw(Bag bag, int numOfDrawings){
-        ArrayList<Student> students = new ArrayList<>();
 
-        for(int i = 0; i < numOfDrawings; i++){
-            Student student = bag.draw();
-            students.add(student);
-        }
-
-        return students;
-    }
+    
 
     //get the number of coin owned
     public int getCoinOwned(){

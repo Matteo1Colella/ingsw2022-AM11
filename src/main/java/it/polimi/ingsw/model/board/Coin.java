@@ -17,25 +17,27 @@ public class Coin {
         this.ownerPlayer = null;
     }
 
-    public int getID_coin() {
+   /* public int getID_coin() {
         return ID_coin;
-    }
+    } */
 
-    public boolean isUsed() {
+   /* public boolean isUsed() {
         return isUsed;
-    }
+    }*/
 
-    public void setUsed(boolean used) {
+   /* public void setUsed(boolean used) {
         isUsed = used;
-    }
+    }*/
 
+    /*
     public CharacterCard getCard() {
         return card;
-    }
+    }*/
 
-    public void playOnCarachterCard(CharacterCard card) {
+
+   /* public void playOnCharacterCard(CharacterCard card) {
         this.card = card;
-    }
+    } */
 
     public Player getOwnerPlayer() {
         return ownerPlayer;

@@ -17,9 +17,11 @@ public class CloudCard implements Board{
         this.students.addAll(students);
     }
 
+    /*
     public int getId_cloud() {
         return id_cloud;
     }
+    */
 
     //fill the students' arraylist
     //the sise of the new array have to be exactly 3: the control on that is left to the caller
