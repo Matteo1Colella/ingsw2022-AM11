@@ -224,6 +224,12 @@ public class Game {
 
         if (selectedIsland.getStudents().isEmpty()) return;
 
+        //reset influence points
+        for(Player p : players){
+            p.setInfluencePoints(0);
+        }
+
+
         //calculates how many students of each color are on the island
         for(Student temp : selectedIsland.getStudents())
         {
@@ -308,6 +314,7 @@ public class Game {
             }
         }
         this.noTower = false;
+
         // setting max calculation
         Player maxPlayer = players.get(0);
 
@@ -626,6 +633,10 @@ public class Game {
             GameComponents temptable = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,temp);
             this.GameComponents = temptable;
 
+          for (Player p : this.playerList()){
+               coinContainer.giveCoin(p);
+            }
+
             CharacterDeck specialCards = new CharacterDeck(this);
             GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,specialCards);
             this.GameComponents = table;
@@ -798,6 +809,8 @@ public class Game {
         Tower currTower = selectedIsland.getTower();
         Tower nextTower = next.getTower();
         Tower prevTower = prev.getTower();
+
+        if (currTower == null) return;
 
         //if nextTower is null or has a different color then the selected, the prev is merged with the selected
         if ((nextTower == null || !nextTower.getColor().equals(currTower.getColor())) && prevTower!=null && currTower.getColor().equals(prevTower.getColor())){

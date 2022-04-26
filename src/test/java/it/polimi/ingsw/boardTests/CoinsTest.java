@@ -26,11 +26,10 @@ public class CoinsTest {
         players.add(player1);
         players.add(player2);
 
-        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
+        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
         complexLobby.CreateGame(2, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -38,7 +37,7 @@ public class CoinsTest {
 
         game.coinGiver();
 
-        assertEquals(player1.getCoinOwned(), 1);
+        assertEquals(player1.getCoinOwned(), 2);
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -48,7 +47,7 @@ public class CoinsTest {
 
         assertEquals(player1.getSchoolBoard().getStudentSize(ColorStudent.RED), 6);
 
-        assertEquals(player1.getCoinOwned(), 2);
+        assertEquals(player1.getCoinOwned(), 3);
     }
 
     @Test
@@ -60,11 +59,14 @@ public class CoinsTest {
         players.add(player1);
         players.add(player2);
 
-        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
+        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
         complexLobby.CreateGame(2, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
+       //game.generateBoard();
+
+        assertEquals(player1.getCoinOwned(), 1);
+        assertEquals(player2.getCoinOwned(), 1);
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -74,8 +76,8 @@ public class CoinsTest {
 
         game.coinGiver();
 
-        assertEquals(player1.getCoinOwned(), 1);
-        assertEquals(player2.getCoinOwned(), 0);
+        assertEquals(player1.getCoinOwned(), 2);
+        assertEquals(player2.getCoinOwned(), 1);
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -87,8 +89,8 @@ public class CoinsTest {
 
         assertEquals(player1.getSchoolBoard().getStudentSize(ColorStudent.RED), 6);
 
-        assertEquals(player1.getCoinOwned(), 2);
-        assertEquals(player2.getCoinOwned(), 1);
+        assertEquals(player1.getCoinOwned(), 3);
+        assertEquals(player2.getCoinOwned(), 2);
     }
 
     @Test
@@ -102,11 +104,10 @@ public class CoinsTest {
         players.add(player2);
         players.add(player3);
 
-        ComplexLobby complexLobby = new ComplexLobby(3, false, 0, players);
+        ComplexLobby complexLobby = new ComplexLobby(3, true, 0, players);
         complexLobby.CreateGame(3, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -119,9 +120,9 @@ public class CoinsTest {
 
         game.coinGiver();
 
-        assertEquals(player1.getCoinOwned(), 1);
-        assertEquals(player2.getCoinOwned(), 0);
-        assertEquals(player3.getCoinOwned(), 0);
+        assertEquals(player1.getCoinOwned(), 2);
+        assertEquals(player2.getCoinOwned(), 1);
+        assertEquals(player3.getCoinOwned(), 1);
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -136,9 +137,9 @@ public class CoinsTest {
 
         assertEquals(player1.getSchoolBoard().getStudentSize(ColorStudent.RED), 6);
 
-        assertEquals(player1.getCoinOwned(), 2);
-        assertEquals(player2.getCoinOwned(), 1);
-        assertEquals(player3.getCoinOwned(), 2);
+        assertEquals(player1.getCoinOwned(), 3);
+        assertEquals(player2.getCoinOwned(), 2);
+        assertEquals(player3.getCoinOwned(), 3);
     }
 
     @Test
@@ -146,17 +147,16 @@ public class CoinsTest {
         Player player1 = new Player(1, "leo");
         Player player2 = new Player(2, "cole");
         ArrayList<Player> players = new ArrayList<>();
-        CharacterCard character = new Character3(2);
+        CharacterCard character = new Character3(3);
         CoinReserve coinReserve = null;
 
         players.add(player1);
         players.add(player2);
 
-        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
+        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
         complexLobby.CreateGame(2, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
         coinReserve = game.getGameComponents().getCoins();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -165,12 +165,12 @@ public class CoinsTest {
 
         game.coinGiver();
 
-        assertEquals(player1.getCoinOwned(), 1);
+        assertEquals(player1.getCoinOwned(), 2);
 
         player1.playCharacter(character, coinReserve);
 
-        assertEquals(player1.getCoinOwned(), 1);
-        assertEquals(coinReserve.getCoins(), 19);
+        assertEquals(player1.getCoinOwned(), 2);
+        assertEquals(coinReserve.getCoins(), 17);
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -180,7 +180,7 @@ public class CoinsTest {
 
         assertEquals(player1.getSchoolBoard().getStudentSize(ColorStudent.RED), 6);
 
-        assertEquals(player1.getCoinOwned(), 2);
+        assertEquals(player1.getCoinOwned(), 3);
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -190,10 +190,10 @@ public class CoinsTest {
 
         assertEquals(player1.getSchoolBoard().getStudentSize(ColorStudent.RED), 9);
 
-        assertEquals(player1.getCoinOwned(), 3);
+        assertEquals(player1.getCoinOwned(), 4);
 
         player1.playCharacter(character, coinReserve);
 
-        assertEquals(coinReserve.getCoins(), 20);
+        assertEquals(coinReserve.getCoins(), 18);
     }
 }
