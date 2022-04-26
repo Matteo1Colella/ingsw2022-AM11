@@ -17,9 +17,9 @@ public class GameMethodsTest {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
@@ -41,7 +41,7 @@ public class GameMethodsTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, false);
+        complexLobby.createGame(2, 0, false);
         Game game = complexLobby.getGame();
 
         game.generateBoard();

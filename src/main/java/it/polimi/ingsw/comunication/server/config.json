@@ -1,0 +1,5 @@
+{
+  "server" : "localHost",
+  "port": 2063,
+  "max_client" : 999
+}

@@ -1,26 +1,30 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.io.*;
+import java.net.Socket;
+import java.sql.SQLOutput;
+import java.util.*;
 
-public class ComplexLobby {
-    private it.polimi.ingsw.model.Game game;
-    private boolean gameType;
-    private int numPlayers;
-    private int ID;
+public class ComplexLobby extends Thread{
+    private Game game;
+    private final boolean gameType;
+    private final int numPlayers;
+    private final int ID;
     private Player activePlayer;
     private ArrayList<Player> players;
     private boolean ready;
     private CoinReserve coinReserve;
     private DeckManager dm;
-    private ArrayList<Card> chosenCards;
+    private final ArrayList<Card> chosenCards;
     private ArrayList<Player> playerOrder;
+    private final HashMap<Player, Socket> clientSocketsMap;
 
     // Start of Getters, Setters, Constructor
     public ComplexLobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
@@ -31,6 +35,7 @@ public class ComplexLobby {
         this.players = Players;
         this.dm = new DeckManager();
         this.playerOrder = new ArrayList<>();
+        this.clientSocketsMap = new HashMap<>();
     }
 
     public ArrayList<Player> getPlayerOrder() {
@@ -69,8 +74,6 @@ public class ComplexLobby {
         return game;
     }
 
-
-
     public int getID() {
 
         return ID;
@@ -84,6 +87,7 @@ public class ComplexLobby {
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
+
     public boolean isReady() {
         return ready;
     }
@@ -94,16 +98,32 @@ public class ComplexLobby {
     // End of Getters, Setters, Constructor
 
     // adds a player to the lobby, if it fills up the game starts
-    public void AddPlayer(String ID){
-        Player New = new Player(players.size(), ID);
-        New.setGameID(this.ID);
-        this.players.add(New);
+    public synchronized void AddPlayer(String ID){
+        Player newPlayer = new Player(players.size(), ID);
+        newPlayer.setGameID(this.ID);
+        this.players.add(newPlayer);
         if (players.size() == this.numPlayers) {
             this.setReady(true);
-        };
+            this.notify();
+        }
     }
+
+    public void addClientSocket(Socket socket, String ID){
+        for(Player player : this.players){
+            System.out.println("Player: " + player.getID_player());
+            if(ID.equals(player.getID_player())){
+                this.clientSocketsMap.put(player, socket);
+                System.out.println("Player's socket " + ID + " added.");
+                break;
+            }
+        }
+        if(players.size() == 1){
+            start();
+        }
+    }
+
     //creates the game related to this lobby
-    public void CreateGame(int NumPlayers, int ID, boolean GameType) {
+    public void createGame(int NumPlayers, int ID, boolean GameType) {
         System.out.println("All set! Starting Game...");
         System.out.println("");
         this.game = new Game(GameType, ID, NumPlayers);
@@ -202,8 +222,212 @@ public class ComplexLobby {
                 index = i;
         }
 
-        if((index+1)<this.numPlayers)
+        if((index+1)<this.numPlayers){
             setActivePlayer(this.playerOrder.get(index+1));
-       }
+        }
+    }
 
+    // A player (IDPlayer) from a lobby (ID) requests a deck with a specified mage (mage). if free, it sets player's deck,
+    // if busy, it returns false
+    public boolean deckRequest(Mage mage, String IDplayer){
+        //looks for lobby (ID)
+        ComplexLobby room = this;
+
+        System.out.println("searching for mage " + mage);
+        AssistantDeck d = room.getDm().generateDeck(mage);
+
+        // if mage is not avaible returns false
+        if (d == null){
+            System.out.println("Mage Already Chosen, here are remaining Mages");
+            room.getDm().getAssistantDecks().stream().filter(AssistantDeck::isFree).map(AssistantDeck::getMage).forEach(System.out::println);
+            System.out.println("");
+            return false;
+        }
+        System.out.println("found deck with mage " + d.getMage());
+
+        // if mage is avaible it returns true and sets the deck
+        Player p0 = null;
+        for (Player p : room.getPlayers()){
+            if (p.getID_player().equals(IDplayer)){
+                p0 = p;
+            }
+        }
+        System.out.println("Added deck " + d.getMage() + " to " + IDplayer);
+        System.out.println("Here are remaining Mages");
+        room.getDm().getAssistantDecks().stream().filter(AssistantDeck::isFree).map(AssistantDeck::getMage).forEach(System.out::println);
+        System.out.println("");
+        p0.setDeck(d);
+
+        int usages = 0;
+        for(int i = 0; i < room.getDm().getAssistantDecks().size(); i++){
+            if(!room.getDm().getAssistantDecks().get(i).isFree()){
+                usages++;
+            }
+        }
+
+        if (usages == room.getNumPlayers()){
+            room.createGame(room.getNumPlayers(), room.getID(), room.isGameType());
+        }
+        return true;
+    }
+
+    public boolean deckRequest(Mage mage, String IDplayer, Socket clientSocket){
+        //looks for lobby (ID)
+        ComplexLobby room = this;
+
+        System.out.println("searching for mage " + mage);
+        AssistantDeck d = room.getDm().generateDeck(mage);
+
+        // if mage is not avaible returns false
+        if (d == null){
+            try{
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
+                PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
+                String outputString = "Mage already chosen, here are remaining Mages";
+                output.println(outputString);
+                for(int i = 0; i < room.getDm().getAssistantDecks().size(); i++){
+                    if( room.getDm().getAssistantDecks().get(i).isFree()){
+                        outputString = room.getDm().getAssistantDecks().get(i).getMage().toString();
+                        output.println(outputString);
+                    }
+                }
+
+                Player courrentPlayer = null;
+                for (Player p : room.getPlayers()){
+                    if (p.getID_player().equals(IDplayer)){
+                        courrentPlayer = p;
+                    }
+                }
+                selectMage(courrentPlayer);
+
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            return false;
+        }
+        System.out.println("found deck with mage " + d.getMage());
+
+        // if mage is avaible it returns true and sets the deck
+        Player p0 = null;
+        for (Player p : room.getPlayers()){
+            if (p.getID_player().equals(IDplayer)){
+                p0 = p;
+            }
+        }
+        System.out.println("Added deck " + d.getMage() + " to " + IDplayer);
+
+        try{
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
+            PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
+            String outputString = "Here are remaining Mages";
+            output.println(outputString);
+            for(int i = 0; i < room.getDm().getAssistantDecks().size(); i++){
+                if( room.getDm().getAssistantDecks().get(i).isFree()){
+                    outputString = room.getDm().getAssistantDecks().get(i).getMage().toString();
+                    output.println(outputString);
+                }
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        p0.setDeck(d);
+
+        int usages = 0;
+        for(int i = 0; i < room.getDm().getAssistantDecks().size(); i++){
+            if(!room.getDm().getAssistantDecks().get(i).isFree()){
+                usages++;
+            }
+        }
+
+        if (usages == room.getDm().getAssistantDecks().size() - room.getNumPlayers()){
+            room.createGame(room.getNumPlayers(), room.getID(), room.isGameType());
+        }
+        return true;
+    }
+
+    @Override
+    public void run() {
+        while(!isReady()){
+            System.out.println("Waiting for players...");
+            synchronized(this){
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        for(Player player : players){
+            selectMage(player);
+        }
+
+        for(Player player : players){
+            Socket clientSocket = clientSocketsMap.get(player);
+            OutputStreamWriter outputStreamWriter = null;
+            try {
+                outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
+                PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
+                String outputString = "Starting the game.\r";
+                output.println(outputString);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    private void selectMage(Player player){
+        try{
+            Socket clientSocket = clientSocketsMap.get(player);
+            BufferedReader inputMage = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            String inputString;
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
+            PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
+
+            String ouputString;
+            ouputString = "Select mage.\r";
+            output.println(ouputString);
+
+            inputString = inputMage.readLine();
+            System.out.println("Mage input: " + inputString);
+            int choice = Integer.parseInt(inputString);
+
+            if(choice == 1){
+                if(this.deckRequest(Mage.MAGE1, player.getID_player(), clientSocket)){
+                    outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
+                    output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
+                    ouputString = "Correct choice.";
+                    output.println(ouputString);
+                }
+            } else if(choice == 2){
+                if(this.deckRequest(Mage.MAGE2, player.getID_player(), clientSocket)){
+                    outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
+                    output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
+                    ouputString = "Correct choice.";
+                    output.println(ouputString);
+                }
+            } else if(choice == 3){
+                if(this.deckRequest(Mage.MAGE3, player.getID_player(), clientSocket)){
+                    outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
+                    output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
+                    ouputString = "Correct choice.";
+                    output.println(ouputString);
+                }
+            } else if(choice == 4){
+                if(this.deckRequest(Mage.MAGE4, player.getID_player(), clientSocket)){
+                    outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
+                    output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
+                    ouputString = "Correct choice.";
+                    output.println(ouputString);
+                }
+            } else {
+                selectMage(player);
+            }
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 }
+

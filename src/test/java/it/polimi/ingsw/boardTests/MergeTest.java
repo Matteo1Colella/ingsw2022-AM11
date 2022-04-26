@@ -20,9 +20,9 @@ public class MergeTest {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -42,9 +42,9 @@ public class MergeTest {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
@@ -64,9 +64,9 @@ public class MergeTest {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
@@ -90,9 +90,9 @@ public class MergeTest {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
@@ -113,9 +113,9 @@ public class MergeTest {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
@@ -151,9 +151,9 @@ public class MergeTest {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
@@ -210,9 +210,9 @@ public class MergeTest {
         students4.add(new Student(ColorStudent.PINK));
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game game = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = game.generateBoard();
@@ -267,5 +267,6 @@ public class MergeTest {
         assertEquals(9, gameComponents .getArchipelago().size());
 
     }
+
 }
 

@@ -659,15 +659,13 @@ public class Game {
         ArrayList<Player> startingList = new ArrayList<>();
         startingList.add(this.complexLobby.getPlayers().get(index));
 
-        for(int i=0; i<this.complexLobby.getNumPlayers(); i++)
-            if(startingList.contains(this.complexLobby.getPlayers().get(i)))
-                ;
-            else
+        for(int i=0; i<this.complexLobby.getNumPlayers(); i++){
+            if(!startingList.contains(this.complexLobby.getPlayers().get(i))){
                 startingList.add(this.complexLobby.getPlayers().get(i));
-
+            }
+        }
 
         this.complexLobby.setPlayerOrder(startingList);
-
 
         this.complexLobby.setActivePlayer(this.complexLobby.getPlayerOrder().get(0));
         return this.complexLobby.getPlayerOrder().get(0);
@@ -677,10 +675,11 @@ public class Game {
     public Player winCondition() {
 
         //check if a player finished his free towers in his schoolBoard
-        for(int i = 0; i<this.complexLobby.getPlayers().size(); i++)
-            if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0)
+        for(int i = 0; i<this.complexLobby.getPlayers().size(); i++){
+            if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0){
                 return this.complexLobby.getPlayers().get(i);
-
+            }
+        }
 
         //there are three archipelagos
         if (this.GameComponents.getArchipelago().size() == 3 || (this.GameComponents.getBag().left()==0 ) ){
