@@ -22,9 +22,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -38,9 +38,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -72,9 +72,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -93,9 +93,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -118,9 +118,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -144,9 +144,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -176,9 +176,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -200,9 +200,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -257,9 +257,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -281,9 +281,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -305,9 +305,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -372,9 +372,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();
@@ -418,9 +418,9 @@ public class CharacterTests {
         GameManager GM = new GameManager();
 
         GM.login("Cole", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Cole").getID(), Mage.MAGE1, "Cole");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
         GM.login("Leo", 2, true);
-        GM.deckRequest(GM.getPlayerComplexLobby("Leo").getID(), Mage.MAGE2, "Leo");
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.generateBoard();

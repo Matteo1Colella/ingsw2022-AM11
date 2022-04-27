@@ -23,11 +23,10 @@ public class giveProfessorTest {
         players.add(player1);
         players.add(player2);
 
-        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
+        complexLobby.createGame(2, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -56,11 +55,10 @@ public class giveProfessorTest {
         players.add(player1);
         players.add(player2);
 
-        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
+        complexLobby.createGame(2, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -89,11 +87,10 @@ public class giveProfessorTest {
         players.add(player1);
         players.add(player2);
 
-        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
+        complexLobby.createGame(2, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -122,11 +119,10 @@ public class giveProfessorTest {
         players.add(player2);
         players.add(player3);
 
-        ComplexLobby complexLobby = new ComplexLobby(3, false, 0, players);
-        complexLobby.CreateGame(3, 0, true);
+        ComplexLobby complexLobby = new ComplexLobby(3, true, 0, players);
+        complexLobby.createGame(3, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
 
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
@@ -156,11 +152,10 @@ public class giveProfessorTest {
         players.add(player1);
         players.add(player2);
 
-        ComplexLobby complexLobby = new ComplexLobby(2, false, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
+        complexLobby.createGame(2, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
 
         Character2 character2 = new Character2(1);
 
@@ -193,11 +188,10 @@ public class giveProfessorTest {
         players.add(player2);
         players.add(player3);
 
-        ComplexLobby complexLobby = new ComplexLobby(3, false, 0, players);
-        complexLobby.CreateGame(3, 0, true);
+        ComplexLobby complexLobby = new ComplexLobby(3, true, 0, players);
+        complexLobby.createGame(3, 0, true);
         Game game = complexLobby.getGame();
 
-        game.generateBoard();
 
         Character2 character2 = new Character2(1);
 

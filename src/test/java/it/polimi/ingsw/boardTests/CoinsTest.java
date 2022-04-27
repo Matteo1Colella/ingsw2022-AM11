@@ -27,7 +27,8 @@ public class CoinsTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.createGame(2, 0, true);
+
         Game game = complexLobby.getGame();
 
 
@@ -60,7 +61,7 @@ public class CoinsTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.createGame(2, 0, true);
         Game game = complexLobby.getGame();
 
        //game.generateBoard();
@@ -105,7 +106,7 @@ public class CoinsTest {
         players.add(player3);
 
         ComplexLobby complexLobby = new ComplexLobby(3, true, 0, players);
-        complexLobby.CreateGame(3, 0, true);
+        complexLobby.createGame(3, 0, true);
         Game game = complexLobby.getGame();
 
 
@@ -154,7 +155,7 @@ public class CoinsTest {
         players.add(player2);
 
         ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
-        complexLobby.CreateGame(2, 0, true);
+        complexLobby.createGame(2, 0, true);
         Game game = complexLobby.getGame();
 
         coinReserve = game.getGameComponents().getCoins();
