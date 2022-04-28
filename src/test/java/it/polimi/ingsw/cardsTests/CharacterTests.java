@@ -64,6 +64,7 @@ public class CharacterTests {
 
         //lauching character1 effect
         newGame.getGameComponents().getSpecialDeck().getcard(1).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), newGame.getGameComponents().getArchipelago().get(1), 1);
+        newGame.getGameComponents().getSpecialDeck().getcard(1).getNecessaryCoin();
 
         assertEquals(newGame.getGameComponents().getArchipelago().get(1).getStudents().size(), 2);
     }
@@ -87,6 +88,7 @@ public class CharacterTests {
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
 
         newGame.getGameComponents().getSpecialDeck().getcard(2).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0));
+        newGame.getGameComponents().getSpecialDeck().getcard(2).getNecessaryCoin();
     }
     @Test
     public void Effect3Test() {
@@ -133,7 +135,7 @@ public class CharacterTests {
         cards.add(card4);
 
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
-
+        newGame.getGameComponents().getSpecialDeck().getcard(4).getNecessaryCoin();
         newGame.getGameComponents().getSpecialDeck().getcard(4).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0));
         assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getMotherNatureMoves(), 2);
 
@@ -164,7 +166,7 @@ public class CharacterTests {
         }
 
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
-
+        newGame.getGameComponents().getSpecialDeck().getcard(5).getNecessaryCoin();
         newGame.getGameComponents().getSpecialDeck().getcard(5).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), newGame.getGameComponents().getArchipelago().get(0));
 
         assertTrue(newGame.getGameComponents().getArchipelago().get(0).getLocked());
@@ -190,8 +192,9 @@ public class CharacterTests {
 
         cards.add(card6);
 
-        newGame.getGameComponents().getSpecialDeck().setCards(cards);
 
+        newGame.getGameComponents().getSpecialDeck().setCards(cards);
+        newGame.getGameComponents().getSpecialDeck().getcard(6).getNecessaryCoin();
         newGame.getGameComponents().getSpecialDeck().getcard(6).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), newGame.getGameComponents().getArchipelago().get(0));
         assertTrue(newGame.isNoTower());
     }
@@ -251,6 +254,7 @@ public class CharacterTests {
         for (int i = 0; i < 3; i++) {
             assertEquals(card7.getStudents().get(i).getColor(), ColorStudent.BLUE);
         }
+        newGame.getGameComponents().getSpecialDeck().getcard(7).getNecessaryCoin();
     }
     @Test
     public void Effect8Test() {
@@ -272,7 +276,7 @@ public class CharacterTests {
         cards.add(card8);
 
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
-
+        newGame.getGameComponents().getSpecialDeck().getcard(8).getNecessaryCoin();
         newGame.getGameComponents().getSpecialDeck().getcard(8).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0));
         assertEquals(2, GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getInfluencePoints());
     }
@@ -296,7 +300,7 @@ public class CharacterTests {
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
 
         newGame.getGameComponents().getSpecialDeck().getcard(9).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), ColorStudent.RED);
-
+        newGame.getGameComponents().getSpecialDeck().getcard(9).getNecessaryCoin();
         assertEquals(ColorStudent.RED, GM.getPlayerComplexLobby("Cole").getGame().getExcludedColor());
     }
 
@@ -365,6 +369,7 @@ public class CharacterTests {
         for (int i = 0; i < 2; i++) {
             assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getColor(), ColorStudent.BLUE);
         }
+        newGame.getGameComponents().getSpecialDeck().getcard(10).getNecessaryCoin();
     }
 
     @Test
@@ -409,7 +414,7 @@ public class CharacterTests {
         System.out.println("OnCard");
         card11.getStudents().stream().map(Student::getColor).forEach(System.out::println);
         System.out.println(" ");
-
+        newGame.getGameComponents().getSpecialDeck().getcard(11).getNecessaryCoin();
         assertEquals(oldCard.getColor(), GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoomByColor(oldCard.getColor()).getStudents().get(0).getColor());
     }
 
@@ -462,7 +467,7 @@ public class CharacterTests {
         System.out.println("Dining Leo post:");
         GM.getPlayerComplexLobby("Leo").getPlayers().get(1).getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().stream().map(Student::getColor).forEach(System.out::println);
         System.out.println(" ");
-        
+        newGame.getGameComponents().getSpecialDeck().getcard(12).getNecessaryCoin();
         assertEquals(0, GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).getStudents().size());
         assertEquals(2, GM.getPlayerComplexLobby("Leo").getPlayers().get(1).getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).getStudents().size());
     }

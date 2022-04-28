@@ -140,6 +140,9 @@ public class SchoolboardTest {
             schoolBoard.moveStudent(studentsOnIsland.get(i), islandCard);
         }
 
+        schoolBoard.printSchoolBoard();
+        schoolBoard.getStudents();
+
         assertEquals(islandCard.getStudents(), studentsOnIsland);
         assertEquals(schoolBoard.getEntrance().getStudents().size(), 5);
     }

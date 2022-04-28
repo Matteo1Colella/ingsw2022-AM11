@@ -9,9 +9,9 @@
 |:-----------------|:--------------------------------------------------:|
 | Basic rules      | 🟢 |
 | Complete rules   | 🟡 |
-| Socket           | 🔴 |
-| GUI              | 🔴 |
-| CLI              | 🔴 |
+| Socket           | 🟡 |
+| GUI              | 🟡 |
+| CLI              | 🟡 |
 | Multiple games   | 🟡 |
 | Persistence      | 🔴 |
 | Advanced Gods    | 🔴 |

@@ -70,6 +70,7 @@ public class generateBoardTest {
         ComplexLobby complexLobby = new ComplexLobby(2, true, 0, players);
         complexLobby.createGame(2, 0, true);
         Game game = complexLobby.getGame();
+        game.getGameComponents().printClouds();
 
 
 
