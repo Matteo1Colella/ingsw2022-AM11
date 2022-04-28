@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.pieces;
 import it.polimi.ingsw.model.board.Board;
 import it.polimi.ingsw.model.board.IslandCard;
 
-public class MotherNature implements Moovable {
+public class MotherNature implements Movable {
 
     private IslandCard position;
 

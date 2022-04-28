@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.cards.Characters.*;
+import it.polimi.ingsw.model.cards.characters.*;
 import it.polimi.ingsw.model.pieces.NoEntryTile;
 
 import java.util.ArrayList;

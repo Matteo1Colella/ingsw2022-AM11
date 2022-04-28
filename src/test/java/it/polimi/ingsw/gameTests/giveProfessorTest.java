@@ -3,7 +3,7 @@ package it.polimi.ingsw.gameTests;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.cards.Characters.Character2;
+import it.polimi.ingsw.model.cards.characters.Character2;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
 import org.junit.Test;
