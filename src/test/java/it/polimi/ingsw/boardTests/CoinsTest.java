@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.cards.CharacterCard;
-import it.polimi.ingsw.model.cards.Characters.Character3;
+import it.polimi.ingsw.model.cards.characters.Character3;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
 import org.junit.Test;

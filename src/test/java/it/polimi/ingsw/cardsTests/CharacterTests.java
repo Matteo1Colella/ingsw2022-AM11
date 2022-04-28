@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.cards.CharacterCard;
-import it.polimi.ingsw.model.cards.Characters.*;
+import it.polimi.ingsw.model.cards.characters.*;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.NoEntryTile;
 import it.polimi.ingsw.model.pieces.Student;

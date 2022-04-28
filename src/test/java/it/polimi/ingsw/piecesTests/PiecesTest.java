@@ -1,11 +1,16 @@
 package it.polimi.ingsw.piecesTests;
 
+import it.polimi.ingsw.model.board.CloudCard;
+import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.colors.ColorTower;
+import it.polimi.ingsw.model.pieces.NoEntryTile;
 import it.polimi.ingsw.model.pieces.Professor;
 import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.model.board.IslandCard;
 import it.polimi.ingsw.model.board.SchoolBoard;
+
+import it.polimi.ingsw.model.pieces.Tower;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -82,5 +87,21 @@ public class PiecesTest {
         student.setPosition(islandCard);
 
         assertNotNull("la positzione dello student è null", student.getPosition());
+    }
+    @Test
+    public void coverageTests() {
+        Tower t = new Tower(ColorTower.BLACK);
+        t.getPosition();
+        NoEntryTile n = new NoEntryTile(false, new IslandCard(1));
+        assertNotNull(n.getPosition());
+        IslandCard i = new IslandCard(1);
+        i.isLocked();
+        SchoolBoard s = new SchoolBoard(new ArrayList<Student>());
+        CloudCard c = new CloudCard(1,new ArrayList<Student>());
+        c.drawStudents();
+        CharacterCard car = new CharacterCard();
+        car.setStudents(new ArrayList<>());
+        assertNotNull(car.getNecessaryCoin());
+
     }
 }

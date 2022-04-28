@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.pieces;
 
 import it.polimi.ingsw.model.board.Board;
 
-public abstract class Piece implements Moovable {
+public abstract class Piece implements Movable {
     private Board position;
     // Start of Getters, Setters, Constructor
 
