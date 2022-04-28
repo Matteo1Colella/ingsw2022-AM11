@@ -11,15 +11,32 @@ import static org.junit.Assert.*;
 
 public class AssistantDeckTest {
     @Test
-    public void chooseCards(){
+    public void choseCards(){
 
         DeckManager deckManager = new DeckManager();
 
         AssistantDeck assistantDeck = deckManager.generateDeck(Mage.MAGE1);
 
-        Card choosenCard = assistantDeck.chooseCard(1);
+        Card chosenCard = assistantDeck.chooseCard(1);
+        Card chosenCard2 = assistantDeck.chooseCard(2);
+        Card chosenCard3 = assistantDeck.chooseCard(3);
+        Card chosenCard4 = assistantDeck.chooseCard(4);
+        Card chosenCard5 = assistantDeck.chooseCard(5);
+        Card chosenCard6 = assistantDeck.chooseCard(6);
+        Card chosenCard7 = assistantDeck.chooseCard(7);
+        Card chosenCard8 = assistantDeck.chooseCard(8);
+        Card chosenCard9 = assistantDeck.chooseCard(9);
+        Card chosenCard10 = assistantDeck.chooseCard(10);
 
-        assertNotNull(choosenCard);
+        chosenCard.getMage();
+
+        assistantDeck.getCards();
+
+        System.out.println(assistantDeck.leftCard());
+
+        assistantDeck.chooseCard(1);
+
+        assertNotNull(chosenCard);
     }
 
     @Test

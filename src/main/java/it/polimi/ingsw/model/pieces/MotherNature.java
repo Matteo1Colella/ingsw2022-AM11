@@ -18,10 +18,7 @@ public class MotherNature implements Movable {
         return position;
     }
 
-    public void setPosition(IslandCard position) {
 
-        this.position = position;
-    }
 
     @Override
     public void setPosition(Board position) {

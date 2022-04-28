@@ -48,10 +48,6 @@ public class GameComponents {
         return coins;
     }
 
-    public Collection<NoEntryTile> getProhibitionCards() {
-        return prohibitionCards;
-    }
-
 
     public CharacterDeck getSpecialDeck() {
         return specialDeck;
