@@ -1,5 +1,8 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.communication.common.JSONtoObject;
+import it.polimi.ingsw.communication.common.ObjectToJSON;
+import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.Game;
@@ -28,6 +31,7 @@ public class ComplexLobby extends Thread{
     private int roundCounter;
     private boolean cornerCase;
 
+
     // Start of Getters, Setters, Constructor
     public ComplexLobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
         this.chosenCards = new ArrayList<>();
@@ -40,6 +44,8 @@ public class ComplexLobby extends Thread{
         this.clientSocketsMap = new HashMap<>();
         this.roundCounter=0;
         this.cornerCase=false;
+
+
     }
 
     public int getRoundCounter() {
@@ -296,11 +302,12 @@ public class ComplexLobby extends Thread{
         //looks for lobby (ID)
         ComplexLobby room = this;
 
-        System.out.println("searching for mage " + mage);
+        //System.out.println("searching for mage " + mage);
         AssistantDeck d = room.getDm().generateDeck(mage);
 
         // if mage is not avaible returns false
         if (d == null){
+            /*
             try{
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
                 PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
@@ -324,6 +331,7 @@ public class ComplexLobby extends Thread{
             } catch (IOException e){
                 e.printStackTrace();
             }
+             */
             return false;
         }
         System.out.println("found deck with mage " + d.getMage());
@@ -337,6 +345,7 @@ public class ComplexLobby extends Thread{
         }
         System.out.println("Added deck " + d.getMage() + " to " + IDplayer);
 
+        /*
         try{
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
             PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
@@ -351,6 +360,7 @@ public class ComplexLobby extends Thread{
         } catch (IOException e){
             e.printStackTrace();
         }
+         */
 
         p0.setDeck(d);
 
@@ -381,7 +391,11 @@ public class ComplexLobby extends Thread{
         }
 
         for(Player player : players){
-            selectMage(player);
+            boolean correctMage = false;
+            while(!correctMage){
+                correctMage = selectMage(player);
+            }
+
         }
 
         for(Player player : players){
@@ -395,60 +409,85 @@ public class ComplexLobby extends Thread{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
-    private void selectMage(Player player){
-        try{
-            Socket clientSocket = clientSocketsMap.get(player);
-            BufferedReader inputMage = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String inputString;
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
-            PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
 
-            String ouputString;
-            ouputString = "Select mage.\r";
-            output.println(ouputString);
+    private boolean selectMage(Player player){
+        Socket clientSocket = clientSocketsMap.get(player);
+        JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
+        ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
 
-            inputString = inputMage.readLine();
-            System.out.println("Mage input: " + inputString);
-            int choice = Integer.parseInt(inputString);
+        MageMessage aviableMageRequest = (MageMessage) receiveMessage.receiveMessage();
+        if((aviableMageRequest.getMageSelection()) == 0 && (aviableMageRequest.getAviableMage() == null)){
 
-            if(choice == 1){
-                if(this.deckRequest(Mage.MAGE1, player.getID_player(), clientSocket)){
-                    outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
-                    output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
-                    ouputString = "Correct choice.";
-                    output.println(ouputString);
+            int i = 0;
+            ArrayList<AssistantDeck> assistantDecks = getDm().getAssistantDecks();
+            for(AssistantDeck assistantDeck : assistantDecks){
+                if(assistantDeck.isFree()){
+                    i++;
                 }
-            } else if(choice == 2){
-                if(this.deckRequest(Mage.MAGE2, player.getID_player(), clientSocket)){
-                    outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
-                    output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
-                    ouputString = "Correct choice.";
-                    output.println(ouputString);
-                }
-            } else if(choice == 3){
-                if(this.deckRequest(Mage.MAGE3, player.getID_player(), clientSocket)){
-                    outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
-                    output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
-                    ouputString = "Correct choice.";
-                    output.println(ouputString);
-                }
-            } else if(choice == 4){
-                if(this.deckRequest(Mage.MAGE4, player.getID_player(), clientSocket)){
-                    outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
-                    output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
-                    ouputString = "Correct choice.";
-                    output.println(ouputString);
-                }
-            } else {
-                selectMage(player);
             }
-        } catch(IOException e){
-            e.printStackTrace();
+            int[] aviableMages = new int[i];
+            i = 0;
+            for(AssistantDeck assistantDeck : assistantDecks){
+                if(assistantDeck.isFree()){
+                    switch (assistantDeck.getMage()){
+                        case MAGE1:
+                            aviableMages[i] = 1;
+                            break;
+                        case MAGE2:
+                            aviableMages[i] = 2;
+                            break;
+                        case MAGE3:
+                            aviableMages[i] = 3;
+                            break;
+                        case MAGE4:
+                            aviableMages[i] = 4;
+                    }
+                    i++;
+                }
+            }
+
+            sendMessage.sendMageMessage(new MageMessage(aviableMages));
         }
+
+        MageMessage mageMessage = (MageMessage) receiveMessage.receiveMessage();
+        int choice = mageMessage.getMageSelection();
+        if(choice == 1){
+            if(deckRequest(Mage.MAGE1, player.getID_player(), clientSocket)){
+                sendMessage.sendNoError();
+                return true;
+            } else {
+                sendMessage.sendMageError();
+                return false;
+            }
+        } else if(choice == 2){
+            if(deckRequest(Mage.MAGE2, player.getID_player(), clientSocket)){
+                sendMessage.sendNoError();
+                return true;
+            } else {
+                sendMessage.sendMageError();
+                return false;
+            }
+        } else if(choice == 3){
+            if(deckRequest(Mage.MAGE3, player.getID_player(), clientSocket)){
+                sendMessage.sendNoError();
+                return true;
+            } else {
+                sendMessage.sendMageError();
+                return false;
+            }
+        } else if(choice == 4){
+            if(deckRequest(Mage.MAGE4, player.getID_player(), clientSocket)){
+                sendMessage.sendNoError();
+                return true;
+            } else {
+                sendMessage.sendMageError();
+                return false;
+            }
+        }
+        return false;
     }
 }
 

@@ -55,7 +55,7 @@ public class GameManager {
     // the player gets added in that Lobby. it checks if UserID is free and if it's not it returns an access failed.
     public boolean login(String ID, int numplayers, boolean Gametype){
         // no more than 4 players
-        if (numplayers > maxplayers){
+        if (numplayers <= 1 || numplayers > maxplayers){
             System.out.println("Error: Too Many Players");
             return false;
         }
