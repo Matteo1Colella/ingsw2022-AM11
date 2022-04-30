@@ -8,7 +8,6 @@ import java.util.Map;
 import com.google.gson.*;
 import it.polimi.ingsw.controller.GameManager;
 
-
 public class ServerMain {
     private String hostName;
     private Integer portNumber;
@@ -65,7 +64,7 @@ public class ServerMain {
         }
     }
 
-    //read the socket parameters from the file "config.json"
+    //read the socket parameters from the file "configServer.json"
     public Integer getPortNumber() {
         return portNumber;
     }
@@ -74,7 +73,7 @@ public class ServerMain {
         try {
             Gson gson = new Gson();
             //create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/java/it/polimi/ingsw/comunication/server/config.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/java/it/polimi/ingsw/communication/server/configServer.json"));
             //convert JSON file to map
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             //print map entries
@@ -93,10 +92,6 @@ public class ServerMain {
         } catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public String getHostName() {
-        return hostName;
     }
 
     public int getMaxRequests() {
