@@ -1,15 +1,16 @@
 package it.polimi.ingsw.communication.common.errors;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class LoginError implements MessageInterface {
 
     private String message;
-    private int code;
+    private MessageType code;
 
     public LoginError() {
         message = "Login error.\r";
-        code = 100;
+        code = MessageType.LOGINERROR;
     }
 
     @Override
@@ -18,7 +19,7 @@ public class LoginError implements MessageInterface {
     }
 
     @Override
-    public int getCode() {
+    public MessageType getCode() {
         return code;
     }
 }

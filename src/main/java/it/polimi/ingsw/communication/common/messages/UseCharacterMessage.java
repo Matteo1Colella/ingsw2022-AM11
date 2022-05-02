@@ -1,15 +1,16 @@
 package it.polimi.ingsw.communication.common.messages;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class UseCharacterMessage implements MessageInterface {
     private String message;
-    private int code;
+    private MessageType code;
     private int id;
 
     public UseCharacterMessage(int id) {
         message = "Play Character message.\r";
-        code = 7;
+        code = MessageType.CHARACTER;
         this.id = id;
     }
 
@@ -19,7 +20,7 @@ public class UseCharacterMessage implements MessageInterface {
     }
 
     @Override
-    public int getCode() {
+    public MessageType getCode() {
         return code;
     }
 

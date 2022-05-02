@@ -1,13 +1,14 @@
 package it.polimi.ingsw.communication.common.messages;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class Message implements MessageInterface {
 
     private String message;
-    private int code;
+    private MessageType code;
 
-    public Message(String message, int code) {
+    public Message(String message, MessageType code) {
         this.message = message;
         this.code = code;
     }
@@ -18,7 +19,7 @@ public class Message implements MessageInterface {
     }
 
     @Override
-    public int getCode() {
+    public MessageType getCode() {
         return code;
     }
 }

@@ -1,15 +1,15 @@
 package it.polimi.ingsw.communication.server;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.communication.common.JSONtoObject;
 import it.polimi.ingsw.communication.common.ObjectToJSON;
-import it.polimi.ingsw.communication.common.messages.LobbiesMessage;
-import it.polimi.ingsw.communication.common.messages.LoginMessage;
-import it.polimi.ingsw.communication.common.messages.MageMessage;
-import it.polimi.ingsw.communication.common.messages.PingPongMessage;
+import it.polimi.ingsw.communication.common.messages.*;
+import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.concurrent.*;
 
 public class ServerThread extends Thread{
     private static int counter = 0;
@@ -22,6 +22,7 @@ public class ServerThread extends Thread{
     private PrintWriter output;
     private ObjectToJSON sendMessage;
     private JSONtoObject receiveMessage;
+    private ComplexLobby currentCL;
 
     public ServerThread(Socket clientSocket, GameManager gameManager) throws IOException{
         this.clientSocket = clientSocket;
@@ -59,6 +60,7 @@ public class ServerThread extends Thread{
         boolean isPro = loginMessage.isPro();
 
         if(gameManager.loginSocket(username, numOfPlayers, isPro, clientSocket)){
+            currentCL = gameManager.getPlayerComplexLobby(username);
             sendMessage.sendNoError();
             sendMessage.sendLobbiesMessage(new LobbiesMessage(gameManager.getPlayerComplexLobby(username).getID()));
         } else {
@@ -70,6 +72,7 @@ public class ServerThread extends Thread{
     public synchronized int getCounter(){
         return counter;
     }
+
 
     public Socket getClientSocket() {
         return clientSocket;

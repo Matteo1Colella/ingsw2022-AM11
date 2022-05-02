@@ -1,17 +1,18 @@
 package it.polimi.ingsw.communication.common.messages;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class LoginMessage implements MessageInterface {
     private String message;
-    private int code;
+    private MessageType code;
     private String username;
     private int numOfPlayers;
     private boolean isPro;
 
     public LoginMessage(String username, int numOfPlayers, boolean isPro) {
         message = "Login message.\r";
-        code = 1;
+        code = MessageType.LOGIN;
         this.username = username;
         this.numOfPlayers = numOfPlayers;
         this.isPro = isPro;
@@ -19,12 +20,12 @@ public class LoginMessage implements MessageInterface {
 
     @Override
     public String getMessage() {
-        return null;
+        return message;
     }
 
     @Override
-    public int getCode() {
-        return 0;
+    public MessageType getCode() {
+        return code;
     }
 
     public String getUsername() {

@@ -1,23 +1,24 @@
-package it.polimi.ingsw.communication.common;
+package it.polimi.ingsw.communication.common.errors;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class ErrorMessage implements MessageInterface {
     private String message;
-    private int code;
+    private MessageType code;
 
     public ErrorMessage() {
         message = "Error message.\r";
-        code = -1;
+        code = MessageType.ERROR;
     }
 
     @Override
     public String getMessage() {
-        return null;
+        return message;
     }
 
     @Override
-    public int getCode() {
-        return 0;
+    public MessageType getCode() {
+        return code;
     }
 }

@@ -1,8 +1,8 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.communication.common.JSONtoObject;
-import it.polimi.ingsw.communication.common.ObjectToJSON;
+import it.polimi.ingsw.communication.common.*;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
+import it.polimi.ingsw.communication.common.messages.PingPongMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.Game;
@@ -10,10 +10,11 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.Socket;
-import java.sql.SQLOutput;
+import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.*;
 
 public class ComplexLobby extends Thread{
     private Game game;
@@ -389,68 +390,104 @@ public class ComplexLobby extends Thread{
                 }
             }
         }
+        for(Player player : players) {
+            Socket clientSocket = clientSocketsMap.get(player);
+            JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
+            ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
 
-        for(Player player : players){
-            boolean correctMage = false;
-            while(!correctMage){
-                correctMage = selectMage(player);
+            MessageInterface messageInterface = receiveMessage.receiveMessage();
+            if(messageInterface.getCode() == MessageType.MAGE){
+                boolean correctMage = false;
+                while(!correctMage){
+                    correctMage = selectMage(player, receiveMessage, sendMessage);
+                }
             }
-
         }
 
-        for(Player player : players){
+        createGame(numPlayers, ID, gameType);
+
+        for(Player player : playerOrder){
             Socket clientSocket = clientSocketsMap.get(player);
-            OutputStreamWriter outputStreamWriter = null;
-            try {
-                outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
-                PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
-                String outputString = "Starting the game.\r";
-                output.println(outputString);
-            } catch (IOException e) {
-                e.printStackTrace();
+            JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
+            ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
+
+            boolean endOfTurn = false;
+            while (!endOfTurn){
+                MessageType messageCode = receiveMessageTimeOut(receiveMessage).getCode();
+                switch (messageCode){
+                    case PINGPONG:
+                        sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
+                    case CLOUDCARD:
+                        endOfTurn = true;
+                        break;
+                }
             }
         }
     }
 
+    private MessageInterface receiveMessageTimeOut(JSONtoObject receiveMessage){
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        final MessageInterface[] message = {null};
 
-    private boolean selectMage(Player player){
-        Socket clientSocket = clientSocketsMap.get(player);
-        JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
-        ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
+        Future<String> future = executor.submit(new Callable() {
 
-        MageMessage aviableMageRequest = (MageMessage) receiveMessage.receiveMessage();
-        if((aviableMageRequest.getMageSelection()) == 0 && (aviableMageRequest.getAviableMage() == null)){
-
-            int i = 0;
-            ArrayList<AssistantDeck> assistantDecks = getDm().getAssistantDecks();
-            for(AssistantDeck assistantDeck : assistantDecks){
-                if(assistantDeck.isFree()){
-                    i++;
-                }
+            public String call() throws Exception {
+                message[0] = receiveMessage.receiveMessage();
+                return "OK";
             }
-            int[] aviableMages = new int[i];
-            i = 0;
-            for(AssistantDeck assistantDeck : assistantDecks){
-                if(assistantDeck.isFree()){
-                    switch (assistantDeck.getMage()){
-                        case MAGE1:
-                            aviableMages[i] = 1;
-                            break;
-                        case MAGE2:
-                            aviableMages[i] = 2;
-                            break;
-                        case MAGE3:
-                            aviableMages[i] = 3;
-                            break;
-                        case MAGE4:
-                            aviableMages[i] = 4;
-                    }
-                    i++;
+        });
+        try {
+            System.out.println(future.get(3, TimeUnit.SECONDS)); //timeout is in 2 seconds
+        } catch (TimeoutException | InterruptedException | ExecutionException e) {
+            System.err.println("Timeout");
+            for(Player player : players){
+                Socket clientSocket = clientSocketsMap.get(player);
+                ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
+                sendMessage.sendConnectionError();
+                try {
+                    clientSocket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-            }
 
-            sendMessage.sendMageMessage(new MageMessage(aviableMages));
+            }
         }
+        executor.shutdownNow();
+        return message[0];
+    }
+
+    private boolean selectMage(Player player, JSONtoObject receiveMessage, ObjectToJSON sendMessage){
+        int i = 0;
+        ArrayList<AssistantDeck> assistantDecks = getDm().getAssistantDecks();
+        Socket clientSocket = clientSocketsMap.get(player);
+
+        for(AssistantDeck assistantDeck : assistantDecks){
+            if(assistantDeck.isFree()){
+                i++;
+            }
+        }
+        int[] aviableMages = new int[i];
+        i = 0;
+        for(AssistantDeck assistantDeck : assistantDecks){
+            if(assistantDeck.isFree()){
+                switch (assistantDeck.getMage()){
+                    case MAGE1:
+                        aviableMages[i] = 1;
+                        break;
+                    case MAGE2:
+                        aviableMages[i] = 2;
+                        break;
+                    case MAGE3:
+                        aviableMages[i] = 3;
+                        break;
+                    case MAGE4:
+                        aviableMages[i] = 4;
+                }
+                i++;
+            }
+        }
+
+        sendMessage.sendMageMessage(new MageMessage(aviableMages));
 
         MageMessage mageMessage = (MageMessage) receiveMessage.receiveMessage();
         int choice = mageMessage.getMageSelection();
@@ -489,5 +526,6 @@ public class ComplexLobby extends Thread{
         }
         return false;
     }
+
 }
 

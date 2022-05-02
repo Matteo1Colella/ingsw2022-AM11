@@ -1,16 +1,17 @@
 package it.polimi.ingsw.communication.common.messages;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class LobbiesMessage implements MessageInterface {
 
     private String message;
-    private int code;
+    private MessageType code;
     private int idLobby;
 
     public LobbiesMessage(int idLobby) {
         message = "Current lobby message.\r";
-        code = 8;
+        code = MessageType.LOBBIES;
         this.idLobby = idLobby;
     }
 
@@ -20,7 +21,7 @@ public class LobbiesMessage implements MessageInterface {
     }
 
     @Override
-    public int getCode() {
+    public MessageType getCode() {
         return code;
     }
 

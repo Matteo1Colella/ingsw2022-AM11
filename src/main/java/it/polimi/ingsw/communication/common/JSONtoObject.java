@@ -1,6 +1,7 @@
 package it.polimi.ingsw.communication.common;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.communication.common.errors.ErrorMessage;
 import it.polimi.ingsw.communication.common.errors.LoginError;
 import it.polimi.ingsw.communication.common.errors.MageError;
 import it.polimi.ingsw.communication.common.errors.NoError;
@@ -8,6 +9,7 @@ import it.polimi.ingsw.communication.common.messages.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class JSONtoObject {
     private Socket socket;
@@ -31,32 +33,32 @@ public class JSONtoObject {
     private MessageInterface JSONtoMessage(String received){
 
         Message message = gson.fromJson(received, Message.class);
-        int code = message.getCode();
+        MessageType code = message.getCode();
 
         switch (code){
-            case 0:
+            case PINGPONG:
                 return gson.fromJson(received, PingPongMessage.class);
-            case 1:
+            case LOGIN:
                 return gson.fromJson(received, LoginMessage.class);
-            case 2:
+            case MAGE:
                 return gson.fromJson(received, MageMessage.class);
-            case 3:
+            case CARD:
                 return gson.fromJson(received, PlayCardMessage.class);
-            case 4:
+            case CLOUDCARD:
                 return gson.fromJson(received, CloudCardMessage.class);
-            case 5:
+            case STUDENT:
                 return gson.fromJson(received, MoveStudentMessage.class);
-            case 6:
+            case MOTHERNATURE:
                 return gson.fromJson(received, MoveMotherNatureMessage.class);
-            case 7:
+            case CHARACTER:
                 return gson.fromJson(received, UseCharacterMessage.class);
-            case 8:
+            case LOBBIES:
                 return gson.fromJson(received, LobbiesMessage.class);
-            case 100:
+            case LOGINERROR:
                 return gson.fromJson(received, LoginError.class);
-            case 101:
+            case MAGEERROR:
                 return gson.fromJson(received, MageError.class);
-            case 1000:
+            case NOERROR:
                 return gson.fromJson(received, NoError.class);
 
         }
@@ -64,7 +66,7 @@ public class JSONtoObject {
 
     }
 
-    public MessageInterface receiveMessage(){
+    public MessageInterface receiveMessage() {
         try {
             String inputJSON = input.readLine();
             return JSONtoMessage(inputJSON);

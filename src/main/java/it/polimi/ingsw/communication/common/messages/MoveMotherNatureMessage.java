@@ -1,15 +1,16 @@
 package it.polimi.ingsw.communication.common.messages;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class MoveMotherNatureMessage implements MessageInterface {
     private String message;
-    private int code;
+    private MessageType code;
     private int moves;
 
     public MoveMotherNatureMessage(int moves) {
         message = "Move MotherNature message.\r";
-        code = 6;
+        code = MessageType.MOTHERNATURE;
         this.moves = moves;
     }
 
@@ -19,7 +20,7 @@ public class MoveMotherNatureMessage implements MessageInterface {
     }
 
     @Override
-    public int getCode() {
+    public MessageType getCode() {
         return code;
     }
 
