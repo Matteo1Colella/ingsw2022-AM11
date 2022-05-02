@@ -3,6 +3,7 @@ package it.polimi.ingsw.gameTests;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.board.Coin;
 import it.polimi.ingsw.model.cards.characters.Character2;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
@@ -169,6 +170,17 @@ public class giveProfessorTest {
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player1.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
 
+
+        Coin coin = new Coin(0);
+        Coin coin2 = new Coin(0);
+        Coin coin3 = new Coin(0);
+        Coin coin4 = new Coin(0);
+
+        player1.addCoins(coin);
+        player1.addCoins(coin2);
+        player1.addCoins(coin3);
+        player1.addCoins(coin4);
+
         character2.effect(player1);
 
         game.colorDominance();
@@ -204,6 +216,16 @@ public class giveProfessorTest {
         player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player2.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
 
+        Coin coin = new Coin(0);
+        Coin coin2 = new Coin(0);
+        Coin coin3 = new Coin(0);
+        Coin coin4 = new Coin(0);
+
+        player2.addCoins(coin);
+        player2.addCoins(coin2);
+        player2.addCoins(coin3);
+        player2.addCoins(coin4);
+
         character2.effect(player2);
         game.colorDominance();
         assertNull("The red professor in p1 is not null",player1.getSchoolBoard().getProfessor(ColorStudent.RED));
@@ -211,6 +233,13 @@ public class giveProfessorTest {
 
         player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
         player3.getSchoolBoard().getDiningRoomByColor(ColorStudent.RED).addStudent(new Student(ColorStudent.RED));
+
+
+
+        player3.addCoins(coin);
+        player3.addCoins(coin2);
+        player3.addCoins(coin3);
+        player3.addCoins(coin4);
 
         character2.effect(player3);
         game.colorDominance();

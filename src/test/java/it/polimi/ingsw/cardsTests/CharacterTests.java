@@ -3,6 +3,7 @@ package it.polimi.ingsw.cardsTests;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Mage;
+import it.polimi.ingsw.model.board.Coin;
 import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.cards.characters.*;
@@ -111,6 +112,16 @@ public class CharacterTests {
 
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
 
+        Coin coin = new Coin(0);
+        Coin coin2 = new Coin(0);
+        Coin coin3 = new Coin(0);
+        Coin coin4 = new Coin(0);
+
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin2);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin3);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin4);
+
         newGame.getGameComponents().getSpecialDeck().getcard(3).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), newGame.getGameComponents().getArchipelago().get(0));
 
 
@@ -192,10 +203,19 @@ public class CharacterTests {
 
         cards.add(card6);
 
+        Coin coin = new Coin(0);
+        Coin coin2 = new Coin(0);
+        Coin coin3 = new Coin(0);
+        Coin coin4 = new Coin(0);
+
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin2);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin3);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin4);
 
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
-        newGame.getGameComponents().getSpecialDeck().getcard(6).getNecessaryCoin();
-        newGame.getGameComponents().getSpecialDeck().getcard(6).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), newGame.getGameComponents().getArchipelago().get(0));
+
+        newGame.getGameComponents().getSpecialDeck().getcard(6).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0));
         assertTrue(newGame.isNoTower());
     }
     @Test
@@ -299,8 +319,20 @@ public class CharacterTests {
 
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
 
+        Coin coin = new Coin(0);
+        Coin coin2 = new Coin(0);
+        Coin coin3 = new Coin(0);
+        Coin coin4 = new Coin(0);
+
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin2);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin3);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin4);
+
         newGame.getGameComponents().getSpecialDeck().getcard(9).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), ColorStudent.RED);
-        newGame.getGameComponents().getSpecialDeck().getcard(9).getNecessaryCoin();
+
+
+
         assertEquals(ColorStudent.RED, GM.getPlayerComplexLobby("Cole").getGame().getExcludedColor());
     }
 
@@ -457,6 +489,15 @@ public class CharacterTests {
         System.out.println(" ");
 
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
+        Coin coin = new Coin(0);
+        Coin coin2 = new Coin(0);
+        Coin coin3 = new Coin(0);
+        Coin coin4 = new Coin(0);
+
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin2);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin3);
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin4);
 
         newGame.getGameComponents().getSpecialDeck().getcard(12).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), ColorStudent.RED);
 

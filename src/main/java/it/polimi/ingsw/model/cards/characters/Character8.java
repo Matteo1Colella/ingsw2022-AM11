@@ -16,6 +16,7 @@ public class Character8 extends CharacterCard {
 
     public void effect(Player activePlayer){
         activePlayer.setInfluencePoints(activePlayer.getInfluencePoints()+2);
+        activePlayer.useCoins(this.necessaryCoin);
     }
 
     @Override

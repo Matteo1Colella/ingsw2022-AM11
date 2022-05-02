@@ -321,6 +321,7 @@ public class Game {
         // calculates who's the king of the island
         for (Player tempPlayer : players)
         {
+            if (tempPlayer.getSchoolBoard().getTowers().size()==0) return;
            if (tempPlayer.getInfluencePoints() > maxPlayer.getInfluencePoints())
            {
                maxPlayer = tempPlayer;

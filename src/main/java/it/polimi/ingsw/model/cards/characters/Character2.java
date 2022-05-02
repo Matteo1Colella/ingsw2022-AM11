@@ -18,6 +18,7 @@ public class Character2 extends CharacterCard {
         // in Game, the function colorDominance will take into account this boolean value to calculate
         // correctly the setting of professors.
         activePlayer.getSchoolBoard().setCharachter2used(true);
+        activePlayer.useCoins(this.necessaryCoin);
     }
 
     @Override

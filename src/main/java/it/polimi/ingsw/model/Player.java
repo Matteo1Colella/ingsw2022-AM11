@@ -47,6 +47,13 @@ public class Player {
         MotherNatureMoves = motherNatureMoves;
     }
 
+    public void useCoins(int numcoins){
+        for(int i = 0; i < numcoins; i++){
+            this.getPlayerGame().getGameComponents().getCoins().addCoin(this.coins.get(0));
+            this.coins.remove(0);
+        }
+    }
+
 
     public void setGameID(int gameID) {
         this.gameID = gameID;

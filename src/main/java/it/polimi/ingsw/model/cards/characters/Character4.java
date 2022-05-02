@@ -15,6 +15,7 @@ public class Character4 extends CharacterCard {
 
     public void effect(Player activePlayer){
         activePlayer.setMotherNatureMoves(activePlayer.getMotherNatureMoves()+2);
+        activePlayer.useCoins(this.necessaryCoin);
     }
 
     @Override

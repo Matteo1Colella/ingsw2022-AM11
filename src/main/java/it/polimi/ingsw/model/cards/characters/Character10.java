@@ -46,6 +46,7 @@ public class Character10 extends CharacterCard {
             DiningRoom d = activePlayer.getSchoolBoard().getDiningRoomByColor(temp.getColor());
             d.removeStudent(temp);
         }
+        activePlayer.useCoins(this.necessaryCoin);
     }
 
     @Override

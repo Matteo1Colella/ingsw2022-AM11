@@ -30,6 +30,7 @@ public class Character12 extends CharacterCard {
                 }
             }
         }
+        activePlayer.useCoins(this.necessaryCoin);
     }
 
     @Override

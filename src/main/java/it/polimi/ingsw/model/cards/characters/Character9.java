@@ -15,7 +15,9 @@ public class Character9 extends CharacterCard {
     }
 
     public void effect(Player activePlayer, ColorStudent color){
+        if (color == null) return;
         activePlayer.getPlayerGame().setExcludedColor(color);
+        activePlayer.useCoins(this.necessaryCoin);
     }
 
     @Override
