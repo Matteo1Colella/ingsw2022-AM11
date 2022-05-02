@@ -1,6 +1,7 @@
 package it.polimi.ingsw.communication.common;
 
 import com.google.gson.Gson;
+import it.polimi.ingsw.communication.common.errors.ConnectionError;
 import it.polimi.ingsw.communication.common.errors.LoginError;
 import it.polimi.ingsw.communication.common.errors.MageError;
 import it.polimi.ingsw.communication.common.errors.NoError;
@@ -27,13 +28,11 @@ public class ObjectToJSON {
     }
 
     public void sendPingPongMessage(PingPongMessage pingPong){
-
-        if(pingPong.getMessage().equalsIgnoreCase("ping")){
-            System.out.println("Sending Ping.\r");
-        } else if (pingPong.getMessage().equalsIgnoreCase("pong")){
-            System.out.println("Sending Pong.\r");
-        }
         output.println(gson.toJson(pingPong));
+    }
+
+    public void sendConnectionError(){
+        output.println(gson.toJson(new ConnectionError()));
     }
 
     public void sendLoginMessage(LoginMessage loginMessage){

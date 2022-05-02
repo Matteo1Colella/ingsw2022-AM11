@@ -3,6 +3,7 @@ package it.polimi.ingsw.communication.client;
 import com.google.gson.Gson;
 import it.polimi.ingsw.communication.common.JSONtoObject;
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 import it.polimi.ingsw.communication.common.ObjectToJSON;
 import it.polimi.ingsw.communication.common.messages.*;
 
@@ -14,24 +15,18 @@ import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public class ClientMain {
     private int port;
 
-    // socket parameters
-    private InetAddress host;
     private Socket clientSocket;
-    private ObjectToJSON sendMessage;
-    private JSONtoObject receiveMessage;
+    private final ObjectToJSON sendMessage;
+    private final JSONtoObject receiveMessage;
 
     public ClientMain() {
         try {
             readParameters();
-            createConnecction();
+            createConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,7 +34,7 @@ public class ClientMain {
         receiveMessage = new JSONtoObject(clientSocket);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         ClientMain clientMain = new ClientMain();
 
         clientMain.pingPong();
@@ -49,7 +44,13 @@ public class ClientMain {
         while (!choice) {
             choice = clientMain.choseMage();
         }
-
+        synchronized (clientMain){
+            try{
+                clientMain.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void readParameters() throws IOException {
@@ -69,9 +70,10 @@ public class ClientMain {
         }
     }
 
-    private void createConnecction() throws IOException {
+    private void createConnection() throws IOException {
         //connect to the server on the local host: to be modified.
-        host = InetAddress.getLocalHost();
+        // socket parameters
+        InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
     }
 
@@ -103,10 +105,10 @@ public class ClientMain {
         sendMessage.sendLoginMessage(new LoginMessage(username.replaceAll("\\s+",""), numOfPlayers, isPro));
 
         MessageInterface message = receiveMessage.receiveMessage();
-        if(message.getCode() == 100){
+        if(message.getCode() == MessageType.LOGINERROR){
             System.out.println("Something gone wrong, please retry.\r");
             login();
-        } else if(message.getCode() == 1000) {
+        } else if(message.getCode() == MessageType.NOERROR) {
             LobbiesMessage lobbiesMessage = (LobbiesMessage) receiveMessage.receiveMessage();
             System.out.println("You are in the lobby " + lobbiesMessage.getIdLobby());
         }
@@ -133,30 +135,13 @@ public class ClientMain {
         sendMessage.sendMageMessage(new MageMessage(mage));
 
         MessageInterface receivedMessage = receiveMessage.receiveMessage();
-        if (receivedMessage.getCode() == 1000){
+        if (receivedMessage.getCode() == MessageType.NOERROR){
             System.out.println("Correct selection.\r");
             return true;
-        } else if (receivedMessage.getCode() == 101){
+        } else if (receivedMessage.getCode() == MessageType.MAGEERROR){
             return false;
         }
         return false;
     }
-
-    public int getPort() {
-        return port;
-    }
-
-    public Socket getClientSocket() {
-        return clientSocket;
-    }
-
-    public ObjectToJSON getSendMessage() {
-        return sendMessage;
-    }
-
-    public JSONtoObject getReceiveMessage() {
-        return receiveMessage;
-    }
-
 }
 

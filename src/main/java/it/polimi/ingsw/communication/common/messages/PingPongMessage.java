@@ -1,10 +1,11 @@
 package it.polimi.ingsw.communication.common.messages;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class PingPongMessage implements MessageInterface {
     private String message;
-    private int code;
+    private MessageType code;
 
     public PingPongMessage(String pingPong){
 
@@ -13,7 +14,7 @@ public class PingPongMessage implements MessageInterface {
         } else if(pingPong.equalsIgnoreCase("pong")){
             this.message = pingPong;
         }
-        this.code = 0;
+        this.code = MessageType.PINGPONG;
 
     }
 
@@ -23,7 +24,7 @@ public class PingPongMessage implements MessageInterface {
     }
 
     @Override
-    public int getCode() {
+    public MessageType getCode() {
         return code;
     }
 }

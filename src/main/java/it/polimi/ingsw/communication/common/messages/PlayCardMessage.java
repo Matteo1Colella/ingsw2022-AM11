@@ -1,15 +1,16 @@
 package it.polimi.ingsw.communication.common.messages;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class PlayCardMessage implements MessageInterface {
     private String message;
-    private int code;
+    private MessageType code;
     private int idCard;
 
     public PlayCardMessage(int idCard) {
         message = "Play card message.\r";
-        code = 3;
+        code = MessageType.CARD;
         this.idCard = idCard;
     }
 
@@ -19,7 +20,7 @@ public class PlayCardMessage implements MessageInterface {
     }
 
     @Override
-    public int getCode() {
+    public MessageType getCode() {
         return code;
     }
 

@@ -1,14 +1,15 @@
 package it.polimi.ingsw.communication.common.errors;
 
 import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 
 public class MageError implements MessageInterface {
     private String message;
-    private int code;
+    private MessageType code;
 
     public MageError() {
         message = "Not valid mage.\r";
-        code = 101;
+        code = MessageType.MAGEERROR;
     }
 
     @Override
@@ -17,7 +18,7 @@ public class MageError implements MessageInterface {
     }
 
     @Override
-    public int getCode() {
+    public MessageType getCode() {
         return code;
     }
 }

@@ -3,15 +3,15 @@ package it.polimi.ingsw.communication.common.errors;
 import it.polimi.ingsw.communication.common.MessageInterface;
 import it.polimi.ingsw.communication.common.MessageType;
 
-public class NoError implements MessageInterface {
-
+public class ConnectionError implements MessageInterface {
     private String message;
     private MessageType code;
 
-    public NoError() {
-        this.message = "ok.\r";
-        this.code = MessageType.NOERROR;
+    public ConnectionError() {
+        message = "Due to a connection error, the match is terminated.\n";
+        code = MessageType.CONNECTIONERROR;
     }
+
 
     @Override
     public String getMessage() {
