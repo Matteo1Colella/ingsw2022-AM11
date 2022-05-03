@@ -1,10 +1,7 @@
 package it.polimi.ingsw.communication.client;
 
 import com.google.gson.Gson;
-import it.polimi.ingsw.communication.common.JSONtoObject;
-import it.polimi.ingsw.communication.common.MessageInterface;
-import it.polimi.ingsw.communication.common.MessageType;
-import it.polimi.ingsw.communication.common.ObjectToJSON;
+import it.polimi.ingsw.communication.common.*;
 import it.polimi.ingsw.communication.common.messages.*;
 
 import java.io.*;
@@ -22,8 +19,10 @@ public class ClientMain {
     private Socket clientSocket;
     private final ObjectToJSON sendMessage;
     private final JSONtoObject receiveMessage;
+    private final Object lock;
 
     public ClientMain() {
+        lock = new Object();
         try {
             readParameters();
             createConnection();
@@ -36,7 +35,6 @@ public class ClientMain {
 
     public static void main(String[] args) {
         ClientMain clientMain = new ClientMain();
-
         clientMain.pingPong();
         clientMain.login();
 
@@ -44,13 +42,7 @@ public class ClientMain {
         while (!choice) {
             choice = clientMain.choseMage();
         }
-        synchronized (clientMain){
-            try{
-                clientMain.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+
     }
 
     private void readParameters() throws IOException {
@@ -75,6 +67,7 @@ public class ClientMain {
         // socket parameters
         InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
+        clientSocket.setSoTimeout(30000);
     }
 
     public void pingPong(){
@@ -123,15 +116,18 @@ public class ClientMain {
         for (int i = 0; i < mageMessage.getAviableMage().length; i++) {
             System.out.println("MAGE " + mageMessage.getAviableMage()[i] + "\n");
         }
-        System.out.println("Select mage:\n");
         int mage = 0;
         while (!ok) {
+            System.out.println("Select mage:\n");
             Scanner scanner = new Scanner(System.in);
             mage = scanner.nextInt();
             if (mage == 1 || mage == 2 || mage == 3 || mage == 4) {
                 ok = true;
+            } else {
+                System.out.println("Invalid choice.\r");
             }
         }
+
         sendMessage.sendMageMessage(new MageMessage(mage));
 
         MessageInterface receivedMessage = receiveMessage.receiveMessage();
@@ -142,6 +138,10 @@ public class ClientMain {
             return false;
         }
         return false;
+    }
+
+    public Socket getClientSocket() {
+        return clientSocket;
     }
 }
 

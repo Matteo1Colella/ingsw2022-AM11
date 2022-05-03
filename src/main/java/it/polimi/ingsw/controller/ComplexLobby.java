@@ -31,6 +31,7 @@ public class ComplexLobby extends Thread{
     private final HashMap<Player, Socket> clientSocketsMap;
     private int roundCounter;
     private boolean cornerCase;
+    private static Object lock;
 
 
     // Start of Getters, Setters, Constructor
@@ -46,7 +47,12 @@ public class ComplexLobby extends Thread{
         this.roundCounter=0;
         this.cornerCase=false;
 
+        lock = new Object();
 
+    }
+
+    public Object getLock() {
+        return lock;
     }
 
     public int getRoundCounter() {
@@ -119,7 +125,9 @@ public class ComplexLobby extends Thread{
         this.players.add(newPlayer);
         if (players.size() == this.numPlayers) {
             this.setReady(true);
-            this.notify();
+            synchronized (this){
+                this.notifyAll();
+            }
         }
     }
 
@@ -147,6 +155,7 @@ public class ComplexLobby extends Thread{
             temp.setPlayerGame(this.game);
         }
         this.game.generateBoard();
+      //  lock.notifyAll();
     }
 
     //adds the Card to the Array of chosen cards
@@ -254,6 +263,24 @@ public class ComplexLobby extends Thread{
             setActivePlayer(this.playerOrder.get(index+1));
         }
     }
+
+    public synchronized void changeActivePlayerSocket(){
+
+        int index = 0;
+        for (int i = 0; i<this.numPlayers; i++ ){
+            if (this.playerOrder.get(i)==this.getActivePlayer())
+                index = i;
+        }
+
+        if((index+1)<this.numPlayers){
+            setActivePlayer(this.playerOrder.get(index+1));
+        }
+
+        if(!clientSocketsMap.isEmpty()){
+            clientSocketsMap.get(activePlayer).notify();
+        }
+    }
+
 
     // A player (IDPlayer) from a lobby (ID) requests a deck with a specified mage (mage). if free, it sets player's deck,
     // if busy, it returns false
@@ -378,8 +405,10 @@ public class ComplexLobby extends Thread{
         return true;
     }
 
+    /*
     @Override
     public void run() {
+
         while(!isReady()){
             System.out.println("Waiting for players...");
             synchronized(this){
@@ -411,55 +440,14 @@ public class ComplexLobby extends Thread{
             JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
             ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
 
-            boolean endOfTurn = false;
-            while (!endOfTurn){
-                MessageType messageCode = receiveMessageTimeOut(receiveMessage).getCode();
-                switch (messageCode){
-                    case PINGPONG:
-                        sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
-                    case CLOUDCARD:
-                        endOfTurn = true;
-                        break;
-                }
-            }
         }
     }
 
-    private MessageInterface receiveMessageTimeOut(JSONtoObject receiveMessage){
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        final MessageInterface[] message = {null};
+     */
 
-        Future<String> future = executor.submit(new Callable() {
-
-            public String call() throws Exception {
-                message[0] = receiveMessage.receiveMessage();
-                return "OK";
-            }
-        });
-        try {
-            System.out.println(future.get(3, TimeUnit.SECONDS)); //timeout is in 2 seconds
-        } catch (TimeoutException | InterruptedException | ExecutionException e) {
-            System.err.println("Timeout");
-            for(Player player : players){
-                Socket clientSocket = clientSocketsMap.get(player);
-                ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-                sendMessage.sendConnectionError();
-                try {
-                    clientSocket.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-            }
-        }
-        executor.shutdownNow();
-        return message[0];
-    }
-
-    private boolean selectMage(Player player, JSONtoObject receiveMessage, ObjectToJSON sendMessage){
+    public synchronized boolean selectMage(Socket clientSocket, Player player, JSONtoObject receiveMessage, ObjectToJSON sendMessage){
         int i = 0;
         ArrayList<AssistantDeck> assistantDecks = getDm().getAssistantDecks();
-        Socket clientSocket = clientSocketsMap.get(player);
 
         for(AssistantDeck assistantDeck : assistantDecks){
             if(assistantDeck.isFree()){
@@ -490,6 +478,7 @@ public class ComplexLobby extends Thread{
         sendMessage.sendMageMessage(new MageMessage(aviableMages));
 
         MageMessage mageMessage = (MageMessage) receiveMessage.receiveMessage();
+
         int choice = mageMessage.getMageSelection();
         if(choice == 1){
             if(deckRequest(Mage.MAGE1, player.getID_player(), clientSocket)){
@@ -527,5 +516,39 @@ public class ComplexLobby extends Thread{
         return false;
     }
 
+    public synchronized void endGame(Player winner){
+        for(Player player : players){
+            Socket clientSocket = clientSocketsMap.get(player);
+            ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
+            //send win message
+            try {
+                clientSocket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public synchronized void closeConnection(){
+        for(Player player : players){
+            Socket clientSocket = clientSocketsMap.get(player);
+            ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
+            sendMessage.sendConnectionError();
+            try {
+                clientSocket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public Player getPlayerByID(String ID){
+        for(Player player : players){
+            if(ID.equals(player.getID_player())){
+                return player;
+            }
+        }
+        return null;
+    }
 }
 
