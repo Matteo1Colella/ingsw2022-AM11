@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <sonar.exclusions>**/communication/**/*,**/App.java,**/Movable.java,**/Piece.java,**/Status.java,**/colors/**/*,**/Board.java</sonar.exclusions>
   </properties>
 
@@ -87,8 +87,8 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-compiler-plugin</artifactId>
               <configuration>
-                  <source>8</source>
-                  <target>8</target>
+                  <source>17</source>
+                  <target>17</target>
               </configuration>
           </plugin>
         <plugin>
