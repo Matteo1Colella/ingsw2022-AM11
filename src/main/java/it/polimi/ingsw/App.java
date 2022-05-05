@@ -481,6 +481,7 @@ public class App
                 System.out.println(" ");
 
                 winnerPlayer = newGame.winCondition();
+
                 if (winnerPlayer != null){
                     System.out.println(winnerPlayer.getID_player() + " won!");
                     return;

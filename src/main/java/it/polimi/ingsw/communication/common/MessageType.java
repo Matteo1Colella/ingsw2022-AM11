@@ -17,5 +17,6 @@ public enum MessageType {
     CONNECTIONERROR,
     MYCARDLIST,
     CARDERROR,
-    PLAYEDCARDLIST
+    PLAYEDCARDLIST,
+    TURN
 }

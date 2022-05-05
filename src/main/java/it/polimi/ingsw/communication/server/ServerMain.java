@@ -39,7 +39,6 @@ public class ServerMain {
 
             while(true){
                 clientSocket = myServerSocket.accept();
-                clientSocket.setSoTimeout(30000);
                 System.out.println("Starting connection with client: " + clientSocket);
                 try{
                     //when a client tries to connect, the server create a new thread to deal with the client
