@@ -14,5 +14,6 @@ public enum MessageType {
     LOGINERROR,
     MAGEERROR,
     NOERROR,
-    CONNECTIONERROR
+    CONNECTIONERROR,
+    TURN
 }

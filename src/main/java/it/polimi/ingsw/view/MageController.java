@@ -102,31 +102,6 @@ public class MageController {
     public void confirmMageSocket() throws IOException {
 
 
-            int mage = 0;
-                switch(selectedmage){
-                    case MAGE1:
-                        mage = 1;
-                        break;
-                    case MAGE2:
-                        mage = 2;
-                        break;
-                    case MAGE3:
-                        mage = 3;
-                        break;
-                    case MAGE4:
-                        mage = 4;
-                        break;
-
-            }
-
-            client.getSendMessage().sendMageMessage(new MageMessage(mage));
-
-            MessageInterface receivedMessage = client.getReceiveMessage().receiveMessage();
-            if (receivedMessage.getCode() == MessageType.NOERROR){
-                new PlanningStage();
-            } else if (receivedMessage.getCode() == MessageType.MAGEERROR){
-                textMage.setText("Wrong Choice");
-            }
 
     }
     public void setAvaiableMages(ArrayList<Mage> mages){

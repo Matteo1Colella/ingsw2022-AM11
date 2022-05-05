@@ -29,6 +29,13 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable{
     private final GameManager gameManager = new GameManager();
+    public Label l;
+    public Label loading;
+    public ImageView background2;
+    public Label id;
+    public Label gt1;
+    public Label nop1;
+    public Label lob;
     private int n;
     private String ID;
     private int type;
@@ -82,51 +89,6 @@ public class LoginController implements Initializable{
 
     @FXML
     public void loginSocket() throws IOException {
-        ClientMain clientMain = new ClientMain();
-
-        clientMain.pingPong();
-
-        ID = nameField.getText();
-
-        boolean set = false;
-
-        if(toggleGroup.getSelectedToggle().equals(twoP)){
-            n = 2;
-            set = true;
-        } else {
-            if(toggleGroup.getSelectedToggle().equals(threeP)){
-                n = 3;
-                set = true;
-            }
-            if(toggleGroup.getSelectedToggle().equals(fourP)){
-                n = 4;
-                set = true;
-            }
-        }
-        if (!set){
-            n = 0;
-        }
-
-
-
-        pro.setAllowIndeterminate(false);
-        boolType = pro.isSelected();
-
-        clientMain.getSendMessage().sendLoginMessage(new LoginMessage(ID.replaceAll("\\s+",""), n, boolType));
-
-        MessageInterface message = clientMain.getReceiveMessage().receiveMessage();
-
-        ObservableList<String> doList = FXCollections.observableArrayList();
-        ObservableList<String> Lobbieslist = FXCollections.observableArrayList();
-
-        if(message.getCode() == MessageType.LOGINERROR){
-            welcomeText.setText("Something gone wrong, please retry.\r");
-        } else if(message.getCode() == MessageType.NOERROR) {
-            LobbiesMessage lobbiesMessage = (LobbiesMessage) clientMain.getReceiveMessage().receiveMessage();
-            welcomeText.setText("You are in the lobby " + lobbiesMessage.getIdLobby());
-            new MageStageSocket(clientMain);
-        }
-
 
 
     }
