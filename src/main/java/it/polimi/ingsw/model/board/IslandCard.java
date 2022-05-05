@@ -91,4 +91,27 @@ public class IslandCard implements Board {
     public void addStudent(Student student){
         this.students.add(student);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder mergedStudents = new StringBuilder();
+        for(IslandCard t : this.getMergedWith()){
+            for(Student s : t.getStudents()){
+                mergedStudents.append(s.toString());
+            }
+        }
+        StringBuilder students = new StringBuilder();
+        for(Student s : this.getStudents()){
+            students.append(s.toString());
+        }
+
+        String tower = "no Tower";
+
+        if (this.tower == null) {
+            tower = "no Tower";
+        } else tower = this.tower.toString();
+
+        return "Students: " + students + mergedStudents + "\n" +
+                "Tower: " + tower;
+    }
 }

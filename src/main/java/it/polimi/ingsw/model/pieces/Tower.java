@@ -33,4 +33,9 @@ public class Tower extends Piece{
     public void setPosition(Board position) {
 
     }
+
+    @Override
+    public String toString() {
+        return  "" + colorTower ;
+    }
 }

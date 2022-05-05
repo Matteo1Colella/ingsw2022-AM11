@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="pane" prefHeight="614.0" prefWidth="1247.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.ActionController">
+   <children>
+      <ImageView fitHeight="419.0" fitWidth="960.0" layoutX="564.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/Plancia_DEF2.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="185.0" fitWidth="202.0" layoutX="75.0" layoutY="590.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/Personaggi/CarteTOT_front3.jpg" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="185.0" fitWidth="134.0" layoutX="273.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/Personaggi/CarteTOT_front2.jpg" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="185.0" fitWidth="138.0" layoutX="466.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/Personaggi/CarteTOT_front7.jpg" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="island9" fitHeight="150.0" fitWidth="200.0" layoutX="40.0" layoutY="332.0" onMouseClicked="#clickonIsland9" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/3.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island2" fitHeight="150.0" fitWidth="200.0" layoutX="388.0" layoutY="38.0" onMouseClicked="#clickonIsland2" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/3.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island4" fitHeight="150.0" fitWidth="200.0" layoutX="480.0" layoutY="248.0" onMouseClicked="#clickonIsland4" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/3.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island6" fitHeight="150.0" fitWidth="200.0" layoutX="344.0" layoutY="445.0" onMouseClicked="#clickonIsland6" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/3.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island11" fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="120.0" onMouseClicked="#clickonIsland11" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/2.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island5" fitHeight="150.0" fitWidth="200.0" layoutX="451.0" layoutY="366.0" onMouseClicked="#clickonIsland5" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/2.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island1" fitHeight="150.0" fitWidth="200.0" layoutX="245.0" layoutY="12.0" onMouseClicked="#clickonIsland1" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/2.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island7" fitHeight="150.0" fitWidth="200.0" layoutX="218.0" layoutY="458.0" onMouseClicked="#clickonIsland7" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/2.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island3" fitHeight="150.0" fitWidth="200.0" layoutX="470.0" layoutY="135.0" onMouseClicked="#clickonIsland3" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/1.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island8" fitHeight="150.0" fitWidth="200.0" layoutX="109.0" layoutY="418.0" onMouseClicked="#clickonIsland8" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/1.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island12" fitHeight="150.0" fitWidth="200.0" layoutX="104.0" layoutY="30.0" onMouseClicked="#clickonIsland12" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/1.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="island10" fitHeight="150.0" fitWidth="200.0" layoutX="1.0" layoutY="232.0" onMouseClicked="#clickonIsland10" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/1.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Button layoutX="1074.0" layoutY="539.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" scaleX="0.7" scaleY="0.7" text="Move Student" />
+      <Button fx:id="moveMN" layoutX="831.0" layoutY="656.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" scaleX="0.7" scaleY="0.7" text="Move mother nature" />
+      <Button layoutX="1074.0" layoutY="656.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" scaleX="0.7" scaleY="0.7" text="Draw from cloud tile" />
+      <Button layoutX="831.0" layoutY="540.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" scaleX="0.7" scaleY="0.7" text="Use Character" />
+      <ImageView fx:id="motherNature" fitHeight="89.0" fitWidth="86.0" layoutX="275.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+         <image>
+            <Image url="@Assets/MN.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1338.0" layoutY="44.0" scaleX="0.7" scaleY="0.7" text="Player : " />
+      <Label layoutX="1338.0" layoutY="66.0" scaleX="0.7" scaleY="0.7" text="Coins:" />
+      <Label fx:id="SelectedCloud" layoutX="1087.0" layoutY="634.0" scaleX="0.7" scaleY="0.7" text="Selected Cloud:" />
+      <Label fx:id="To" layoutX="1097.0" layoutY="521.0" scaleX="0.7" scaleY="0.7" text="To:" />
+      <Label fx:id="SelectedStudent" layoutX="1086.0" layoutY="501.0" scaleX="0.7" scaleY="0.7" text="Selected Student:" />
+      <Label fx:id="SelectedCharacter" layoutX="844.0" layoutY="501.0" scaleX="0.7" scaleY="0.7" text="Selected Character:" />
+      <TextField fx:id="steps" layoutX="849.0" layoutY="629.0" prefHeight="25.0" prefWidth="66.0" promptText="Steps" scaleX="0.7" scaleY="0.7" />
+      <Button layoutX="1009.0" layoutY="718.0" mnemonicParsing="false" scaleX="0.7" scaleY="0.7" text="End Turn" />
+      <ComboBox fx:id="green" layoutX="1087.0" layoutY="204.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="entrance" layoutX="715.0" layoutY="204.0" prefHeight="25.0" prefWidth="86.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="blue" layoutX="1087.0" layoutY="390.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="pink" layoutX="1087.0" layoutY="341.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="yellow" layoutX="1087.0" layoutY="298.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="red" layoutX="1088.0" layoutY="250.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+   </children>
+</AnchorPane>

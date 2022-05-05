@@ -5,4 +5,6 @@ public interface MessageInterface {
     String getMessage();
 
     MessageType getCode();
+
+
 }

@@ -23,6 +23,14 @@ public class ClientMain {
     private final ObjectToJSON sendMessage;
     private final JSONtoObject receiveMessage;
 
+    public ObjectToJSON getSendMessage() {
+        return sendMessage;
+    }
+
+    public JSONtoObject getReceiveMessage() {
+        return receiveMessage;
+    }
+
     public ClientMain() {
         try {
             readParameters();

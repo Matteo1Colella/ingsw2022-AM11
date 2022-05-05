@@ -32,6 +32,10 @@ public class ComplexLobby extends Thread{
     private int roundCounter;
     private boolean cornerCase;
 
+    @Override
+    public String toString() {
+        return "Lobby " + ID;
+    }
 
     // Start of Getters, Setters, Constructor
     public ComplexLobby(int numplayers, boolean gametype, int ID, ArrayList<Player> Players) {
