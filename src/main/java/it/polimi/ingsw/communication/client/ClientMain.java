@@ -2,6 +2,7 @@ package it.polimi.ingsw.communication.client;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.communication.common.*;
+import it.polimi.ingsw.communication.common.errors.ErrorMessage;
 import it.polimi.ingsw.communication.common.messages.*;
 
 import java.io.*;
@@ -13,7 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ClientMain {
+public class ClientMain extends Thread {
     private int port;
 
     private Socket clientSocket;
@@ -43,6 +44,19 @@ public class ClientMain {
             choice = clientMain.choseMage();
         }
 
+        while (true){
+            if(clientMain.receiveMessage().getCode() == MessageType.TURN){
+
+            }
+        }
+
+        /*
+        try{
+            clientMain.getClientSocket().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
     }
 
     private void readParameters() throws IOException {
@@ -109,7 +123,6 @@ public class ClientMain {
 
     public boolean choseMage() {
         boolean ok = false;
-
         sendMessage.sendMageMessage(new MageMessage());
         MageMessage mageMessage = (MageMessage) receiveMessage.receiveMessage();
 
@@ -138,10 +151,19 @@ public class ClientMain {
             return false;
         }
         return false;
+
     }
 
     public Socket getClientSocket() {
         return clientSocket;
+    }
+
+    public Object getLock() {
+        return lock;
+    }
+
+    public MessageInterface receiveMessage(){
+        return receiveMessage.receiveMessage();
     }
 }
 

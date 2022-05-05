@@ -1,8 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.communication.common.*;
+import it.polimi.ingsw.communication.common.errors.ErrorMessage;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
-import it.polimi.ingsw.communication.common.messages.PingPongMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.Game;
@@ -12,9 +12,7 @@ import it.polimi.ingsw.model.cards.Card;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.*;
 
 public class ComplexLobby extends Thread{
     private Game game;
@@ -262,25 +260,11 @@ public class ComplexLobby extends Thread{
         if((index+1)<this.numPlayers){
             setActivePlayer(this.playerOrder.get(index+1));
         }
-    }
-
-    public synchronized void changeActivePlayerSocket(){
-
-        int index = 0;
-        for (int i = 0; i<this.numPlayers; i++ ){
-            if (this.playerOrder.get(i)==this.getActivePlayer())
-                index = i;
-        }
-
-        if((index+1)<this.numPlayers){
-            setActivePlayer(this.playerOrder.get(index+1));
-        }
 
         if(!clientSocketsMap.isEmpty()){
             clientSocketsMap.get(activePlayer).notify();
         }
     }
-
 
     // A player (IDPlayer) from a lobby (ID) requests a deck with a specified mage (mage). if free, it sets player's deck,
     // if busy, it returns false
@@ -405,46 +389,6 @@ public class ComplexLobby extends Thread{
         return true;
     }
 
-    /*
-    @Override
-    public void run() {
-
-        while(!isReady()){
-            System.out.println("Waiting for players...");
-            synchronized(this){
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        for(Player player : players) {
-            Socket clientSocket = clientSocketsMap.get(player);
-            JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
-            ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-
-            MessageInterface messageInterface = receiveMessage.receiveMessage();
-            if(messageInterface.getCode() == MessageType.MAGE){
-                boolean correctMage = false;
-                while(!correctMage){
-                    correctMage = selectMage(player, receiveMessage, sendMessage);
-                }
-            }
-        }
-
-        createGame(numPlayers, ID, gameType);
-
-        for(Player player : playerOrder){
-            Socket clientSocket = clientSocketsMap.get(player);
-            JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
-            ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-
-        }
-    }
-
-     */
-
     public synchronized boolean selectMage(Socket clientSocket, Player player, JSONtoObject receiveMessage, ObjectToJSON sendMessage){
         int i = 0;
         ArrayList<AssistantDeck> assistantDecks = getDm().getAssistantDecks();
@@ -550,5 +494,6 @@ public class ComplexLobby extends Thread{
         }
         return null;
     }
+
 }
 

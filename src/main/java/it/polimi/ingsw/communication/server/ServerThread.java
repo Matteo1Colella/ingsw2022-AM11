@@ -2,6 +2,7 @@ package it.polimi.ingsw.communication.server;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.communication.common.*;
+import it.polimi.ingsw.communication.common.errors.ErrorMessage;
 import it.polimi.ingsw.communication.common.messages.*;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
@@ -51,6 +52,7 @@ public class ServerThread extends Thread{
 
         receivePingSendPong();
         login();
+        new PingPongThread(clientSocket, currentCL);
 
         synchronized (currentCL){
             try{
@@ -59,21 +61,18 @@ public class ServerThread extends Thread{
                 e.printStackTrace();
             }
         }
-
         boolean endOfTurn = false, endGame = false;
 
         while (!endGame) {
             while (!endOfTurn){
 
-                MessageType messageCode = receiveMessageTimeOut(receiveMessage).getCode();
-
+                MessageType messageCode = receiveMessage.receiveMessage().getCode();
                 switch (messageCode){
                     case PINGPONG:
                         sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
                         break;
                     case MAGE:
                         boolean ok = currentCL.selectMage(clientSocket, currentCL.getPlayerByID(username), receiveMessage, sendMessage);
-
 
                             synchronized (currentCL) {
                                 currentCL.notifyAll();
@@ -165,6 +164,5 @@ public class ServerThread extends Thread{
     public synchronized int getCounter(){
         return counter;
     }
-
 
 }

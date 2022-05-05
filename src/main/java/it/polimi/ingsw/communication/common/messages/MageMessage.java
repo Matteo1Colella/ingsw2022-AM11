@@ -17,7 +17,7 @@ public class MageMessage implements MessageInterface {
     }
 
     public MageMessage(){
-        message = "Ask for available mage message.\r";
+        message = "Ask for mage message.\r";
         code = MessageType.MAGE;
         this.mage = 0;
         availableMage = null;
