@@ -15,5 +15,8 @@ public enum MessageType {
     MAGEERROR,
     NOERROR,
     CONNECTIONERROR,
+    MYCARDLIST,
+    CARDERROR,
+    PLAYEDCARDLIST,
     TURN
 }

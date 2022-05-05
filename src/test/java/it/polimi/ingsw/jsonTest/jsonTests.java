@@ -1,0 +1,249 @@
+package it.polimi.ingsw.jsonTest;
+
+import com.google.gson.Gson;
+import it.polimi.ingsw.communication.common.messages.*;
+import it.polimi.ingsw.controller.ComplexLobby;
+import it.polimi.ingsw.controller.GameManager;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Mage;
+import it.polimi.ingsw.model.board.*;
+import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.CharacterCard;
+import it.polimi.ingsw.model.cards.CharacterDeck;
+import it.polimi.ingsw.model.pieces.Student;
+import org.junit.Test;
+
+import java.util.List;
+
+
+public class jsonTests {
+    @Test
+    public void testClouds() {
+
+        //initial setting
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.getGameComponents();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
+        System.out.println("");
+        System.out.println("");
+
+        //CLOUDS IN JSON
+        CloudCardListMessage cloudCardListMessage = new CloudCardListMessage();
+        cloudCardListMessage.setCloudCardList(gameComponents.getCloudCards());
+        //serialize
+        Gson gson2 = new Gson();
+        String json2 = gson2.toJson(cloudCardListMessage);
+        //deserialize
+        Gson gson3 = new Gson();
+        CloudCardListMessage order = gson3.fromJson(json2, CloudCardListMessage.class);
+        int i = 0;
+        for(CloudCard card : order.getCloudCardList()) {
+            System.out.println("cloud " + i + ":" );
+            System.out.println(card.getStudents());
+            i++;
+        }
+
+    }
+
+    @Test
+    public void testCards() {
+
+        //initial setting
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.getGameComponents();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
+        System.out.println("");
+        System.out.println("");
+
+        //CARDS IN JSON
+        AssistantCardsMessage assistantCardsMessage = new AssistantCardsMessage();
+
+        assistantCardsMessage.setDeck((List<Card>) lobby.getPlayers().get(0).getDeck().getCards());
+        //serialize
+        Gson gson2 = new Gson();
+        String json2 = gson2.toJson(assistantCardsMessage);
+        //deserialize
+        Gson gson3 = new Gson();
+        AssistantCardsMessage order = gson3.fromJson(json2, AssistantCardsMessage.class);
+        int i = 1;
+        for(Card card : order.getDeck()) {
+            System.out.println("card " + i + ":" );
+            System.out.println(card.getName());
+            i++;
+        }
+
+    }
+
+    @Test
+    public void playedCardOnTableTest() {
+        //initial setting
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.getGameComponents();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
+        newGame.getComplexLobby().checkIfPlayable(newGame.getComplexLobby().getActivePlayer().playCard(1));
+        System.out.println(lobby.getChosenCards().get(0));
+        System.out.println("");
+        System.out.println("");
+
+        //PLAYED CARDS IN JSON
+        AssistantCardsMessage assistantCardsMessage = new AssistantCardsMessage();
+
+        assistantCardsMessage.setDeck((List<Card>) lobby.getChosenCards());
+        //serialize
+        Gson gson2 = new Gson();
+        String json2 = gson2.toJson(assistantCardsMessage);
+        //deserialize
+        Gson gson3 = new Gson();
+        AssistantCardsMessage order = gson3.fromJson(json2, AssistantCardsMessage.class);
+        int i = 1;
+        for(Card card : order.getDeck()) {
+            System.out.println("card " + i + ":" );
+            System.out.println(card.getName());
+            i++;
+        }
+
+    }
+
+    @Test
+    public void sendSchoolBoardTest() {
+        //initial setting
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.getGameComponents();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
+        newGame.getComplexLobby().checkIfPlayable(newGame.getComplexLobby().getActivePlayer().playCard(1));
+        System.out.println(lobby.getChosenCards().get(0));
+        System.out.println("");
+        System.out.println("");
+
+        //SCHOOLBOARD IN JSON
+        SchoolBoardMessage schoolBoardMessage = new SchoolBoardMessage();
+
+        schoolBoardMessage.setSchoolBoard(lobby.getActivePlayer().getSchoolBoard());
+        //serialize
+        Gson gson2 = new Gson();
+        String json2 = gson2.toJson(schoolBoardMessage);
+        //deserialize
+        Gson gson3 = new Gson();
+        SchoolBoardMessage order = gson3.fromJson(json2, SchoolBoardMessage.class);
+        System.out.println("MY SCHOOLBOARD:");
+        System.out.println("");
+        System.out.println("ENTRANCE:");
+        int i = 0;
+        for(Student student : order.getSchoolBoard().getEntrance().getStudents()) {
+            System.out.println("student " + i + ":" );
+            System.out.println(student.getColor());
+            i++;
+        }
+        System.out.println("");
+        System.out.println("DINING ROOMS:");
+        System.out.println("");
+        i = 0;
+        for (DiningRoom diningRoom : order.getSchoolBoard().getDiningRooms()){
+            System.out.println("Color: " + order.getSchoolBoard().getDiningRooms().get(i).getColor());
+            System.out.println("Number of Students: " + order.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+            System.out.println("Professor: " + order.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+            i++;
+            System.out.println("");
+        }
+        System.out.println("");
+        if (order.getSchoolBoard().getTowers().get(0).getColor()!=null)
+            System.out.println("TOWER color: " + order.getSchoolBoard().getTowers().get(0).getColor());
+        System.out.println("Remaining Towers: " + order.getSchoolBoard().getTowers().size());
+
+    }
+
+    @Test
+    public void sendArchipelagoTest() {
+        //initial setting
+        GameManager GM = new GameManager();
+
+        GM.login("Cole", 2, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        GameComponents gameComponents = newGame.getGameComponents();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
+        gameComponents.getMotherNature().setPosition(gameComponents.getArchipelago().get(0));
+        System.out.println(gameComponents.getArchipelago().get(0).getMotherNature());
+        System.out.println("");
+        System.out.println("");
+
+        //ARCHIPELAGO IN JSON
+        ArchipelagoMessage archipelagoMessage = new ArchipelagoMessage();
+
+        archipelagoMessage.setArchipelago(gameComponents.getArchipelago());
+        //serialize
+        Gson gson2 = new Gson();
+        String json2 = gson2.toJson(archipelagoMessage);
+        //deserialize
+        Gson gson3 = new Gson();
+        ArchipelagoMessage order = gson3.fromJson(json2, ArchipelagoMessage.class);
+        int i = 0;
+        System.out.println("ARCHIPELAGO: ");
+        for(IslandCard islandCard : order.getArchipelago()){
+            if(islandCard.getTower() != null){
+                System.out.println("Island: " + i + "\tTower : " + islandCard.getTower().getColor().toString());
+            } else {
+                System.out.println("Island: " + i + "\tTower : no tower");
+            }
+            if(islandCard.getMotherNature()){
+                System.out.println("MOTHERNATURE");
+            }
+            System.out.println("Students:");
+            for(int j = 0; j < islandCard.getStudents().size(); j++){
+                System.out.println("Student " + j + " color : " + islandCard.getStudents().get(j));
+            }
+            System.out.println("Merged with: ");
+            for(int j = 0; j < islandCard.getMergedWith().size(); j++){
+                IslandCard tempIslandCard = islandCard.getMergedWith().get(j);
+                for(int k = 0; k < tempIslandCard.getStudents().size(); k++){
+                    System.out.println("Student " + k + " color : " + tempIslandCard.getStudents().get(k));
+                }
+            }
+            i++;
+        }
+    }
+
+
+}
+
