@@ -9,7 +9,6 @@ import it.polimi.ingsw.communication.common.messages.*;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class JSONtoObject {
     private Socket socket;
@@ -45,7 +44,7 @@ public class JSONtoObject {
             case CARD:
                 return gson.fromJson(received, PlayCardMessage.class);
             case CLOUDCARD:
-                return gson.fromJson(received, CloudCardMessage.class);
+                return gson.fromJson(received, CloudCardChoiceMessage.class);
             case STUDENT:
                 return gson.fromJson(received, MoveStudentMessage.class);
             case MOTHERNATURE:

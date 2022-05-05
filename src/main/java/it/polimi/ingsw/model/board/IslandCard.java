@@ -11,7 +11,6 @@ public class IslandCard implements Board {
     private int id_island;
     private Collection<Student> students;
     private Tower tower;
-    private final Player playerOwner;
     private Boolean motherNature;
     private ArrayList<IslandCard> mergedWith; //array of islands
     private Boolean locked;
@@ -21,7 +20,6 @@ public class IslandCard implements Board {
         this.id_island = id_island;
         this.students = new ArrayList<>();
         this.tower = null;
-        this.playerOwner = null;
         this.motherNature = false;
         this.mergedWith = new ArrayList<>();
         this.locked = false;

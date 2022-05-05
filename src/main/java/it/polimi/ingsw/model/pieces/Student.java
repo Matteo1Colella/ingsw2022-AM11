@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.colors.ColorStudent;
 
 public class Student extends Piece{
     private ColorStudent color;
-    private Board position;
+    private transient Board position;
 
     public Student(ColorStudent color) {
         this.color = color;
