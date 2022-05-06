@@ -4,15 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane fx:id="pane" prefHeight="614.0" prefWidth="1247.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.ActionController">
+<AnchorPane fx:id="pane" minWidth="-Infinity" prefHeight="765.0" prefWidth="1395.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.ActionController">
    <children>
-      <ImageView fitHeight="419.0" fitWidth="960.0" layoutX="564.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+      <ImageView fitHeight="419.0" fitWidth="960.0" layoutX="558.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@Assets/Plancia_DEF2.png" />
          </image>
@@ -20,7 +22,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fitHeight="185.0" fitWidth="202.0" layoutX="75.0" layoutY="590.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+      <ImageView fitHeight="156.0" fitWidth="97.0" layoutX="1125.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@Assets/Personaggi/CarteTOT_front3.jpg" />
          </image>
@@ -28,7 +30,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fitHeight="185.0" fitWidth="134.0" layoutX="273.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+      <ImageView fitHeight="172.0" fitWidth="97.0" layoutX="1209.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@Assets/Personaggi/CarteTOT_front2.jpg" />
          </image>
@@ -36,7 +38,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fitHeight="185.0" fitWidth="138.0" layoutX="466.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+      <ImageView fitHeight="144.0" fitWidth="97.0" layoutX="1293.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@Assets/Personaggi/CarteTOT_front7.jpg" />
          </image>
@@ -176,28 +178,134 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Button layoutX="1206.0" layoutY="533.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
-      <Button fx:id="moveMN" layoutX="708.0" layoutY="652.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" />
-      <Button layoutX="1206.0" layoutY="652.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Draw from cloud tile" />
-      <Button layoutX="708.0" layoutY="536.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Use Character" />
+      <Button layoutX="460.0" layoutY="655.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
+      <Button fx:id="moveMN" layoutX="30.0" layoutY="655.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" />
+      <Button layoutX="301.0" layoutY="437.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="60.0" text="Draw" />
+      <Button layoutX="243.0" layoutY="655.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Use Character" />
       <ImageView fx:id="motherNature" fitHeight="89.0" fitWidth="86.0" layoutX="275.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
          <image>
             <Image url="@Assets/MN.png" />
          </image>
       </ImageView>
-      <Label layoutX="698.0" layoutY="42.0" scaleX="0.7" scaleY="0.7" text="Player : " />
-      <Label layoutX="698.0" layoutY="64.0" scaleX="0.7" scaleY="0.7" text="Coins:" />
-      <Label fx:id="SelectedCloud" layoutX="1206.0" layoutY="617.0" text="Selected Cloud:" />
-      <Label fx:id="To" layoutX="1206.0" layoutY="506.0" text="To:" />
-      <Label fx:id="SelectedStudent" layoutX="1206.0" layoutY="481.0" text="Selected Student:" />
-      <Label fx:id="SelectedCharacter" layoutX="708.0" layoutY="506.0" text="Selected Character:" />
-      <TextField fx:id="steps" layoutX="708.0" layoutY="613.0" prefHeight="25.0" prefWidth="66.0" promptText="Steps" />
-      <Button layoutX="1012.0" layoutY="710.0" mnemonicParsing="false" text="End Turn" />
-      <ComboBox fx:id="green" layoutX="1087.0" layoutY="157.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
-      <ComboBox fx:id="entrance" layoutX="721.0" layoutY="155.0" prefHeight="25.0" prefWidth="86.0" scaleX="0.7" scaleY="0.7" />
-      <ComboBox fx:id="blue" layoutX="1087.0" layoutY="343.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
-      <ComboBox fx:id="pink" layoutX="1087.0" layoutY="294.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
-      <ComboBox fx:id="yellow" layoutX="1087.0" layoutY="251.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
-      <ComboBox fx:id="red" layoutX="1088.0" layoutY="203.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <Label layoutX="698.0" layoutY="42.0" text="Player : " />
+      <Label layoutX="698.0" layoutY="67.0" text="Coins:" />
+      <Label fx:id="SelectedCloud" layoutX="268.0" layoutY="417.0" prefHeight="17.0" prefWidth="126.0" text="Selected Cloud:" textAlignment="CENTER" />
+      <Label fx:id="To" layoutX="460.0" layoutY="620.0" text="To:" />
+      <Label fx:id="SelectedStudent" layoutX="460.0" layoutY="595.0" text="Selected Student:" />
+      <Label fx:id="SelectedCharacter" layoutX="243.0" layoutY="621.0" text="Selected Character:" />
+      <TextField fx:id="steps" layoutX="30.0" layoutY="616.0" prefHeight="25.0" prefWidth="66.0" promptText="Steps" />
+      <Button layoutX="297.0" layoutY="707.0" mnemonicParsing="false" text="End Turn" />
+      <ComboBox fx:id="green" layoutX="1081.0" layoutY="198.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="entrance" layoutX="715.0" layoutY="196.0" prefHeight="25.0" prefWidth="86.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="blue" layoutX="1081.0" layoutY="384.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="pink" layoutX="1081.0" layoutY="335.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="yellow" layoutX="1081.0" layoutY="292.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <ComboBox fx:id="red" layoutX="1082.0" layoutY="244.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.7" scaleY="0.7" />
+      <BorderPane layoutX="701.0" layoutY="465.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="570.0">
+         <center>
+            <AnchorPane prefHeight="273.0" prefWidth="618.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (1).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="118.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (2).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="233.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (3).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="342.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (4).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="449.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (5).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (6).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="118.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (7).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="232.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (8).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="342.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (9).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="449.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                     <image>
+                        <Image url="@Assets/Assistenti/Assistente (10).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <Separator prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </top>
+         <bottom>
+            <Separator prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <left>
+            <Separator orientation="VERTICAL" prefHeight="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Separator orientation="VERTICAL" prefHeight="200.0" BorderPane.alignment="CENTER" />
+         </right>
+         <effect>
+            <DropShadow />
+         </effect>
+      </BorderPane>
+      <Button layoutX="1290.0" layoutY="624.0" mnemonicParsing="false" text="Choose Card" />
+      <Label layoutX="1319.0" layoutY="598.0" text="Label" />
+      <Label layoutX="1286.0" layoutY="571.0" text="Current selection:" />
    </children>
 </AnchorPane>

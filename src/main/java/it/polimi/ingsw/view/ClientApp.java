@@ -21,6 +21,7 @@ public class ClientApp extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         LoginController controller = fxmlLoader.getController();
         controller.setToggleGroup();
+        controller.setStage(primaryStage);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);

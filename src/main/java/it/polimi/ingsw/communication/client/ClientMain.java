@@ -22,6 +22,14 @@ public class ClientMain extends Thread {
     private final JSONtoObject receiveMessage;
     private final Object lock;
 
+    public ObjectToJSON getSendMessage() {
+        return sendMessage;
+    }
+
+    public JSONtoObject getReceiveMessage() {
+        return receiveMessage;
+    }
+
     public ClientMain() {
         lock = new Object();
         try {
