@@ -56,10 +56,10 @@
          </cursor>
       </ImageView>
       <Separator layoutX="297.0" layoutY="43.0" orientation="VERTICAL" prefHeight="354.0" prefWidth="6.0" />
-      <Label layoutX="180.0" layoutY="14.0" prefHeight="17.0" prefWidth="247.0" text="Please Select a mage from the ones avaiable" />
+      <Label fx:id="result" layoutX="180.0" layoutY="14.0" prefHeight="17.0" prefWidth="247.0" text="Please Select a mage from the ones avaiable" />
       <Separator layoutY="212.0" prefHeight="17.0" prefWidth="600.0" />
       <Label fx:id="textMage" layoutX="239.0" layoutY="406.0" prefHeight="17.0" prefWidth="129.0" text="No mage selected" textAlignment="CENTER" />
-      <Button layoutX="265.0" layoutY="435.0" mnemonicParsing="false" onAction="#confirmMage" text="Confirm">
+      <Button layoutX="265.0" layoutY="435.0" mnemonicParsing="false" onAction="#confirmMageSocket" text="Confirm">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>

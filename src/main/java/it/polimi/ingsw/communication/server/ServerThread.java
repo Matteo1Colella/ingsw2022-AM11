@@ -76,6 +76,7 @@ public class ServerThread extends Thread{
                         synchronized (currentCL) {
                             currentCL.notify();
                         }
+
                         if(ok){
                             synchronized (lock){
                                 try{

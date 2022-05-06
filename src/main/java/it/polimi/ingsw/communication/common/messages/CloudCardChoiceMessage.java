@@ -3,12 +3,14 @@ package it.polimi.ingsw.communication.common.messages;
 import it.polimi.ingsw.communication.common.MessageInterface;
 import it.polimi.ingsw.communication.common.MessageType;
 
-public class CloudCardMessage implements MessageInterface {
+public class CloudCardChoiceMessage implements MessageInterface {
+    //choice
     private String message;
     private MessageType code;
     private int cloud;
 
-    public CloudCardMessage(int cloud) {
+
+    public CloudCardChoiceMessage(int cloud) {
         message = "Cloud selection message.\r";
         code = MessageType.CLOUDCARD;
         this.cloud = cloud;

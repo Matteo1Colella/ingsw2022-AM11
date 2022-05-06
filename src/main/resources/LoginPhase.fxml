@@ -36,7 +36,7 @@
       <Label fx:id="id" layoutX="14.0" layoutY="94.0" prefHeight="17.0" prefWidth="62.0" text="Username" textAlignment="CENTER" />
       <Label fx:id="gt1" layoutX="14.0" layoutY="239.0" prefHeight="17.0" prefWidth="62.0" text="GameType" textAlignment="CENTER" />
       <Label fx:id="nop1" layoutX="14.0" layoutY="171.0" prefHeight="17.0" prefWidth="104.0" text="Number of players" textAlignment="CENTER" />
-      <Button fx:id="login" layoutX="173.0" layoutY="324.0" mnemonicParsing="false" onAction="#Login" text="Login" />
+      <Button fx:id="login" layoutX="173.0" layoutY="324.0" mnemonicParsing="false" onAction="#loginSocket" text="Login" />
       <ListView fx:id="Lobbies" layoutX="382.0" layoutY="90.0" onMouseClicked="#ListClick" prefHeight="103.0" prefWidth="209.0" />
       <ListView fx:id="Players" layoutX="382.0" layoutY="247.0" prefHeight="103.0" prefWidth="209.0" />
       <Label fx:id="lob" layoutX="463.0" layoutY="66.0" prefHeight="17.0" prefWidth="48.0" text="Lobbies" />

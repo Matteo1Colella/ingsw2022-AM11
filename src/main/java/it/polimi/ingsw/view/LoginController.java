@@ -21,11 +21,14 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class LoginController implements Initializable{
     private final GameManager gameManager = new GameManager();
@@ -42,7 +45,9 @@ public class LoginController implements Initializable{
     private int i = 0;
     private boolean boolType;
     private ToggleGroup toggleGroup;
+    private Stage stage;
 
+private ClientMain client;
     @FXML
     AnchorPane anchorPane;
 
@@ -80,6 +85,10 @@ public class LoginController implements Initializable{
     private RadioButton fourP;
 
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     public void setToggleGroup() {
         this.toggleGroup = new ToggleGroup();
         twoP.setToggleGroup(toggleGroup);
@@ -89,7 +98,37 @@ public class LoginController implements Initializable{
 
     @FXML
     public void loginSocket() throws IOException {
+        boolean set = false;
 
+        if(toggleGroup.getSelectedToggle().equals(twoP)){
+            n = 2;
+            set = true;
+        } else {
+            if(toggleGroup.getSelectedToggle().equals(threeP)){
+                n = 3;
+                set = true;
+            }
+            if(toggleGroup.getSelectedToggle().equals(fourP)){
+                n = 4;
+                set = true;
+            }
+        }
+        if (!set){
+            n = 0;
+        }
+
+        client.getSendMessage().sendLoginMessage(new LoginMessage(nameField.getText().replaceAll("\\s+",""), n, pro.isSelected()));
+
+        MessageInterface message = client.getReceiveMessage().receiveMessage();
+        if(message.getCode() == MessageType.LOGINERROR){
+            welcomeText.setText("Something gone wrong, please retry.\r");
+
+        } else if(message.getCode() == MessageType.NOERROR) {
+            LobbiesMessage lobbiesMessage = (LobbiesMessage) client.getReceiveMessage().receiveMessage();
+            welcomeText.setText("Successful login in lobby " + lobbiesMessage.getIdLobby());
+            new MageStageSocket(client);
+            stage.close();
+        }
 
     }
 
@@ -176,7 +215,8 @@ public class LoginController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setToggleGroup();
-
+        client = new ClientMain();
+        client.pingPong();
         anchorPane.setOpacity(0);
         stackPane.setOpacity(1);
         Timeline timeline = new Timeline(
@@ -202,6 +242,7 @@ public class LoginController implements Initializable{
 
                     fade.play();
                     fade1.play();
+                    loading.setText("Connected to Server");
 
                 }, new KeyValue(progressBar.progressProperty(), 1))
         );

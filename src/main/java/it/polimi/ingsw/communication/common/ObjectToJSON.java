@@ -58,4 +58,11 @@ public class ObjectToJSON {
     public void sendMageError(){
         output.println(gson.toJson(new MageError()));
     }
+
+    public void sendPlayCardMessage(PlayCardMessage playCardMessage){output.println(gson.toJson(playCardMessage));}
+
+    public void sendAssistantCardsMessage(AssistantCardsMessage assistantCardsMessage){output.println(gson.toJson(assistantCardsMessage));}
+
+
+
 }

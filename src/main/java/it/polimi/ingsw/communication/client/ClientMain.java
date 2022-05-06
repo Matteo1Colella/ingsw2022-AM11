@@ -22,6 +22,14 @@ public class ClientMain extends Thread {
     private final JSONtoObject receiveMessage;
     private final Object lock;
 
+    public ObjectToJSON getSendMessage() {
+        return sendMessage;
+    }
+
+    public JSONtoObject getReceiveMessage() {
+        return receiveMessage;
+    }
+
     public ClientMain() {
         lock = new Object();
         try {
@@ -44,6 +52,11 @@ public class ClientMain extends Thread {
         boolean choice = false;
         while (!choice) {
             choice = clientMain.choseMage();
+        }
+        //playCard
+        choice = false;
+        while (!choice) {
+            choice = clientMain.playAssistantCard();
         }
 
         while (true){
@@ -159,6 +172,61 @@ public class ClientMain extends Thread {
     public Socket getClientSocket() {
         return clientSocket;
     }
+
+
+    public boolean playAssistantCard(){
+
+        boolean ok = false;
+
+        //ask the list of cards already played on the table
+        sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage());
+        AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) receiveMessage.receiveMessage();
+
+        System.out.println("List of played cards on table: ");
+        for (int j = 0; j < assistantCardsMessage.getChosenCard().size(); j++) {
+            System.out.println("CARD NAME: " + assistantCardsMessage.getChosenCard().get(j).getName() + "\n");
+            System.out.println("Influence: -> " +  assistantCardsMessage.getChosenCard().get(j).getInfluence() + "\n");
+            System.out.println("Steps: -> " +  assistantCardsMessage.getChosenCard().get(j).getSteps() + "\n");
+        }
+
+        //list of my cards:
+
+        System.out.println("");
+        System.out.println("My cards:");
+        for (int i = 0; i < assistantCardsMessage.getDeck().size(); i++) {
+            System.out.println("");
+            System.out.println("(Enter -> " + i + "for: )");
+            System.out.println("NAME: " + assistantCardsMessage.getDeck().get(i).getName() + "\n");
+            System.out.println("Influence: -> " +  assistantCardsMessage.getDeck().get(i).getInfluence() + "\n");
+            System.out.println("Steps: -> " +  assistantCardsMessage.getDeck().get(i).getSteps() + "\n");
+        }
+        System.out.println("Select card:\n");
+        int card = -1;
+        while (!ok) {
+            Scanner scanner = new Scanner(System.in);
+            card = scanner.nextInt();
+            if (card == 0 || card == 1 || card == 2 || card == 3 || card == 4 || card == 5 ||card == 6 ||card == 7 ||card == 8 ||card == 9 ) {
+                ok = true;
+            }
+        }
+
+        sendMessage.sendPlayCardMessage(new PlayCardMessage(card));
+        MessageInterface receivedMessage = receiveMessage.receiveMessage();
+
+        if (receivedMessage.getCode() == MessageType.NOERROR){
+            System.out.println("Correct selection.\r");
+            return true;
+        } else if (receivedMessage.getCode() == MessageType.CARDERROR){
+            return false;
+        }
+        return false;
+    }
+
+
+
+
+
+
 
     public Object getLock() {
         return lock;
