@@ -36,8 +36,10 @@ public class ClientMain extends Thread {
 
     public static void main(String[] args) {
         ClientMain clientMain = new ClientMain();
+        new PingPongThread(clientMain.getClientSocket(), "client");
         clientMain.pingPong();
         clientMain.login();
+
 
         boolean choice = false;
         while (!choice) {

@@ -272,17 +272,17 @@ public class ComplexLobby extends Thread{
         //looks for lobby (ID)
         ComplexLobby room = this;
 
-        System.out.println("searching for mage " + mage);
+        //System.out.println("searching for mage " + mage);
         AssistantDeck d = room.getDm().generateDeck(mage);
 
         // if mage is not avaible returns false
         if (d == null){
-            System.out.println("Mage Already Chosen, here are remaining Mages");
+            //System.out.println("Mage Already Chosen, here are remaining Mages");
             room.getDm().getAssistantDecks().stream().filter(AssistantDeck::isFree).map(AssistantDeck::getMage).forEach(System.out::println);
             System.out.println("");
             return false;
         }
-        System.out.println("found deck with mage " + d.getMage());
+        //System.out.println("found deck with mage " + d.getMage());
 
         // if mage is avaible it returns true and sets the deck
         Player p0 = null;
@@ -291,8 +291,8 @@ public class ComplexLobby extends Thread{
                 p0 = p;
             }
         }
-        System.out.println("Added deck " + d.getMage() + " to " + IDplayer);
-        System.out.println("Here are remaining Mages");
+        //System.out.println("Added deck " + d.getMage() + " to " + IDplayer);
+        //System.out.println("Here are remaining Mages");
         room.getDm().getAssistantDecks().stream().filter(AssistantDeck::isFree).map(AssistantDeck::getMage).forEach(System.out::println);
         System.out.println("");
         p0.setDeck(d);
@@ -389,7 +389,7 @@ public class ComplexLobby extends Thread{
         return true;
     }
 
-    public synchronized boolean selectMage(Socket clientSocket, Player player, JSONtoObject receiveMessage, ObjectToJSON sendMessage){
+    public boolean selectMage(Socket clientSocket, Player player, JSONtoObject receiveMessage, ObjectToJSON sendMessage){
         int i = 0;
         ArrayList<AssistantDeck> assistantDecks = getDm().getAssistantDecks();
 
