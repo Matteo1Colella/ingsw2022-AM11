@@ -234,7 +234,7 @@ public class ClientMain extends Thread {
         sendMessage.sendModelMessage(new ModelMessage()); //model request
         ModelMessage modelMessage = (ModelMessage) receiveMessage.receiveMessage();
 
-        //print model
+        //printing model..
 
         //if pro{
         if (modelMessage.getCoinOwned() >= 0) {
