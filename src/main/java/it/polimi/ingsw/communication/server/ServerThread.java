@@ -49,10 +49,10 @@ public class ServerThread extends Thread{
     public void run() {
         JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
         ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-
+        new PingPongThread(clientSocket, currentCL, "server");
         receivePingSendPong();
         login();
-        new PingPongThread(clientSocket, currentCL);
+
 
         synchronized (currentCL){
             try{
@@ -65,7 +65,6 @@ public class ServerThread extends Thread{
 
         while (!endGame) {
             while (!endOfTurn){
-
                 MessageType messageCode = receiveMessage.receiveMessage().getCode();
                 switch (messageCode){
                     case PINGPONG:
@@ -75,8 +74,9 @@ public class ServerThread extends Thread{
                         boolean ok = currentCL.selectMage(clientSocket, currentCL.getPlayerByID(username), receiveMessage, sendMessage);
 
                         synchronized (currentCL) {
-                            currentCL.notifyAll();
+                            currentCL.notify();
                         }
+
                         if(ok){
                             synchronized (lock){
                                 try{

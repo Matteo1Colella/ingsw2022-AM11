@@ -27,6 +27,14 @@ public class ClientMain extends Thread {
     private final JSONtoObject receiveMessage;
     private final Object lock;
 
+    public ObjectToJSON getSendMessage() {
+        return sendMessage;
+    }
+
+    public JSONtoObject getReceiveMessage() {
+        return receiveMessage;
+    }
+
     public ClientMain() {
         lock = new Object();
         try {
@@ -41,8 +49,10 @@ public class ClientMain extends Thread {
 
     public static void main(String[] args) {
         ClientMain clientMain = new ClientMain();
+        new PingPongThread(clientMain.getClientSocket(), "client");
         clientMain.pingPong();
         clientMain.login();
+
 
         boolean choice = false;
         while (!choice) {

@@ -496,7 +496,10 @@ public class ComplexLobby extends Thread{
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Lobby " + ID;
+    }
 
 }
 
