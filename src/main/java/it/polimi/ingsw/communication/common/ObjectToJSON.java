@@ -63,6 +63,13 @@ public class ObjectToJSON {
 
     public void sendAssistantCardsMessage(AssistantCardsMessage assistantCardsMessage){output.println(gson.toJson(assistantCardsMessage));}
 
+    public void sendModelMessage(ModelMessage modelMessage){output.println(gson.toJson(modelMessage));}
+
+    public void sendMoveStudentsMessage(MoveStudentMessage moveStudentMessage){output.println(gson.toJson(moveStudentMessage));}
+
+
+
+
 
 
 }

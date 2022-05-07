@@ -8,9 +8,9 @@ import it.polimi.ingsw.model.pieces.Student;
 import java.util.ArrayList;
 
 public class Character11 extends CharacterCard {
-    private ArrayList<Student> students;
-    private int num;
-    private final int necessaryCoin;
+    private transient ArrayList<Student> students;
+    private transient int num;
+    private transient final int necessaryCoin;
 
     public Character11(int num) {
         super.setNum(num);

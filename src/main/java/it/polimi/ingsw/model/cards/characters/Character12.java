@@ -8,8 +8,8 @@ import it.polimi.ingsw.model.colors.ColorStudent;
 import java.util.ArrayList;
 
 public class Character12 extends CharacterCard {
-    private int num;
-    private final int necessaryCoin;
+    private transient int num;
+    private transient final int necessaryCoin;
 
     public Character12(int num) {
         super.setNum(num);
