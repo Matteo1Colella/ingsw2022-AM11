@@ -4,8 +4,8 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.CharacterCard;
 
 public class Character4 extends CharacterCard {
-    private int num;
-    private final int necessaryCoin;
+    private transient int num;
+    private transient final int necessaryCoin;
 
     public Character4(int num) {
         this.num = num;

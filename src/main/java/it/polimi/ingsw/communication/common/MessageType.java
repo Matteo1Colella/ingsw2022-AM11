@@ -9,7 +9,7 @@ public enum MessageType {
     CLOUDCARD,
     STUDENT,
     MOTHERNATURE,
-    CHARACTER,
+    CHARACTERCHOICE,
     ERROR,
     LOGINERROR,
     MAGEERROR,
@@ -18,5 +18,9 @@ public enum MessageType {
     MYCARDLIST,
     CARDERROR,
     PLAYEDCARDLIST,
-    TURN
+    TURN,
+    MODEL,
+    COIN,
+    CHARACTERLIST,
+    MOVESTUDENTERROR
 }

@@ -5,8 +5,8 @@ import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
 
 public class Character9 extends CharacterCard {
-    private int num;
-    private final int necessaryCoin;
+    private transient int num;
+    private transient final int necessaryCoin;
 
     public Character9(int num) {
         super.setNum(num);
