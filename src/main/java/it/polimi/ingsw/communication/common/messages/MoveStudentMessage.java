@@ -17,6 +17,8 @@ public class MoveStudentMessage implements MessageInterface {
     private int indexIslandIf3ToIsland;
 
     public MoveStudentMessage(int student1Entrance, int student1WhereToPut, int indexIslandIf1ToIsland, int student2Entrance, int student2WhereToPut, int indexIslandIf2ToIsland, int student3Entrance, int student3WhereToPut, int indexIslandIf3ToIsland) {
+        message = "Move student to IslandCard or DiningRoom message.\r";
+        code = MessageType.STUDENT;
         this.student1Entrance = student1Entrance;
         this.student1WhereToPut = student1WhereToPut;
         this.indexIslandIf1ToIsland = indexIslandIf1ToIsland;

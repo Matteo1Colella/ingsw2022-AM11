@@ -60,6 +60,9 @@ public class ClientMain extends Thread {
             if ((clientMain.receiveMessage().getCode() == MessageType.MODEL)) {
                 clientMain.showModel();
             }
+            if ((clientMain.receiveMessage().getCode() == MessageType.STUDENT)) {
+                clientMain.moveStudents();
+            }
         }
 
         /*
