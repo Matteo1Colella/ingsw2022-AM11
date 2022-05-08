@@ -1,5 +1,7 @@
 package it.polimi.ingsw.communication.common;
 
+import it.polimi.ingsw.communication.common.messages.PingPongMessage;
+import it.polimi.ingsw.communication.server.ServerThread;
 import it.polimi.ingsw.controller.ComplexLobby;
 
 import java.io.IOException;
@@ -11,11 +13,14 @@ import java.util.concurrent.TimeoutException;
 
 public class PingPongThread extends Thread{
     private final Socket socket;
-    private ComplexLobby complexLobby;
+    private  ServerThread serverThread;
+    private ObjectToJSON sendMessage;
 
-    public PingPongThread(Socket socket, ComplexLobby complexLobby, String host) {
+    public PingPongThread(Socket socket, String host, ServerThread serverThread) {
         this.socket = socket;
-        this.complexLobby = complexLobby;
+        this.serverThread = serverThread;
+        sendMessage = new ObjectToJSON(socket);
+
         startThread(host);
     }
 
@@ -23,7 +28,6 @@ public class PingPongThread extends Thread{
         this.socket = socket;
         startThread(host);
     }
-
 
     private void startThread(String host){
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
@@ -34,12 +38,17 @@ public class PingPongThread extends Thread{
                     try{
                         if(socket.getInetAddress().isReachable( 5000)){
                             //System.out.println("Is reachable.\r");
+
                         } else {
-                            //System.out.println("Is not reachable.\r");
-                            complexLobby.closeConnection();
+                            System.out.println("Is not reachable.\r");
+                            serverThread.closeConnection();
+                        }
+                        if(socket.isClosed()){
+                            System.out.println("Is not reachable.\r");
+                            serverThread.closeConnection();
                         }
                     } catch (IOException e) {
-
+                        serverThread.closeConnection();
                         e.printStackTrace();
                     }
                 } else if (host.equals("client")){

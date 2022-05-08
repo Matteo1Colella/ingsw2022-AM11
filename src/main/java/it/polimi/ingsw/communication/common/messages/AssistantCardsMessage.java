@@ -14,11 +14,13 @@ public class AssistantCardsMessage implements MessageInterface {
     private List<Card> chosenCard; //for the message of list of chosen cards played from all the player in a round
 
     public AssistantCardsMessage() {
+        message = "Ask for cards message.\r";
+        code = MessageType.CARD;
     }
 
-    public AssistantCardsMessage(String message, MessageType code, List<Card> deck, List<Card> chosenCard) {
-        this.message = message;
-        this.code = code;
+    public AssistantCardsMessage(List<Card> deck, List<Card> chosenCard) {
+        this.message = "Get you cards message.\r";
+        this.code = MessageType.CARD;
         this.deck = deck;
         this.chosenCard = chosenCard;
     }

@@ -32,6 +32,9 @@ public class JSONtoObject {
     private MessageInterface JSONtoMessage(String received){
 
         Message message = gson.fromJson(received, Message.class);
+        if(message == null){
+            return new ErrorMessage();
+        }
         MessageType code = message.getCode();
 
         switch (code){
@@ -72,9 +75,48 @@ public class JSONtoObject {
     public MessageInterface receiveMessage() {
         try {
             String inputJSON = input.readLine();
-            return JSONtoMessage(inputJSON);
+            if(JSONtoMessage(inputJSON).getCode() == MessageType.ERROR){
+                System.out.println("Connection error.\r");
+                try{
+                    socket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } else{
+                return JSONtoMessage(inputJSON);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            try{
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+       return new ErrorMessage();
+    }
+
+    public MessageInterface receiveMessageClient() {
+        try {
+            String inputJSON = input.readLine();
+            if(JSONtoMessage(inputJSON).getCode().equals(MessageType.ERROR)){
+                System.out.println("Connection error.\r");
+                try{
+                    socket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                System.exit(1);
+            } else{
+                return JSONtoMessage(inputJSON);
+            }
+        } catch (IOException e) {
+            System.out.println("Connection error.\r");
+            try{
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            System.exit(1);
         }
         return new ErrorMessage();
     }
