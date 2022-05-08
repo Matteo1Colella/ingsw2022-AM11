@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class Character7 extends CharacterCard {
 
-    private ArrayList<Student> students;
-    private int num;
-    private final int necessaryCoin;
+    private transient ArrayList<Student> students;
+    private transient int num;
+    private transient final int necessaryCoin;
 
     public Character7(int num) {
         this.students = new ArrayList<>();

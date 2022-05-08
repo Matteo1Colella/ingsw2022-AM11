@@ -10,7 +10,7 @@ public class UseCharacterMessage implements MessageInterface {
 
     public UseCharacterMessage(int id) {
         message = "Play Character message.\r";
-        code = MessageType.CHARACTER;
+        code = MessageType.CHARACTERCHOICE;
         this.id = id;
     }
 

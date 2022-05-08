@@ -69,7 +69,7 @@ public class App
 
                     Character1 card = (Character1) newGame.getGameComponents().getSpecialDeck().getCards().get(choice);
                     int val = -1;
-                    int val2 = - 1 ;
+                    int val2 = - 1;
 
                     card.getStudents().stream().map(Student::getColor).forEach(System.out::println);
                     while(val < 0 || val > card.getStudents().size()) {
@@ -497,6 +497,7 @@ public class App
         }
 
     }
+
 
 
     public static void main( String[] args )

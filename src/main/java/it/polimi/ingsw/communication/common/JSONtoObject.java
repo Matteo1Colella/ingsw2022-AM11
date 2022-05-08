@@ -52,7 +52,7 @@ public class JSONtoObject {
                 return gson.fromJson(received, MoveStudentMessage.class);
             case MOTHERNATURE:
                 return gson.fromJson(received, MoveMotherNatureMessage.class);
-            case CHARACTER:
+            case CHARACTERCHOICE:
                 return gson.fromJson(received, UseCharacterMessage.class);
             case LOBBIES:
                 return gson.fromJson(received, LobbiesMessage.class);
@@ -62,6 +62,10 @@ public class JSONtoObject {
                 return gson.fromJson(received, MageError.class);
             case NOERROR:
                 return gson.fromJson(received, NoError.class);
+            case MODEL:
+                return gson.fromJson(received, ModelMessage.class);
+            case CHARACTERLIST:
+                return gson.fromJson(received, CharacterCardsMessage.class);
 
         }
         return new ErrorMessage();
