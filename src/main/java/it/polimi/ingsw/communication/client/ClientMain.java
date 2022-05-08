@@ -72,6 +72,7 @@ public class ClientMain extends Thread {
             e.printStackTrace();
         }
         */
+
     }
 
     private void readParameters() throws IOException {
@@ -96,12 +97,12 @@ public class ClientMain extends Thread {
         // socket parameters
         InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
-        clientSocket.setSoTimeout(30000);
+        clientSocket.setSoTimeout(300000);
     }
 
     public void pingPong(){
         sendMessage.sendPingPongMessage(new PingPongMessage("ping"));
-        receiveMessage.receiveMessage();
+        receiveMessage();
     }
 
     public void login(){
@@ -126,12 +127,12 @@ public class ClientMain extends Thread {
 
         sendMessage.sendLoginMessage(new LoginMessage(username.replaceAll("\\s+",""), numOfPlayers, isPro));
 
-        MessageInterface message = receiveMessage.receiveMessage();
+        MessageInterface message = receiveMessage();
         if(message.getCode() == MessageType.LOGINERROR){
             System.out.println("Something gone wrong, please retry.\r");
             login();
         } else if(message.getCode() == MessageType.NOERROR) {
-            LobbiesMessage lobbiesMessage = (LobbiesMessage) receiveMessage.receiveMessage();
+            LobbiesMessage lobbiesMessage = (LobbiesMessage) receiveMessage();
             System.out.println("You are in the lobby " + lobbiesMessage.getIdLobby());
         }
     }
@@ -139,7 +140,7 @@ public class ClientMain extends Thread {
     public boolean choseMage() {
         boolean ok = false;
         sendMessage.sendMageMessage(new MageMessage());
-        MageMessage mageMessage = (MageMessage) receiveMessage.receiveMessage();
+        MageMessage mageMessage = (MageMessage) receiveMessage();
 
         for (int i = 0; i < mageMessage.getAviableMage().length; i++) {
             System.out.println("MAGE " + mageMessage.getAviableMage()[i] + "\n");
@@ -158,7 +159,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendMageMessage(new MageMessage(mage));
 
-        MessageInterface receivedMessage = receiveMessage.receiveMessage();
+        MessageInterface receivedMessage = receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR){
             System.out.println("Correct selection.\r");
             return true;
@@ -173,14 +174,13 @@ public class ClientMain extends Thread {
         return clientSocket;
     }
 
-
     public boolean playAssistantCard(){
 
         boolean ok = false;
 
         //ask the list of cards already played on the table
         sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage());
-        AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) receiveMessage.receiveMessage();
+        AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) receiveMessage();
 
         System.out.println("List of played cards on table: ");
         for (int j = 0; j < assistantCardsMessage.getChosenCard().size(); j++) {
@@ -211,7 +211,7 @@ public class ClientMain extends Thread {
         }
 
         sendMessage.sendPlayCardMessage(new PlayCardMessage(card));
-        MessageInterface receivedMessage = receiveMessage.receiveMessage();
+        MessageInterface receivedMessage = receiveMessage();
 
         if (receivedMessage.getCode() == MessageType.NOERROR){
             System.out.println("Correct selection.\r");
@@ -222,17 +222,11 @@ public class ClientMain extends Thread {
         return false;
     }
 
-
-
-
-
-
-
     public Object getLock() {
         return lock;
     }
 
     public MessageInterface receiveMessage(){
-        return receiveMessage.receiveMessage();
+        return receiveMessage.receiveMessageClient();
     }
 }

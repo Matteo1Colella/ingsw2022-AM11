@@ -49,10 +49,9 @@ public class ServerThread extends Thread{
     public void run() {
         JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
         ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-        new PingPongThread(clientSocket, currentCL, "server");
+        new PingPongThread(clientSocket, "server", this);
         receivePingSendPong();
         login();
-
 
         synchronized (currentCL){
             try{
@@ -61,10 +60,13 @@ public class ServerThread extends Thread{
                 e.printStackTrace();
             }
         }
-        boolean endOfTurn = false, endGame = false;
+
+        chooseMage();
+
+        boolean endGame = false;
 
         while (!endGame) {
-            while (!endOfTurn){
+            while (isMyTurn()){
                 MessageType messageCode = receiveMessage.receiveMessage().getCode();
                 switch (messageCode){
                     case PINGPONG:
@@ -72,20 +74,6 @@ public class ServerThread extends Thread{
                         break;
                     case MAGE:
                         boolean ok = currentCL.selectMage(clientSocket, currentCL.getPlayerByID(username), receiveMessage, sendMessage);
-
-                        synchronized (currentCL) {
-                            currentCL.notify();
-                        }
-
-                        if(ok){
-                            synchronized (lock){
-                                try{
-                                    lock.wait();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
 
                         break;
                     case MOTHERNATURE:
@@ -95,10 +83,11 @@ public class ServerThread extends Thread{
                             currentCL.endGame(currentCL.getGame().winCondition());
                         }
                     case CLOUDCARD:
-                        endOfTurn = true;
-                        synchronized (lock){
+
+                        currentCL.changeActivePlayer();
+                        synchronized (clientSocket){
                             try{
-                                lock.wait();
+                                clientSocket.wait();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -117,6 +106,7 @@ public class ServerThread extends Thread{
         }
     }
 
+    /*
     private MessageInterface receiveMessageTimeOut(JSONtoObject receiveMessage){
         ExecutorService executor = Executors.newSingleThreadExecutor();
         final MessageInterface[] message = {null};
@@ -137,6 +127,7 @@ public class ServerThread extends Thread{
         executor.shutdownNow();
         return message[0];
     }
+    */
 
     private void receivePingSendPong(){
         receiveMessage.receiveMessage();
@@ -161,8 +152,29 @@ public class ServerThread extends Thread{
         }
     }
 
+    private void chooseMage(){
+        boolean ok = false;
+        while(!ok){
+            MessageType messageCode = receiveMessage.receiveMessage().getCode();
+            if(messageCode == MessageType.MAGE){
+                ok = currentCL.selectMage(clientSocket, currentCL.getPlayerByID(username), receiveMessage, sendMessage);
+            }
+        }
+    }
+
     public synchronized int getCounter(){
         return counter;
     }
 
+    public boolean isMyTurn(){
+        if(currentCL.getActivePlayer() == null){
+            return  false;
+        } else {
+            return currentCL.getActivePlayer().getID_player().equals(username);
+        }
+    }
+
+    public void closeConnection(){
+        currentCL.closeConnection();
+    }
 }

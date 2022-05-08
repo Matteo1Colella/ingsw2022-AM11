@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.*;
 
-public class ComplexLobby extends Thread{
+public class ComplexLobby{
     private Game game;
     private final boolean gameType;
     private final int numPlayers;
@@ -30,6 +30,8 @@ public class ComplexLobby extends Thread{
     private int roundCounter;
     private boolean cornerCase;
     private static Object lock;
+
+    private CloseConnectionThread closeConnectionThread;
 
 
     // Start of Getters, Setters, Constructor
@@ -114,6 +116,11 @@ public class ComplexLobby extends Thread{
     public void setReady(boolean ready) {
         this.ready = ready;
     }
+
+    public HashMap<Player, Socket> getClientSocketsMap() {
+        return clientSocketsMap;
+    }
+
     // End of Getters, Setters, Constructor
 
     // adds a player to the lobby, if it fills up the game starts
@@ -121,11 +128,9 @@ public class ComplexLobby extends Thread{
         Player newPlayer = new Player(players.size(), ID);
         newPlayer.setGameID(this.ID);
         this.players.add(newPlayer);
+
         if (players.size() == this.numPlayers) {
             this.setReady(true);
-            synchronized (this){
-                this.notifyAll();
-            }
         }
     }
 
@@ -138,8 +143,12 @@ public class ComplexLobby extends Thread{
                 break;
             }
         }
-        if(players.size() == 1){
-            start();
+        if (players.size() == this.numPlayers) {
+            this.setReady(true);
+            synchronized (this){
+                closeConnectionThread = new CloseConnectionThread(clientSocketsMap);
+                this.notifyAll();
+            }
         }
     }
 
@@ -153,7 +162,6 @@ public class ComplexLobby extends Thread{
             temp.setPlayerGame(this.game);
         }
         this.game.generateBoard();
-        //  lock.notifyAll();
     }
 
     //adds the Card to the Array of chosen cards
@@ -197,9 +205,9 @@ public class ComplexLobby extends Thread{
 
 
         System.out.println("Player list in the previous round: ");
-        for(int i = 0; i<this.numPlayers; i++)
+        for(int i = 0; i<this.numPlayers; i++){
             System.out.println(this.players.get(i).getID_player());
-
+        }
 
 
         if(this.chosenCards.size()==this.numPlayers){
@@ -207,8 +215,9 @@ public class ComplexLobby extends Thread{
             HashMap<Card, Player> h = new HashMap<Card, Player>();
             HashMap<Card, Player> k = new HashMap<>();
 
-            for(int i = 0; i<this.numPlayers; i++)
+            for(int i = 0; i<this.numPlayers; i++){
                 h.put(this.chosenCards.get(i), this.getPlayers().get(i));
+            }
 
             Collections.sort(this.chosenCards,new OrderComparator());
 
@@ -221,13 +230,16 @@ public class ComplexLobby extends Thread{
                 tempList.add(temp);
             }
 
-            for(int i= 0; i<this.numPlayers; i++)
+            for(int i= 0; i<this.numPlayers; i++){
                 k.put(this.chosenCards.get(i), tempList.get(i));
+            }
+
 
             h.clear();
 
-            for(int i = 0; i<this.numPlayers; i++)
+            for(int i = 0; i<this.numPlayers; i++){
                 h.put(this.chosenCards.get(i), this.getPlayers().get(i));
+            }
 
             this.setPlayerOrder(tempList);
 
@@ -237,14 +249,16 @@ public class ComplexLobby extends Thread{
             System.out.println("");
             System.out.println("Player list in the next round: ");
 
-            for(int i= 0; i<this.numPlayers; i++)
+            for(int i= 0; i<this.numPlayers; i++){
                 System.out.println(this.getPlayerOrder().get(i).getID_player());
+            }
 
             System.out.println("");
 
         }
-        else
+        else{
             System.out.println("ERROR: not all the players have played their Assistant card! \n");
+        }
 
         setActivePlayer(this.players.get(0));
     }
@@ -257,13 +271,10 @@ public class ComplexLobby extends Thread{
                 index = i;
         }
 
-        if((index+1)<this.numPlayers){
-            setActivePlayer(this.playerOrder.get(index+1));
+        if((index+1)<this.numPlayers) {
+            setActivePlayer(this.playerOrder.get(index + 1));
         }
 
-        if(!clientSocketsMap.isEmpty()){
-            clientSocketsMap.get(activePlayer).notify();
-        }
     }
 
     // A player (IDPlayer) from a lobby (ID) requests a deck with a specified mage (mage). if free, it sets player's deck,
@@ -420,13 +431,22 @@ public class ComplexLobby extends Thread{
         }
 
         sendMessage.sendMageMessage(new MageMessage(aviableMages));
+        MageMessage mageMessage = null;
 
-        MageMessage mageMessage = (MageMessage) receiveMessage.receiveMessage();
+        try{
+            mageMessage = (MageMessage) receiveMessage.receiveMessage();
+        }catch (ClassCastException e){
+            System.out.println("Connection error.\r");
+        }
+        if(mageMessage == null){
+            return false;
+        }
 
         int choice = mageMessage.getMageSelection();
         if(choice == 1){
             if(deckRequest(Mage.MAGE1, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
+                this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -435,6 +455,7 @@ public class ComplexLobby extends Thread{
         } else if(choice == 2){
             if(deckRequest(Mage.MAGE2, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
+                this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -443,6 +464,7 @@ public class ComplexLobby extends Thread{
         } else if(choice == 3){
             if(deckRequest(Mage.MAGE3, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
+                this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -451,6 +473,7 @@ public class ComplexLobby extends Thread{
         } else if(choice == 4){
             if(deckRequest(Mage.MAGE4, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
+                this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -474,16 +497,7 @@ public class ComplexLobby extends Thread{
     }
 
     public synchronized void closeConnection(){
-        for(Player player : players){
-            Socket clientSocket = clientSocketsMap.get(player);
-            ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-            sendMessage.sendConnectionError();
-            try {
-                clientSocket.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
+        closeConnectionThread.start();
     }
 
     public Player getPlayerByID(String ID){
