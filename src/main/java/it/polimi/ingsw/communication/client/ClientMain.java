@@ -239,18 +239,15 @@ public class ClientMain extends Thread {
         return lock;
     }
 
-    public MessageInterface receiveMessage(){
-        return receiveMessage.receiveMessageClient();
-
     public MessageInterface receiveMessage() {
-        return receiveMessage.receiveMessage();
+        return receiveMessage.receiveMessageClient();
     }
 
     public void showModel() {
 
         //ask the list of GameComponents (all the model)
         sendMessage.sendModelMessage(new ModelMessage()); //model request
-        ModelMessage modelMessage = (ModelMessage) receiveMessage.receiveMessage();
+        ModelMessage modelMessage = (ModelMessage) receiveMessage();
 
         //printing model..
 
@@ -315,6 +312,7 @@ public class ClientMain extends Thread {
         }
         if (modelMessage.getSchoolBoard().getTowers().get(0).getColor() != null)
             System.out.println("TOWER color: " + modelMessage.getSchoolBoard().getTowers().get(0).getColor());
+
         System.out.println("Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
         i = 0;
         System.out.println("");
@@ -330,7 +328,6 @@ public class ClientMain extends Thread {
     public boolean moveStudents() {
 
         //The user already has the schoolBoard (sent with ModelMessage)
-
         //student choice
         int student1Entrance = -1;
         int student1WhereToPut = -1;
