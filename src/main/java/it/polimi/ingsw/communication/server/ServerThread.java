@@ -26,7 +26,8 @@ public class ServerThread extends Thread{
     private JSONtoObject receiveMessage;
     private ComplexLobby currentCL;
 
-    private Object lock;
+    private Object mageLock;
+    private Object cardLock;
 
     public ServerThread(Socket clientSocket, GameManager gameManager) throws IOException{
         this.clientSocket = clientSocket;
@@ -50,58 +51,91 @@ public class ServerThread extends Thread{
         JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
         ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
         new PingPongThread(clientSocket, "server", this);
-        receivePingSendPong();
+        //receivePingSendPong();
         login();
+        if(currentCL == null){
+            interrupt();
+        } else {
 
-        synchronized (currentCL){
-            try{
-                currentCL.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            synchronized (mageLock){
+                try{
+                    mageLock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        chooseMage();
+            chooseMage();
 
-        boolean endGame = false;
+            synchronized (mageLock){
+                mageLock.notifyAll();
+            }
 
-        while (!endGame) {
-            while (isMyTurn()){
-                MessageType messageCode = receiveMessage.receiveMessage().getCode();
-                switch (messageCode){
-                    case PINGPONG:
-                        sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
-                        break;
-                    case MAGE:
-                        boolean ok = currentCL.selectMage(clientSocket, currentCL.getPlayerByID(username), receiveMessage, sendMessage);
+            boolean endGame = false;
 
-                        break;
-                    case MOTHERNATURE:
-                        //methods call
-                        if(currentCL.getGame().winCondition() != null){
-                            endGame = true;
-                            currentCL.endGame(currentCL.getGame().winCondition());
+            synchronized (cardLock){
+                try{
+                    cardLock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            playCard();
+
+            synchronized (cardLock){
+                try{
+                    cardLock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            while (!endGame) {
+                if(!isMyTurn()){
+                    synchronized (cardLock){
+                        try{
+                            cardLock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                    case CLOUDCARD:
-
-                        currentCL.changeActivePlayer();
-                        synchronized (clientSocket){
-                            try{
-                                clientSocket.wait();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                    }
+                } else {
+                    while (isMyTurn()){
+                        sendMessage.sendTurnMessage();
+                        MessageType messageCode = receiveMessage.receiveMessage().getCode();
+                        switch (messageCode){
+                            case PINGPONG:
+                                sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
+                                break;
+                            case MOTHERNATURE:
+                                //methods call
+                                if(currentCL.getGame().winCondition() != null){
+                                    endGame = true;
+                                    currentCL.endGame(currentCL.getGame().winCondition());
+                                }
+                            case CLOUDCARD:
+                                currentCL.changeActivePlayer();
+                                synchronized (clientSocket){
+                                    try{
+                                        clientSocket.wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                break;
+                        }
+                        //methods call
+                        //check if a player has won after a turn
+                        if(currentCL.getGame() != null){
+                            if(currentCL.getGame().winCondition() != null){
+                                endGame = true;
+                                currentCL.endGame(currentCL.getGame().winCondition());
                             }
                         }
-                        break;
-                }
-                //methods call
-                //check if a player has won after a turn
-                if(currentCL.getGame() != null){
-                    if(currentCL.getGame().winCondition() != null){
-                        endGame = true;
-                        currentCL.endGame(currentCL.getGame().winCondition());
                     }
                 }
+
             }
         }
     }
@@ -135,7 +169,17 @@ public class ServerThread extends Thread{
     }
 
     private void login(){
-        LoginMessage loginMessage = (LoginMessage) receiveMessage.receiveMessage();
+
+        LoginMessage loginMessage = null;
+
+        try{
+            loginMessage = (LoginMessage) receiveMessage.receiveMessage();
+        }catch (ClassCastException e){
+            System.out.println("Connection error.\r");
+        }
+        if(loginMessage == null){
+            return;
+        }
 
         username = loginMessage.getUsername();
         int numOfPlayers = loginMessage.getNumOfPlayers();
@@ -143,7 +187,8 @@ public class ServerThread extends Thread{
 
         if(gameManager.loginSocket(username, numOfPlayers, isPro, clientSocket)){
             currentCL = gameManager.getPlayerComplexLobby(username);
-            lock = currentCL.getLock();
+            mageLock = currentCL.getMageLock();
+            cardLock = currentCL.getCardLock();
             sendMessage.sendNoError();
             sendMessage.sendLobbiesMessage(new LobbiesMessage(gameManager.getPlayerComplexLobby(username).getID()));
         } else {
@@ -162,8 +207,14 @@ public class ServerThread extends Thread{
         }
     }
 
-    public synchronized int getCounter(){
-        return counter;
+    private void playCard(){
+        boolean ok = false;
+        while(!ok){
+            MessageType messageCode = receiveMessage.receiveMessage().getCode();
+            if(messageCode == MessageType.CARD){
+                ok = currentCL.playCard(sendMessage, receiveMessage);
+            }
+        }
     }
 
     public boolean isMyTurn(){

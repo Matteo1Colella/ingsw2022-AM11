@@ -12,6 +12,7 @@ public class AssistantCardsMessage implements MessageInterface {
     private MessageType code;
     private List<Card> deck; //for the message of list of remaining assistantCards
     private List<Card> chosenCard; //for the message of list of chosen cards played from all the player in a round
+    private int card;
 
     public AssistantCardsMessage() {
         message = "Ask for cards message.\r";
@@ -23,6 +24,12 @@ public class AssistantCardsMessage implements MessageInterface {
         this.code = MessageType.CARD;
         this.deck = deck;
         this.chosenCard = chosenCard;
+    }
+
+    public AssistantCardsMessage(int card){
+        this.message = "Card to be played message.\r";
+        this.code = MessageType.CARD;
+        this.card = card;
     }
 
     public List<Card> getChosenCard() {
@@ -47,6 +54,10 @@ public class AssistantCardsMessage implements MessageInterface {
 
     public void setDeck(List<Card> deck) {
         this.deck = deck;
+    }
+
+    public int getPlayedCard(){
+        return card;
     }
 
     @Override

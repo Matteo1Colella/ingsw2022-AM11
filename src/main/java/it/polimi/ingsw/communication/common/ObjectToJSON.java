@@ -1,10 +1,7 @@
 package it.polimi.ingsw.communication.common;
 
 import com.google.gson.Gson;
-import it.polimi.ingsw.communication.common.errors.ConnectionError;
-import it.polimi.ingsw.communication.common.errors.LoginError;
-import it.polimi.ingsw.communication.common.errors.MageError;
-import it.polimi.ingsw.communication.common.errors.NoError;
+import it.polimi.ingsw.communication.common.errors.*;
 import it.polimi.ingsw.communication.common.messages.*;
 
 import java.io.*;
@@ -59,17 +56,19 @@ public class ObjectToJSON {
         output.println(gson.toJson(new MageError()));
     }
 
-    public void sendPlayCardMessage(PlayCardMessage playCardMessage){output.println(gson.toJson(playCardMessage));}
-
     public void sendAssistantCardsMessage(AssistantCardsMessage assistantCardsMessage){output.println(gson.toJson(assistantCardsMessage));}
 
     public void sendModelMessage(ModelMessage modelMessage){output.println(gson.toJson(modelMessage));}
 
     public void sendMoveStudentsMessage(MoveStudentMessage moveStudentMessage){output.println(gson.toJson(moveStudentMessage));}
 
+    public void sendTurnMessage(){
+        output.println(gson.toJson(new TurnMessage()));
+    }
 
-
-
+    public void sendCardError(){
+        output.println(gson.toJson(new CardError()));
+    }
 
 
 }
