@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.communication.common.*;
-import it.polimi.ingsw.communication.common.errors.ErrorMessage;
+import it.polimi.ingsw.communication.common.messages.AssistantCardsMessage;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.board.CoinReserve;
@@ -29,7 +29,8 @@ public class ComplexLobby{
     private final HashMap<Player, Socket> clientSocketsMap;
     private int roundCounter;
     private boolean cornerCase;
-    private static Object lock;
+    private static Object mageLock;
+    private static Object cardLock;
 
     private CloseConnectionThread closeConnectionThread;
 
@@ -47,12 +48,17 @@ public class ComplexLobby{
         this.roundCounter=0;
         this.cornerCase=false;
 
-        lock = new Object();
+        mageLock = new Object();
+        cardLock = new Object();
 
     }
 
-    public Object getLock() {
-        return lock;
+    public Object getMageLock() {
+        return mageLock;
+    }
+
+    public Object getCardLock(){
+        return cardLock;
     }
 
     public int getRoundCounter() {
@@ -145,9 +151,9 @@ public class ComplexLobby{
         }
         if (players.size() == this.numPlayers) {
             this.setReady(true);
-            synchronized (this){
+            synchronized (mageLock){
                 closeConnectionThread = new CloseConnectionThread(clientSocketsMap);
-                this.notifyAll();
+                mageLock.notifyAll();
             }
         }
     }
@@ -394,8 +400,11 @@ public class ComplexLobby{
             }
         }
 
-        if (usages == room.getDm().getAssistantDecks().size() - room.getNumPlayers()){
+        if (usages == room.getNumPlayers()){
             room.createGame(room.getNumPlayers(), room.getID(), room.isGameType());
+            synchronized (cardLock){
+                cardLock.notifyAll();
+            }
         }
         return true;
     }
@@ -446,7 +455,7 @@ public class ComplexLobby{
         if(choice == 1){
             if(deckRequest(Mage.MAGE1, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
-                this.notifyAll();
+                //this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -455,7 +464,7 @@ public class ComplexLobby{
         } else if(choice == 2){
             if(deckRequest(Mage.MAGE2, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
-                this.notifyAll();
+                //this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -464,7 +473,7 @@ public class ComplexLobby{
         } else if(choice == 3){
             if(deckRequest(Mage.MAGE3, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
-                this.notifyAll();
+                //this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -473,12 +482,43 @@ public class ComplexLobby{
         } else if(choice == 4){
             if(deckRequest(Mage.MAGE4, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
-                this.notifyAll();
+                //this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
                 return false;
             }
+        }
+        return false;
+    }
+
+    public synchronized boolean playCard(ObjectToJSON sendMessage,  JSONtoObject receiveMessage){
+        AssistantDeck assistantDeck = this.activePlayer.getDeck();
+        ArrayList<Card> deck = assistantDeck.getCards();
+
+        sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage(deck, chosenCards));
+
+        AssistantCardsMessage cardMessage = null;
+        try{
+            cardMessage = (AssistantCardsMessage) receiveMessage.receiveMessage();
+        }catch (ClassCastException e){
+            System.out.println("Connection error.\r");
+        }
+        if(cardMessage == null){
+            return false;
+        }
+
+        if(!checkIfPlayable(assistantDeck.getCards().get(cardMessage.getPlayedCard() - 1))){
+            sendMessage.sendCardError();
+        } else {
+            activePlayer.playCard(cardMessage.getPlayedCard());
+            sendMessage.sendNoError();
+
+            synchronized (cardLock){
+                cardLock.notify();
+            }
+
+            return true;
         }
         return false;
     }

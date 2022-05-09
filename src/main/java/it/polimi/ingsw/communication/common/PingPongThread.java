@@ -15,12 +15,13 @@ public class PingPongThread extends Thread{
     private final Socket socket;
     private  ServerThread serverThread;
     private ObjectToJSON sendMessage;
+    private JSONtoObject receiveMessage;
 
     public PingPongThread(Socket socket, String host, ServerThread serverThread) {
         this.socket = socket;
         this.serverThread = serverThread;
         sendMessage = new ObjectToJSON(socket);
-
+        receiveMessage = new JSONtoObject(socket);
         startThread(host);
     }
 
@@ -38,14 +39,16 @@ public class PingPongThread extends Thread{
                     try{
                         if(socket.getInetAddress().isReachable( 5000)){
                             //System.out.println("Is reachable.\r");
-
+                            sendMessage.sendPingPongMessage(new PingPongMessage("ping"));
                         } else {
                             System.out.println("Is not reachable.\r");
                             serverThread.closeConnection();
+                            interrupt();
                         }
                         if(socket.isClosed()){
                             System.out.println("Is not reachable.\r");
                             serverThread.closeConnection();
+                            interrupt();
                         }
                     } catch (IOException e) {
                         serverThread.closeConnection();
@@ -60,6 +63,9 @@ public class PingPongThread extends Thread{
                             System.out.println("Connection lost.\r");
                             socket.close();
                         }
+                        if(socket.isClosed()){
+                            System.out.println("Connection lost.\r");
+                            socket.close();                        }
                     } catch (IOException e) {
 
                         e.printStackTrace();

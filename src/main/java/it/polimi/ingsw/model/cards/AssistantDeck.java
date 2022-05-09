@@ -37,7 +37,7 @@ public class AssistantDeck {
         this.free = free;
     }
 
-    public Collection<Card> getCards() {
+    public ArrayList<Card> getCards() {
         return cards;
     }
 
@@ -55,7 +55,7 @@ public class AssistantDeck {
         }
 
         if(cards.get(i).isUsed()){
-            System.out.println("You can't choose this cars, it has been already choosen.");
+            System.out.println("You can't choose this card, it has been already choosen.");
             return null;
         }
 

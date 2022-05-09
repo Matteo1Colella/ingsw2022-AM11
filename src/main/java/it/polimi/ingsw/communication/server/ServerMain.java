@@ -43,10 +43,6 @@ public class ServerMain {
                 try{
                     //when a client tries to connect, the server create a new thread to deal with the client
                     ServerThread serverThread =  new ServerThread(clientSocket, serverMain.getGameManager());
-                    if(serverThread.getCounter() > serverMain.getMaxRequests()) {
-                        System.out.println("To many clients.");
-                        throw new IOException();
-                    }
 
                 }catch (IOException e){
                     clientSocket.close();

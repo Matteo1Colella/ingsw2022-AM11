@@ -54,7 +54,6 @@ public class Player {
         }
     }
 
-
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
@@ -103,14 +102,7 @@ public class Player {
             return null;
 
         }
-
-
     }
-
-
-
-
-    
 
     //get the number of coin owned
     public int getCoinOwned(){

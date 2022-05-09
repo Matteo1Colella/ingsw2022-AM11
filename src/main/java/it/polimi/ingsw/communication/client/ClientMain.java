@@ -50,7 +50,7 @@ public class ClientMain extends Thread {
     public static void main(String[] args) {
         ClientMain clientMain = new ClientMain();
         new PingPongThread(clientMain.getClientSocket(), "client");
-        clientMain.pingPong();
+        //clientMain.pingPong();
         clientMain.login();
 
 
@@ -64,24 +64,28 @@ public class ClientMain extends Thread {
             choice = clientMain.playAssistantCard();
         }
 
+        synchronized (clientMain){
+            try{
+                clientMain.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         while (true) {
             if (clientMain.receiveMessage().getCode() == MessageType.TURN) {
+                System.out.println("is my turn.");
             }
+            /*
             if ((clientMain.receiveMessage().getCode() == MessageType.MODEL)) {
                 clientMain.showModel();
             }
             if ((clientMain.receiveMessage().getCode() == MessageType.STUDENT)) {
                 clientMain.moveStudents();
             }
-        }
 
-        /*
-        try{
-            clientMain.getClientSocket().close();
-        } catch (IOException e) {
-            e.printStackTrace();
+             */
         }
-        */
 
     }
 
@@ -107,7 +111,11 @@ public class ClientMain extends Thread {
         // socket parameters
         InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
-        clientSocket.setSoTimeout(300000);
+        clientSocket.setSoTimeout(20000);
+    }
+
+    public Socket getClientSocket() {
+        return clientSocket;
     }
 
     public void pingPong() {
@@ -182,11 +190,6 @@ public class ClientMain extends Thread {
 
     }
 
-    public Socket getClientSocket() {
-        return clientSocket;
-    }
-
-
     public boolean playAssistantCard(){
         boolean ok = false;
 
@@ -196,9 +199,9 @@ public class ClientMain extends Thread {
 
         System.out.println("List of played cards on table: ");
         for (int j = 0; j < assistantCardsMessage.getChosenCard().size(); j++) {
-            System.out.println("CARD NAME: " + assistantCardsMessage.getChosenCard().get(j).getName() + "\n");
-            System.out.println("Influence: -> " + assistantCardsMessage.getChosenCard().get(j).getInfluence() + "\n");
-            System.out.println("Steps: -> " + assistantCardsMessage.getChosenCard().get(j).getSteps() + "\n");
+            System.out.println("CARD NAME: " + assistantCardsMessage.getChosenCard().get(j).getName());
+            System.out.println("Influence: -> " + assistantCardsMessage.getChosenCard().get(j).getInfluence());
+            System.out.println("Steps: -> " + assistantCardsMessage.getChosenCard().get(j).getSteps());
         }
 
         //list of my cards:
@@ -207,10 +210,10 @@ public class ClientMain extends Thread {
         System.out.println("My cards:");
         for (int i = 0; i < assistantCardsMessage.getDeck().size(); i++) {
             System.out.println("");
-            System.out.println("(Enter -> " + i + "for: )");
-            System.out.println("NAME: " + assistantCardsMessage.getDeck().get(i).getName() + "\n");
-            System.out.println("Influence: -> " + assistantCardsMessage.getDeck().get(i).getInfluence() + "\n");
-            System.out.println("Steps: -> " + assistantCardsMessage.getDeck().get(i).getSteps() + "\n");
+            System.out.println("(Enter -> " + (i + 1) + " for: )");
+            System.out.println("NAME: " + assistantCardsMessage.getDeck().get(i).getName());
+            System.out.println("Influence: -> " + assistantCardsMessage.getDeck().get(i).getInfluence());
+            System.out.println("Steps: -> " + assistantCardsMessage.getDeck().get(i).getSteps());
         }
         System.out.println("Select card:\n");
         int card = -1;
@@ -222,7 +225,7 @@ public class ClientMain extends Thread {
             }
         }
 
-        sendMessage.sendPlayCardMessage(new PlayCardMessage(card));
+        sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage(card));
         MessageInterface receivedMessage = receiveMessage();
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
@@ -234,13 +237,69 @@ public class ClientMain extends Thread {
         return false;
     }
 
+    public boolean moveStudents() {
 
-    public Object getLock() {
-        return lock;
-    }
+        //The user already has the schoolBoard (sent with ModelMessage)
+        //student choice
+        int student1Entrance = -1;
+        int student1WhereToPut = -1;
+        int indexIslandIf1ToIsland = -1;
+        int student2Entrance = -1;
+        int student2WhereToPut = -1;
+        int indexIslandIf2ToIsland = -1;
+        int student3Entrance = -1;
+        int student3WhereToPut = -1;
+        int indexIslandIf3ToIsland = -1;
+        int i = 0;
+        while (i!=3){
+            System.out.println("SELECT a student from the entrance:\n");
+            Scanner scanner1 = new Scanner(System.in);
+            System.out.println("ENTER:\n");
+            System.out.println("0 -> to move student " + scanner1 + " to your SCHOOLBOARD");
+            System.out.println("1 -> to move student " + scanner1 + " to an ISLAND");
+            Scanner scanner2 = new Scanner(System.in);
+            if(i==0){
+                student1Entrance = scanner1.nextInt();
+                student1WhereToPut = scanner2.nextInt();
+                if(student1WhereToPut == 1){
+                    System.out.println("WHAT ISLAND? (enter the Island number)");
+                    Scanner scanner3 = new Scanner(System.in);
+                    indexIslandIf1ToIsland = scanner3.nextInt();
+                }
+            }
+            if(i==1){
+                student2Entrance = scanner1.nextInt();
+                student2WhereToPut = scanner2.nextInt();
+                if(student2WhereToPut == 1){
+                    System.out.println("WHAT ISLAND? (enter the Island number)");
+                    Scanner scanner3 = new Scanner(System.in);
+                    indexIslandIf2ToIsland = scanner3.nextInt();
+                }
+            }
+            if(i==2){
+                student3Entrance = scanner1.nextInt();
+                student3WhereToPut = scanner2.nextInt();
+                if(student3WhereToPut == 1){
+                    System.out.println("WHAT ISLAND? (enter the Island number)");
+                    Scanner scanner3 = new Scanner(System.in);
+                    indexIslandIf3ToIsland = scanner3.nextInt();
+                }
+            }
+            i++;
+        }
 
-    public MessageInterface receiveMessage() {
-        return receiveMessage.receiveMessageClient();
+        sendMessage.sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance,student1WhereToPut,indexIslandIf1ToIsland,student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,student3Entrance,student3WhereToPut,indexIslandIf3ToIsland));
+
+
+        MessageInterface receivedMessage = receiveMessage.receiveMessage();
+        if (receivedMessage.getCode() == MessageType.NOERROR) {
+            System.out.println("Correct selection.\r");
+            return true;
+        } else if (receivedMessage.getCode() == MessageType.MOVESTUDENTERROR) {
+            return false;
+        }
+        return false;
+
     }
 
     public void showModel() {
@@ -324,71 +383,17 @@ public class ClientMain extends Thread {
         }
     }
 
-
-    public boolean moveStudents() {
-
-        //The user already has the schoolBoard (sent with ModelMessage)
-        //student choice
-        int student1Entrance = -1;
-        int student1WhereToPut = -1;
-        int indexIslandIf1ToIsland = -1;
-        int student2Entrance = -1;
-        int student2WhereToPut = -1;
-        int indexIslandIf2ToIsland = -1;
-        int student3Entrance = -1;
-        int student3WhereToPut = -1;
-        int indexIslandIf3ToIsland = -1;
-        int i = 0;
-        while (i!=3){
-            System.out.println("SELECT a student from the entrance:\n");
-            Scanner scanner1 = new Scanner(System.in);
-            System.out.println("ENTER:\n");
-            System.out.println("0 -> to move student " + scanner1 + " to your SCHOOLBOARD");
-            System.out.println("1 -> to move student " + scanner1 + " to an ISLAND");
-            Scanner scanner2 = new Scanner(System.in);
-            if(i==0){
-                student1Entrance = scanner1.nextInt();
-                student1WhereToPut = scanner2.nextInt();
-                if(student1WhereToPut == 1){
-                    System.out.println("WHAT ISLAND? (enter the Island number)");
-                    Scanner scanner3 = new Scanner(System.in);
-                    indexIslandIf1ToIsland = scanner3.nextInt();
-                }
-            }
-            if(i==1){
-                student2Entrance = scanner1.nextInt();
-                student2WhereToPut = scanner2.nextInt();
-                if(student2WhereToPut == 1){
-                    System.out.println("WHAT ISLAND? (enter the Island number)");
-                    Scanner scanner3 = new Scanner(System.in);
-                    indexIslandIf2ToIsland = scanner3.nextInt();
-                }
-            }
-            if(i==2){
-                student3Entrance = scanner1.nextInt();
-                student3WhereToPut = scanner2.nextInt();
-                if(student3WhereToPut == 1){
-                    System.out.println("WHAT ISLAND? (enter the Island number)");
-                    Scanner scanner3 = new Scanner(System.in);
-                    indexIslandIf3ToIsland = scanner3.nextInt();
-                }
-            }
-            i++;
-        }
-
-        sendMessage.sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance,student1WhereToPut,indexIslandIf1ToIsland,student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,student3Entrance,student3WhereToPut,indexIslandIf3ToIsland));
-
-
-        MessageInterface receivedMessage = receiveMessage.receiveMessage();
-        if (receivedMessage.getCode() == MessageType.NOERROR) {
-            System.out.println("Correct selection.\r");
-            return true;
-        } else if (receivedMessage.getCode() == MessageType.MOVESTUDENTERROR) {
-            return false;
-        }
-        return false;
-
+    public Object getLock() {
+        return lock;
     }
 
+    public MessageInterface receiveMessage() {
+        MessageInterface message = receiveMessage.receiveMessageClient();
+        if(message.getCode() == MessageType.PINGPONG){
+            return receiveMessage();
+        } else {
+            return message;
+        }
+    }
 
 }

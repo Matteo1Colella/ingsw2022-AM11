@@ -1,10 +1,7 @@
 package it.polimi.ingsw.communication.common;
 
 import com.google.gson.Gson;
-import it.polimi.ingsw.communication.common.errors.ErrorMessage;
-import it.polimi.ingsw.communication.common.errors.LoginError;
-import it.polimi.ingsw.communication.common.errors.MageError;
-import it.polimi.ingsw.communication.common.errors.NoError;
+import it.polimi.ingsw.communication.common.errors.*;
 import it.polimi.ingsw.communication.common.messages.*;
 
 import java.io.*;
@@ -45,7 +42,7 @@ public class JSONtoObject {
             case MAGE:
                 return gson.fromJson(received, MageMessage.class);
             case CARD:
-                return gson.fromJson(received, PlayCardMessage.class);
+                return gson.fromJson(received, AssistantCardsMessage.class);
             case CLOUDCARD:
                 return gson.fromJson(received, CloudCardChoiceMessage.class);
             case STUDENT:
@@ -66,6 +63,8 @@ public class JSONtoObject {
                 return gson.fromJson(received, ModelMessage.class);
             case CHARACTERLIST:
                 return gson.fromJson(received, CharacterCardsMessage.class);
+            case CARDERROR:
+                return gson.fromJson(received, CardError.class);
 
         }
         return new ErrorMessage();
