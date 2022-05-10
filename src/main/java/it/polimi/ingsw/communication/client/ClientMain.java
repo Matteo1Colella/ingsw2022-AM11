@@ -400,7 +400,6 @@ public class ClientMain extends Thread {
 
     public boolean moveMotherNature(){
 
-        selectedCard = selectedCard+1;
         System.out.println("");
         System.out.println("How many steps you want MOTHERNATURE do?");
         switch (selectedCard){
@@ -420,7 +419,7 @@ public class ClientMain extends Thread {
                 System.out.println("(You can Select from 1 to 5 steps!)");
                 break;
             default:
-                System.out.println("(ERROR: you have to play an Assistant Card first!)");
+                System.out.println("(ERROR: you have to play an Assistant Card first or choose a correct number of Steps!)");
                 break;
         }
 
