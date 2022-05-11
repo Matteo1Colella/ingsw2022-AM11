@@ -4,11 +4,15 @@ import it.polimi.ingsw.communication.common.*;
 import it.polimi.ingsw.communication.common.messages.AssistantCardsMessage;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.model.Mage;
+import it.polimi.ingsw.model.MovedStudent;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.board.IslandCard;
+import it.polimi.ingsw.model.board.SchoolBoard;
 import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.pieces.Student;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -402,6 +406,7 @@ public class ComplexLobby{
 
         if (usages == room.getNumPlayers()){
             room.createGame(room.getNumPlayers(), room.getID(), room.isGameType());
+            game.startGameWithRandomPlayer();
             synchronized (cardLock){
                 cardLock.notifyAll();
             }
@@ -514,13 +519,33 @@ public class ComplexLobby{
             activePlayer.playCard(cardMessage.getPlayedCard());
             sendMessage.sendNoError();
 
-            synchronized (cardLock){
-                cardLock.notify();
+            changeActivePlayer();
+
+            if(chosenCards.size() == numPlayers){
+                modifyPlayerTurn();
+                synchronized (mageLock){
+                    mageLock.notifyAll();
+                }
             }
 
             return true;
         }
         return false;
+    }
+
+    public synchronized void moveStudents(ArrayList<MovedStudent> orderedStudents){
+        SchoolBoard schoolBoard = activePlayer.getSchoolBoard();
+        for(MovedStudent movedStudent : orderedStudents){
+            if(movedStudent.getPose() == 0){
+                Student student = schoolBoard.getEntrance().getStudents().get(movedStudent.getIndex());
+                schoolBoard.moveStudent(student);
+            } else {
+                Student student = schoolBoard.getEntrance().getStudents().get(movedStudent.getIndex());
+                IslandCard islandCard = game.getGameComponents().getArchipelago().get(movedStudent.getIsland());
+                schoolBoard.moveStudent(student,islandCard);
+            }
+        }
+        game.colorDominance();
     }
 
     public synchronized void endGame(Player winner){

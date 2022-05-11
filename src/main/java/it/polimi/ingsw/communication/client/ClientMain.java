@@ -2,7 +2,6 @@ package it.polimi.ingsw.communication.client;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.communication.common.*;
-import it.polimi.ingsw.communication.common.errors.ErrorMessage;
 import it.polimi.ingsw.communication.common.messages.*;
 import it.polimi.ingsw.model.board.CloudCard;
 import it.polimi.ingsw.model.board.DiningRoom;
@@ -59,34 +58,36 @@ public class ClientMain extends Thread {
         while (!choice) {
             choice = clientMain.choseMage();
         }
+
+        clientMain.showModel();
+
+
         //playCard
         choice = false;
         while (!choice) {
             choice = clientMain.playAssistantCard();
         }
 
-        synchronized (clientMain){
-            try{
-                clientMain.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        System.out.println("waiting for my turn...");
+        while (true){
+            MessageType message = clientMain.receiveMessage().getCode();
+            switch (message){
+                case TURN:
+                    clientMain.moveStudents();
+                    break;
             }
         }
 
-        while (true) {
-            if (clientMain.receiveMessage().getCode() == MessageType.TURN) {
-                System.out.println("is my turn.");
-            }
-            /*
-            if ((clientMain.receiveMessage().getCode() == MessageType.MODEL)) {
-                clientMain.showModel();
-            }
-            if ((clientMain.receiveMessage().getCode() == MessageType.STUDENT)) {
-                clientMain.moveStudents();
-            }
-
-             */
+        /*
+        if ((clientMain.receiveMessage().getCode() == MessageType.MODEL)) {
+            clientMain.showModel();
         }
+        if ((clientMain.receiveMessage().getCode() == MessageType.STUDENT)) {
+            clientMain.moveStudents();
+        }
+
+         */
+
 
     }
 
@@ -221,8 +222,7 @@ public class ClientMain extends Thread {
         while (!ok) {
             Scanner scanner = new Scanner(System.in);
             card = scanner.nextInt();
-            selectedCard = card; //necessary to save for method moveMotherNature
-            if (card == 0 || card == 1 || card == 2 || card == 3 || card == 4 || card == 5 || card == 6 || card == 7 || card == 8 || card == 9) {
+            if (card == 1 || card == 2 || card == 3 || card == 4 || card == 5 || card == 6 || card == 7 || card == 8 || card == 9 || card == 10) {
                 ok = true;
             }
         }
@@ -253,16 +253,20 @@ public class ClientMain extends Thread {
         int student3WhereToPut = -1;
         int indexIslandIf3ToIsland = -1;
         int i = 0;
-        while (i!=3){
+
+        sendMessage.sendMoveStudentsMessage(new MoveStudentMessage());
+        while (i < 3){
             System.out.println("SELECT a student from the entrance:\n");
             Scanner scanner1 = new Scanner(System.in);
+            int student  = scanner1.nextInt();
             System.out.println("ENTER:\n");
-            System.out.println("0 -> to move student " + scanner1 + " to your SCHOOLBOARD");
-            System.out.println("1 -> to move student " + scanner1 + " to an ISLAND");
+            System.out.println("0 -> to move student " + student + " to your SCHOOLBOARD");
+            System.out.println("1 -> to move student " + student + " to an ISLAND");
             Scanner scanner2 = new Scanner(System.in);
+            int pose = scanner2.nextInt();;
             if(i==0){
-                student1Entrance = scanner1.nextInt();
-                student1WhereToPut = scanner2.nextInt();
+                student1Entrance = student;
+                student1WhereToPut = pose;
                 if(student1WhereToPut == 1){
                     System.out.println("WHAT ISLAND? (enter the Island number)");
                     Scanner scanner3 = new Scanner(System.in);
@@ -270,8 +274,8 @@ public class ClientMain extends Thread {
                 }
             }
             if(i==1){
-                student2Entrance = scanner1.nextInt();
-                student2WhereToPut = scanner2.nextInt();
+                student2Entrance = student;
+                student2WhereToPut = pose;
                 if(student2WhereToPut == 1){
                     System.out.println("WHAT ISLAND? (enter the Island number)");
                     Scanner scanner3 = new Scanner(System.in);
@@ -279,8 +283,8 @@ public class ClientMain extends Thread {
                 }
             }
             if(i==2){
-                student3Entrance = scanner1.nextInt();
-                student3WhereToPut = scanner2.nextInt();
+                student3Entrance = student;
+                student3WhereToPut = pose;
                 if(student3WhereToPut == 1){
                     System.out.println("WHAT ISLAND? (enter the Island number)");
                     Scanner scanner3 = new Scanner(System.in);
@@ -292,6 +296,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance,student1WhereToPut,indexIslandIf1ToIsland,student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,student3Entrance,student3WhereToPut,indexIslandIf3ToIsland));
 
+        showModel();
 
         MessageInterface receivedMessage = receiveMessage.receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR) {
@@ -307,7 +312,7 @@ public class ClientMain extends Thread {
     public void showModel() {
 
         //ask the list of GameComponents (all the model)
-        sendMessage.sendModelMessage(new ModelMessage()); //model request
+        sendMessage.sendModelMessage(new ModelMessage());
         ModelMessage modelMessage = (ModelMessage) receiveMessage();
 
         //printing model..
@@ -383,10 +388,6 @@ public class ClientMain extends Thread {
             System.out.println(card.getStudents());
             i++;
         }
-    }
-
-    public Object getLock() {
-        return lock;
     }
 
     public MessageInterface receiveMessage() {

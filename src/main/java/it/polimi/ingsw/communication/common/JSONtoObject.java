@@ -65,6 +65,8 @@ public class JSONtoObject {
                 return gson.fromJson(received, CharacterCardsMessage.class);
             case CARDERROR:
                 return gson.fromJson(received, CardError.class);
+            case TURN:
+                return gson.fromJson(received, TurnMessage.class);
 
         }
         return new ErrorMessage();
@@ -75,7 +77,7 @@ public class JSONtoObject {
         try {
             String inputJSON = input.readLine();
             if(JSONtoMessage(inputJSON).getCode() == MessageType.ERROR){
-                System.out.println("Connection error.\r");
+                System.out.println("Connection error in receiving message.\r");
                 try{
                     socket.close();
                 } catch (IOException ex) {

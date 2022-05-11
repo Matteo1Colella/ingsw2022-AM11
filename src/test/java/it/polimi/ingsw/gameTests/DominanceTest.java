@@ -12,6 +12,10 @@ import it.polimi.ingsw.model.pieces.Tower;
 import org.junit.Test;
 
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.*;
 
 public class DominanceTest {

@@ -6,11 +6,18 @@ import it.polimi.ingsw.communication.common.errors.ErrorMessage;
 import it.polimi.ingsw.communication.common.messages.*;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.MovedStudent;
 import it.polimi.ingsw.model.Player;
-
+import it.polimi.ingsw.model.board.GameComponents;
+import java.util.Comparator;
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 public class ServerThread extends Thread{
     private static int counter = 0;
@@ -71,8 +78,6 @@ public class ServerThread extends Thread{
                 mageLock.notifyAll();
             }
 
-            boolean endGame = false;
-
             synchronized (cardLock){
                 try{
                     cardLock.wait();
@@ -81,61 +86,91 @@ public class ServerThread extends Thread{
                 }
             }
 
+            sendModel();
             playCard();
 
             synchronized (cardLock){
+                cardLock.notifyAll();
+            }
+
+            synchronized (mageLock){
                 try{
-                    cardLock.wait();
+                    mageLock.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
+            boolean endGame = false;
             while (!endGame) {
-                if(!isMyTurn()){
-                    synchronized (cardLock){
-                        try{
-                            cardLock.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-                    while (isMyTurn()){
-                        sendMessage.sendTurnMessage();
-                        MessageType messageCode = receiveMessage.receiveMessage().getCode();
-                        switch (messageCode){
-                            case PINGPONG:
-                                sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
-                                break;
-                            case MOTHERNATURE:
-                                //methods call
-                                if(currentCL.getGame().winCondition() != null){
-                                    endGame = true;
-                                    currentCL.endGame(currentCL.getGame().winCondition());
+                while (isMyTurn()){
+                    System.out.println("it is " + username + " turn");
+                    sendMessage.sendTurnMessage();
+                    MessageType messageCode = receiveMessage.receiveMessage().getCode();
+                    switch (messageCode){
+                        case PINGPONG:
+                            sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
+                            break;
+
+                        case CARD:
+                            playCard();
+
+                            synchronized (cardLock){
+                                try{
+                                    cardLock.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
                                 }
-                            case CLOUDCARD:
-                                currentCL.changeActivePlayer();
-                                synchronized (clientSocket){
-                                    try{
-                                        clientSocket.wait();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                break;
-                        }
-                        //methods call
-                        //check if a player has won after a turn
-                        if(currentCL.getGame() != null){
+                            }
+                            break;
+                        case MOTHERNATURE:
+                            //methods call
                             if(currentCL.getGame().winCondition() != null){
                                 endGame = true;
                                 currentCL.endGame(currentCL.getGame().winCondition());
                             }
+                            break;
+                        case CLOUDCARD:
+                            currentCL.changeActivePlayer();
+                            synchronized (clientSocket){
+                                try{
+                                    clientSocket.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            break;
+                        case MODEL:
+                            sendModel();
+                            break;
+                        case STUDENT:
+                            moveStudent();
+                            sendModel();
+                            currentCL.changeActivePlayer();
+
+                            synchronized (mageLock){
+                                mageLock.notify();
+                            }
+
+                            synchronized (mageLock){
+                                try{
+                                    mageLock.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            break;
+                    }
+                    //methods call
+                    //check if a player has won after a turn
+                    if(currentCL.getGame() != null){
+                        if(currentCL.getGame().winCondition() != null){
+                            endGame = true;
+                            currentCL.endGame(currentCL.getGame().winCondition());
                         }
                     }
                 }
-
             }
         }
     }
@@ -217,7 +252,39 @@ public class ServerThread extends Thread{
         }
     }
 
-    public boolean isMyTurn(){
+    private void sendModel(){
+        if(receiveMessage.receiveMessage().getCode() == MessageType.MODEL){
+            GameComponents gameComponents = currentCL.getGame().getGameComponents();
+            //if game type is pro
+            ModelMessage modelMessage = null;
+            if(currentCL.isGameType()){
+                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                        currentCL.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
+                        currentCL.getPlayerByID(username).getCoinOwned());
+            } else {
+                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                        currentCL.getPlayerByID(username).getSchoolBoard());
+            }
+
+            sendMessage.sendModelMessage(modelMessage);
+        }
+    }
+
+    private void moveStudent(){
+        MoveStudentMessage message = (MoveStudentMessage) receiveMessage.receiveMessage();
+        ArrayList<MovedStudent> students = new ArrayList<>();
+
+        students.add(new MovedStudent( message.getStudent1Entrance(),  message.getStudent1WhereToPut(), message.getIndexIslandIf1ToIsland()));
+        students.add(new MovedStudent( message.getStudent2Entrance(),  message.getStudent2WhereToPut(), message.getIndexIslandIf2ToIsland()));
+        students.add(new MovedStudent( message.getStudent3Entrance(),  message.getStudent3WhereToPut(), message.getIndexIslandIf3ToIsland()));
+
+        ArrayList<MovedStudent> orderedStudents = students.stream()
+                .sorted(Comparator.comparingInt(MovedStudent::getIndex).reversed()).collect(Collectors.toCollection(ArrayList<MovedStudent> :: new));
+
+        currentCL.moveStudents(orderedStudents);
+    }
+
+    private boolean isMyTurn(){
         if(currentCL.getActivePlayer() == null){
             return  false;
         } else {
