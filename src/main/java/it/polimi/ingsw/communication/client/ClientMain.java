@@ -25,6 +25,7 @@ public class ClientMain extends Thread {
     private final ObjectToJSON sendMessage;
     private final JSONtoObject receiveMessage;
     private final Object lock;
+    private int selectedCard;
 
     public ObjectToJSON getSendMessage() {
         return sendMessage;
@@ -397,5 +398,50 @@ public class ClientMain extends Thread {
             return message;
         }
     }
+
+    public boolean moveMotherNature(){
+
+        System.out.println("");
+        System.out.println("How many steps you want MOTHERNATURE do?");
+        switch (selectedCard){
+            case 1,2:
+                System.out.println("(You can Select only 1 step!)");
+                break;
+            case 3,4:
+                System.out.println("(You can Select between 1 or 2 steps!)");
+                break;
+            case 5,6:
+                System.out.println("(You can Select from 1 to 3 steps!)");
+                break;
+            case 7,8:
+                System.out.println("(You can Select from 1 to 4 steps!)");
+                break;
+            case 9,10:
+                System.out.println("(You can Select from 1 to 5 steps!)");
+                break;
+            default:
+                System.out.println("(ERROR: you have to play an Assistant Card first or choose a correct number of Steps!)");
+                break;
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        int numberSelectedSteps = scanner.nextInt();
+
+        sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
+        MessageInterface receivedMessage = receiveMessage();
+
+        selectedCard = -1;
+        if (receivedMessage.getCode() == MessageType.NOERROR) {
+            System.out.println("Correct selection.\r");
+            return true;
+        } else if (receivedMessage.getCode() == MessageType.MOVEMOTHERNATUREERROR) {
+            return false;
+        }
+        return false;
+    }
+
+
+
+
 
 }

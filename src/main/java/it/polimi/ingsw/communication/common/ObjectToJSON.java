@@ -72,5 +72,8 @@ public class ObjectToJSON {
         output.println(gson.toJson(new CardError()));
     }
 
+    public void sendMoveMotherNatureMessage(MoveMotherNatureMessage moveMotherNatureMessage){output.println(gson.toJson(moveMotherNatureMessage));}
+
+
 
 }
