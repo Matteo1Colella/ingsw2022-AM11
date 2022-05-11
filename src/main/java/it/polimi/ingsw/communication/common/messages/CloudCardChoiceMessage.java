@@ -9,6 +9,10 @@ public class CloudCardChoiceMessage implements MessageInterface {
     private MessageType code;
     private int cloud;
 
+    public CloudCardChoiceMessage() {
+        message = "Cloud selection message.\r";
+        code = MessageType.CLOUDCARD;
+    }
 
     public CloudCardChoiceMessage(int cloud) {
         message = "Cloud selection message.\r";

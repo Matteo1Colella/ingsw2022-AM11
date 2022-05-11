@@ -74,6 +74,9 @@ public class ObjectToJSON {
 
     public void sendMoveMotherNatureMessage(MoveMotherNatureMessage moveMotherNatureMessage){output.println(gson.toJson(moveMotherNatureMessage));}
 
+    public void sendCloudCardMessage(CloudCardChoiceMessage cardChoiceMessage){
+        output.println(gson.toJson(cardChoiceMessage));
+    }
 
 
 }

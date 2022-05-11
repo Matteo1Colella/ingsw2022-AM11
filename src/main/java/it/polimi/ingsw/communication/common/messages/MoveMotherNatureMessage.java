@@ -14,6 +14,11 @@ public class MoveMotherNatureMessage implements MessageInterface {
         this.moves = moves;
     }
 
+    public MoveMotherNatureMessage() {
+        message = "Move MotherNature message.\r";
+        code = MessageType.MOTHERNATURE;
+    }
+
     @Override
     public String getMessage() {
         return message;

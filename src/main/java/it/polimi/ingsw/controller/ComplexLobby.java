@@ -5,6 +5,7 @@ import it.polimi.ingsw.communication.common.messages.AssistantCardsMessage;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.MovedStudent;
+import it.polimi.ingsw.model.board.CloudCard;
 import it.polimi.ingsw.model.board.CoinReserve;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
@@ -533,6 +534,7 @@ public class ComplexLobby{
         return false;
     }
 
+
     public synchronized void moveStudents(ArrayList<MovedStudent> orderedStudents){
         SchoolBoard schoolBoard = activePlayer.getSchoolBoard();
         for(MovedStudent movedStudent : orderedStudents){
@@ -546,6 +548,23 @@ public class ComplexLobby{
             }
         }
         game.colorDominance();
+    }
+
+    public synchronized void moveMotherNature(int moves){
+        game.moveMotherNature(moves, game.getGameComponents().getMotherNature(), game.getGameComponents().getArchipelago());
+        game.islandDominance();
+    }
+
+    public void selectCloudCard(int cloudCard){
+        CloudCard cloudCardChosen = game.getGameComponents().getCloudCards().get(cloudCard);
+        activePlayer.getSchoolBoard().addStudetsToEntrance(cloudCardChosen.drawStudents());
+
+        if(activePlayer.equals(playerOrder.get(numPlayers - 1))){
+            System.out.println("it should be " + playerOrder.get(0).getID_player() + " turn.");
+            synchronized (cardLock){
+                cardLock.notifyAll();
+            }
+        }
     }
 
     public synchronized void endGame(Player winner){
@@ -573,7 +592,6 @@ public class ComplexLobby{
         }
         return null;
     }
-
 
     @Override
     public String toString() {
