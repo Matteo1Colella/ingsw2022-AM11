@@ -74,21 +74,17 @@ public class ClientMain extends Thread {
             switch (message){
                 case TURN:
                     clientMain.moveStudents();
+                    clientMain.moveMotherNature();
+                    clientMain.selectCloudCard();
+                    choice = false;
+                    clientMain.receiveMessage();
+                    while (!choice) {
+                        System.out.println("chosing card");
+                        choice = clientMain.playAssistantCard();
+                    }
                     break;
             }
         }
-
-        /*
-        if ((clientMain.receiveMessage().getCode() == MessageType.MODEL)) {
-            clientMain.showModel();
-        }
-        if ((clientMain.receiveMessage().getCode() == MessageType.STUDENT)) {
-            clientMain.moveStudents();
-        }
-
-         */
-
-
     }
 
     private void readParameters() throws IOException {
@@ -226,6 +222,8 @@ public class ClientMain extends Thread {
                 ok = true;
             }
         }
+
+        selectedCard = card;
 
         sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage(card));
         MessageInterface receivedMessage = receiveMessage();
@@ -401,6 +399,7 @@ public class ClientMain extends Thread {
 
     public boolean moveMotherNature(){
 
+        sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
         System.out.println("");
         System.out.println("How many steps you want MOTHERNATURE do?");
         switch (selectedCard){
@@ -428,8 +427,10 @@ public class ClientMain extends Thread {
         int numberSelectedSteps = scanner.nextInt();
 
         sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
-        MessageInterface receivedMessage = receiveMessage();
 
+        showModel();
+
+        MessageInterface receivedMessage = receiveMessage();
         selectedCard = -1;
         if (receivedMessage.getCode() == MessageType.NOERROR) {
             System.out.println("Correct selection.\r");
@@ -440,8 +441,24 @@ public class ClientMain extends Thread {
         return false;
     }
 
+    public void selectCloudCard(){
+        sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage());
 
+        System.out.println("Select 0 or 1 to choose the cloud card.\r");
 
+        Scanner scanner = new Scanner(System.in);
 
+        int choice = 0;
+        boolean ok = false;
+        while (!ok){
+            choice = scanner.nextInt();
+            if(choice < 0 || choice > 1){
+                ok = false;
+            } else {
+                ok = true;
+            }
+        }
 
+        sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
+    }
 }

@@ -10,6 +10,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.MovedStudent;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.board.GameComponents;
+import it.polimi.ingsw.model.pieces.MotherNature;
+
 import java.util.Comparator;
 import java.io.*;
 import java.net.Socket;
@@ -106,39 +108,62 @@ public class ServerThread extends Thread{
                 while (isMyTurn()){
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
+                    System.out.println("sent");
                     MessageType messageCode = receiveMessage.receiveMessage().getCode();
                     switch (messageCode){
                         case PINGPONG:
                             sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
                             break;
-
-                        case CARD:
-                            playCard();
-
-                            synchronized (cardLock){
-                                try{
-                                    cardLock.wait();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            break;
                         case MOTHERNATURE:
-                            //methods call
+                            moveMotherNature();
+                            sendModel();
                             if(currentCL.getGame().winCondition() != null){
                                 endGame = true;
                                 currentCL.endGame(currentCL.getGame().winCondition());
                             }
                             break;
                         case CLOUDCARD:
+
+                            selectCloudCard();
+
                             currentCL.changeActivePlayer();
-                            synchronized (clientSocket){
+
+                            synchronized (mageLock){
+
+                                mageLock.notify();
+                            }
+
+                            if (!currentCL.getActivePlayer().equals(currentCL.getPlayerOrder().get(currentCL.getPlayerOrder().size()-1))){
+                            synchronized (cardLock){
                                 try{
-                                    clientSocket.wait();
+                                    System.out.println("first lock");
+                                    cardLock.wait();
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
                             }
+                        }
+                            System.out.println("out from first lock");
+                            break;
+
+                        case CARD:
+                            playCardInGame();
+
+                            synchronized (cardLock){
+
+                                cardLock.notify();
+                            }
+
+                            synchronized (cardLock){
+                                try{
+                                    System.out.println("second lock");
+                                    cardLock.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            System.out.println("out from second lock");
+
                             break;
                         case MODEL:
                             sendModel();
@@ -146,20 +171,6 @@ public class ServerThread extends Thread{
                         case STUDENT:
                             moveStudent();
                             sendModel();
-                            currentCL.changeActivePlayer();
-
-                            synchronized (mageLock){
-                                mageLock.notify();
-                            }
-
-                            synchronized (mageLock){
-                                try{
-                                    mageLock.wait();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
                             break;
                     }
                     //methods call
@@ -246,9 +257,19 @@ public class ServerThread extends Thread{
         boolean ok = false;
         while(!ok){
             MessageType messageCode = receiveMessage.receiveMessage().getCode();
+
             if(messageCode == MessageType.CARD){
                 ok = currentCL.playCard(sendMessage, receiveMessage);
             }
+        }
+    }
+
+    private void playCardInGame(){
+        boolean ok = false;
+        while(!ok){
+            System.out.println(username + "chosing card");
+            ok = currentCL.playCard(sendMessage, receiveMessage);
+            System.out.println(username + "has chosen card");
         }
     }
 
@@ -282,6 +303,17 @@ public class ServerThread extends Thread{
                 .sorted(Comparator.comparingInt(MovedStudent::getIndex).reversed()).collect(Collectors.toCollection(ArrayList<MovedStudent> :: new));
 
         currentCL.moveStudents(orderedStudents);
+    }
+
+    private void moveMotherNature(){
+        MoveMotherNatureMessage message = (MoveMotherNatureMessage) receiveMessage.receiveMessage();
+        currentCL.moveMotherNature(message.getMoves());
+    }
+
+    private void selectCloudCard(){
+        CloudCardChoiceMessage message = (CloudCardChoiceMessage) receiveMessage.receiveMessage();
+        currentCL.selectCloudCard(message.getCloud());
+
     }
 
     private boolean isMyTurn(){
