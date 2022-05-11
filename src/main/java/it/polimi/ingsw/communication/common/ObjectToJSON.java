@@ -56,7 +56,9 @@ public class ObjectToJSON {
         output.println(gson.toJson(new MageError()));
     }
 
-    public void sendAssistantCardsMessage(AssistantCardsMessage assistantCardsMessage){output.println(gson.toJson(assistantCardsMessage));}
+    public void sendAssistantCardsMessage(AssistantCardsMessage assistantCardsMessage){
+        output.println(gson.toJson(assistantCardsMessage));
+    }
 
     public void sendModelMessage(ModelMessage modelMessage){output.println(gson.toJson(modelMessage));}
 

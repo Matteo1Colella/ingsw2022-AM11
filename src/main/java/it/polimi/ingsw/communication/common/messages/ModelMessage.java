@@ -39,7 +39,7 @@ public class ModelMessage implements MessageInterface {
     }
 
     //pro
-    public ModelMessage(String message, MessageType code, ArrayList<IslandCard> archipelago, List<CloudCard> cloudCardList, SchoolBoard schoolBoard, ArrayList<CharacterCard> characterCards, int coinOwned) {
+    public ModelMessage(ArrayList<IslandCard> archipelago, List<CloudCard> cloudCardList, SchoolBoard schoolBoard, ArrayList<CharacterCard> characterCards, int coinOwned) {
         this.message = "Model message\r";
         this.code = MessageType.MODEL;
         this.archipelago = archipelago;
