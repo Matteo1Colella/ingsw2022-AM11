@@ -3,6 +3,7 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.communication.client.ClientMain;
 import it.polimi.ingsw.communication.common.MessageInterface;
 import it.polimi.ingsw.communication.common.MessageType;
+import it.polimi.ingsw.communication.common.PingPongThread;
 import it.polimi.ingsw.communication.common.messages.LobbiesMessage;
 import it.polimi.ingsw.communication.common.messages.LoginMessage;
 import it.polimi.ingsw.controller.ComplexLobby;
@@ -119,16 +120,16 @@ private ClientMain client;
 
         client.getSendMessage().sendLoginMessage(new LoginMessage(nameField.getText().replaceAll("\\s+",""), n, pro.isSelected()));
 
-        MessageInterface message = client.getReceiveMessage().receiveMessage();
+        MessageInterface message = client.receiveMessage();
         if(message.getCode() == MessageType.LOGINERROR){
             welcomeText.setText("Something gone wrong, please retry.\r");
-
         } else if(message.getCode() == MessageType.NOERROR) {
-            LobbiesMessage lobbiesMessage = (LobbiesMessage) client.getReceiveMessage().receiveMessage();
-            welcomeText.setText("Successful login in lobby " + lobbiesMessage.getIdLobby());
+            LobbiesMessage lobbiesMessage = (LobbiesMessage) client.receiveMessage();
+            System.out.println("You are in the lobby " + lobbiesMessage.getIdLobby());
             new MageStageSocket(client);
             stage.close();
         }
+
 
     }
 
@@ -215,8 +216,13 @@ private ClientMain client;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setToggleGroup();
-        client = new ClientMain();
-        client.pingPong();
+        ClientMain clientMain = new ClientMain();
+        new PingPongThread(clientMain.getClientSocket(), "client");
+        //clientMain.pingPong();
+
+        //clientMain.login();
+        this.client = clientMain;
+
         anchorPane.setOpacity(0);
         stackPane.setOpacity(1);
         Timeline timeline = new Timeline(

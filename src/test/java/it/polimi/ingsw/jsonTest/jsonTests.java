@@ -102,7 +102,7 @@ public class jsonTests {
 
         newGame.startGameWithRandomPlayer();
         newGame.getComplexLobby().checkIfPlayable(newGame.getComplexLobby().getActivePlayer().playCard(1));
-        System.out.println(lobby.getChosenCards().get(0));
+       // System.out.println(lobby.getChosenCards().get(0));
         System.out.println("");
         System.out.println("");
 
@@ -179,7 +179,7 @@ public class jsonTests {
 
         newGame.startGameWithRandomPlayer();
         newGame.getComplexLobby().checkIfPlayable(newGame.getComplexLobby().getActivePlayer().playCard(1));
-        System.out.println(lobby.getChosenCards().get(0));
+       // System.out.println(lobby.getChosenCards().get(0));
         System.out.println("");
         System.out.println("");
 
@@ -244,7 +244,7 @@ public class jsonTests {
 
         newGame.startGameWithRandomPlayer();
         newGame.getComplexLobby().checkIfPlayable(newGame.getComplexLobby().getActivePlayer().playCard(1));
-        System.out.println(lobby.getChosenCards().get(0));
+        //System.out.println(lobby.getChosenCards().get(0));
         System.out.println("");
         System.out.println("");
 

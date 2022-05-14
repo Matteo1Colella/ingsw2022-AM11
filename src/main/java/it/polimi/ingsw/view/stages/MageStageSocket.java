@@ -33,10 +33,10 @@ public class MageStageSocket extends Stage {
         MageController controller = fxmlLoader.getController();
 
         controller.setClient(client);
-controller.setStage(subStage);
+        controller.setStage(subStage);
 
         client.getSendMessage().sendMageMessage(new MageMessage());
-        MageMessage mageMessage = (MageMessage) client.getReceiveMessage().receiveMessage();
+        MageMessage mageMessage = (MageMessage) client.receiveMessage();
 
         for (int i = 0; i < mageMessage.getAviableMage().length; i++) {
             switch (mageMessage.getAviableMage()[i]){

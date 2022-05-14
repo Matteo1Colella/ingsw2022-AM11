@@ -46,6 +46,9 @@ public class ComplexLobbyMethodsTest {
         Card first = new Card("cat",5,1,false, Mage.MAGE1);
         Card second = new Card("dog",4,2,false,Mage.MAGE1);
         Card third = new Card("hippo",3,3,false,Mage.MAGE1);
+
+        lobby.setActivePlayer(lobby.getPlayers().get(0));
+
         lobby.checkIfPlayable(first);
         assertEquals(1,lobby.getChosenCards().size());
         lobby.checkIfPlayable(first); //prints: can't play this card
