@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -25,6 +26,9 @@ import java.util.ResourceBundle;
 public class ActionController{
 
     private IslandCard selectedIsland;
+
+    @FXML
+    private AnchorPane apane;
 
     @FXML
     private Label To;
@@ -80,8 +84,6 @@ public class ActionController{
     private ComboBox<Student> green;
     @FXML
     private ComboBox<Student> pink;
-    @FXML
-    private AnchorPane pane;
 
     public void createExampleLobby(){
         ArrayList<Player> players = new ArrayList<>();
@@ -117,8 +119,28 @@ public class ActionController{
     }
 
     public void bind(Stage stage, Scene scene){
-        pane.prefHeightProperty().bind(stage.heightProperty());
-        pane.prefWidthProperty().bind(stage.heightProperty());
+
+        double height = scene.getHeight();
+        double width = scene.getWidth();
+
+        System.out.println(height);
+        System.out.println(width);
+
+        apane.translateXProperty().bind(scene.widthProperty().subtract(apane.widthProperty()).divide(2));
+        apane.translateYProperty().bind(scene.heightProperty().subtract(apane.heightProperty()).divide(2));
+
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double scaleX = newVal.doubleValue()/width;
+            apane.setScaleX(scaleX);
+            apane.setCenterShape(true);
+        });
+
+
+        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            double scaleY = newVal.doubleValue()/height;
+            apane.setCenterShape(true);
+            apane.setScaleY(scaleY);
+        });
     }
 
     public void clickMoveMN(){

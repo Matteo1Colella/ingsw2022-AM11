@@ -27,6 +27,7 @@ public class ClientMain extends Thread {
     private final JSONtoObject receiveMessage;
     private final Object lock;
     private int selectedCard;
+    private int gameSize;
 
     public ObjectToJSON getSendMessage() {
         return sendMessage;
@@ -138,6 +139,7 @@ public class ClientMain extends Thread {
 
             if (numOfPlayers >= 2 && numOfPlayers <= 4) {
                 ok = true;
+                gameSize = numOfPlayers;
             }
         }
 
@@ -445,21 +447,36 @@ public class ClientMain extends Thread {
 
     public void selectCloudCard(){
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage());
-
-        System.out.println("Select 0 or 1 to choose the cloud card.\r");
-
         Scanner scanner = new Scanner(System.in);
 
         int choice = 0;
         boolean ok = false;
-        while (!ok){
-            choice = scanner.nextInt();
-            if(choice < 0 || choice > 1){
-                ok = false;
-            } else {
-                ok = true;
+        if (gameSize == 2){
+            System.out.println("Select 0 or 1 to choose the cloud card.\r");
+            while (!ok){
+                choice = scanner.nextInt();
+                if(choice < 0 || choice > 1){
+                    System.out.println("Error, choose again.\r");
+                    ok = false;
+                } else {
+                    ok = true;
+                }
             }
         }
+        if (gameSize == 3){
+            System.out.println("Select 0, 1 or 2 to choose the cloud card.\r");
+            while (!ok){
+                choice = scanner.nextInt();
+                if(choice < 0 || choice > 2){
+                    System.out.println("Error, choose again.\r");
+                    ok = false;
+                } else {
+                    ok = true;
+                }
+            }
+        }
+
+
 
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
     }
