@@ -3,14 +3,12 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.communication.common.*;
 import it.polimi.ingsw.communication.common.messages.AssistantCardsMessage;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
+import it.polimi.ingsw.communication.common.messages.ModelMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.MovedStudent;
-import it.polimi.ingsw.model.board.CloudCard;
-import it.polimi.ingsw.model.board.CoinReserve;
+import it.polimi.ingsw.model.board.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.board.IslandCard;
-import it.polimi.ingsw.model.board.SchoolBoard;
 import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.pieces.Student;
@@ -18,6 +16,8 @@ import it.polimi.ingsw.model.pieces.Student;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class ComplexLobby{
     private Game game;
@@ -34,8 +34,10 @@ public class ComplexLobby{
     private final HashMap<Player, Socket> clientSocketsMap;
     private int roundCounter;
     private boolean cornerCase;
-    private static Object mageLock;
-    private static Object cardLock;
+    private static Object preMageLock;
+    private static Object afterMageLock;
+    private static Object preCardLock;
+    private static Object afterCardLock;
 
     private CloseConnectionThread closeConnectionThread;
 
@@ -53,17 +55,27 @@ public class ComplexLobby{
         this.roundCounter=0;
         this.cornerCase=false;
 
-        mageLock = new Object();
-        cardLock = new Object();
+        preMageLock = new Object();
+        preCardLock = new Object();
+        afterMageLock = new Object();
+        afterCardLock = new Object();
 
     }
 
-    public Object getMageLock() {
-        return mageLock;
+    public Object getPreMageLock() {
+        return preMageLock;
     }
 
-    public Object getCardLock(){
-        return cardLock;
+    public Object getPreCardLock(){
+        return preCardLock;
+    }
+
+    public Object getAfterMageLock() {
+        return afterMageLock;
+    }
+
+    public Object getAfterCardLock() {
+        return afterCardLock;
     }
 
     public int getRoundCounter() {
@@ -156,9 +168,9 @@ public class ComplexLobby{
         }
         if (players.size() == this.numPlayers) {
             this.setReady(true);
-            synchronized (mageLock){
+            synchronized (preMageLock){
                 closeConnectionThread = new CloseConnectionThread(clientSocketsMap);
-                mageLock.notifyAll();
+                preMageLock.notifyAll();
             }
         }
     }
@@ -178,16 +190,16 @@ public class ComplexLobby{
     //adds the Card to the Array of chosen cards
     //in a turn this method is called a (int)numPlayers times
     public boolean checkIfPlayable(Card chosen) {
-
-
+        if(chosen == null || activePlayer.getDeck().getCards().get(chosen.getInfluence() - 1).isUsed()){
+            return false;
+        }
         //necessary because, in the new round, a Player can play the card played by the last player at the previous round
-        if (this.chosenCards.size() == this.numPlayers)
+        if (this.chosenCards.size() == this.numPlayers){
             this.chosenCards.clear(); //clear the array if already full
+        }
 
         for (Card temp : this.chosenCards){
-            if(chosen == null){
-                return false;
-            }
+
             if (temp.getName().equals(chosen.getName())) {
                 System.out.println("ERROR: You can't play this card in this round because someone has already played that");
                 return false;
@@ -408,8 +420,8 @@ public class ComplexLobby{
         if (usages == room.getNumPlayers()){
             room.createGame(room.getNumPlayers(), room.getID(), room.isGameType());
             game.startGameWithRandomPlayer();
-            synchronized (cardLock){
-                cardLock.notifyAll();
+            synchronized (preCardLock){
+                preCardLock.notifyAll();
             }
         }
         return true;
@@ -499,10 +511,15 @@ public class ComplexLobby{
     }
 
     public synchronized boolean playCard(ObjectToJSON sendMessage,  JSONtoObject receiveMessage){
-        AssistantDeck assistantDeck = this.activePlayer.getDeck();
-        ArrayList<Card> deck = assistantDeck.getCards();
 
-        sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage(deck, chosenCards));
+        if (this.chosenCards.size() == this.numPlayers){
+            this.chosenCards.clear(); //clear the array if already full
+        }
+
+        AssistantDeck assistantDeck = this.activePlayer.getDeck();
+        // ArrayList<Card> deck = (ArrayList<Card>) assistantDeck.getCards().stream().filter(card -> !card.isUsed()).collect(Collectors.toList());
+
+        sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage(assistantDeck.getCards(), chosenCards));
 
         AssistantCardsMessage cardMessage = null;
         try{
@@ -513,25 +530,31 @@ public class ComplexLobby{
         if(cardMessage == null){
             return false;
         }
-
+        System.out.println(cardMessage.getPlayedCard());
         if(!checkIfPlayable(assistantDeck.getCards().get(cardMessage.getPlayedCard() - 1))){
             sendMessage.sendCardError();
+            return false;
         } else {
-            activePlayer.playCard(cardMessage.getPlayedCard());
+            if(activePlayer.playCard(cardMessage.getPlayedCard()) == null){
+                sendMessage.sendCardError();
+                return false;
+            }
             sendMessage.sendNoError();
-
-            changeActivePlayer();
 
             if(chosenCards.size() == numPlayers){
                 modifyPlayerTurn();
-                synchronized (mageLock){
-                    mageLock.notifyAll();
+                //changeActivePlayer();
+                /*
+                synchronized (afterCardLock){
+                    afterCardLock.notifyAll();
                 }
+                 */
+            } else {
+                changeActivePlayer();
             }
 
             return true;
         }
-        return false;
     }
 
 
@@ -553,18 +576,36 @@ public class ComplexLobby{
     public synchronized void moveMotherNature(int moves){
         game.moveMotherNature(moves, game.getGameComponents().getMotherNature(), game.getGameComponents().getArchipelago());
         game.islandDominance();
+        game.mergeIsland();
     }
 
     public void selectCloudCard(int cloudCard){
         CloudCard cloudCardChosen = game.getGameComponents().getCloudCards().get(cloudCard);
         activePlayer.getSchoolBoard().addStudetsToEntrance(cloudCardChosen.drawStudents());
-
         if(activePlayer.equals(playerOrder.get(numPlayers - 1))){
             System.out.println("it should be " + playerOrder.get(0).getID_player() + " turn.");
-            synchronized (cardLock){
-                cardLock.notifyAll();
+            /*
+            synchronized (preMageLock){
+                preMageLock.notifyAll();
             }
+             */
         }
+    }
+
+    public synchronized ModelMessage sendModel(){
+        GameComponents gameComponents = getGame().getGameComponents();
+        //if game type is pro
+        ModelMessage modelMessage = null;
+        if(isGameType()){
+            modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                    activePlayer.getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
+                    activePlayer.getCoinOwned());
+        } else {
+            modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                    activePlayer.getSchoolBoard());
+        }
+
+        return modelMessage;
     }
 
     public synchronized void endGame(Player winner){
