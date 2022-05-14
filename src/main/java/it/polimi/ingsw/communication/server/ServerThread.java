@@ -1,24 +1,17 @@
 package it.polimi.ingsw.communication.server;
 
-import com.google.gson.Gson;
 import it.polimi.ingsw.communication.common.*;
-import it.polimi.ingsw.communication.common.errors.ErrorMessage;
 import it.polimi.ingsw.communication.common.messages.*;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
-import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.MovedStudent;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.board.GameComponents;
-import it.polimi.ingsw.model.pieces.MotherNature;
 
 import java.util.Comparator;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 public class ServerThread extends Thread{
@@ -35,8 +28,11 @@ public class ServerThread extends Thread{
     private JSONtoObject receiveMessage;
     private ComplexLobby currentCL;
 
-    private Object mageLock;
-    private Object cardLock;
+    private Object preMageLock;
+    private Object preCardLock;
+
+    private Object afterMageLock;
+    private Object afterCardLock;
 
     public ServerThread(Socket clientSocket, GameManager gameManager) throws IOException{
         this.clientSocket = clientSocket;
@@ -66,9 +62,9 @@ public class ServerThread extends Thread{
             interrupt();
         } else {
 
-            synchronized (mageLock){
+            synchronized (preMageLock){
                 try{
-                    mageLock.wait();
+                    preMageLock.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -76,40 +72,67 @@ public class ServerThread extends Thread{
 
             chooseMage();
 
-            synchronized (mageLock){
-                mageLock.notifyAll();
+            synchronized (preMageLock){
+                preMageLock.notify();
             }
 
-            synchronized (cardLock){
+            if(currentCL.getPlayerByID(username).equals(currentCL.getPlayers().get(currentCL.getPlayers().size() - 1))){
+                synchronized (afterMageLock){
+                    afterMageLock.notify();
+                }
+            }
+
+            synchronized (afterMageLock){
                 try{
-                    cardLock.wait();
+                    afterMageLock.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
             sendModel();
+
+            ArrayList<Player> preorder = new ArrayList<>(currentCL.getPlayerOrder());
+            Player preActive = currentCL.getActivePlayer();
+
             playCard();
 
-            synchronized (cardLock){
-                cardLock.notifyAll();
+            if(preActive.equals(preorder.get(preorder.size()-1))){
+                synchronized (afterCardLock){
+                    afterCardLock.notify();
+                }
             }
 
-            synchronized (mageLock){
+            while (!isMyTurn()) {
+                synchronized (afterCardLock){
+                    afterCardLock.notify();
+                }
+            }
+
+            System.out.println(username + " in post card.");
+
+            synchronized (afterCardLock){
                 try{
-                    mageLock.wait();
+                    afterCardLock.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
+
+            System.out.println(username + " in pre turn.");
             boolean endGame = false;
             while (!endGame) {
+                if(!isMyTurn()){
+                    synchronized (afterCardLock){
+                        afterCardLock.notifyAll();
+                    }
+                }
                 while (isMyTurn()){
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
-                    System.out.println("sent");
                     MessageType messageCode = receiveMessage.receiveMessage().getCode();
+                    System.out.println("received " + messageCode.toString());
                     switch (messageCode){
                         case PINGPONG:
                             sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
@@ -125,44 +148,69 @@ public class ServerThread extends Thread{
                         case CLOUDCARD:
 
                             selectCloudCard();
-
-                            currentCL.changeActivePlayer();
-
-                            synchronized (mageLock){
-
-                                mageLock.notify();
-                            }
-
+                            System.out.println(currentCL.getPlayerOrder().size());
                             if (!currentCL.getActivePlayer().equals(currentCL.getPlayerOrder().get(currentCL.getPlayerOrder().size()-1))){
-                            synchronized (cardLock){
-                                try{
-                                    System.out.println("first lock");
-                                    cardLock.wait();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                                synchronized (afterCardLock){
+                                    afterCardLock.notifyAll();
                                 }
+                                currentCL.changeActivePlayer();
+                                /*
+                                synchronized (preCardLock){
+                                    try{
+                                        preCardLock.wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                 */
+                            } else {
+                                //synchronized (preCardLock){
+                                    //preCardLock.notifyAll();
+                                    currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
+                                    currentCL.getGame().refillCloudCards();
+                                    /*
+                                    try {
+                                        preCardLock.wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                     */
+                                //}
                             }
-                        }
-                            System.out.println("out from first lock");
+
                             break;
 
                         case CARD:
+
+                            //sendModel();
+
+                            System.out.println("chosing card");
+
+                            preorder = new ArrayList<>(currentCL.getPlayerOrder());
+                            preActive = currentCL.getActivePlayer();
+
                             playCardInGame();
 
-                            synchronized (cardLock){
-
-                                cardLock.notify();
+                            synchronized (preCardLock){
+                                preCardLock.notifyAll();
                             }
 
-                            synchronized (cardLock){
+                            if(!preActive.equals(preorder.get(preorder.size()-1))){
+                                currentCL.changeActivePlayer();
+                            } else{
+                                synchronized (afterCardLock){
+                                    afterCardLock.notifyAll();
+                                }
+                            }
+
+                            synchronized (afterCardLock){
                                 try{
-                                    System.out.println("second lock");
-                                    cardLock.wait();
+                                    afterCardLock.wait();
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
                             }
-                            System.out.println("out from second lock");
+
 
                             break;
                         case MODEL:
@@ -233,8 +281,11 @@ public class ServerThread extends Thread{
 
         if(gameManager.loginSocket(username, numOfPlayers, isPro, clientSocket)){
             currentCL = gameManager.getPlayerComplexLobby(username);
-            mageLock = currentCL.getMageLock();
-            cardLock = currentCL.getCardLock();
+            preMageLock = currentCL.getPreMageLock();
+            preCardLock = currentCL.getPreCardLock();
+            afterMageLock = currentCL.getAfterMageLock();
+            afterCardLock = currentCL.getAfterCardLock();
+
             sendMessage.sendNoError();
             sendMessage.sendLobbiesMessage(new LobbiesMessage(gameManager.getPlayerComplexLobby(username).getID()));
         } else {
@@ -255,39 +306,34 @@ public class ServerThread extends Thread{
 
     private void playCard(){
         boolean ok = false;
-        while(!ok){
+        while (!ok){
             MessageType messageCode = receiveMessage.receiveMessage().getCode();
 
             if(messageCode == MessageType.CARD){
                 ok = currentCL.playCard(sendMessage, receiveMessage);
             }
         }
+        synchronized (afterMageLock){
+            afterMageLock.notify();
+        }
     }
 
     private void playCardInGame(){
-        boolean ok = false;
-        while(!ok){
-            System.out.println(username + "chosing card");
-            ok = currentCL.playCard(sendMessage, receiveMessage);
-            System.out.println(username + "has chosen card");
+
+        System.out.println(username + "chosing card");
+        if(!currentCL.playCard(sendMessage, receiveMessage)){
+            playCard();
+        }
+        System.out.println(username + "has chosen card");
+
+        synchronized (preCardLock){
+            preCardLock.notify();
         }
     }
 
     private void sendModel(){
         if(receiveMessage.receiveMessage().getCode() == MessageType.MODEL){
-            GameComponents gameComponents = currentCL.getGame().getGameComponents();
-            //if game type is pro
-            ModelMessage modelMessage = null;
-            if(currentCL.isGameType()){
-                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                        currentCL.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
-                        currentCL.getPlayerByID(username).getCoinOwned());
-            } else {
-                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                        currentCL.getPlayerByID(username).getSchoolBoard());
-            }
-
-            sendMessage.sendModelMessage(modelMessage);
+            sendMessage.sendModelMessage(currentCL.sendModel());
         }
     }
 
@@ -313,7 +359,6 @@ public class ServerThread extends Thread{
     private void selectCloudCard(){
         CloudCardChoiceMessage message = (CloudCardChoiceMessage) receiveMessage.receiveMessage();
         currentCL.selectCloudCard(message.getCloud());
-
     }
 
     private boolean isMyTurn(){

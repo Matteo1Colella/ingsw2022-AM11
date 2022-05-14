@@ -59,9 +59,9 @@ public class AssistantDeckTest {
 
         AssistantDeck assistantDeck = deckManager.generateDeck(Mage.MAGE1);
 
-        Card choosenCard = assistantDeck.chooseCard(1);
+        Card choosenCard = assistantDeck.chooseCard(4);
 
-        choosenCard = assistantDeck.chooseCard(1);
+        choosenCard = assistantDeck.chooseCard(4);
 
         assertNull(choosenCard);
     }

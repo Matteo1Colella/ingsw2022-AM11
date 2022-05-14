@@ -94,7 +94,7 @@ public class Player {
     //choose card from deck and play it
     public Card playCard(int i) {
         if (deck.leftCard() > 0) {
-            return this.deck.chooseCard(i);
+            return this.deck.chooseCard(i );
 
         }
          else {

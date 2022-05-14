@@ -14,6 +14,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
@@ -77,9 +78,8 @@ public class ClientMain extends Thread {
                     clientMain.moveMotherNature();
                     clientMain.selectCloudCard();
                     choice = false;
-                    clientMain.receiveMessage();
+                    message = clientMain.receiveMessage().getCode();
                     while (!choice) {
-                        System.out.println("chosing card");
                         choice = clientMain.playAssistantCard();
                     }
                     break;
@@ -207,11 +207,13 @@ public class ClientMain extends Thread {
         System.out.println("");
         System.out.println("My cards:");
         for (int i = 0; i < assistantCardsMessage.getDeck().size(); i++) {
-            System.out.println("");
-            System.out.println("(Enter -> " + (i + 1) + " for: )");
-            System.out.println("NAME: " + assistantCardsMessage.getDeck().get(i).getName());
-            System.out.println("Influence: -> " + assistantCardsMessage.getDeck().get(i).getInfluence());
-            System.out.println("Steps: -> " + assistantCardsMessage.getDeck().get(i).getSteps());
+            if(!assistantCardsMessage.getDeck().get(i).isUsed()){
+                System.out.println("");
+                System.out.println("(Enter -> " + (assistantCardsMessage.getDeck().get(i).getInfluence()) + " for: )");
+                System.out.println("NAME: " + assistantCardsMessage.getDeck().get(i).getName());
+                System.out.println("Influence: -> " + assistantCardsMessage.getDeck().get(i).getInfluence());
+                System.out.println("Steps: -> " + assistantCardsMessage.getDeck().get(i).getSteps());
+            }
         }
         System.out.println("Select card:\n");
         int card = -1;
@@ -460,5 +462,38 @@ public class ClientMain extends Thread {
         }
 
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
+    }
+
+    public void useCharacter(){
+        boolean ok = false;
+        sendMessage.sendCharacterMessage(new UseCharacterMessage());
+        UseCharacterMessage characterMessage = (UseCharacterMessage) receiveMessage();
+
+        int[] usable = characterMessage.getUsableCharacters();
+
+        if (usable.length == 0){
+            System.out.println("No usable characters");
+        } else {
+            for (int j : usable) {
+                System.out.println("Character " + j + "\n");
+            }
+        }
+        int character = 0;
+        while (!ok) {
+            System.out.println("Select character:\n");
+            Scanner scanner = new Scanner(System.in);
+            character = scanner.nextInt();
+            int finalCharacter = character;
+
+            if (Arrays.stream(usable).anyMatch(i -> i == finalCharacter)) {
+                ok = true;
+                character = finalCharacter;
+            } else {
+                System.out.println("Invalid choice.\r");
+            }
+        }
+
+        sendMessage.sendCharacterMessage(new UseCharacterMessage(character));
+
     }
 }

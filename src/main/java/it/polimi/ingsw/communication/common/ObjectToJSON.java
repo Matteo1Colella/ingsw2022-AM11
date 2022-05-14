@@ -78,5 +78,9 @@ public class ObjectToJSON {
         output.println(gson.toJson(cardChoiceMessage));
     }
 
+    public void sendCharacterMessage(UseCharacterMessage characterMessage){
+        output.println(gson.toJson(characterMessage));
+    }
+
 
 }
