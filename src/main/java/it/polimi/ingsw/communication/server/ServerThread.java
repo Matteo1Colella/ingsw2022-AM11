@@ -191,12 +191,13 @@ public class ServerThread extends Thread{
 
                             playCardInGame();
 
-                            synchronized (preCardLock){
-                                preCardLock.notifyAll();
-                            }
+
 
                             if(!preActive.equals(preorder.get(preorder.size()-1))){
                                 currentCL.changeActivePlayer();
+                                synchronized (preCardLock){
+                                    preCardLock.notifyAll();
+                                }
                             } else{
                                 synchronized (afterCardLock){
                                     afterCardLock.notifyAll();
