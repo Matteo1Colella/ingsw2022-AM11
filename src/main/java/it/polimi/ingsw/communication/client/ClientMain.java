@@ -28,6 +28,7 @@ public class ClientMain extends Thread {
     private final Object lock;
     private int selectedCard;
     private int gameSize;
+    private ModelMessage model;
 
     public ObjectToJSON getSendMessage() {
         return sendMessage;
@@ -72,7 +73,9 @@ public class ClientMain extends Thread {
 
         System.out.println("waiting for my turn...");
         while (true){
-            MessageType message = clientMain.receiveMessage().getCode();
+            MessageInterface receivedMessage = clientMain.receiveMessage();
+            MessageType message = receivedMessage.getCode();
+
             switch (message){
                 case TURN:
                     clientMain.moveStudents();
@@ -80,10 +83,15 @@ public class ClientMain extends Thread {
                     clientMain.selectCloudCard();
                     choice = false;
                     message = clientMain.receiveMessage().getCode();
+                    clientMain.showModel();
+                    message = clientMain.receiveMessage().getCode();
                     while (!choice) {
                         choice = clientMain.playAssistantCard();
                     }
                     break;
+                case WIN:
+                    System.out.println(receivedMessage.getMessage());
+                    return;
             }
         }
     }
@@ -255,12 +263,15 @@ public class ClientMain extends Thread {
         int student3WhereToPut = -1;
         int indexIslandIf3ToIsland = -1;
         int i = 0;
-
+        int student = -1;
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage());
         while (i < 3){
-            System.out.println("SELECT a student from the entrance:\n");
-            Scanner scanner1 = new Scanner(System.in);
-            int student  = scanner1.nextInt();
+            student = -1;
+            while (student < 1 || student > 8) {
+                System.out.println("SELECT a student from the entrance:\n");
+                Scanner scanner1 = new Scanner(System.in);
+                student = scanner1.nextInt();
+            }
             System.out.println("ENTER:\n");
             System.out.println("0 -> to move student " + student + " to your SCHOOLBOARD");
             System.out.println("1 -> to move student " + student + " to an ISLAND");
@@ -270,27 +281,33 @@ public class ClientMain extends Thread {
                 student1Entrance = student;
                 student1WhereToPut = pose;
                 if(student1WhereToPut == 1){
-                    System.out.println("WHAT ISLAND? (enter the Island number)");
-                    Scanner scanner3 = new Scanner(System.in);
-                    indexIslandIf1ToIsland = scanner3.nextInt();
+                    while(indexIslandIf1ToIsland < 0 || indexIslandIf1ToIsland > model.getArchipelago().size() - 1) {
+                        System.out.println("WHAT ISLAND? (enter the Island number)");
+                        Scanner scanner3 = new Scanner(System.in);
+                        indexIslandIf1ToIsland = scanner3.nextInt();
+                    }
                 }
             }
             if(i==1){
                 student2Entrance = student;
                 student2WhereToPut = pose;
-                if(student2WhereToPut == 1){
-                    System.out.println("WHAT ISLAND? (enter the Island number)");
-                    Scanner scanner3 = new Scanner(System.in);
-                    indexIslandIf2ToIsland = scanner3.nextInt();
+                if(student2WhereToPut == 1) {
+                    while (indexIslandIf2ToIsland < 0 || indexIslandIf2ToIsland > model.getArchipelago().size() - 1) {
+                        System.out.println("WHAT ISLAND? (enter the Island number)");
+                        Scanner scanner3 = new Scanner(System.in);
+                        indexIslandIf2ToIsland = scanner3.nextInt();
+                    }
                 }
             }
-            if(i==2){
+            if(i==2) {
                 student3Entrance = student;
                 student3WhereToPut = pose;
-                if(student3WhereToPut == 1){
-                    System.out.println("WHAT ISLAND? (enter the Island number)");
-                    Scanner scanner3 = new Scanner(System.in);
-                    indexIslandIf3ToIsland = scanner3.nextInt();
+                if (student3WhereToPut == 1) {
+                    while (indexIslandIf3ToIsland < 0 || indexIslandIf3ToIsland > model.getArchipelago().size() - 1) {
+                        System.out.println("WHAT ISLAND? (enter the Island number)");
+                        Scanner scanner3 = new Scanner(System.in);
+                        indexIslandIf3ToIsland = scanner3.nextInt();
+                    }
                 }
             }
             i++;
@@ -316,7 +333,7 @@ public class ClientMain extends Thread {
         //ask the list of GameComponents (all the model)
         sendMessage.sendModelMessage(new ModelMessage());
         ModelMessage modelMessage = (ModelMessage) receiveMessage();
-
+        this.model = modelMessage;
         //printing model..
 
         //if pro{
@@ -363,7 +380,7 @@ public class ClientMain extends Thread {
         System.out.println("ENTRANCE:");
         i = 0;
         for (Student student : modelMessage.getSchoolBoard().getEntrance().getStudents()) {
-            System.out.println("student " + i + ":");
+            System.out.println("student " + (i + 1) + ":");
             System.out.println(student.getColor());
             i++;
         }
@@ -378,7 +395,7 @@ public class ClientMain extends Thread {
             i++;
             System.out.println("");
         }
-        if (modelMessage.getSchoolBoard().getTowers().get(0).getColor() != null)
+        if (!modelMessage.getSchoolBoard().getTowers().isEmpty() && modelMessage.getSchoolBoard().getTowers().get(0).getColor() != null)
             System.out.println("TOWER color: " + modelMessage.getSchoolBoard().getTowers().get(0).getColor());
 
         System.out.println("Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());

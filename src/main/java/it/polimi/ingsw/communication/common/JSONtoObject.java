@@ -67,7 +67,8 @@ public class JSONtoObject {
                 return gson.fromJson(received, CardError.class);
             case TURN:
                 return gson.fromJson(received, TurnMessage.class);
-
+            case WIN:
+                return gson.fromJson(received, WinMessage.class);
         }
         return new ErrorMessage();
 

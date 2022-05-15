@@ -81,6 +81,9 @@ public class ObjectToJSON {
     public void sendCharacterMessage(UseCharacterMessage characterMessage){
         output.println(gson.toJson(characterMessage));
     }
+    public void sendWinMessage(WinMessage winMessage){
+        output.println(gson.toJson(winMessage));
+    }
 
 
 }

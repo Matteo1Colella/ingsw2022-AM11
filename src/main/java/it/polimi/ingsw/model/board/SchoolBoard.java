@@ -68,6 +68,7 @@ public class SchoolBoard implements Board {
 
             }
         } else {
+            // ocio!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             for(int i = 0; i < 8; i++){
                 Tower tempTower = new Tower(colorTower);
                 towers.add(tempTower);

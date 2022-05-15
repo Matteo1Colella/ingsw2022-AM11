@@ -4,6 +4,7 @@ import it.polimi.ingsw.communication.common.*;
 import it.polimi.ingsw.communication.common.messages.AssistantCardsMessage;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.communication.common.messages.ModelMessage;
+import it.polimi.ingsw.communication.common.messages.WinMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.MovedStudent;
 import it.polimi.ingsw.model.board.*;
@@ -195,7 +196,9 @@ public class ComplexLobby{
             return false;
         }
         //necessary because, in the new round, a Player can play the card played by the last player at the previous round
-        if (this.chosenCards.size() == this.numPlayers){
+
+
+        if (this.chosenCards.size() == this.numPlayers && clientSocketsMap.isEmpty()){
             this.chosenCards.clear(); //clear the array if already full
         }
 
@@ -615,13 +618,20 @@ public class ComplexLobby{
 
     public synchronized void endGame(Player winner){
         for(Player player : players){
+
             Socket clientSocket = clientSocketsMap.get(player);
-            ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-            //send win message
-            try {
-                clientSocket.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+
+            if (clientSocket != null) {
+                ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
+                //send win message
+
+                sendMessage.sendWinMessage(new WinMessage(winner.getID_player()));
+
+                try {
+                    clientSocket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }

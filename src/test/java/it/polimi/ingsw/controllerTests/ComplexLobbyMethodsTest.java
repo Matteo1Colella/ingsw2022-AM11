@@ -155,6 +155,7 @@ public class ComplexLobbyMethodsTest {
         Card second = new Card("dog",1,2,false,Mage.MAGE1);
         Card fourth = new Card("hippo",1,10,false,Mage.MAGE1);
         Card third = new Card("rat",1,3,false,Mage.MAGE1);
+
         lobby.checkIfPlayable(first);
         assertEquals(1,lobby.getChosenCards().size());
         lobby.checkIfPlayable(second);

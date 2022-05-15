@@ -140,9 +140,10 @@ public class ServerThread extends Thread{
                         case MOTHERNATURE:
                             moveMotherNature();
                             sendModel();
-                            if(currentCL.getGame().winCondition() != null){
+                            Player winner = currentCL.getGame().winCondition();
+                            if( winner != null){
                                 endGame = true;
-                                currentCL.endGame(currentCL.getGame().winCondition());
+                                currentCL.endGame(winner);
                             }
                             break;
                         case CLOUDCARD:
@@ -215,7 +216,7 @@ public class ServerThread extends Thread{
 
                             break;
                         case MODEL:
-                            sendModel();
+                            sendModelInGame();
                             break;
                         case STUDENT:
                             moveStudent();
@@ -225,9 +226,10 @@ public class ServerThread extends Thread{
                     //methods call
                     //check if a player has won after a turn
                     if(currentCL.getGame() != null){
-                        if(currentCL.getGame().winCondition() != null){
+                        Player winner = currentCL.getGame().winCondition();
+                        if( winner != null){
                             endGame = true;
-                            currentCL.endGame(currentCL.getGame().winCondition());
+                            currentCL.endGame(winner);
                         }
                     }
                 }
@@ -338,13 +340,17 @@ public class ServerThread extends Thread{
         }
     }
 
+    private void sendModelInGame(){
+            sendMessage.sendModelMessage(currentCL.sendModel());
+    }
+
     private void moveStudent(){
         MoveStudentMessage message = (MoveStudentMessage) receiveMessage.receiveMessage();
         ArrayList<MovedStudent> students = new ArrayList<>();
 
-        students.add(new MovedStudent( message.getStudent1Entrance(),  message.getStudent1WhereToPut(), message.getIndexIslandIf1ToIsland()));
-        students.add(new MovedStudent( message.getStudent2Entrance(),  message.getStudent2WhereToPut(), message.getIndexIslandIf2ToIsland()));
-        students.add(new MovedStudent( message.getStudent3Entrance(),  message.getStudent3WhereToPut(), message.getIndexIslandIf3ToIsland()));
+        students.add(new MovedStudent( message.getStudent1Entrance() - 1,  message.getStudent1WhereToPut(), message.getIndexIslandIf1ToIsland()));
+        students.add(new MovedStudent( message.getStudent2Entrance() - 1 ,  message.getStudent2WhereToPut(), message.getIndexIslandIf2ToIsland()));
+        students.add(new MovedStudent( message.getStudent3Entrance() - 1 ,  message.getStudent3WhereToPut(), message.getIndexIslandIf3ToIsland()));
 
         ArrayList<MovedStudent> orderedStudents = students.stream()
                 .sorted(Comparator.comparingInt(MovedStudent::getIndex).reversed()).collect(Collectors.toCollection(ArrayList<MovedStudent> :: new));

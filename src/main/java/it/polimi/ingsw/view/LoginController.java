@@ -125,7 +125,7 @@ private ClientMain client;
             welcomeText.setText("Something gone wrong, please retry.\r");
         } else if(message.getCode() == MessageType.NOERROR) {
             LobbiesMessage lobbiesMessage = (LobbiesMessage) client.receiveMessage();
-            System.out.println("You are in the lobby " + lobbiesMessage.getIdLobby());
+            welcomeText.setText("You are in the lobby " + lobbiesMessage.getIdLobby());
             new MageStageSocket(client);
             stage.close();
         }
@@ -199,6 +199,9 @@ private ClientMain client;
 
     }
     public void ListClick(){
+
+        /*
+
         int index = Lobbies.getSelectionModel().getSelectedIndex();
         ObservableList<String> doList = FXCollections.observableArrayList();
         Players.getItems().clear();
@@ -211,6 +214,8 @@ private ClientMain client;
         Event event = new ListView.EditEvent<>(Players, type, ID, i);
         Players.fireEvent(event);
         i++;
+
+         */
     }
 
     @Override
