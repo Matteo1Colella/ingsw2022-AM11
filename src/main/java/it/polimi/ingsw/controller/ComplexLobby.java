@@ -567,7 +567,12 @@ public class ComplexLobby{
 
 
     public synchronized void moveStudents(ArrayList<MovedStudent> orderedStudents){
+        System.out.println("active player is: " + activePlayer.getID_player());
+
         SchoolBoard schoolBoard = activePlayer.getSchoolBoard();
+
+        System.out.println("active player is: " + activePlayer.getID_player());
+
         for(MovedStudent movedStudent : orderedStudents){
             if(movedStudent.getPose() == 0){
                 Student student = schoolBoard.getEntrance().getStudents().get(movedStudent.getIndex());
@@ -600,17 +605,19 @@ public class ComplexLobby{
         }
     }
 
-    public synchronized ModelMessage sendModel(){
+    public synchronized ModelMessage sendModel(String username){
         GameComponents gameComponents = getGame().getGameComponents();
         //if game type is pro
         ModelMessage modelMessage = null;
         if(isGameType()){
+            System.out.println("active player is: " + this.getPlayerByID(username));
             modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                    activePlayer.getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
-                    activePlayer.getCoinOwned());
+                    this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
+                    this.getPlayerByID(username).getCoinOwned());
         } else {
+            System.out.println("active player is: " + this.getPlayerByID(username).getID_player());
             modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                    activePlayer.getSchoolBoard());
+                    this.getPlayerByID(username).getSchoolBoard());
         }
 
         return modelMessage;
@@ -626,6 +633,8 @@ public class ComplexLobby{
                 //send win message
 
                 sendMessage.sendWinMessage(new WinMessage(winner.getID_player()));
+
+                playerOrder.clear();
 
                 try {
                     clientSocket.close();

@@ -141,7 +141,7 @@ public class ServerThread extends Thread{
                             moveMotherNature();
                             sendModel();
                             Player winner = currentCL.getGame().winCondition();
-                            if( winner != null){
+                            if( winner != null && !endGame){
                                 endGame = true;
                                 currentCL.endGame(winner);
                             }
@@ -225,7 +225,7 @@ public class ServerThread extends Thread{
                     }
                     //methods call
                     //check if a player has won after a turn
-                    if(currentCL.getGame() != null){
+                    if(currentCL.getGame() != null && !endGame){
                         Player winner = currentCL.getGame().winCondition();
                         if( winner != null){
                             endGame = true;
@@ -336,12 +336,12 @@ public class ServerThread extends Thread{
 
     private void sendModel(){
         if(receiveMessage.receiveMessage().getCode() == MessageType.MODEL){
-            sendMessage.sendModelMessage(currentCL.sendModel());
+            sendMessage.sendModelMessage(currentCL.sendModel(username));
         }
     }
 
     private void sendModelInGame(){
-            sendMessage.sendModelMessage(currentCL.sendModel());
+            sendMessage.sendModelMessage(currentCL.sendModel(username));
     }
 
     private void moveStudent(){
