@@ -190,7 +190,8 @@ public class ComplexLobby{
     //adds the Card to the Array of chosen cards
     //in a turn this method is called a (int)numPlayers times
     public boolean checkIfPlayable(Card chosen) {
-        if(chosen == null || activePlayer.getDeck().getCards().get(chosen.getInfluence() - 1).isUsed()){
+
+        if(chosen == null ){ //removed "|| this.activePlayer.getDeck().getCards().get(chosen.getInfluence() - 1).isUsed()"
             return false;
         }
         //necessary because, in the new round, a Player can play the card played by the last player at the previous round
@@ -206,13 +207,17 @@ public class ComplexLobby{
             }
         }
 
+        if(roundCounter >= 9){
+            return true;
+        }
+
         //chosenCards is a private attribute of game, it has the same size as numOfPlayers, at the end of a round becomes empty
         this.chosenCards.add(chosen);
         return true;
     }
 
     //turn manager
-    public void modifyPlayerTurn(){ //gestire caso ultimo turno
+    public void modifyPlayerTurn(){
 
         //corner case
         roundCounter++;
