@@ -406,7 +406,20 @@ public class App
                     Scanner scanner = new Scanner(System.in);
                     int playableCard = scanner.nextInt();
                     card = currentPlayer.playCard(playableCard);
+
+                    //added because the round number 10 playCards returns null! (there is no card remaining) so the rest of the code doesn't word if card == null
+                    if(card==null){
+                        winnerPlayer = newGame.winCondition();
+
+                        if (winnerPlayer != null){
+                            System.out.println(winnerPlayer.getID_player() + " won!");
+                            return;
+                        }
+                    }
+
                 } while (!newGame.getComplexLobby().checkIfPlayable(card));
+
+
                 currentPlayer.setMotherNatureMoves(card.getSteps());
                 newGame.getComplexLobby().changeActivePlayer();
                 currentPlayer = lobby.getActivePlayer();
@@ -602,6 +615,7 @@ public class App
                     Scanner scanner = new Scanner(System.in);
                     cloud = scanner.nextInt();
                 }while(cloud > newGame.getGameComponents().getCloudCards().size());
+
 
                 CloudCard cloudCardChosen = newGame.getGameComponents().getCloudCards().get(cloud - 1);
                 currentPlayer.getSchoolBoard().addStudetsToEntrance(cloudCardChosen.drawStudents());

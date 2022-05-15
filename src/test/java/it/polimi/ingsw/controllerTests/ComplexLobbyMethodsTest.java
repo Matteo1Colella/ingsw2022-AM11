@@ -1,8 +1,11 @@
 package it.polimi.ingsw.controllerTests;
 
 import it.polimi.ingsw.controller.ComplexLobby;
+import it.polimi.ingsw.controller.GameManager;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.board.GameComponents;
 import it.polimi.ingsw.model.cards.Card;
 import org.junit.Test;
 
@@ -14,11 +17,19 @@ import static org.junit.Assert.assertFalse;
 public class ComplexLobbyMethodsTest {
     @Test
     public void addChosenCardTest() {
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(1,"ale"));
-        players.add(new Player(2,"leo"));
-        players.add(new Player(3,"cole"));
-        ComplexLobby lobby = new ComplexLobby(3,false,1,players);
+        GameManager GM = new GameManager();
+
+        GM.login("Ale", 3, true);
+        GM.getPlayerComplexLobby("Ale").deckRequest(Mage.MAGE1, "Ale");
+        GM.login("Leo", 3, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+        GM.login("Cole", 3, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE3, "Cole");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
         Card first = new Card("cat",5,1,false, Mage.MAGE1);
         Card second = new Card("dog",4,2,false,Mage.MAGE2);
         Card third = new Card("hippo",3,3,false,Mage.MAGE1);
@@ -38,11 +49,19 @@ public class ComplexLobbyMethodsTest {
     }
     @Test
     public void modifyTurnTest() {
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(1,"ale"));
-        players.add(new Player(2,"leo"));
-        players.add(new Player(3,"cole"));
-        ComplexLobby lobby = new ComplexLobby(3,false,1,players);
+        GameManager GM = new GameManager();
+
+        GM.login("Ale", 3, true);
+        GM.getPlayerComplexLobby("Ale").deckRequest(Mage.MAGE1, "Ale");
+        GM.login("Leo", 3, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+        GM.login("Cole", 3, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE3, "Cole");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
         Card first = new Card("cat",5,1,false, Mage.MAGE1);
         Card second = new Card("dog",4,2,false,Mage.MAGE1);
         Card third = new Card("hippo",3,3,false,Mage.MAGE1);
@@ -86,11 +105,19 @@ public class ComplexLobbyMethodsTest {
 
     @Test
     public void modifyTurnTest2() {
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(1,"ale"));
-        players.add(new Player(2,"leo"));
-        players.add(new Player(3,"cole"));
-        ComplexLobby lobby = new ComplexLobby(3,false,1,players);
+        GameManager GM = new GameManager();
+
+        GM.login("Ale", 3, true);
+        GM.getPlayerComplexLobby("Ale").deckRequest(Mage.MAGE1, "Ale");
+        GM.login("Leo", 3, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+        GM.login("Cole", 3, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE3, "Cole");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
         Card first = new Card("cat",5,6,false, Mage.MAGE1);
         Card second = new Card("dog",4,4,false,Mage.MAGE1);
         Card third = new Card("hippo",3,5,false,Mage.MAGE1);
@@ -100,20 +127,34 @@ public class ComplexLobbyMethodsTest {
         lobby.checkIfPlayable(third);
         assertEquals(3,lobby.getChosenCards().size());
         lobby.modifyPlayerTurn();
+
     }
 
     @Test
     public void modifyTurnTestWith4Players() {
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(new Player(1,"ale"));
-        players.add(new Player(2,"leo"));
-        players.add(new Player(3,"cole"));
-        players.add(new Player(4,"giuseppe"));
-        ComplexLobby lobby = new ComplexLobby(4,false,1,players);
+        GameManager GM = new GameManager();
+
+        GM.login("Ale", 4, true);
+        GM.getPlayerComplexLobby("Ale").deckRequest(Mage.MAGE1, "Ale");
+        GM.login("Leo", 4, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+        GM.login("Cole", 4, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE3, "Cole");
+        GM.login("Giuseppe", 4, true);
+        GM.getPlayerComplexLobby("Giuseppe").deckRequest(Mage.MAGE4, "Giuseppe");
+
+        Game newGame = GM.getComplexLobbies().get(0).getGame();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
+
+        newGame.startGameWithRandomPlayer();
+        for(Player player : lobby.getPlayerOrder()){
+            System.out.println(player.getID_player());
+        }
+
         Card first = new Card("cat",1,1,false, Mage.MAGE1);
         Card second = new Card("dog",1,2,false,Mage.MAGE1);
-        Card third = new Card("hippo",1,10,false,Mage.MAGE1);
-        Card fourth = new Card("rat",1,3,false,Mage.MAGE1);
+        Card fourth = new Card("hippo",1,10,false,Mage.MAGE1);
+        Card third = new Card("rat",1,3,false,Mage.MAGE1);
         lobby.checkIfPlayable(first);
         assertEquals(1,lobby.getChosenCards().size());
         lobby.checkIfPlayable(second);
