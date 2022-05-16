@@ -64,10 +64,6 @@ public class AssistantDeck {
         remainingCards--;
         System.out.println("You choose " + retCard);
 
-        if(remainingCards == 0){
-            System.out.println("No cards remaining.");
-            return null;
-        }
         return retCard;
     }
 

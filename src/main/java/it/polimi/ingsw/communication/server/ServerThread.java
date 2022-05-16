@@ -188,8 +188,6 @@ public class ServerThread extends Thread{
 
                             playCardInGame();
 
-
-
                             if(!preActive.equals(preorder.get(preorder.size()-1))){
                                 //currentCL.changeActivePlayer();
                                 synchronized (preCardLock){
