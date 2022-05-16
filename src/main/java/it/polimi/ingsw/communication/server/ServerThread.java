@@ -123,11 +123,7 @@ public class ServerThread extends Thread{
             System.out.println(username + " in pre turn.");
             boolean endGame = false;
             while (!endGame) {
-                if(!isMyTurn()){
-                    synchronized (afterCardLock){
-                        afterCardLock.notifyAll();
-                    }
-                }
+
                 while (isMyTurn()){
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
@@ -195,12 +191,13 @@ public class ServerThread extends Thread{
 
 
                             if(!preActive.equals(preorder.get(preorder.size()-1))){
-                                currentCL.changeActivePlayer();
+                                //currentCL.changeActivePlayer();
                                 synchronized (preCardLock){
                                     preCardLock.notifyAll();
                                 }
                             } else{
                                 synchronized (afterCardLock){
+                                   // currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
                                     afterCardLock.notifyAll();
                                 }
                             }
@@ -233,6 +230,11 @@ public class ServerThread extends Thread{
                         }
                     }
                 }
+                synchronized (afterCardLock){
+                    System.out.println("not " + username + "turn");
+                    afterCardLock.notifyAll();
+                }
+
             }
         }
     }
