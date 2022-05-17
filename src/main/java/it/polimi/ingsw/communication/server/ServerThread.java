@@ -70,6 +70,7 @@ public class ServerThread extends Thread{
                 }
             }
 
+
             chooseMage();
 
             synchronized (preMageLock){
@@ -87,6 +88,12 @@ public class ServerThread extends Thread{
                     afterMageLock.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+            }
+
+            while (!isMyTurn()) {
+                synchronized (afterMageLock){
+                    afterMageLock.notify();
                 }
             }
 
@@ -109,8 +116,6 @@ public class ServerThread extends Thread{
                 }
             }
 
-            System.out.println(username + " in post card.");
-
             synchronized (afterCardLock){
                 try{
                     afterCardLock.wait();
@@ -119,8 +124,6 @@ public class ServerThread extends Thread{
                 }
             }
 
-
-            System.out.println(username + " in pre turn.");
             boolean endGame = false;
             while (!endGame) {
 
@@ -128,7 +131,6 @@ public class ServerThread extends Thread{
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
                     MessageType messageCode = receiveMessage.receiveMessage().getCode();
-                    System.out.println("received " + messageCode.toString());
                     switch (messageCode){
                         case PINGPONG:
                             sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
@@ -162,9 +164,9 @@ public class ServerThread extends Thread{
                                  */
                             } else {
                                 //synchronized (preCardLock){
-                                    //preCardLock.notifyAll();
-                                    currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
-                                    currentCL.getGame().refillCloudCards();
+                                //preCardLock.notifyAll();
+                                currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
+                                currentCL.getGame().refillCloudCards();
                                     /*
                                     try {
                                         preCardLock.wait();
@@ -180,9 +182,6 @@ public class ServerThread extends Thread{
                         case CARD:
 
                             //sendModel();
-
-                            System.out.println("chosing card");
-
                             preorder = new ArrayList<>(currentCL.getPlayerOrder());
                             preActive = currentCL.getActivePlayer();
 
@@ -195,7 +194,7 @@ public class ServerThread extends Thread{
                                 }
                             } else{
                                 synchronized (afterCardLock){
-                                   // currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
+                                    // currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
                                     afterCardLock.notifyAll();
                                 }
                             }
@@ -229,7 +228,6 @@ public class ServerThread extends Thread{
                     }
                 }
                 synchronized (afterCardLock){
-                    System.out.println("not " + username + "turn");
                     afterCardLock.notifyAll();
                 }
 
@@ -241,9 +239,7 @@ public class ServerThread extends Thread{
     private MessageInterface receiveMessageTimeOut(JSONtoObject receiveMessage){
         ExecutorService executor = Executors.newSingleThreadExecutor();
         final MessageInterface[] message = {null};
-
         Future<String> future = executor.submit(new Callable() {
-
             public String call() throws Exception {
                 message[0] = receiveMessage.receiveMessage();
                 return "OK";
@@ -323,12 +319,9 @@ public class ServerThread extends Thread{
 
     private void playCardInGame(){
 
-        System.out.println(username + "chosing card");
         if(!currentCL.playCard(sendMessage, receiveMessage)){
             playCard();
         }
-        System.out.println(username + "has chosen card");
-
         synchronized (preCardLock){
             preCardLock.notify();
         }
@@ -341,7 +334,7 @@ public class ServerThread extends Thread{
     }
 
     private void sendModelInGame(){
-            sendMessage.sendModelMessage(currentCL.sendModel(username));
+        sendMessage.sendModelMessage(currentCL.sendModel(username));
     }
 
     private void moveStudent(){
@@ -369,9 +362,11 @@ public class ServerThread extends Thread{
     }
 
     private boolean isMyTurn(){
+
         if(currentCL.getActivePlayer() == null){
             return  false;
-        } else {
+        }
+        else {
             return currentCL.getActivePlayer().getID_player().equals(username);
         }
     }

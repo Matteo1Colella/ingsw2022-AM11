@@ -102,7 +102,7 @@ public class AssistantDeckTest {
             assertNotNull(card);
         }
         card = player.playCard(10);
-        assertNull(card);
+        assertNotNull(card);
         player.printRemainingCard();
     }
 }

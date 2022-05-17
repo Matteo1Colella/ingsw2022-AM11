@@ -650,7 +650,7 @@ public class Game {
         GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors);
         this.GameComponents = table;
 
-        this.startGameWithRandomPlayer();
+        //this.startGameWithRandomPlayer();
 
         return table;
 
@@ -666,6 +666,7 @@ public class Game {
 
     //selects a random player to begin
     public Player startGameWithRandomPlayer(){
+        /*
         int index = (int) (Math.random() * this.complexLobby.getPlayers().size());
         this.complexLobby.setActivePlayer(this.complexLobby.getPlayers().get(index));
         ArrayList<Player> startingList = new ArrayList<>();
@@ -683,6 +684,15 @@ public class Game {
 
         this.complexLobby.setActivePlayer(this.complexLobby.getPlayerOrder().get(0));
         return this.complexLobby.getPlayerOrder().get(0);
+
+         */
+        complexLobby.setPlayerOrder(complexLobby.getPlayers());
+        this.complexLobby.setActivePlayer(this.complexLobby.getPlayerOrder().get(0));
+        for (Player player : complexLobby.getPlayerOrder()){
+            System.out.println(player.getID_player());
+        }
+        return this.complexLobby.getPlayerOrder().get(0);
+
     }
 
     //checks if the game ends, returns the winner player

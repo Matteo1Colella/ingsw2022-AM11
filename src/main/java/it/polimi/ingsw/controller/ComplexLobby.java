@@ -373,7 +373,6 @@ public class ComplexLobby{
                         output.println(outputString);
                     }
                 }
-
                 Player courrentPlayer = null;
                 for (Player p : room.getPlayers()){
                     if (p.getID_player().equals(IDplayer)){
@@ -381,7 +380,6 @@ public class ComplexLobby{
                     }
                 }
                 selectMage(courrentPlayer);
-
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -544,11 +542,13 @@ public class ComplexLobby{
             return false;
         } else {
             if(activePlayer.playCard(cardMessage.getPlayedCard()) == null){
+                chosenCards.remove(chosenCards.size() - 1);
                 sendMessage.sendCardError();
                 return false;
             }
             sendMessage.sendNoError();
 
+            System.out.println("choosen card: " + chosenCards.size());
             if(chosenCards.size() == numPlayers){
                 modifyPlayerTurn();
                 //changeActivePlayer();
@@ -558,6 +558,7 @@ public class ComplexLobby{
                 }
                  */
             } else {
+                System.out.println("changing player");
                 changeActivePlayer();
             }
 
@@ -567,11 +568,8 @@ public class ComplexLobby{
 
 
     public synchronized void moveStudents(ArrayList<MovedStudent> orderedStudents){
-        System.out.println("active player is: " + activePlayer.getID_player());
 
         SchoolBoard schoolBoard = activePlayer.getSchoolBoard();
-
-        System.out.println("active player is: " + activePlayer.getID_player());
 
         for(MovedStudent movedStudent : orderedStudents){
             if(movedStudent.getPose() == 0){
@@ -595,14 +593,6 @@ public class ComplexLobby{
     public void selectCloudCard(int cloudCard){
         CloudCard cloudCardChosen = game.getGameComponents().getCloudCards().get(cloudCard);
         activePlayer.getSchoolBoard().addStudetsToEntrance(cloudCardChosen.drawStudents());
-        if(activePlayer.equals(playerOrder.get(numPlayers - 1))){
-            System.out.println("it should be " + playerOrder.get(0).getID_player() + " turn.");
-            /*
-            synchronized (preMageLock){
-                preMageLock.notifyAll();
-            }
-             */
-        }
     }
 
     public synchronized ModelMessage sendModel(String username){
@@ -610,12 +600,10 @@ public class ComplexLobby{
         //if game type is pro
         ModelMessage modelMessage = null;
         if(isGameType()){
-            System.out.println("active player is: " + this.getPlayerByID(username));
             modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
                     this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
                     this.getPlayerByID(username).getCoinOwned());
         } else {
-            System.out.println("active player is: " + this.getPlayerByID(username).getID_player());
             modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
                     this.getPlayerByID(username).getSchoolBoard());
         }
@@ -664,4 +652,3 @@ public class ComplexLobby{
     }
 
 }
-

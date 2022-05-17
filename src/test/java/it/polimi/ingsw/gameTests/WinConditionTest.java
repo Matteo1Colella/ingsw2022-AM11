@@ -23,15 +23,17 @@ public class WinConditionTest {
 
     @Test
     public void winWithNoTowersTest() {
-        Game game = new Game(false,1,2);
-        ArrayList<Player> players = new ArrayList<>();
-        Player player1 = new Player(1,"ale");
-        Player player2 = new Player(1,"leo");
-        players.add(player1);
-        players.add(player2);
-        game.setComplexLobby(new ComplexLobby(2,false,1,players));
-        game.setGameStructure(game.generateBoard());
+        GameManager GM = new GameManager();
 
+        GM.login("Cole", 2, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
+        GM.login("Leo", 2, true);
+        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
+
+        Game game = GM.getComplexLobbies().get(0).getGame();
+        game.startGameWithRandomPlayer();
+        GameComponents gameComponents = game.getGameComponents();
+        ComplexLobby lobby = GM.getComplexLobbies().get(0);
 
         assertEquals(2,game.getGameComponents().getSchoolBoards().size());
 
