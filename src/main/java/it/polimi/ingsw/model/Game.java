@@ -699,10 +699,15 @@ public class Game {
     public Player winCondition() {
 
         //check if a player finished his free towers in his schoolBoard
-        for(int i = 0; i<this.complexLobby.getPlayers().size(); i++)
-            if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0)
-                return this.complexLobby.getPlayers().get(i);
-
+        if(this.complexLobby.getPlayers().size()<4) {
+            for (int i = 0; i < this.complexLobby.getPlayers().size(); i++)
+                if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0)
+                    return this.complexLobby.getPlayers().get(i);
+        }else if(this.complexLobby.getPlayers().size()==4){
+            for (int i = 0; i < 2; i++)
+                if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0)
+                    return this.complexLobby.getPlayers().get(i);
+        }
 
         //there are three archipelagos
         if (this.GameComponents.getArchipelago().size() == 3 || (this.GameComponents.getBag().left()==0 ) ){
