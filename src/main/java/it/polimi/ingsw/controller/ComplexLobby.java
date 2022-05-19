@@ -95,7 +95,7 @@ public class ComplexLobby{
         return chosenCards;
     }
 
-    public Player getActivePlayer() {
+    public synchronized Player getActivePlayer() {
         return activePlayer;
     }
 
@@ -111,7 +111,7 @@ public class ComplexLobby{
         return gameType;
     }
 
-    public int getNumPlayers() {
+    public  int getNumPlayers() {
         return numPlayers;
     }
 
@@ -158,7 +158,7 @@ public class ComplexLobby{
         }
     }
 
-    public void addClientSocket(Socket socket, String ID){
+    public synchronized void addClientSocket(Socket socket, String ID){
         for(Player player : this.players){
             System.out.println("Player: " + player.getID_player());
             if(ID.equals(player.getID_player())){
@@ -169,15 +169,12 @@ public class ComplexLobby{
         }
         if (players.size() == this.numPlayers) {
             this.setReady(true);
-            synchronized (preMageLock){
-                closeConnectionThread = new CloseConnectionThread(clientSocketsMap);
-                preMageLock.notifyAll();
-            }
+            closeConnectionThread = new CloseConnectionThread(clientSocketsMap);
         }
     }
 
     //creates the game related to this lobby
-    public void createGame(int NumPlayers, int ID, boolean GameType) {
+    public synchronized void createGame(int NumPlayers, int ID, boolean GameType) {
         System.out.println("All set! Starting Game...");
         System.out.println("");
         this.game = new Game(GameType, ID, NumPlayers);
@@ -190,7 +187,7 @@ public class ComplexLobby{
 
     //adds the Card to the Array of chosen cards
     //in a turn this method is called a (int)numPlayers times
-    public boolean checkIfPlayable(Card chosen) {
+    public synchronized boolean checkIfPlayable(Card chosen) {
 
         if(chosen == null ){ //removed "|| this.activePlayer.getDeck().getCards().get(chosen.getInfluence() - 1).isUsed()"
             return false;
@@ -220,7 +217,7 @@ public class ComplexLobby{
     }
 
     //turn manager
-    public void modifyPlayerTurn(){
+    public synchronized void modifyPlayerTurn(){
 
         //corner case
         roundCounter++;
@@ -310,7 +307,7 @@ public class ComplexLobby{
 
     // A player (IDPlayer) from a lobby (ID) requests a deck with a specified mage (mage). if free, it sets player's deck,
     // if busy, it returns false
-    public boolean deckRequest(Mage mage, String IDplayer){
+    public synchronized boolean deckRequest(Mage mage, String IDplayer){
         //looks for lobby (ID)
         ComplexLobby room = this;
 
@@ -352,7 +349,7 @@ public class ComplexLobby{
         return true;
     }
 
-    public boolean deckRequest(Mage mage, String IDplayer, Socket clientSocket){
+    public synchronized boolean deckRequest(Mage mage, String IDplayer, Socket clientSocket){
         //looks for lobby (ID)
         ComplexLobby room = this;
 
@@ -422,13 +419,13 @@ public class ComplexLobby{
                 usages++;
             }
         }
+        if(!activePlayer.equals(playerOrder.get(numPlayers - 1))){
+            changeActivePlayer();
+        }
 
         if (usages == room.getNumPlayers()){
             room.createGame(room.getNumPlayers(), room.getID(), room.isGameType());
             game.startGameWithRandomPlayer();
-            synchronized (preCardLock){
-                preCardLock.notifyAll();
-            }
         }
         return true;
     }
@@ -470,8 +467,6 @@ public class ComplexLobby{
             mageMessage = (MageMessage) receiveMessage.receiveMessage();
         }catch (ClassCastException e){
             System.out.println("Connection error.\r");
-        }
-        if(mageMessage == null){
             return false;
         }
 
@@ -516,7 +511,7 @@ public class ComplexLobby{
         return false;
     }
 
-    public synchronized boolean playCard(ObjectToJSON sendMessage,  JSONtoObject receiveMessage){
+    public synchronized boolean playCard(ObjectToJSON sendMessage,  JSONtoObject receiveMessage) {
 
         if (this.chosenCards.size() == this.numPlayers){
             this.chosenCards.clear(); //clear the array if already full
@@ -532,10 +527,9 @@ public class ComplexLobby{
             cardMessage = (AssistantCardsMessage) receiveMessage.receiveMessage();
         }catch (ClassCastException e){
             System.out.println("Connection error.\r");
-        }
-        if(cardMessage == null){
             return false;
         }
+
         System.out.println(cardMessage.getPlayedCard());
         if(!checkIfPlayable(assistantDeck.getCards().get(cardMessage.getPlayedCard() - 1))){
             sendMessage.sendCardError();
@@ -590,7 +584,7 @@ public class ComplexLobby{
         game.mergeIsland();
     }
 
-    public void selectCloudCard(int cloudCard){
+    public synchronized void selectCloudCard(int cloudCard){
         CloudCard cloudCardChosen = game.getGameComponents().getCloudCards().get(cloudCard);
         activePlayer.getSchoolBoard().addStudetsToEntrance(cloudCardChosen.drawStudents());
     }

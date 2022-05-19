@@ -174,6 +174,14 @@ public class GameManager {
             } else System.out.println("");
 
         }
+
+        if(existingComplexLobby.isReady() && !existingComplexLobby.getClientSocketsMap().isEmpty()){
+            existingComplexLobby.setPlayerOrder(existingComplexLobby.getPlayers());
+            existingComplexLobby.setActivePlayer(existingComplexLobby.getPlayerOrder().get(0));
+            for(Player player : existingComplexLobby.getPlayerOrder()){
+                System.out.println(player.getID_player());
+            }
+        }
         return true;
     }
     // returns the lobby in which plays the player

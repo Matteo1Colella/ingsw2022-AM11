@@ -37,7 +37,7 @@ public class PingPongThread extends Thread{
             public void run() {
                 if(host.equals("server")){
                     try{
-                        if(socket.getInetAddress().isReachable( 5000)){
+                        if(socket.getInetAddress().isReachable( 50000)){
                             //System.out.println("Is reachable.\r");
                             sendMessage.sendPingPongMessage(new PingPongMessage("ping"));
                         } else {
@@ -56,7 +56,7 @@ public class PingPongThread extends Thread{
                     }
                 } else if (host.equals("client")){
                     try{
-                        if(socket.getInetAddress().isReachable( 5000)){
+                        if(socket.getInetAddress().isReachable( 50000)){
                             //System.out.println("Is reachable.\r");
                         } else {
                             //System.out.println("Is not reachable.\r");
@@ -65,7 +65,8 @@ public class PingPongThread extends Thread{
                         }
                         if(socket.isClosed()){
                             System.out.println("Connection lost.\r");
-                            socket.close();                        }
+                            socket.close();
+                        }
                     } catch (IOException e) {
 
                         e.printStackTrace();

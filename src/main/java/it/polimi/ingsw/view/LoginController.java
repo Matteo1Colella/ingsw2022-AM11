@@ -125,7 +125,8 @@ private ClientMain client;
             welcomeText.setText("Something gone wrong, please retry.\r");
         } else if(message.getCode() == MessageType.NOERROR) {
             LobbiesMessage lobbiesMessage = (LobbiesMessage) client.receiveMessage();
-            welcomeText.setText("You are in the lobby " + lobbiesMessage.getIdLobby());
+            welcomeText.setText("You are in the lobby ");
+           // welcomeText.setText("You are in the lobby " + lobbiesMessage.getIdLobby());
             new MageStageSocket(client);
             stage.close();
         }
