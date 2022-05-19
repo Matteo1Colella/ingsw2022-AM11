@@ -116,9 +116,13 @@ public class ClientMain extends Thread {
     private void createConnection() throws IOException {
         //connect to the server on the local host: to be modified.
         // socket parameters
+        /*
+        String ip = "192.168.4.192";
+        InetAddress host = InetAddress.getByName(ip);
+         */
         InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
-        clientSocket.setSoTimeout(20000);
+        clientSocket.setSoTimeout(100000);
     }
 
     public Socket getClientSocket() {

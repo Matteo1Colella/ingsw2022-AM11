@@ -108,6 +108,14 @@ public class JSONtoObject {
                     ex.printStackTrace();
                 }
                 System.exit(1);
+            } else if (socket.isClosed()){
+                System.out.println("Connection error.\r");
+                try{
+                    socket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                System.exit(1);
             } else{
                 return JSONtoMessage(inputJSON);
             }

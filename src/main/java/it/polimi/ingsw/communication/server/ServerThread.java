@@ -28,6 +28,8 @@ public class ServerThread extends Thread{
     private JSONtoObject receiveMessage;
     private ComplexLobby currentCL;
 
+    private PingPongThread pingPongThread;
+
     private Object preMageLock;
     private Object preCardLock;
 
@@ -51,49 +53,35 @@ public class ServerThread extends Thread{
 
     }
 
+    public PingPongThread getPingPongThread() {
+        return pingPongThread;
+    }
+
     @Override
     public void run() {
         JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
         ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-        new PingPongThread(clientSocket, "server", this);
+        pingPongThread = new PingPongThread(clientSocket, "server", this);
         //receivePingSendPong();
         login();
-        if(currentCL == null){
+        if(currentCL == null || clientSocket.isClosed()){
             interrupt();
+            return;
         } else {
 
-            synchronized (preMageLock){
-                try{
-                    preMageLock.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            while(!isMyTurn()){
+                if(clientSocket.isClosed()){
+                    System.out.println("socket is closed.\r");
+                    interrupt();
                 }
             }
-
 
             chooseMage();
 
-            synchronized (preMageLock){
-                preMageLock.notify();
-            }
-
-            if(currentCL.getPlayerByID(username).equals(currentCL.getPlayers().get(currentCL.getPlayers().size() - 1))){
-                synchronized (afterMageLock){
-                    afterMageLock.notify();
-                }
-            }
-
-            synchronized (afterMageLock){
-                try{
-                    afterMageLock.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            while (!isMyTurn()) {
-                synchronized (afterMageLock){
-                    afterMageLock.notify();
+            while (!isMyTurn()){
+                if(clientSocket.isClosed()){
+                    System.out.println("socket is closed.\r");
+                    interrupt();
                 }
             }
 
@@ -104,30 +92,35 @@ public class ServerThread extends Thread{
 
             playCard();
 
-            if(preActive.equals(preorder.get(preorder.size()-1))){
-                synchronized (afterCardLock){
-                    afterCardLock.notify();
-                }
-            }
-
-            while (!isMyTurn()) {
-                synchronized (afterCardLock){
-                    afterCardLock.notify();
-                }
-            }
-
-            synchronized (afterCardLock){
-                try{
-                    afterCardLock.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            while (!isMyTurn()){
+                if(clientSocket.isClosed()){
+                    System.out.println("socket is closed.\r");
+                    interrupt();
                 }
             }
 
             boolean endGame = false;
+            int i = 0;
             while (!endGame) {
+                /*
+                System.out.println("it is " + currentCL.getActivePlayer().getID_player() + " turn");
+                try {
+                    synchronized (this){
+                        wait(3000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
+                 */
+                //Player currentPlayer = currentCL.getActivePlayer();
                 while (isMyTurn()){
+
+                    if(clientSocket.isClosed()){
+                        System.out.println("socket is closed.\r");
+                        interrupt();
+                    }
+
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
                     MessageType messageCode = receiveMessage.receiveMessage().getCode();
@@ -147,11 +140,7 @@ public class ServerThread extends Thread{
                         case CLOUDCARD:
 
                             selectCloudCard();
-                            System.out.println(currentCL.getPlayerOrder().size());
                             if (!currentCL.getActivePlayer().equals(currentCL.getPlayerOrder().get(currentCL.getPlayerOrder().size()-1))){
-                                synchronized (afterCardLock){
-                                    afterCardLock.notifyAll();
-                                }
                                 currentCL.changeActivePlayer();
                                 /*
                                 synchronized (preCardLock){
@@ -166,6 +155,7 @@ public class ServerThread extends Thread{
                                 //synchronized (preCardLock){
                                 //preCardLock.notifyAll();
                                 currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
+                                System.out.println("ish should be " + currentCL.getPlayerOrder().get(0).getID_player() + " turn");
                                 currentCL.getGame().refillCloudCards();
                                     /*
                                     try {
@@ -181,32 +171,7 @@ public class ServerThread extends Thread{
 
                         case CARD:
 
-                            //sendModel();
-                            preorder = new ArrayList<>(currentCL.getPlayerOrder());
-                            preActive = currentCL.getActivePlayer();
-
                             playCardInGame();
-
-                            if(!preActive.equals(preorder.get(preorder.size()-1))){
-                                //currentCL.changeActivePlayer();
-                                synchronized (preCardLock){
-                                    preCardLock.notifyAll();
-                                }
-                            } else{
-                                synchronized (afterCardLock){
-                                    // currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
-                                    afterCardLock.notifyAll();
-                                }
-                            }
-
-                            synchronized (afterCardLock){
-                                try{
-                                    afterCardLock.wait();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
 
                             break;
                         case MODEL:
@@ -226,9 +191,6 @@ public class ServerThread extends Thread{
                             currentCL.endGame(winner);
                         }
                     }
-                }
-                synchronized (afterCardLock){
-                    afterCardLock.notifyAll();
                 }
 
             }
@@ -312,9 +274,6 @@ public class ServerThread extends Thread{
                 ok = currentCL.playCard(sendMessage, receiveMessage);
             }
         }
-        synchronized (afterMageLock){
-            afterMageLock.notify();
-        }
     }
 
     private void playCardInGame(){
@@ -322,13 +281,17 @@ public class ServerThread extends Thread{
         if(!currentCL.playCard(sendMessage, receiveMessage)){
             playCard();
         }
-        synchronized (preCardLock){
-            preCardLock.notify();
-        }
     }
 
     private void sendModel(){
-        if(receiveMessage.receiveMessage().getCode() == MessageType.MODEL){
+        ModelMessage message = null;
+        try{
+            message = (ModelMessage) receiveMessage.receiveMessage();
+        } catch(ClassCastException e){
+            interrupt();
+            return;
+        }
+        if(message.getCode() == MessageType.MODEL){
             sendMessage.sendModelMessage(currentCL.sendModel(username));
         }
     }
@@ -338,7 +301,14 @@ public class ServerThread extends Thread{
     }
 
     private void moveStudent(){
-        MoveStudentMessage message = (MoveStudentMessage) receiveMessage.receiveMessage();
+        MoveStudentMessage message = null;
+        try{
+            message = (MoveStudentMessage) receiveMessage.receiveMessage();
+        } catch(ClassCastException e){
+            interrupt();
+            return;
+        }
+
         ArrayList<MovedStudent> students = new ArrayList<>();
 
         students.add(new MovedStudent( message.getStudent1Entrance() - 1,  message.getStudent1WhereToPut(), message.getIndexIslandIf1ToIsland()));
@@ -352,12 +322,24 @@ public class ServerThread extends Thread{
     }
 
     private void moveMotherNature(){
-        MoveMotherNatureMessage message = (MoveMotherNatureMessage) receiveMessage.receiveMessage();
+        MoveMotherNatureMessage message = null;
+        try{
+            message = (MoveMotherNatureMessage) receiveMessage.receiveMessage();
+        } catch (ClassCastException e){
+            interrupt();
+            return;
+        }
         currentCL.moveMotherNature(message.getMoves());
     }
 
     private void selectCloudCard(){
-        CloudCardChoiceMessage message = (CloudCardChoiceMessage) receiveMessage.receiveMessage();
+        CloudCardChoiceMessage message = null;
+        try{
+            message = (CloudCardChoiceMessage) receiveMessage.receiveMessage();
+        } catch (ClassCastException e){
+            interrupt();
+            return;
+        }
         currentCL.selectCloudCard(message.getCloud());
     }
 
