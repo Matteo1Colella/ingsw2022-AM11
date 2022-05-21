@@ -29,6 +29,8 @@ public class ClientMain extends Thread {
     private int selectedCard;
     private int gameSize;
     private ModelMessage model;
+    private boolean gameType;
+    private CharacterHandlerClient characterHandler;
 
     public ObjectToJSON getSendMessage() {
         return sendMessage;
@@ -48,6 +50,7 @@ public class ClientMain extends Thread {
         }
         sendMessage = new ObjectToJSON(clientSocket);
         receiveMessage = new JSONtoObject(clientSocket);
+
     }
 
     public static void main(String[] args) {
@@ -76,23 +79,50 @@ public class ClientMain extends Thread {
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
 
-            switch (message){
-                case TURN:
-                    clientMain.moveStudents();
-                    clientMain.moveMotherNature();
-                    clientMain.selectCloudCard();
-                    choice = false;
-                    message = clientMain.receiveMessage().getCode();
-                    clientMain.showModel();
-                    message = clientMain.receiveMessage().getCode();
-                    while (!choice) {
-                        choice = clientMain.playAssistantCard();
-                    }
-                    break;
-                case WIN:
-                    System.out.println(receivedMessage.getMessage());
-                    return;
+            if(clientMain.gameType == false){
+                switch (message){
+                    case TURN:
+                        clientMain.moveStudents();
+                        clientMain.moveMotherNature();
+                        clientMain.selectCloudCard();
+                        choice = false;
+                        message = clientMain.receiveMessage().getCode();
+                        clientMain.showModel();
+                        message = clientMain.receiveMessage().getCode();
+                        while (!choice) {
+                            choice = clientMain.playAssistantCard();
+                        }
+                        break;
+                    case WIN:
+                        System.out.println(receivedMessage.getMessage());
+                        return;
+                    case MODEL:
+                        clientMain.setModel((ModelMessage) receivedMessage);
+                        break;
+                }
+            } else {
+                switch (message){
+                    case TURN:
+                        clientMain.moveStudents();
+                        clientMain.moveMotherNature();
+                        clientMain.selectCloudCard();
+                        choice = false;
+                        message = clientMain.receiveMessage().getCode();
+                        clientMain.showModel();
+                        message = clientMain.receiveMessage().getCode();
+                        while (!choice) {
+                            choice = clientMain.playAssistantCard();
+                        }
+                        break;
+                    case WIN:
+                        System.out.println(receivedMessage.getMessage());
+                        return;
+                    case MODEL:
+                        clientMain.setModel((ModelMessage) receivedMessage);
+                        break;
+                }
             }
+
         }
     }
 
@@ -153,12 +183,10 @@ public class ClientMain extends Thread {
             }
 
             System.out.println("Select game mode (0 = not pro, 1 = pro):\r");
-            gameMode = scanner.nextInt();
-            while (gameMode < 0 || gameMode > 1){
-                System.out.println("You can select only 0 (not pro) or 1 (pro)");
-                gameMode = scanner.nextInt();
-            }
-            isPro = Boolean.parseBoolean(String.valueOf(gameMode));
+
+            isPro = Boolean.parseBoolean(scanner.next());
+            gameType = isPro;
+
 
             if (numOfPlayers >= 2 && numOfPlayers <= 4) {
                 ok = true;
@@ -271,7 +299,7 @@ public class ClientMain extends Thread {
         return false;
     }
 
-    public boolean moveStudents() {
+    public void moveStudents() {
 
         //The user already has the schoolBoard (sent with ModelMessage)
         //student choice
@@ -358,11 +386,8 @@ public class ClientMain extends Thread {
         MessageInterface receivedMessage = receiveMessage.receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR) {
             System.out.println("Correct selection.\r");
-            return true;
         } else if (receivedMessage.getCode() == MessageType.MOVESTUDENTERROR) {
-            return false;
         }
-        return false;
 
     }
 
@@ -372,20 +397,27 @@ public class ClientMain extends Thread {
         sendMessage.sendModelMessage(new ModelMessage());
         ModelMessage modelMessage = (ModelMessage) receiveMessage();
         this.model = modelMessage;
+        if(gameType == true && characterHandler == null){
+            characterHandler = new CharacterHandlerClient(model, clientSocket);
+        }
+        if(gameType == true){
+            characterHandler.setCoinsOwned(model.getCoinOwned());
+            characterHandler.setModel(model);
+        }
         //printing model..
 
-        //if pro{
-        if (modelMessage.getCoinOwned() >= 0) {
-            System.out.println("CHARACTER CARDS:");
-            for (CharacterCard characterCard : modelMessage.getCharacterCards()) {
-                System.out.println(characterCard.getNum());
+        if (gameType == true) {
+            if (modelMessage.getCoinOwned() >= 0) {
+                System.out.println("CHARACTER CARDS:");
+                for (CharacterCard characterCard : modelMessage.getCharacterCards()) {
+                    System.out.println(characterCard.getNum());
+                }
+                System.out.println("");
+                System.out.println("YOUR COINS:");
+                System.out.println(modelMessage.getCoinOwned());
+                System.out.println("");
             }
-            System.out.println("");
-            System.out.println("YOUR COINS:");
-            System.out.println(modelMessage.getCoinOwned());
-            System.out.println("");
         }
-        //}
 
         int i = 0;
         System.out.println("ARCHIPELAGO: ");
@@ -452,9 +484,16 @@ public class ClientMain extends Thread {
         MessageInterface message = receiveMessage.receiveMessageClient();
         if(message.getCode() == MessageType.PINGPONG){
             return receiveMessage();
+        } else if(message.getCode() == MessageType.WIN){
+            System.out.println(message.getMessage());
+            System.exit(0);
+        } else if(message.getCode() == MessageType.ERROR){
+            System.out.println("Connection error.\r");
+            System.exit(0);
         } else {
             return message;
         }
+       return null;
     }
 
     public boolean moveMotherNature(){
@@ -567,6 +606,7 @@ public class ClientMain extends Thread {
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
     }
 
+
     public void useCharacter(){
         boolean ok = false;
         sendMessage.sendCharacterMessage(new UseCharacterMessage());
@@ -601,6 +641,10 @@ public class ClientMain extends Thread {
         }
 
         sendMessage.sendCharacterMessage(new UseCharacterMessage(character));
+       }
+
+    public void setModel(ModelMessage model){
+        this.model = model;
 
     }
 }

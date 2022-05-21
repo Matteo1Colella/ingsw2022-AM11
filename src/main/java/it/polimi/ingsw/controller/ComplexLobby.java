@@ -610,9 +610,7 @@ public class ComplexLobby{
     }
 
     public synchronized void endGame(Player winner){
-        for(Player player : players){
-
-            Socket clientSocket = clientSocketsMap.get(player);
+        for(Socket clientSocket : clientSocketsMap.values()){
 
             if (clientSocket != null) {
                 ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
@@ -621,6 +619,7 @@ public class ComplexLobby{
                 sendMessage.sendWinMessage(new WinMessage(winner.getID_player()));
 
                 playerOrder.clear();
+                //activePlayer = null;
 
                 try {
                     clientSocket.close();
@@ -629,6 +628,7 @@ public class ComplexLobby{
                 }
             }
         }
+
     }
 
     public synchronized void closeConnection(){

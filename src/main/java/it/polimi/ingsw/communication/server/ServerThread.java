@@ -71,7 +71,7 @@ public class ServerThread extends Thread{
 
             while(!isMyTurn()){
                 if(clientSocket.isClosed()){
-                    System.out.println("socket is closed.\r");
+                    System.out.println(username + " socket is closed 1.\r");
                     interrupt();
                 }
             }
@@ -80,22 +80,20 @@ public class ServerThread extends Thread{
 
             while (!isMyTurn()){
                 if(clientSocket.isClosed()){
-                    System.out.println("socket is closed.\r");
+                    System.out.println(username + " socket is closed 2.\r");
                     interrupt();
                 }
             }
 
             sendModel();
 
-            ArrayList<Player> preorder = new ArrayList<>(currentCL.getPlayerOrder());
-            Player preActive = currentCL.getActivePlayer();
-
             playCard();
 
             while (!isMyTurn()){
                 if(clientSocket.isClosed()){
-                    System.out.println("socket is closed.\r");
+                    System.out.println(username + " socket is closed 3.\r");
                     interrupt();
+                    break;
                 }
             }
 
@@ -117,8 +115,10 @@ public class ServerThread extends Thread{
                 while (isMyTurn()){
 
                     if(clientSocket.isClosed()){
-                        System.out.println("socket is closed.\r");
+                        System.out.println(username + " socket is closed.\r");
+                        endGame = true;
                         interrupt();
+                        break;
                     }
 
                     System.out.println("it is " + username + " turn");
