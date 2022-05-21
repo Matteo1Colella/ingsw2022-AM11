@@ -666,6 +666,7 @@ public class App
             newGame.getComplexLobby().modifyPlayerTurn();
             currentPlayer = lobby.getActivePlayer();
         }
+        System.out.println(winnerPlayer.getID_player() + " TEAM WON!!! <3");
 
     }
 }

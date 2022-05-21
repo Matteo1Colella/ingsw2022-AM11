@@ -285,31 +285,102 @@ public class Game {
         //checks which player has color dominance of the students on the island and calculates influences
         int i = 0;
         for (ColorStudent tempColor : presentColors){
-            for (Player tempPlayer : players){
-                if (tempPlayer.getSchoolBoard().getDiningRoomByColor(tempColor).IsProfessor()){
-                    switch (tempColor){
-                        case RED:
-                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numRed);
-                            break;
-                        case PINK:
-                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numPink);
-                            break;
-                        case BLUE:
-                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numBlue);
-                            break;
-                        case YELLOW:
-                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numYellow);
-                            break;
-                        case GREEN:
-                            tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+numGreen);
-                            break;
+
+            if(complexLobby.getPlayers().size()==4){
+            ArrayList<Player> p = new ArrayList<>();
+            p.add(complexLobby.getPlayers().get(2));
+            p.add(complexLobby.getPlayers().get(3));
+
+                for (Player tempPlayer : players) {
+                    if (tempPlayer.getSchoolBoard().getDiningRoomByColor(tempColor).IsProfessor()) {
+                        switch (tempColor) {
+                            case RED:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numRed);
+                                if (tempPlayer.equals(p.get(0))) {
+                                    players.get(0).setInfluencePoints(p.get(0).getInfluencePoints() + numRed + tempPlayer.getInfluencePoints() + numRed);
+                                }
+                                if (tempPlayer.equals(p.get(1))) {
+                                    players.get(1).setInfluencePoints(p.get(1).getInfluencePoints() + numRed + tempPlayer.getInfluencePoints() + numRed);
+                                }
+                                break;
+                            case PINK:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numPink);
+                                if (tempPlayer.equals(p.get(0))) {
+                                    players.get(0).setInfluencePoints(p.get(0).getInfluencePoints() + numPink + tempPlayer.getInfluencePoints() + numPink);
+                                }
+                                if (tempPlayer.equals(p.get(1))) {
+                                    players.get(1).setInfluencePoints(p.get(1).getInfluencePoints() + numPink + tempPlayer.getInfluencePoints() + numPink);
+                                }
+                                break;
+                            case BLUE:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numBlue);
+                                if (tempPlayer.equals(p.get(0))) {
+                                    players.get(0).setInfluencePoints(p.get(0).getInfluencePoints() + numBlue + tempPlayer.getInfluencePoints() + numBlue);
+                                }
+                                if (tempPlayer.equals(p.get(1))) {
+                                    players.get(1).setInfluencePoints(p.get(1).getInfluencePoints() + numBlue + tempPlayer.getInfluencePoints() + numBlue);
+                                }
+                                break;
+                            case YELLOW:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numYellow);
+                                if (tempPlayer.equals(p.get(0))) {
+                                    players.get(0).setInfluencePoints(p.get(0).getInfluencePoints() + numYellow + tempPlayer.getInfluencePoints() + numYellow);
+                                }
+                                if (tempPlayer.equals(p.get(1))) {
+                                    players.get(1).setInfluencePoints(p.get(1).getInfluencePoints() + numYellow + tempPlayer.getInfluencePoints() + numYellow);
+                                }
+                                break;
+                            case GREEN:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numGreen);
+                                if (tempPlayer.equals(p.get(0))) {
+                                    players.get(0).setInfluencePoints(p.get(0).getInfluencePoints() + numGreen + tempPlayer.getInfluencePoints() + numGreen);
+                                }
+                                if (tempPlayer.equals(p.get(1))) {
+                                    players.get(1).setInfluencePoints(p.get(1).getInfluencePoints() + numGreen + tempPlayer.getInfluencePoints() + numGreen);
+                                }
+                                break;
+                        }
                     }
-                }
-                // if the island has a tower and matches color of tower of the selected player he gets +1 points
-                if (!noTower && i== 0 && selectedIsland.getTower()!= null && selectedIsland.getTower().getColor().equals(tempPlayer.getSchoolBoard().getTowers().get(0).getColor())){
-                    tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints()+1 + selectedIsland.getMergedWith().size());
-                    kingPlayer = tempPlayer;
-                    i++;
+                    if (!tempPlayer.equals(p.get(0)) && !tempPlayer.equals(p.get(1))) {
+                    // if the island has a tower and matches color of tower of the selected player he gets +1 points
+                    if (!noTower && i == 0 && selectedIsland.getTower() != null && selectedIsland.getTower().getColor().equals(tempPlayer.getSchoolBoard().getTowers().get(0).getColor())) {
+                        tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + 1 + selectedIsland.getMergedWith().size());
+                        kingPlayer = tempPlayer;
+                        i++;
+                    }
+                    }
+               }
+
+            }else {
+
+
+                for (Player tempPlayer : players) {
+                    if (tempPlayer.getSchoolBoard().getDiningRoomByColor(tempColor).IsProfessor()) {
+                        switch (tempColor) {
+                            case RED:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numRed);
+                                break;
+                            case PINK:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numPink);
+                                break;
+                            case BLUE:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numBlue);
+                                break;
+                            case YELLOW:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numYellow);
+                                break;
+                            case GREEN:
+                                tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + numGreen);
+                                break;
+                        }
+                    }
+                    // if the island has a tower and matches color of tower of the selected player he gets +1 points
+                    if (!noTower && i == 0 && selectedIsland.getTower() != null && selectedIsland.getTower().getColor().equals(tempPlayer.getSchoolBoard().getTowers().get(0).getColor())) {
+                        tempPlayer.setInfluencePoints(tempPlayer.getInfluencePoints() + 1 + selectedIsland.getMergedWith().size());
+                        kingPlayer = tempPlayer;
+                        i++;
+                    }
+
                 }
             }
         }
@@ -319,14 +390,28 @@ public class Game {
         Player maxPlayer = players.get(0);
 
         // calculates who's the king of the island
-        for (Player tempPlayer : players)
-        {
-            if (tempPlayer.getSchoolBoard().getTowers().size()==0) return;
-           if (tempPlayer.getInfluencePoints() > maxPlayer.getInfluencePoints())
-           {
-               maxPlayer = tempPlayer;
-           }
+        if (complexLobby.getPlayers().size()==4){
+            ArrayList<Player> p1 = new ArrayList<>();
+            p1.add(complexLobby.getPlayers().get(0));
+            p1.add(complexLobby.getPlayers().get(1));
+            for (Player tempPlayer : p1){
 
+                if (tempPlayer.getSchoolBoard().getTowers().size()==0) return;
+                if (tempPlayer.getInfluencePoints() > maxPlayer.getInfluencePoints())
+                {
+                    maxPlayer = tempPlayer;
+                }
+
+            }
+        }
+        else {
+            for (Player tempPlayer : players) {
+                if (tempPlayer.getSchoolBoard().getTowers().size() == 0) return;
+                if (tempPlayer.getInfluencePoints() > maxPlayer.getInfluencePoints()) {
+                    maxPlayer = tempPlayer;
+                }
+
+            }
         }
 
         // if max influence is 0, no dominance
@@ -704,9 +789,11 @@ public class Game {
                 if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0)
                     return this.complexLobby.getPlayers().get(i);
         }else if(this.complexLobby.getPlayers().size()==4){
-            for (int i = 0; i < 2; i++)
-                if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0)
+            for (int i = 0; i < 2; i++) {
+                if (this.complexLobby.getPlayers().get(i).getSchoolBoard().getTowers().size() == 0){
                     return this.complexLobby.getPlayers().get(i);
+                }
+            }
         }
 
         //there are three archipelagos
