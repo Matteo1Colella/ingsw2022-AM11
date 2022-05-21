@@ -370,10 +370,14 @@ public class App
     public static void progame(){
         GameManager GM = new GameManager();
 
-        GM.login("Cole", 2, true);
+        GM.login("Cole", 4, true);
         GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
-        GM.login("Leo", 2, true);
-        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
+        GM.login("Leo", 4, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+        GM.login("ale", 4, true);
+        GM.getPlayerComplexLobby("ale").deckRequest(Mage.MAGE3, "ale");
+        GM.login("giuseppe", 4, true);
+        GM.getPlayerComplexLobby("giuseppe").deckRequest(Mage.MAGE4, "giuseppe");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.getGameComponents();
@@ -383,6 +387,16 @@ public class App
         for(Player player : lobby.getPlayerOrder()){
             System.out.println(player.getID_player());
         }
+
+
+        System.out.println("TEAM 1: "+ newGame.playerList().get(0).getID_player() + " and " +  newGame.playerList().get(2).getID_player());
+        System.out.println("TEAM 2: "+ newGame.playerList().get(1).getID_player() + " and " +  newGame.playerList().get(3).getID_player());
+
+        System.out.println("size of towers of the 4 players:");
+        System.out.println(newGame.playerList().get(0).getSchoolBoard().getTowers().size());
+        System.out.println(newGame.playerList().get(1).getSchoolBoard().getTowers().size());
+        System.out.println(newGame.playerList().get(2).getSchoolBoard().getTowers().size());
+        System.out.println(newGame.playerList().get(3).getSchoolBoard().getTowers().size());
 
 
         Player winnerPlayer = null;
@@ -412,8 +426,9 @@ public class App
                         winnerPlayer = newGame.winCondition();
 
                         if (winnerPlayer != null){
-                            System.out.println(winnerPlayer.getID_player() + " won!");
+                            System.out.println(winnerPlayer.getID_player() + " TEAM won!");
                             return;
+
                         }
                     }
 
@@ -496,7 +511,7 @@ public class App
                 winnerPlayer = newGame.winCondition();
 
                 if (winnerPlayer != null){
-                    System.out.println(winnerPlayer.getID_player() + " won!");
+                    System.out.println(winnerPlayer.getID_player() + " TEAM won!");
                     return;
                 }
                 newGame.getComplexLobby().changeActivePlayer();
@@ -507,6 +522,11 @@ public class App
             newGame.refillCloudCards();
             newGame.getComplexLobby().modifyPlayerTurn();
             currentPlayer = lobby.getActivePlayer();
+            System.out.println("size of towers of the 4 players:");
+            System.out.println(newGame.playerList().get(0).getSchoolBoard().getTowers().size());
+            System.out.println(newGame.playerList().get(1).getSchoolBoard().getTowers().size());
+            System.out.println(newGame.playerList().get(2).getSchoolBoard().getTowers().size());
+            System.out.println(newGame.playerList().get(3).getSchoolBoard().getTowers().size());
         }
 
     }
@@ -526,10 +546,14 @@ public class App
 
         GameManager GM = new GameManager();
 
-        GM.login("Cole", 2, false);
+        GM.login("Cole", 4, true);
         GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE1, "Cole");
-        GM.login("Leo", 2, false);
-        GM.getPlayerComplexLobby("Cole").deckRequest(Mage.MAGE2, "Leo");
+        GM.login("Leo", 4, true);
+        GM.getPlayerComplexLobby("Leo").deckRequest(Mage.MAGE2, "Leo");
+        GM.login("ale", 4, true);
+        GM.getPlayerComplexLobby("ale").deckRequest(Mage.MAGE3, "ale");
+        GM.login("giuseppe", 4, true);
+        GM.getPlayerComplexLobby("giuseppe").deckRequest(Mage.MAGE4, "giuseppe");
 
         Game newGame = GM.getComplexLobbies().get(0).getGame();
         GameComponents gameComponents = newGame.getGameComponents();
@@ -539,6 +563,15 @@ public class App
         for(Player player : lobby.getPlayerOrder()){
             System.out.println(player.getID_player());
         }
+
+        System.out.println("TEAM 1: "+ newGame.playerList().get(0).getID_player() + " and " +  newGame.playerList().get(2).getID_player());
+        System.out.println("TEAM 2: "+ newGame.playerList().get(1).getID_player() + " and " +  newGame.playerList().get(3).getID_player());
+
+        System.out.println("size of towers of the 4 players:");
+        System.out.println(newGame.playerList().get(0).getSchoolBoard().getTowers().size());
+        System.out.println(newGame.playerList().get(1).getSchoolBoard().getTowers().size());
+        System.out.println(newGame.playerList().get(2).getSchoolBoard().getTowers().size());
+        System.out.println(newGame.playerList().get(3).getSchoolBoard().getTowers().size());
 
 
         Player winnerPlayer = null;
@@ -634,6 +667,7 @@ public class App
             newGame.getComplexLobby().modifyPlayerTurn();
             currentPlayer = lobby.getActivePlayer();
         }
+        System.out.println(winnerPlayer.getID_player() + " TEAM WON!!! <3");
 
     }
 }

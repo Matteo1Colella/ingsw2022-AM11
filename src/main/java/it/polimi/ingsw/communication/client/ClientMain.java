@@ -167,6 +167,7 @@ public class ClientMain extends Thread {
     public void login() {
         String username = null;
         int numOfPlayers = 0;
+        int gameMode = 0;
         boolean isPro = false;
         boolean ok = false;
 
@@ -176,9 +177,16 @@ public class ClientMain extends Thread {
             username = scanner.nextLine().toLowerCase(Locale.ROOT);
             System.out.println("Insert the number of players: \r");
             numOfPlayers = scanner.nextInt();
+            while (numOfPlayers < 2 || numOfPlayers > 4){
+                System.out.println("You can select only 2,3,4 players... ");
+                numOfPlayers = scanner.nextInt();
+            }
+
             System.out.println("Select game mode (0 = not pro, 1 = pro):\r");
+
             isPro = Boolean.parseBoolean(scanner.next());
             gameType = isPro;
+
 
             if (numOfPlayers >= 2 && numOfPlayers <= 4) {
                 ok = true;
@@ -204,6 +212,7 @@ public class ClientMain extends Thread {
         sendMessage.sendMageMessage(new MageMessage());
         MageMessage mageMessage = (MageMessage) receiveMessage();
 
+        System.out.println("");
         for (int i = 0; i < mageMessage.getAviableMage().length; i++) {
             System.out.println("MAGE " + mageMessage.getAviableMage()[i] + "\n");
         }
@@ -212,6 +221,10 @@ public class ClientMain extends Thread {
             System.out.println("Select mage:\n");
             Scanner scanner = new Scanner(System.in);
             mage = scanner.nextInt();
+            while (mage < 1 || mage > 4){
+                System.out.println("You can select only this MAGES: 1,2,3,4");
+                mage = scanner.nextInt();
+            }
             if (mage == 1 || mage == 2 || mage == 3 || mage == 4) {
                 ok = true;
             } else {
@@ -265,9 +278,11 @@ public class ClientMain extends Thread {
         while (!ok) {
             Scanner scanner = new Scanner(System.in);
             card = scanner.nextInt();
-            if (card == 1 || card == 2 || card == 3 || card == 4 || card == 5 || card == 6 || card == 7 || card == 8 || card == 9 || card == 10) {
-                ok = true;
+            while (card < 1 || card > 10){
+                System.out.println("Please enter a valid number card: ");
+                card = scanner.nextInt();
             }
+            ok = true;
         }
 
         selectedCard = card;
@@ -302,7 +317,7 @@ public class ClientMain extends Thread {
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage());
         while (i < 3){
             student = -1;
-            while (student < 1 || student > 8) {
+            while (student < 1 || student > 7) {
                 System.out.println("SELECT a student from the entrance:\n");
                 Scanner scanner1 = new Scanner(System.in);
                 student = scanner1.nextInt();
@@ -311,7 +326,11 @@ public class ClientMain extends Thread {
             System.out.println("0 -> to move student " + student + " to your SCHOOLBOARD");
             System.out.println("1 -> to move student " + student + " to an ISLAND");
             Scanner scanner2 = new Scanner(System.in);
-            int pose = scanner2.nextInt();;
+            int pose = scanner2.nextInt();
+            while (pose < 0 || pose > 1){
+                System.out.println("Please enter 0 (SCHOOLBOARD) or 1 (ISLAND)");
+                pose = scanner2.nextInt();
+            }
             if(i==0){
                 student1Entrance = student;
                 student1WhereToPut = pose;
@@ -320,6 +339,10 @@ public class ClientMain extends Thread {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
                         indexIslandIf1ToIsland = scanner3.nextInt();
+                        while (indexIslandIf1ToIsland < 0 || indexIslandIf1ToIsland > 10){
+                            System.out.println("Please enter a valid number");
+                            indexIslandIf1ToIsland = scanner3.nextInt();
+                        }
                     }
                 }
             }
@@ -331,6 +354,10 @@ public class ClientMain extends Thread {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
                         indexIslandIf2ToIsland = scanner3.nextInt();
+                        while (indexIslandIf2ToIsland < 0 || indexIslandIf2ToIsland > 10){
+                            System.out.println("Please enter a valid number");
+                            indexIslandIf2ToIsland = scanner3.nextInt();
+                        }
                     }
                 }
             }
@@ -342,6 +369,10 @@ public class ClientMain extends Thread {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
                         indexIslandIf3ToIsland = scanner3.nextInt();
+                        while (indexIslandIf3ToIsland < 0 || indexIslandIf3ToIsland > 10){
+                            System.out.println("Please enter a valid number");
+                            indexIslandIf3ToIsland = scanner3.nextInt();
+                        }
                     }
                 }
             }
@@ -446,6 +477,7 @@ public class ClientMain extends Thread {
             System.out.println(card.getStudents());
             i++;
         }
+
     }
 
     public MessageInterface receiveMessage() {
@@ -466,32 +498,62 @@ public class ClientMain extends Thread {
 
     public boolean moveMotherNature(){
 
+        Scanner scanner;
+        int numberSelectedSteps=0;
         sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
         System.out.println("");
         System.out.println("How many steps you want MOTHERNATURE do?");
         switch (selectedCard){
             case 1,2:
                 System.out.println("(You can Select only 1 step!)");
+                scanner = new Scanner(System.in);
+                numberSelectedSteps = scanner.nextInt();
+                while (numberSelectedSteps != 1){
+                    System.out.println("(You can Select only 1 step!!)");
+                    numberSelectedSteps = scanner.nextInt();
+                }
                 break;
             case 3,4:
                 System.out.println("(You can Select between 1 or 2 steps!)");
+                scanner = new Scanner(System.in);
+                numberSelectedSteps = scanner.nextInt();
+                while (numberSelectedSteps < 1 || numberSelectedSteps > 2){
+                    System.out.println("(You can Select only 1 or 2 steps!!)");
+                    numberSelectedSteps = scanner.nextInt();
+                }
                 break;
             case 5,6:
                 System.out.println("(You can Select from 1 to 3 steps!)");
+                scanner = new Scanner(System.in);
+                numberSelectedSteps = scanner.nextInt();
+                while (numberSelectedSteps < 1 || numberSelectedSteps > 3){
+                    System.out.println("(You can Select only 1,2 or 3 steps!!)");
+                    numberSelectedSteps = scanner.nextInt();
+                }
                 break;
             case 7,8:
                 System.out.println("(You can Select from 1 to 4 steps!)");
+                scanner = new Scanner(System.in);
+                numberSelectedSteps = scanner.nextInt();
+                while (numberSelectedSteps < 1 || numberSelectedSteps > 4){
+                    System.out.println("(You can Select only 1,2,3 or 4 steps!!)");
+                    numberSelectedSteps = scanner.nextInt();
+                }
                 break;
             case 9,10:
                 System.out.println("(You can Select from 1 to 5 steps!)");
+                scanner = new Scanner(System.in);
+                numberSelectedSteps = scanner.nextInt();
+                while (numberSelectedSteps < 1 || numberSelectedSteps > 5){
+                    System.out.println("(You can Select only 1,2,3,4 or 5 steps!!)");
+                    numberSelectedSteps = scanner.nextInt();
+                }
                 break;
             default:
                 System.out.println("(ERROR: you have to play an Assistant Card first or choose a correct number of Steps!)");
                 break;
         }
 
-        Scanner scanner = new Scanner(System.in);
-        int numberSelectedSteps = scanner.nextInt();
 
         sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
 
@@ -531,7 +593,7 @@ public class ClientMain extends Thread {
             while (!ok){
                 choice = scanner.nextInt();
                 if(choice < 0 || choice > 2){
-                    System.out.println("Error, choose again.\r");
+                    System.out.println("Please select a valid choice\r");
                     ok = false;
                 } else {
                     ok = true;
@@ -544,7 +606,45 @@ public class ClientMain extends Thread {
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
     }
 
+
+    public void useCharacter(){
+        boolean ok = false;
+        sendMessage.sendCharacterMessage(new UseCharacterMessage());
+        UseCharacterMessage characterMessage = (UseCharacterMessage) receiveMessage();
+
+        int[] usable = characterMessage.getUsableCharacters();
+
+        if (usable.length == 0){
+            System.out.println("No usable characters");
+        } else {
+            for (int j : usable) {
+                System.out.println("Character " + j + "\n");
+            }
+        }
+        int character = 0;
+        while (!ok) {
+            System.out.println("Select character:\n");
+            Scanner scanner = new Scanner(System.in);
+            character = scanner.nextInt();
+            while (character < 0 || character > 10){
+                System.out.println("Select a valid character:\n");
+                character = scanner.nextInt();
+            }
+            int finalCharacter = character;
+
+            if (Arrays.stream(usable).anyMatch(i -> i == finalCharacter)) {
+                ok = true;
+                character = finalCharacter;
+            } else {
+                System.out.println("Invalid choice.\r");
+            }
+        }
+
+        sendMessage.sendCharacterMessage(new UseCharacterMessage(character));
+       }
+
     public void setModel(ModelMessage model){
         this.model = model;
+
     }
 }
