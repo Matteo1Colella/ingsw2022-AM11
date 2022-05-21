@@ -388,6 +388,7 @@ public class App
             System.out.println(player.getID_player());
         }
 
+
         System.out.println("TEAM 1: "+ newGame.playerList().get(0).getID_player() + " and " +  newGame.playerList().get(2).getID_player());
         System.out.println("TEAM 2: "+ newGame.playerList().get(1).getID_player() + " and " +  newGame.playerList().get(3).getID_player());
 
