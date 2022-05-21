@@ -605,43 +605,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
     }
-
-
-    public void useCharacter(){
-        boolean ok = false;
-        sendMessage.sendCharacterMessage(new UseCharacterMessage());
-        UseCharacterMessage characterMessage = (UseCharacterMessage) receiveMessage();
-
-        int[] usable = characterMessage.getUsableCharacters();
-
-        if (usable.length == 0){
-            System.out.println("No usable characters");
-        } else {
-            for (int j : usable) {
-                System.out.println("Character " + j + "\n");
-            }
-        }
-        int character = 0;
-        while (!ok) {
-            System.out.println("Select character:\n");
-            Scanner scanner = new Scanner(System.in);
-            character = scanner.nextInt();
-            while (character < 0 || character > 10){
-                System.out.println("Select a valid character:\n");
-                character = scanner.nextInt();
-            }
-            int finalCharacter = character;
-
-            if (Arrays.stream(usable).anyMatch(i -> i == finalCharacter)) {
-                ok = true;
-                character = finalCharacter;
-            } else {
-                System.out.println("Invalid choice.\r");
-            }
-        }
-
-        sendMessage.sendCharacterMessage(new UseCharacterMessage(character));
-       }
+    
 
     public void setModel(ModelMessage model){
         this.model = model;
