@@ -21,7 +21,7 @@ import java.util.Scanner;
 
 public class ClientMain extends Thread {
     private int port;
-
+    private static int[] cloudName = new int[4];
     private Socket clientSocket;
     private final ObjectToJSON sendMessage;
     private final JSONtoObject receiveMessage;
@@ -74,6 +74,8 @@ public class ClientMain extends Thread {
             choice = clientMain.playAssistantCard();
         }
 
+        for (int k =0; k < 4; k++)
+            cloudName[k]=k;
         System.out.println("waiting for my turn...");
         while (true){
             MessageInterface receivedMessage = clientMain.receiveMessage();
@@ -248,6 +250,8 @@ public class ClientMain extends Thread {
 
     public boolean playAssistantCard(){
         boolean ok = false;
+        for (int k =0; k < 4; k++)
+            cloudName[k]=k;
 
         //ask the list of cards already played on the table
         sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage());
@@ -470,14 +474,17 @@ public class ClientMain extends Thread {
 
         System.out.println("Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
         i = 0;
+
         System.out.println("");
         System.out.println("CLOUDS: ");
         for (CloudCard card : modelMessage.getCloudCardList()) {
             System.out.println("cloud " + i + ":");
             System.out.println(card.getStudents());
+            if (card.getStudents().size() == 0){
+                cloudName[i] = -1; //cloud empty
+            }
             i++;
         }
-
     }
 
     public MessageInterface receiveMessage() {
@@ -580,11 +587,13 @@ public class ClientMain extends Thread {
             System.out.println("Select 0 or 1 to choose the cloud card.\r");
             while (!ok){
                 choice = scanner.nextInt();
-                if(choice < 0 || choice > 1){
-                    System.out.println("Error, choose again.\r");
+                if(choice < 0 || choice > 1 || cloudName[choice]==-1){
+                    System.out.println("Please chose a valid Cloud Card!.\r");
                     ok = false;
                 } else {
+                    cloudName[choice]=-1;
                     ok = true;
+                    System.out.println("Please wait the opponent's move...");
                 }
             }
         }
@@ -592,11 +601,13 @@ public class ClientMain extends Thread {
             System.out.println("Select 0, 1 or 2 to choose the cloud card.\r");
             while (!ok){
                 choice = scanner.nextInt();
-                if(choice < 0 || choice > 2){
-                    System.out.println("Please select a valid choice\r");
+                if(choice < 0 || choice > 2 || cloudName[choice]==-1){
+                    System.out.println("Please chose a valid Cloud Card!\r");
                     ok = false;
                 } else {
+                    cloudName[choice]=-1;
                     ok = true;
+                    System.out.println("Please wait the opponent's move...");
                 }
             }
         }
