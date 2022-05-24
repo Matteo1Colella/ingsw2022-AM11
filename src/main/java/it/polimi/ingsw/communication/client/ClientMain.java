@@ -14,10 +14,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class ClientMain extends Thread {
     private int port;
@@ -178,10 +175,20 @@ public class ClientMain extends Thread {
             System.out.println("Insert username:\r");
             username = scanner.nextLine().toLowerCase(Locale.ROOT);
             System.out.println("Insert the number of players: \r");
-            numOfPlayers = scanner.nextInt();
+            try {
+                numOfPlayers = scanner.nextInt();
+            }catch (InputMismatchException e){
+                scanner.nextLine();
+                System.out.println("Please retry...");
+            }
             while (numOfPlayers < 2 || numOfPlayers > 4){
                 System.out.println("You can select only 2,3,4 players... ");
-                numOfPlayers = scanner.nextInt();
+                try {
+                    numOfPlayers = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
             }
 
             System.out.println("Select game mode (0 = not pro, 1 = pro):\r");
@@ -222,10 +229,20 @@ public class ClientMain extends Thread {
         while (!ok) {
             System.out.println("Select mage:\n");
             Scanner scanner = new Scanner(System.in);
-            mage = scanner.nextInt();
+            try {
+                mage = scanner.nextInt();
+            }catch (InputMismatchException e){
+                scanner.nextLine();
+                System.out.println("Please retry...");
+            }
             while (mage < 1 || mage > 4){
                 System.out.println("You can select only this MAGES: 1,2,3,4");
-                mage = scanner.nextInt();
+                try {
+                    mage = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
             }
             if (mage == 1 || mage == 2 || mage == 3 || mage == 4) {
                 ok = true;
@@ -281,10 +298,20 @@ public class ClientMain extends Thread {
         int card = -1;
         while (!ok) {
             Scanner scanner = new Scanner(System.in);
-            card = scanner.nextInt();
+            try {
+                card = scanner.nextInt();
+            }catch (InputMismatchException e){
+                scanner.nextLine();
+                System.out.println("Please retry...");
+            }
             while (card < 1 || card > 10){
                 System.out.println("Please enter a valid number card: ");
-                card = scanner.nextInt();
+                try {
+                    card = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
             }
             ok = true;
         }
@@ -324,16 +351,32 @@ public class ClientMain extends Thread {
             while (student < 1 || student > 7) {
                 System.out.println("SELECT a student from the entrance:\n");
                 Scanner scanner1 = new Scanner(System.in);
-                student = scanner1.nextInt();
+                try {
+                    student = scanner1.nextInt();
+                }catch (InputMismatchException e){
+                    scanner1.nextLine();
+                    System.out.println("Please retry...");
+                }
             }
             System.out.println("ENTER:\n");
             System.out.println("0 -> to move student " + student + " to your SCHOOLBOARD");
             System.out.println("1 -> to move student " + student + " to an ISLAND");
             Scanner scanner2 = new Scanner(System.in);
-            int pose = scanner2.nextInt();
+            int pose = -1;
+            try {
+                pose = scanner2.nextInt();
+            }catch (InputMismatchException e){
+                scanner2.nextLine();
+                System.out.println("Please retry...");
+            }
             while (pose < 0 || pose > 1){
                 System.out.println("Please enter 0 (SCHOOLBOARD) or 1 (ISLAND)");
-                pose = scanner2.nextInt();
+                try {
+                    pose = scanner2.nextInt();
+                }catch (InputMismatchException e){
+                    scanner2.nextLine();
+                    System.out.println("Please retry...");
+                }
             }
             if(i==0){
                 student1Entrance = student;
@@ -342,10 +385,20 @@ public class ClientMain extends Thread {
                     while(indexIslandIf1ToIsland < 0 || indexIslandIf1ToIsland > model.getArchipelago().size() - 1) {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
-                        indexIslandIf1ToIsland = scanner3.nextInt();
+                        try {
+                            indexIslandIf1ToIsland = scanner3.nextInt();
+                        }catch (InputMismatchException e){
+                            scanner3.nextLine();
+                            System.out.println("Please retry...");
+                        }
                         while (indexIslandIf1ToIsland < 0 || indexIslandIf1ToIsland > 10){
                             System.out.println("Please enter a valid number");
-                            indexIslandIf1ToIsland = scanner3.nextInt();
+                            try {
+                                indexIslandIf1ToIsland = scanner3.nextInt();
+                            }catch (InputMismatchException e){
+                                scanner3.nextLine();
+                                System.out.println("Please retry...");
+                            }
                         }
                     }
                 }
@@ -357,10 +410,20 @@ public class ClientMain extends Thread {
                     while (indexIslandIf2ToIsland < 0 || indexIslandIf2ToIsland > model.getArchipelago().size() - 1) {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
-                        indexIslandIf2ToIsland = scanner3.nextInt();
+                        try {
+                            indexIslandIf2ToIsland = scanner3.nextInt();
+                        }catch (InputMismatchException e){
+                            scanner3.nextLine();
+                            System.out.println("Please retry...");
+                        }
                         while (indexIslandIf2ToIsland < 0 || indexIslandIf2ToIsland > 10){
                             System.out.println("Please enter a valid number");
-                            indexIslandIf2ToIsland = scanner3.nextInt();
+                            try {
+                                indexIslandIf2ToIsland = scanner3.nextInt();
+                            }catch (InputMismatchException e){
+                                scanner3.nextLine();
+                                System.out.println("Please retry...");
+                            }
                         }
                     }
                 }
@@ -372,10 +435,20 @@ public class ClientMain extends Thread {
                     while (indexIslandIf3ToIsland < 0 || indexIslandIf3ToIsland > model.getArchipelago().size() - 1) {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
-                        indexIslandIf3ToIsland = scanner3.nextInt();
+                        try {
+                            indexIslandIf3ToIsland = scanner3.nextInt();
+                        }catch (InputMismatchException e){
+                            scanner3.nextLine();
+                            System.out.println("Please retry...");
+                        }
                         while (indexIslandIf3ToIsland < 0 || indexIslandIf3ToIsland > 10){
                             System.out.println("Please enter a valid number");
-                            indexIslandIf3ToIsland = scanner3.nextInt();
+                            try {
+                                indexIslandIf3ToIsland = scanner3.nextInt();
+                            }catch (InputMismatchException e){
+                                scanner3.nextLine();
+                                System.out.println("Please retry...");
+                            }
                         }
                     }
                 }
@@ -514,46 +587,96 @@ public class ClientMain extends Thread {
             case 1,2:
                 System.out.println("(You can Select only 1 step!)");
                 scanner = new Scanner(System.in);
-                numberSelectedSteps = scanner.nextInt();
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
                 while (numberSelectedSteps != 1){
                     System.out.println("(You can Select only 1 step!!)");
-                    numberSelectedSteps = scanner.nextInt();
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
                 break;
             case 3,4:
                 System.out.println("(You can Select between 1 or 2 steps!)");
                 scanner = new Scanner(System.in);
-                numberSelectedSteps = scanner.nextInt();
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
                 while (numberSelectedSteps < 1 || numberSelectedSteps > 2){
                     System.out.println("(You can Select only 1 or 2 steps!!)");
-                    numberSelectedSteps = scanner.nextInt();
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
                 break;
             case 5,6:
                 System.out.println("(You can Select from 1 to 3 steps!)");
                 scanner = new Scanner(System.in);
-                numberSelectedSteps = scanner.nextInt();
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
                 while (numberSelectedSteps < 1 || numberSelectedSteps > 3){
                     System.out.println("(You can Select only 1,2 or 3 steps!!)");
-                    numberSelectedSteps = scanner.nextInt();
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
                 break;
             case 7,8:
                 System.out.println("(You can Select from 1 to 4 steps!)");
                 scanner = new Scanner(System.in);
-                numberSelectedSteps = scanner.nextInt();
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
                 while (numberSelectedSteps < 1 || numberSelectedSteps > 4){
                     System.out.println("(You can Select only 1,2,3 or 4 steps!!)");
-                    numberSelectedSteps = scanner.nextInt();
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
                 break;
             case 9,10:
                 System.out.println("(You can Select from 1 to 5 steps!)");
                 scanner = new Scanner(System.in);
-                numberSelectedSteps = scanner.nextInt();
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
                 while (numberSelectedSteps < 1 || numberSelectedSteps > 5){
                     System.out.println("(You can Select only 1,2,3,4 or 5 steps!!)");
-                    numberSelectedSteps = scanner.nextInt();
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
                 break;
             default:
@@ -586,7 +709,12 @@ public class ClientMain extends Thread {
         if (gameSize == 2){
             System.out.println("Select 0 or 1 to choose the cloud card.\r");
             while (!ok){
-                choice = scanner.nextInt();
+                try {
+                    choice = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
                 if(choice < 0 || choice > 1 || cloudName[choice]==-1){
                     System.out.println("Please chose a valid Cloud Card!.\r");
                     ok = false;
@@ -600,7 +728,12 @@ public class ClientMain extends Thread {
         if (gameSize == 3){
             System.out.println("Select 0, 1 or 2 to choose the cloud card.\r");
             while (!ok){
-                choice = scanner.nextInt();
+                try {
+                    choice = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
                 if(choice < 0 || choice > 2 || cloudName[choice]==-1){
                     System.out.println("Please chose a valid Cloud Card!\r");
                     ok = false;
