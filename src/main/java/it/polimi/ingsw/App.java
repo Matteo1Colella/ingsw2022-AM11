@@ -397,7 +397,7 @@ public class App
         System.out.println(newGame.playerList().get(1).getSchoolBoard().getTowers().size());
         System.out.println(newGame.playerList().get(2).getSchoolBoard().getTowers().size());
         System.out.println(newGame.playerList().get(3).getSchoolBoard().getTowers().size());
-
+        System.out.println();
 
         Player winnerPlayer = null;
         Player currentPlayer = lobby.getActivePlayer();
