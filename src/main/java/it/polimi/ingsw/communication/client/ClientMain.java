@@ -62,7 +62,7 @@ public class ClientMain extends Thread {
             choice = clientMain.choseMage();
         }
 
-        clientMain.showModel();
+        clientMain.showModel1();
 
 
         //playCard
@@ -73,11 +73,12 @@ public class ClientMain extends Thread {
 
         for (int k =0; k < 4; k++)
             cloudName[k]=k;
-        System.out.println("waiting for my turn...");
+        System.out.println("Waiting for my turn...");
         while (true){
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
 
+<<<<<<< Updated upstream
             if(clientMain.gameType == false){
                 switch (message){
                     case TURN:
@@ -93,7 +94,10 @@ public class ClientMain extends Thread {
                         }
                         break;
                     case WIN:
+                        System.out.println("");
+                        System.out.println("----GAME-OVER----");
                         System.out.println(receivedMessage.getMessage());
+                        System.out.println("-----------------");
                         return;
                     case MODEL:
                         clientMain.setModel((ModelMessage) receivedMessage);
@@ -120,6 +124,24 @@ public class ClientMain extends Thread {
                         clientMain.setModel((ModelMessage) receivedMessage);
                         break;
                 }
+=======
+            switch (message){
+                case TURN:
+                    clientMain.moveStudents();
+                    clientMain.moveMotherNature();
+                    clientMain.selectCloudCard();
+                    choice = false;
+                    message = clientMain.receiveMessage().getCode();
+                    clientMain.showModel1();
+                    message = clientMain.receiveMessage().getCode();
+                    while (!choice) {
+                        choice = clientMain.playAssistantCard();
+                    }
+                    break;
+                case WIN:
+                    System.out.println(receivedMessage.getMessage());
+                    return;
+>>>>>>> Stashed changes
             }
 
         }
@@ -217,6 +239,8 @@ public class ClientMain extends Thread {
     }
 
     public boolean choseMage() {
+        System.out.println("");
+        System.out.println("The game is starting... ");
         boolean ok = false;
         sendMessage.sendMageMessage(new MageMessage());
         MageMessage mageMessage = (MageMessage) receiveMessage();
@@ -257,6 +281,7 @@ public class ClientMain extends Thread {
         MessageInterface receivedMessage = receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR){
             System.out.println("Correct selection.\r");
+            System.out.println("Waiting for the opponent's move...");
             return true;
         } else if (receivedMessage.getCode() == MessageType.MAGEERROR) {
             return false;
@@ -323,6 +348,7 @@ public class ClientMain extends Thread {
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
             System.out.println("Correct selection.\r");
+            System.out.println("Waiting for the opponent...");
             return true;
         } else if (receivedMessage.getCode() == MessageType.CARDERROR) {
             return false;
@@ -458,7 +484,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance,student1WhereToPut,indexIslandIf1ToIsland,student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,student3Entrance,student3WhereToPut,indexIslandIf3ToIsland));
 
-        showModel();
+        showModel1();
 
         MessageInterface receivedMessage = receiveMessage.receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR) {
@@ -524,7 +550,7 @@ public class ClientMain extends Thread {
         }
         System.out.println("MY SCHOOLBOARD:");
         System.out.println("");
-        System.out.println("ENTRANCE:");
+        System.out.println("ENTRANCE:" );
         i = 0;
         for (Student student : modelMessage.getSchoolBoard().getEntrance().getStudents()) {
             System.out.println("student " + (i + 1) + ":");
@@ -687,7 +713,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
 
-        showModel();
+        showModel1();
 
         MessageInterface receivedMessage = receiveMessage();
         selectedCard = -1;
@@ -704,7 +730,7 @@ public class ClientMain extends Thread {
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage());
         Scanner scanner = new Scanner(System.in);
 
-        int choice = 0;
+        int choice = -1;
         boolean ok = false;
         if (gameSize == 2){
             System.out.println("Select 0 or 1 to choose the cloud card.\r");
@@ -754,5 +780,97 @@ public class ClientMain extends Thread {
     public void setModel(ModelMessage model){
         this.model = model;
 
+    }
+
+    public void showModel1() {
+
+        //ask the list of GameComponents (all the model)
+        sendMessage.sendModelMessage(new ModelMessage());
+        ModelMessage modelMessage = (ModelMessage) receiveMessage();
+        this.model = modelMessage;
+        //printing model..
+
+        //if pro{
+        if (modelMessage.getCoinOwned() >= 0) {
+            System.out.println("CHARACTER CARDS:");
+            for (CharacterCard characterCard : modelMessage.getCharacterCards()) {
+                System.out.println(characterCard.getNum());
+            }
+            System.out.println("");
+            System.out.println("YOUR COINS:");
+            System.out.println(modelMessage.getCoinOwned());
+            System.out.println("");
+        }
+        //}
+
+        int i = 0;
+        System.out.println("ARCHIPELAGO: ");
+        System.out.println("");
+        for (IslandCard islandCard : modelMessage.getArchipelago()) {
+            if (islandCard.getMotherNature()) {
+                System.out.println("MOTHERNATURE");
+            }
+            if (islandCard.getTower() != null) {
+                System.out.println("ISLAND: " + i + "\tTower : " + islandCard.getTower().getColor().toString());
+            } else {
+                System.out.println("ISLAND: " + i + "\tTower : no tower");
+            }
+            System.out.println("Students:");
+            for (int j = 0; j < islandCard.getStudents().size(); j++) {
+                System.out.println("Student " + j + " color : " + islandCard.getStudents().get(j));
+            }
+            System.out.println("Merged with: ");
+            for (int j = 0; j < islandCard.getMergedWith().size(); j++) {
+                IslandCard tempIslandCard = islandCard.getMergedWith().get(j);
+                for (int k = 0; k < tempIslandCard.getStudents().size(); k++) {
+                    System.out.println("Student " + k + " color : " + tempIslandCard.getStudents().get(k));
+                }
+            }
+            i++;
+            System.out.println("");
+        }
+        System.out.println("MY SCHOOLBOARD:");
+        System.out.println("");
+        System.out.println("ENTRANCE:" +"\t"+"\t"+"\t"+"\t"+"\t"+ "DINING ROOMS: " +"\t"+"\t"+"\t"+"\t"+"\t"+"Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
+        i = 0;
+        for (Student student : modelMessage.getSchoolBoard().getEntrance().getStudents()) {
+            System.out.println("student " + (i + 1) + ":" );
+            System.out.println(student.getColor());
+            if(i==0){
+                for (DiningRoom diningRoom : modelMessage.getSchoolBoard().getDiningRooms()) {
+                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" + "Color: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor());
+                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" +"Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" +"Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+                    i++;
+                    System.out.println("");
+                }
+                i++;
+            }
+            i--;
+            i++;
+        }
+        System.out.println("");
+        System.out.println("DINING ROOMS:");
+        System.out.println("");
+        i = 0;
+        for (DiningRoom diningRoom : modelMessage.getSchoolBoard().getDiningRooms()) {
+            System.out.println("Color: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor());
+            System.out.println("Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+            System.out.println("Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+            i++;
+            System.out.println("");
+        }
+        if (!modelMessage.getSchoolBoard().getTowers().isEmpty() && modelMessage.getSchoolBoard().getTowers().get(0).getColor() != null)
+            System.out.println("TOWER color: " + modelMessage.getSchoolBoard().getTowers().get(0).getColor());
+
+        System.out.println("Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
+        i = 0;
+        System.out.println("");
+        System.out.println("CLOUDS: ");
+        for (CloudCard card : modelMessage.getCloudCardList()) {
+            System.out.println("cloud " + i + ":");
+            System.out.println(card.getStudents());
+            i++;
+        }
     }
 }
