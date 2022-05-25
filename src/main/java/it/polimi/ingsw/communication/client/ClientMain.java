@@ -78,7 +78,7 @@ public class ClientMain extends Thread {
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
 
-<<<<<<< Updated upstream
+
             if(clientMain.gameType == false){
                 switch (message){
                     case TURN:
@@ -86,9 +86,7 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.selectCloudCard();
                         choice = false;
-                        message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel();
-                        message = clientMain.receiveMessage().getCode();
+                        clientMain.showModel1();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
@@ -111,37 +109,23 @@ public class ClientMain extends Thread {
                         clientMain.selectCloudCard();
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel();
+                        clientMain.showModel1();
                         message = clientMain.receiveMessage().getCode();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
                         break;
                     case WIN:
+                        System.out.println("");
+                        System.out.println("----GAME-OVER----");
                         System.out.println(receivedMessage.getMessage());
+                        System.out.println("-----------------");
                         return;
                     case MODEL:
                         clientMain.setModel((ModelMessage) receivedMessage);
                         break;
                 }
-=======
-            switch (message){
-                case TURN:
-                    clientMain.moveStudents();
-                    clientMain.moveMotherNature();
-                    clientMain.selectCloudCard();
-                    choice = false;
-                    message = clientMain.receiveMessage().getCode();
-                    clientMain.showModel1();
-                    message = clientMain.receiveMessage().getCode();
-                    while (!choice) {
-                        choice = clientMain.playAssistantCard();
-                    }
-                    break;
-                case WIN:
-                    System.out.println(receivedMessage.getMessage());
-                    return;
->>>>>>> Stashed changes
+
             }
 
         }
@@ -782,6 +766,7 @@ public class ClientMain extends Thread {
 
     }
 
+
     public void showModel1() {
 
         //ask the list of GameComponents (all the model)
@@ -873,4 +858,6 @@ public class ClientMain extends Thread {
             i++;
         }
     }
+
+
 }
