@@ -85,9 +85,9 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.selectCloudCard();
                         choice = false;
-
+                        message = clientMain.receiveMessage().getCode();
                         clientMain.showModel();
-
+                        message = clientMain.receiveMessage().getCode();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
@@ -113,7 +113,7 @@ public class ClientMain extends Thread {
                         clientMain.selectCloudCard();
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel1();
+                        clientMain.showModel();
                         message = clientMain.receiveMessage().getCode();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
