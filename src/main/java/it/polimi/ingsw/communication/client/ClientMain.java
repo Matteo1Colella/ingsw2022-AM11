@@ -62,7 +62,7 @@ public class ClientMain extends Thread {
             choice = clientMain.choseMage();
         }
 
-        clientMain.showModel1();
+        clientMain.showModel();
 
 
         //playCard
@@ -86,7 +86,7 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.selectCloudCard();
                         choice = false;
-                        clientMain.showModel1();
+                        clientMain.showModel();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
@@ -109,7 +109,7 @@ public class ClientMain extends Thread {
                         clientMain.selectCloudCard();
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel1();
+                        clientMain.showModel();
                         message = clientMain.receiveMessage().getCode();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
@@ -468,7 +468,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance,student1WhereToPut,indexIslandIf1ToIsland,student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,student3Entrance,student3WhereToPut,indexIslandIf3ToIsland));
 
-        showModel1();
+        showModel();
 
         MessageInterface receivedMessage = receiveMessage.receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR) {
@@ -697,7 +697,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
 
-        showModel1();
+        showModel();
 
         MessageInterface receivedMessage = receiveMessage();
         selectedCard = -1;
@@ -767,6 +767,7 @@ public class ClientMain extends Thread {
     }
 
 
+    /*
     public void showModel1() {
 
         //ask the list of GameComponents (all the model)
@@ -858,6 +859,8 @@ public class ClientMain extends Thread {
             i++;
         }
     }
+
+     */
 
 
 }
