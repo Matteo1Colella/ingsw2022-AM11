@@ -34,6 +34,7 @@ public class ComplexLobby{
     private final HashMap<Player, Socket> clientSocketsMap;
     private int roundCounter;
     private boolean cornerCase;
+    private ArrayList<Player> playersInitialList;
     private static Object preMageLock;
     private static Object afterMageLock;
     private static Object preCardLock;
@@ -49,6 +50,7 @@ public class ComplexLobby{
         this.numPlayers = numplayers;
         this.ID = ID;
         this.players = Players;
+        this.playersInitialList = Players;
         this.dm = new DeckManager();
         this.playerOrder = new ArrayList<>();
         this.clientSocketsMap = new HashMap<>();
@@ -81,6 +83,8 @@ public class ComplexLobby{
     public int getRoundCounter() {
         return roundCounter;
     }
+
+    public ArrayList<Player> getPlayersInitialList() {return playersInitialList; }
 
     public ArrayList<Player> getPlayerOrder() {
         return playerOrder;

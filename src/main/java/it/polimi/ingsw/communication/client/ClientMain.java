@@ -14,14 +14,11 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class ClientMain extends Thread {
     private int port;
-
+    private static int[] cloudName = new int[4];
     private Socket clientSocket;
     private final ObjectToJSON sendMessage;
     private final JSONtoObject receiveMessage;
@@ -65,7 +62,7 @@ public class ClientMain extends Thread {
             choice = clientMain.choseMage();
         }
 
-        clientMain.showModel();
+        clientMain.showModel1();
 
         //playCard
         choice = false;
@@ -73,10 +70,13 @@ public class ClientMain extends Thread {
             choice = clientMain.playAssistantCard();
         }
 
-        System.out.println("waiting for my turn...");
+        for (int k =0; k < 4; k++)
+            cloudName[k]=k;
+        System.out.println("Waiting for my turn...");
         while (true){
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
+
 
             if(clientMain.gameType == false){
                 switch (message){
@@ -85,15 +85,16 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.selectCloudCard();
                         choice = false;
-                        message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel();
-                        message = clientMain.receiveMessage().getCode();
+                        clientMain.showModel1();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
                         break;
                     case WIN:
+                        System.out.println("");
+                        System.out.println("----GAME-OVER----");
                         System.out.println(receivedMessage.getMessage());
+                        System.out.println("-----------------");
                         return;
                     case MODEL:
                         clientMain.setModel((ModelMessage) receivedMessage);
@@ -110,19 +111,23 @@ public class ClientMain extends Thread {
                         clientMain.selectCloudCard();
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel();
+                        clientMain.showModel1();
                         message = clientMain.receiveMessage().getCode();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
                         break;
                     case WIN:
+                        System.out.println("");
+                        System.out.println("----GAME-OVER----");
                         System.out.println(receivedMessage.getMessage());
+                        System.out.println("-----------------");
                         return;
                     case MODEL:
                         clientMain.setModel((ModelMessage) receivedMessage);
                         break;
                 }
+
             }
 
         }
@@ -169,7 +174,10 @@ public class ClientMain extends Thread {
     public void login() {
         String username = null;
         int numOfPlayers = 0;
+
         int isPro = 0;
+        int gameMode = 0;
+    
         boolean ok = false;
 
         while (!ok) {
@@ -177,11 +185,25 @@ public class ClientMain extends Thread {
             System.out.println("Insert username:\r");
             username = scanner.nextLine().toLowerCase(Locale.ROOT);
             System.out.println("Insert the number of players: \r");
-            numOfPlayers = scanner.nextInt();
-            System.out.println("Select game mode (0 = not pro, 1 = pro):\r");
-            isPro = scanner.nextInt();
+            try {
+                numOfPlayers = scanner.nextInt();
+            }catch (InputMismatchException e){
+                scanner.nextLine();
+                System.out.println("Please retry...");
+            }
+            while (numOfPlayers < 2 || numOfPlayers > 4){
+                System.out.println("You can select only 2,3,4 players... ");
+                try {
+                    numOfPlayers = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+            }
 
-            if (numOfPlayers >= 2 && numOfPlayers <= 4 || (isPro == 0 || isPro == 1)){
+            System.out.println("Select game mode (0 = not pro, 1 = pro):\r");
+
+            isPro = scanner.nextInt();
                 ok = true;
                 gameSize = numOfPlayers;
                 if(isPro == 0){
@@ -207,10 +229,13 @@ public class ClientMain extends Thread {
     }
 
     public boolean choseMage() {
+        System.out.println("");
+        System.out.println("The game is starting... ");
         boolean ok = false;
         sendMessage.sendMageMessage(new MageMessage());
         MageMessage mageMessage = (MageMessage) receiveMessage();
 
+        System.out.println("");
         for (int i = 0; i < mageMessage.getAviableMage().length; i++) {
             System.out.println("MAGE " + mageMessage.getAviableMage()[i] + "\n");
         }
@@ -218,7 +243,21 @@ public class ClientMain extends Thread {
         while (!ok) {
             System.out.println("Select mage:\n");
             Scanner scanner = new Scanner(System.in);
-            mage = scanner.nextInt();
+            try {
+                mage = scanner.nextInt();
+            }catch (InputMismatchException e){
+                scanner.nextLine();
+                System.out.println("Please retry...");
+            }
+            while (mage < 1 || mage > 4){
+                System.out.println("You can select only this MAGES: 1,2,3,4");
+                try {
+                    mage = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+            }
             if (mage == 1 || mage == 2 || mage == 3 || mage == 4) {
                 ok = true;
             } else {
@@ -232,6 +271,7 @@ public class ClientMain extends Thread {
         MessageInterface receivedMessage = receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR){
             System.out.println("Correct selection.\r");
+            System.out.println("Waiting for the opponent's move...");
             return true;
         } else if (receivedMessage.getCode() == MessageType.MAGEERROR) {
             return false;
@@ -242,6 +282,8 @@ public class ClientMain extends Thread {
 
     public boolean playAssistantCard(){
         boolean ok = false;
+        for (int k =0; k < 4; k++)
+            cloudName[k]=k;
 
         //ask the list of cards already played on the table
         sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage());
@@ -271,10 +313,22 @@ public class ClientMain extends Thread {
         int card = -1;
         while (!ok) {
             Scanner scanner = new Scanner(System.in);
-            card = scanner.nextInt();
-            if (card == 1 || card == 2 || card == 3 || card == 4 || card == 5 || card == 6 || card == 7 || card == 8 || card == 9 || card == 10) {
-                ok = true;
+            try {
+                card = scanner.nextInt();
+            }catch (InputMismatchException e){
+                scanner.nextLine();
+                System.out.println("Please retry...");
             }
+            while (card < 1 || card > 10){
+                System.out.println("Please enter a valid number card: ");
+                try {
+                    card = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+            }
+            ok = true;
         }
 
         selectedCard = card;
@@ -284,6 +338,7 @@ public class ClientMain extends Thread {
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
             System.out.println("Correct selection.\r");
+            System.out.println("Waiting for the opponent...");
             return true;
         } else if (receivedMessage.getCode() == MessageType.CARDERROR) {
             return false;
@@ -309,16 +364,36 @@ public class ClientMain extends Thread {
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage());
         while (i < 3){
             student = -1;
-            while (student < 1 || student > 8) {
+            while (student < 1 || student > 7) {
                 System.out.println("SELECT a student from the entrance:\n");
                 Scanner scanner1 = new Scanner(System.in);
-                student = scanner1.nextInt();
+                try {
+                    student = scanner1.nextInt();
+                }catch (InputMismatchException e){
+                    scanner1.nextLine();
+                    System.out.println("Please retry...");
+                }
             }
             System.out.println("ENTER:\n");
             System.out.println("0 -> to move student " + student + " to your SCHOOLBOARD");
             System.out.println("1 -> to move student " + student + " to an ISLAND");
             Scanner scanner2 = new Scanner(System.in);
-            int pose = scanner2.nextInt();;
+            int pose = -1;
+            try {
+                pose = scanner2.nextInt();
+            }catch (InputMismatchException e){
+                scanner2.nextLine();
+                System.out.println("Please retry...");
+            }
+            while (pose < 0 || pose > 1){
+                System.out.println("Please enter 0 (SCHOOLBOARD) or 1 (ISLAND)");
+                try {
+                    pose = scanner2.nextInt();
+                }catch (InputMismatchException e){
+                    scanner2.nextLine();
+                    System.out.println("Please retry...");
+                }
+            }
             if(i==0){
                 student1Entrance = student;
                 student1WhereToPut = pose;
@@ -326,7 +401,21 @@ public class ClientMain extends Thread {
                     while(indexIslandIf1ToIsland < 0 || indexIslandIf1ToIsland > model.getArchipelago().size() - 1) {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
-                        indexIslandIf1ToIsland = scanner3.nextInt();
+                        try {
+                            indexIslandIf1ToIsland = scanner3.nextInt();
+                        }catch (InputMismatchException e){
+                            scanner3.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                        while (indexIslandIf1ToIsland < 0 || indexIslandIf1ToIsland > 10){
+                            System.out.println("Please enter a valid number");
+                            try {
+                                indexIslandIf1ToIsland = scanner3.nextInt();
+                            }catch (InputMismatchException e){
+                                scanner3.nextLine();
+                                System.out.println("Please retry...");
+                            }
+                        }
                     }
                 }
             }
@@ -337,7 +426,21 @@ public class ClientMain extends Thread {
                     while (indexIslandIf2ToIsland < 0 || indexIslandIf2ToIsland > model.getArchipelago().size() - 1) {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
-                        indexIslandIf2ToIsland = scanner3.nextInt();
+                        try {
+                            indexIslandIf2ToIsland = scanner3.nextInt();
+                        }catch (InputMismatchException e){
+                            scanner3.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                        while (indexIslandIf2ToIsland < 0 || indexIslandIf2ToIsland > 10){
+                            System.out.println("Please enter a valid number");
+                            try {
+                                indexIslandIf2ToIsland = scanner3.nextInt();
+                            }catch (InputMismatchException e){
+                                scanner3.nextLine();
+                                System.out.println("Please retry...");
+                            }
+                        }
                     }
                 }
             }
@@ -348,7 +451,21 @@ public class ClientMain extends Thread {
                     while (indexIslandIf3ToIsland < 0 || indexIslandIf3ToIsland > model.getArchipelago().size() - 1) {
                         System.out.println("WHAT ISLAND? (enter the Island number)");
                         Scanner scanner3 = new Scanner(System.in);
-                        indexIslandIf3ToIsland = scanner3.nextInt();
+                        try {
+                            indexIslandIf3ToIsland = scanner3.nextInt();
+                        }catch (InputMismatchException e){
+                            scanner3.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                        while (indexIslandIf3ToIsland < 0 || indexIslandIf3ToIsland > 10){
+                            System.out.println("Please enter a valid number");
+                            try {
+                                indexIslandIf3ToIsland = scanner3.nextInt();
+                            }catch (InputMismatchException e){
+                                scanner3.nextLine();
+                                System.out.println("Please retry...");
+                            }
+                        }
                     }
                 }
             }
@@ -357,7 +474,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance,student1WhereToPut,indexIslandIf1ToIsland,student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,student3Entrance,student3WhereToPut,indexIslandIf3ToIsland));
 
-        showModel();
+        showModel1();
 
         MessageInterface receivedMessage = receiveMessage.receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR) {
@@ -423,11 +540,304 @@ public class ClientMain extends Thread {
         }
         System.out.println("MY SCHOOLBOARD:");
         System.out.println("");
-        System.out.println("ENTRANCE:");
+        System.out.println("ENTRANCE:" );
         i = 0;
         for (Student student : modelMessage.getSchoolBoard().getEntrance().getStudents()) {
             System.out.println("student " + (i + 1) + ":");
             System.out.println(student.getColor());
+            i++;
+        }
+        System.out.println("");
+        System.out.println("DINING ROOMS:");
+        System.out.println("");
+        i = 0;
+        for (DiningRoom diningRoom : modelMessage.getSchoolBoard().getDiningRooms()) {
+            System.out.println("Color: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor());
+            System.out.println("Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+            System.out.println("Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+            i++;
+            System.out.println("");
+        }
+        if (!modelMessage.getSchoolBoard().getTowers().isEmpty() && modelMessage.getSchoolBoard().getTowers().get(0).getColor() != null)
+            System.out.println("TOWER color: " + modelMessage.getSchoolBoard().getTowers().get(0).getColor());
+
+        System.out.println("Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
+        i = 0;
+
+        System.out.println("");
+        System.out.println("CLOUDS: ");
+        for (CloudCard card : modelMessage.getCloudCardList()) {
+            System.out.println("cloud " + i + ":");
+            System.out.println(card.getStudents());
+            if (card.getStudents().size() == 0){
+                cloudName[i] = -1; //cloud empty
+            }
+            i++;
+        }
+    }
+
+    public MessageInterface receiveMessage() {
+        MessageInterface message = receiveMessage.receiveMessageClient();
+        if(message.getCode() == MessageType.PINGPONG){
+            return receiveMessage();
+        } else if(message.getCode() == MessageType.WIN){
+            System.out.println(message.getMessage());
+            System.exit(0);
+        } else if(message.getCode() == MessageType.ERROR){
+            System.out.println("Connection error.\r");
+            System.exit(0);
+        } else {
+            return message;
+        }
+       return null;
+    }
+
+    public boolean moveMotherNature(){
+
+        Scanner scanner;
+        int numberSelectedSteps=0;
+        sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
+        System.out.println("");
+        System.out.println("How many steps you want MOTHERNATURE do?");
+        switch (selectedCard){
+            case 1,2:
+                System.out.println("(You can Select only 1 step!)");
+                scanner = new Scanner(System.in);
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                while (numberSelectedSteps != 1){
+                    System.out.println("(You can Select only 1 step!!)");
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
+                }
+                break;
+            case 3,4:
+                System.out.println("(You can Select between 1 or 2 steps!)");
+                scanner = new Scanner(System.in);
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                while (numberSelectedSteps < 1 || numberSelectedSteps > 2){
+                    System.out.println("(You can Select only 1 or 2 steps!!)");
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
+                }
+                break;
+            case 5,6:
+                System.out.println("(You can Select from 1 to 3 steps!)");
+                scanner = new Scanner(System.in);
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                while (numberSelectedSteps < 1 || numberSelectedSteps > 3){
+                    System.out.println("(You can Select only 1,2 or 3 steps!!)");
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
+                }
+                break;
+            case 7,8:
+                System.out.println("(You can Select from 1 to 4 steps!)");
+                scanner = new Scanner(System.in);
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                while (numberSelectedSteps < 1 || numberSelectedSteps > 4){
+                    System.out.println("(You can Select only 1,2,3 or 4 steps!!)");
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
+                }
+                break;
+            case 9,10:
+                System.out.println("(You can Select from 1 to 5 steps!)");
+                scanner = new Scanner(System.in);
+                try {
+                    numberSelectedSteps = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                while (numberSelectedSteps < 1 || numberSelectedSteps > 5){
+                    System.out.println("(You can Select only 1,2,3,4 or 5 steps!!)");
+                    try {
+                        numberSelectedSteps = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
+                }
+                break;
+            default:
+                System.out.println("(ERROR: you have to play an Assistant Card first or choose a correct number of Steps!)");
+                break;
+        }
+
+
+        sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
+
+        showModel1();
+
+        MessageInterface receivedMessage = receiveMessage();
+        selectedCard = -1;
+        if (receivedMessage.getCode() == MessageType.NOERROR) {
+            System.out.println("Correct selection.\r");
+            return true;
+        } else if (receivedMessage.getCode() == MessageType.MOVEMOTHERNATUREERROR) {
+            return false;
+        }
+        return false;
+    }
+
+    public void selectCloudCard(){
+        sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage());
+        Scanner scanner = new Scanner(System.in);
+
+        int choice = -1;
+        boolean ok = false;
+        if (gameSize == 2){
+            System.out.println("Select 0 or 1 to choose the cloud card.\r");
+            while (!ok){
+                try {
+                    choice = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                if(choice < 0 || choice > 1 || cloudName[choice]==-1){
+                    System.out.println("Please chose a valid Cloud Card!.\r");
+                    ok = false;
+                } else {
+                    cloudName[choice]=-1;
+                    ok = true;
+                    System.out.println("Please wait the opponent's move...");
+                }
+            }
+        }
+        if (gameSize == 3){
+            System.out.println("Select 0, 1 or 2 to choose the cloud card.\r");
+            while (!ok){
+                try {
+                    choice = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                if(choice < 0 || choice > 2 || cloudName[choice]==-1){
+                    System.out.println("Please chose a valid Cloud Card!\r");
+                    ok = false;
+                } else {
+                    cloudName[choice]=-1;
+                    ok = true;
+                    System.out.println("Please wait the opponent's move...");
+                }
+            }
+        }
+
+
+
+        sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
+    }
+    
+
+    public void setModel(ModelMessage model){
+        this.model = model;
+
+    }
+
+
+    public void showModel1() {
+
+        //ask the list of GameComponents (all the model)
+        sendMessage.sendModelMessage(new ModelMessage());
+        ModelMessage modelMessage = (ModelMessage) receiveMessage();
+        this.model = modelMessage;
+        //printing model..
+
+        //if pro{
+        if (modelMessage.getCoinOwned() >= 0) {
+            System.out.println("CHARACTER CARDS:");
+            for (CharacterCard characterCard : modelMessage.getCharacterCards()) {
+                System.out.println(characterCard.getNum());
+            }
+            System.out.println("");
+            System.out.println("YOUR COINS:");
+            System.out.println(modelMessage.getCoinOwned());
+            System.out.println("");
+        }
+        //}
+
+        int i = 0;
+        System.out.println("ARCHIPELAGO: ");
+        System.out.println("");
+        for (IslandCard islandCard : modelMessage.getArchipelago()) {
+            if (islandCard.getMotherNature()) {
+                System.out.println("MOTHERNATURE");
+            }
+            if (islandCard.getTower() != null) {
+                System.out.println("ISLAND: " + i + "\tTower : " + islandCard.getTower().getColor().toString());
+            } else {
+                System.out.println("ISLAND: " + i + "\tTower : no tower");
+            }
+            System.out.println("Students:");
+            for (int j = 0; j < islandCard.getStudents().size(); j++) {
+                System.out.println("Student " + j + " color : " + islandCard.getStudents().get(j));
+            }
+            System.out.println("Merged with: ");
+            for (int j = 0; j < islandCard.getMergedWith().size(); j++) {
+                IslandCard tempIslandCard = islandCard.getMergedWith().get(j);
+                for (int k = 0; k < tempIslandCard.getStudents().size(); k++) {
+                    System.out.println("Student " + k + " color : " + tempIslandCard.getStudents().get(k));
+                }
+            }
+            i++;
+            System.out.println("");
+        }
+        System.out.println("MY SCHOOLBOARD:");
+        System.out.println("");
+        System.out.println("ENTRANCE:" +"\t"+"\t"+"\t"+"\t"+"\t"+ "DINING ROOMS: " +"\t"+"\t"+"\t"+"\t"+"\t"+"Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
+        i = 0;
+        for (Student student : modelMessage.getSchoolBoard().getEntrance().getStudents()) {
+            System.out.println("student " + (i + 1) + ":" );
+            System.out.println(student.getColor());
+            if(i==0){
+                for (DiningRoom diningRoom : modelMessage.getSchoolBoard().getDiningRooms()) {
+                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" + "Color: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor());
+                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" +"Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" +"Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+                    i++;
+                    System.out.println("");
+                }
+                i++;
+            }
+            i--;
             i++;
         }
         System.out.println("");
@@ -455,107 +865,8 @@ public class ClientMain extends Thread {
         }
     }
 
-    public MessageInterface receiveMessage() {
-        MessageInterface message = receiveMessage.receiveMessageClient();
-        if(message.getCode() == MessageType.PINGPONG){
-            return receiveMessage();
-        } else if(message.getCode() == MessageType.WIN){
-            System.out.println(message.getMessage());
-            System.exit(0);
-        } else if(message.getCode() == MessageType.ERROR){
-            System.out.println("Connection error.\r");
-            System.exit(0);
-        } else {
-            return message;
-        }
-       return null;
-    }
-
-    public boolean moveMotherNature(){
-
-        sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
-        System.out.println("");
-        System.out.println("How many steps you want MOTHERNATURE do?");
-        switch (selectedCard){
-            case 1,2:
-                System.out.println("(You can Select only 1 step!)");
-                break;
-            case 3,4:
-                System.out.println("(You can Select between 1 or 2 steps!)");
-                break;
-            case 5,6:
-                System.out.println("(You can Select from 1 to 3 steps!)");
-                break;
-            case 7,8:
-                System.out.println("(You can Select from 1 to 4 steps!)");
-                break;
-            case 9,10:
-                System.out.println("(You can Select from 1 to 5 steps!)");
-                break;
-            default:
-                System.out.println("(ERROR: you have to play an Assistant Card first or choose a correct number of Steps!)");
-                break;
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        int numberSelectedSteps = scanner.nextInt();
-
-        sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
-
-        showModel();
-
-        MessageInterface receivedMessage = receiveMessage();
-        selectedCard = -1;
-        if (receivedMessage.getCode() == MessageType.NOERROR) {
-            System.out.println("Correct selection.\r");
-            return true;
-        } else if (receivedMessage.getCode() == MessageType.MOVEMOTHERNATUREERROR) {
-            return false;
-        }
-        return false;
-    }
-
-    public void selectCloudCard(){
-        sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage());
-        Scanner scanner = new Scanner(System.in);
-
-        int choice = 0;
-        boolean ok = false;
-        if (gameSize == 2){
-            System.out.println("Select 0 or 1 to choose the cloud card.\r");
-            while (!ok){
-                choice = scanner.nextInt();
-                if(choice < 0 || choice > 1){
-                    System.out.println("Error, choose again.\r");
-                    ok = false;
-                } else {
-                    ok = true;
-                }
-            }
-        }
-        if (gameSize == 3){
-            System.out.println("Select 0, 1 or 2 to choose the cloud card.\r");
-            while (!ok){
-                choice = scanner.nextInt();
-                if(choice < 0 || choice > 2){
-                    System.out.println("Error, choose again.\r");
-                    ok = false;
-                } else {
-                    ok = true;
-                }
-            }
-        }
-
-
-
-        sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
-    }
-
-    public void setModel(ModelMessage model){
-        this.model = model;
-    }
-
     public void askCharacter(){
         characterHandler.askCharacter();
     }
+
 }
