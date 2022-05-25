@@ -5,12 +5,13 @@ import it.polimi.ingsw.model.cards.CharacterCard;
 
 public class Character2 extends CharacterCard {
     private transient int num;
-    private transient final int necessaryCoin;
+    private transient int necessaryCoin;
 
     public Character2(int num) {
         this.num = num;
         super.setNum(num);
         this.necessaryCoin = 2;
+        super.setNecessaryCoin(necessaryCoin);
     }
 
     public void effect(Player activePlayer){

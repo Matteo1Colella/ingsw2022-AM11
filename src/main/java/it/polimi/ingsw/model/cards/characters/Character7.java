@@ -10,13 +10,14 @@ public class Character7 extends CharacterCard {
 
     private transient ArrayList<Student> students;
     private transient int num;
-    private transient final int necessaryCoin;
+    private transient int necessaryCoin;
 
     public Character7(int num) {
         this.students = new ArrayList<>();
         super.setNum(num);
         this.num = num;
         this.necessaryCoin = 1;
+        super.setNecessaryCoin(necessaryCoin);
     }
 
     public void effect(Player activePlayer, int[] selectionFromSchoolboard, int[] selectionFromCard){

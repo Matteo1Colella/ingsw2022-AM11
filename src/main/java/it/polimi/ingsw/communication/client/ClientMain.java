@@ -64,7 +64,6 @@ public class ClientMain extends Thread {
 
         clientMain.showModel();
 
-
         //playCard
         choice = false;
         while (!choice) {
@@ -86,7 +85,9 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.selectCloudCard();
                         choice = false;
+
                         clientMain.showModel();
+
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
@@ -104,12 +105,15 @@ public class ClientMain extends Thread {
             } else {
                 switch (message){
                     case TURN:
+                        clientMain.askCharacter();
                         clientMain.moveStudents();
+                        clientMain.askCharacter();
                         clientMain.moveMotherNature();
+                        clientMain.askCharacter();
                         clientMain.selectCloudCard();
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel();
+                        clientMain.showModel1();
                         message = clientMain.receiveMessage().getCode();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
@@ -172,8 +176,10 @@ public class ClientMain extends Thread {
     public void login() {
         String username = null;
         int numOfPlayers = 0;
+
+        int isPro = 0;
         int gameMode = 0;
-        boolean isPro = false;
+
         boolean ok = false;
 
         while (!ok) {
@@ -199,17 +205,20 @@ public class ClientMain extends Thread {
 
             System.out.println("Select game mode (0 = not pro, 1 = pro):\r");
 
-            isPro = Boolean.parseBoolean(scanner.next());
-            gameType = isPro;
+            isPro = scanner.nextInt();
 
-
-            if (numOfPlayers >= 2 && numOfPlayers <= 4) {
+            if(isPro == 0 || isPro == 1) {
                 ok = true;
                 gameSize = numOfPlayers;
+                if (isPro == 0) {
+                    gameType = false;
+                } else if (isPro == 1) {
+                    gameType = true;
+                }
             }
         }
 
-        sendMessage.sendLoginMessage(new LoginMessage(username.replaceAll("\\s+", ""), numOfPlayers, isPro));
+        sendMessage.sendLoginMessage(new LoginMessage(username.replaceAll("\\s+", ""), numOfPlayers, gameType));
 
 
         MessageInterface message = receiveMessage();
@@ -485,11 +494,11 @@ public class ClientMain extends Thread {
         ModelMessage modelMessage = (ModelMessage) receiveMessage();
         this.model = modelMessage;
         if(gameType == true && characterHandler == null){
-            characterHandler = new CharacterHandlerClient(model, clientSocket);
+            characterHandler = new CharacterHandlerClient(modelMessage, clientSocket);
         }
         if(gameType == true){
-            characterHandler.setCoinsOwned(model.getCoinOwned());
-            characterHandler.setModel(model);
+            characterHandler.setCoinsOwned(modelMessage.getCoinOwned());
+            characterHandler.setModel(modelMessage);
         }
         //printing model..
 
@@ -767,7 +776,9 @@ public class ClientMain extends Thread {
     }
 
 
+
     /*
+
     public void showModel1() {
 
         //ask the list of GameComponents (all the model)
@@ -860,7 +871,13 @@ public class ClientMain extends Thread {
         }
     }
 
+
      */
+
+
+    public void askCharacter(){
+        characterHandler.askCharacter();
+    }
 
 
 }

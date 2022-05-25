@@ -6,12 +6,13 @@ import it.polimi.ingsw.model.colors.ColorStudent;
 
 public class Character9 extends CharacterCard {
     private transient int num;
-    private transient final int necessaryCoin;
+    private transient int necessaryCoin;
 
     public Character9(int num) {
         super.setNum(num);
         this.num = num;
         this.necessaryCoin = 3;
+        super.setNecessaryCoin(necessaryCoin);
     }
 
     public void effect(Player activePlayer, ColorStudent color){

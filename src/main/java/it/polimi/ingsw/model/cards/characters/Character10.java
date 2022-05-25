@@ -9,12 +9,13 @@ import java.util.ArrayList;
 
 public class Character10 extends CharacterCard {
     private transient int num;
-    private transient final int necessaryCoin;
+    private transient int necessaryCoin;
 
     public Character10(int num) {
         super.setNum(num);
         this.num = num;
         this.necessaryCoin = 1;
+        super.setNecessaryCoin(necessaryCoin);
     }
 
     public void effect(Player activePlayer, ArrayList<Student> selectionFromDiningRoom, int[] selectionFromEntrance){
