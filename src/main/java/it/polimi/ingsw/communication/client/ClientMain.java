@@ -177,7 +177,7 @@ public class ClientMain extends Thread {
 
         int isPro = 0;
         int gameMode = 0;
-    
+
         boolean ok = false;
 
         while (!ok) {
@@ -204,14 +204,15 @@ public class ClientMain extends Thread {
             System.out.println("Select game mode (0 = not pro, 1 = pro):\r");
 
             isPro = scanner.nextInt();
+
+            if(isPro == 0 || isPro == 1) {
                 ok = true;
                 gameSize = numOfPlayers;
-                if(isPro == 0){
+                if (isPro == 0) {
                     gameType = false;
-                } else if(isPro ==  1){
+                } else if (isPro == 1) {
                     gameType = true;
                 }
-                System.out.println("gametype: " + gameType);
             }
         }
 
