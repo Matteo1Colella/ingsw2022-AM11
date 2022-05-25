@@ -6,12 +6,13 @@ import it.polimi.ingsw.model.cards.CharacterCard;
 
 public class Character3 extends CharacterCard {
     private transient int num;
-    private transient final int necessaryCoin;
+    private transient int necessaryCoin;
 
     public Character3(int num) {
         this.num = num;
         super.setNum(num);
         this.necessaryCoin = 3;
+        super.setNecessaryCoin(necessaryCoin);
     }
 
     public void effect(Player activePlayer, IslandCard island){

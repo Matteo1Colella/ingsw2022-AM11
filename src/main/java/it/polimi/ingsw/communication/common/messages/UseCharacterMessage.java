@@ -14,6 +14,7 @@ public class UseCharacterMessage implements MessageInterface {
     private int[] studentsOnCard;
     private ColorStudent colorStudent;
     private int[] studentsFromDinignRoom;
+    int choice;
 
     public UseCharacterMessage() {
         message = "Play character.\r";
@@ -25,9 +26,10 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        choice = -1;
     }
 
-    public UseCharacterMessage useCharacter1Message(int island, int student){
+    public UseCharacterMessage useCharacter1Message(int island, int student, int choice){
         message = "Play character 1.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 1;
@@ -37,10 +39,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter2Message(){
+    public UseCharacterMessage useCharacter2Message(int choice){
         message = "Play character 2.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 2;
@@ -50,10 +53,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter3Message(int island){
+    public UseCharacterMessage useCharacter3Message(int island, int choice){
         message = "Play character 3.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 3;
@@ -63,10 +67,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter4Message(){
+    public UseCharacterMessage useCharacter4Message(int choice){
         message = "Play character 4.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 4;
@@ -76,10 +81,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter5Message(int island){
+    public UseCharacterMessage useCharacter5Message(int island, int choice){
         message = "Play character 5.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 5;
@@ -89,10 +95,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter6Message(){
+    public UseCharacterMessage useCharacter6Message(int choice){
         message = "Play character 6.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 6;
@@ -102,10 +109,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter7Message(int[] studentsFromEntrance, int[] studentsOnCard){
+    public UseCharacterMessage useCharacter7Message(int[] studentsFromEntrance, int[] studentsOnCard, int choice){
         message = "Play character 7.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 7;
@@ -115,10 +123,11 @@ public class UseCharacterMessage implements MessageInterface {
         this.studentsOnCard = studentsOnCard;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter8Message(){
+    public UseCharacterMessage useCharacter8Message(int choice){
         message = "Play character 8.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 8;
@@ -128,10 +137,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter9Message(ColorStudent colorStudent){
+    public UseCharacterMessage useCharacter9Message(ColorStudent colorStudent, int choice){
         message = "Play character 9.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 9;
@@ -141,10 +151,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         this.colorStudent = colorStudent;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter10Message(int[] studentsFromEntrance, int[] studentsFromDinignRoom){
+    public UseCharacterMessage useCharacter10Message(int[] studentsFromEntrance, int[] studentsFromDinignRoom, int choice){
         message = "Play character 10.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 6;
@@ -154,10 +165,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         this.studentsFromDinignRoom = studentsFromDinignRoom;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter11Message(int student){
+    public UseCharacterMessage useCharacter11Message(int student, int choice){
         message = "Play character 11.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 11;
@@ -167,10 +179,11 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         colorStudent = null;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
     }
 
-    public UseCharacterMessage useCharacter12Message(ColorStudent colorStudent){
+    public UseCharacterMessage useCharacter12Message(ColorStudent colorStudent, int choice){
         message = "Play character 12.\r";
         code = MessageType.CHARACTERCHOICE;
         id = 12;
@@ -180,7 +193,40 @@ public class UseCharacterMessage implements MessageInterface {
         studentsOnCard = null;
         this.colorStudent = colorStudent;
         studentsFromDinignRoom = null;
+        this.choice = choice;
         return this;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getIslandCharacter() {
+        return island;
+    }
+
+    public int getStudentCharacter() {
+        return student;
+    }
+
+    public int[] getStudentsFromEntranceCharacter() {
+        return studentsFromEntrance;
+    }
+
+    public int[] getStudentsOnCardCharacter() {
+        return studentsOnCard;
+    }
+
+    public ColorStudent getColorStudentCharacter() {
+        return colorStudent;
+    }
+
+    public int[] getStudentsFromDinignRoomCharacter() {
+        return studentsFromDinignRoom;
+    }
+
+    public int getChoice() {
+        return choice;
     }
 
     @Override
@@ -191,9 +237,5 @@ public class UseCharacterMessage implements MessageInterface {
     @Override
     public MessageType getCode() {
         return code;
-    }
-
-    public int getId() {
-        return id;
     }
 }

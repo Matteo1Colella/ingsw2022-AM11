@@ -25,9 +25,12 @@ public class CharacterCard {
         return tiles;
     }
 
-
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public void setNecessaryCoin(int necessaryCoin) {
+        this.necessaryCoin = necessaryCoin;
     }
 
     public ArrayList<Student> getStudents() {
@@ -45,19 +48,27 @@ public class CharacterCard {
     public int getNum() {
         return num;
     }
+
     public void addSudent(Student student){
         this.students.add(student);
     }
+
     public void addTile(NoEntryTile tile){
         this.tiles.add(tile);
     }
 
     public void effect(Player activePlayer, IslandCard island, int input){}
+
     public void effect(Player activePlayer){}
+
     public void effect(Player activePlayer, IslandCard island){}
+
     public void effect(Player activePlayer,  int[] selectionFromSchoolboard, int[] selectionFromCard){}
+
     public void effect(Player activePlayer, ColorStudent color){}
+
     public void effect(Player activePlayer, ArrayList<Student> selectionFromDiningRoom, int[] selectionFromEntrance){}
+
     public void effect(Player activePlayer, int takenStudent){}
 
 
