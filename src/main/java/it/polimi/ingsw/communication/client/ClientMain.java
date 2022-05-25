@@ -67,7 +67,6 @@ public class ClientMain extends Thread {
 
         clientMain.showModel();
 
-
         //playCard
         choice = false;
         while (!choice) {
@@ -103,8 +102,11 @@ public class ClientMain extends Thread {
             } else {
                 switch (message){
                     case TURN:
+                        clientMain.askCharacter();
                         clientMain.moveStudents();
+                        clientMain.askCharacter();
                         clientMain.moveMotherNature();
+                        clientMain.askCharacter();
                         clientMain.selectCloudCard();
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
@@ -167,7 +169,7 @@ public class ClientMain extends Thread {
     public void login() {
         String username = null;
         int numOfPlayers = 0;
-        boolean isPro = false;
+        int isPro = 0;
         boolean ok = false;
 
         while (!ok) {
@@ -177,16 +179,21 @@ public class ClientMain extends Thread {
             System.out.println("Insert the number of players: \r");
             numOfPlayers = scanner.nextInt();
             System.out.println("Select game mode (0 = not pro, 1 = pro):\r");
-            isPro = Boolean.parseBoolean(scanner.next());
-            gameType = isPro;
+            isPro = scanner.nextInt();
 
-            if (numOfPlayers >= 2 && numOfPlayers <= 4) {
+            if (numOfPlayers >= 2 && numOfPlayers <= 4 || (isPro == 0 || isPro == 1)){
                 ok = true;
                 gameSize = numOfPlayers;
+                if(isPro == 0){
+                    gameType = false;
+                } else if(isPro ==  1){
+                    gameType = true;
+                }
+                System.out.println("gametype: " + gameType);
             }
         }
 
-        sendMessage.sendLoginMessage(new LoginMessage(username.replaceAll("\\s+", ""), numOfPlayers, isPro));
+        sendMessage.sendLoginMessage(new LoginMessage(username.replaceAll("\\s+", ""), numOfPlayers, gameType));
 
 
         MessageInterface message = receiveMessage();
@@ -367,11 +374,11 @@ public class ClientMain extends Thread {
         ModelMessage modelMessage = (ModelMessage) receiveMessage();
         this.model = modelMessage;
         if(gameType == true && characterHandler == null){
-            characterHandler = new CharacterHandlerClient(model, clientSocket);
+            characterHandler = new CharacterHandlerClient(modelMessage, clientSocket);
         }
         if(gameType == true){
-            characterHandler.setCoinsOwned(model.getCoinOwned());
-            characterHandler.setModel(model);
+            characterHandler.setCoinsOwned(modelMessage.getCoinOwned());
+            characterHandler.setModel(modelMessage);
         }
         //printing model..
 
@@ -546,5 +553,9 @@ public class ClientMain extends Thread {
 
     public void setModel(ModelMessage model){
         this.model = model;
+    }
+
+    public void askCharacter(){
+        characterHandler.askCharacter();
     }
 }

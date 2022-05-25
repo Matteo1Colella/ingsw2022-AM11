@@ -1,10 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.communication.common.*;
-import it.polimi.ingsw.communication.common.messages.AssistantCardsMessage;
-import it.polimi.ingsw.communication.common.messages.MageMessage;
-import it.polimi.ingsw.communication.common.messages.ModelMessage;
-import it.polimi.ingsw.communication.common.messages.WinMessage;
+import it.polimi.ingsw.communication.common.messages.*;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.model.MovedStudent;
 import it.polimi.ingsw.model.board.*;
@@ -12,6 +9,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
+import it.polimi.ingsw.model.cards.CharacterCard;
+import it.polimi.ingsw.model.cards.characters.*;
 import it.polimi.ingsw.model.pieces.Student;
 
 import java.io.IOException;
@@ -144,8 +143,6 @@ public class ComplexLobby{
     public HashMap<Player, Socket> getClientSocketsMap() {
         return clientSocketsMap;
     }
-
-    // End of Getters, Setters, Constructor
 
     // adds a player to the lobby, if it fills up the game starts
     public synchronized void AddPlayer(String ID){
@@ -358,29 +355,6 @@ public class ComplexLobby{
 
         // if mage is not avaible returns false
         if (d == null){
-            /*
-            try{
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
-                PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
-                String outputString = "Mage already chosen, here are remaining Mages";
-                output.println(outputString);
-                for(int i = 0; i < room.getDm().getAssistantDecks().size(); i++){
-                    if( room.getDm().getAssistantDecks().get(i).isFree()){
-                        outputString = room.getDm().getAssistantDecks().get(i).getMage().toString();
-                        output.println(outputString);
-                    }
-                }
-                Player courrentPlayer = null;
-                for (Player p : room.getPlayers()){
-                    if (p.getID_player().equals(IDplayer)){
-                        courrentPlayer = p;
-                    }
-                }
-                selectMage(courrentPlayer);
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-             */
             return false;
         }
         System.out.println("found deck with mage " + d.getMage());
@@ -393,23 +367,6 @@ public class ComplexLobby{
             }
         }
         System.out.println("Added deck " + d.getMage() + " to " + IDplayer);
-
-        /*
-        try{
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(clientSocket.getOutputStream());
-            PrintWriter output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
-            String outputString = "Here are remaining Mages";
-            output.println(outputString);
-            for(int i = 0; i < room.getDm().getAssistantDecks().size(); i++){
-                if( room.getDm().getAssistantDecks().get(i).isFree()){
-                    outputString = room.getDm().getAssistantDecks().get(i).getMage().toString();
-                    output.println(outputString);
-                }
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-         */
 
         p0.setDeck(d);
 
@@ -474,7 +431,6 @@ public class ComplexLobby{
         if(choice == 1){
             if(deckRequest(Mage.MAGE1, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
-                //this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -483,7 +439,6 @@ public class ComplexLobby{
         } else if(choice == 2){
             if(deckRequest(Mage.MAGE2, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
-                //this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -492,7 +447,6 @@ public class ComplexLobby{
         } else if(choice == 3){
             if(deckRequest(Mage.MAGE3, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
-                //this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -501,7 +455,6 @@ public class ComplexLobby{
         } else if(choice == 4){
             if(deckRequest(Mage.MAGE4, player.getID_player(), clientSocket)){
                 sendMessage.sendNoError();
-                //this.notifyAll();
                 return true;
             } else {
                 sendMessage.sendMageError();
@@ -545,12 +498,6 @@ public class ComplexLobby{
             System.out.println("choosen card: " + chosenCards.size());
             if(chosenCards.size() == numPlayers){
                 modifyPlayerTurn();
-                //changeActivePlayer();
-                /*
-                synchronized (afterCardLock){
-                    afterCardLock.notifyAll();
-                }
-                 */
             } else {
                 System.out.println("changing player");
                 changeActivePlayer();
@@ -559,7 +506,6 @@ public class ComplexLobby{
             return true;
         }
     }
-
 
     public synchronized void moveStudents(ArrayList<MovedStudent> orderedStudents){
 
@@ -587,6 +533,67 @@ public class ComplexLobby{
     public synchronized void selectCloudCard(int cloudCard){
         CloudCard cloudCardChosen = game.getGameComponents().getCloudCards().get(cloudCard);
         activePlayer.getSchoolBoard().addStudetsToEntrance(cloudCardChosen.drawStudents());
+    }
+
+    public synchronized  void playCharacter(UseCharacterMessage characterMessage){
+        int code = characterMessage.getId();
+        int choice = characterMessage.getChoice();
+        ArrayList<CharacterCard> characterCards = game.getGameComponents().getSpecialDeck().getCards();
+        ArrayList<IslandCard> archipelago =  game.getGameComponents().getArchipelago();
+        switch (code){
+            case 1:
+                Character1 card = (Character1) characterCards.get(choice);
+                card.effect(activePlayer,archipelago.get(characterMessage.getIslandCharacter()), characterMessage.getStudentCharacter());
+                break;
+            case 2:
+                Character2 card2 = (Character2) characterCards.get(choice);
+                card2.effect(activePlayer);
+                break;
+            case 3:
+                Character3 card3 = (Character3) characterCards.get(choice);
+                card3.effect(activePlayer,  archipelago.get(characterMessage.getIslandCharacter()));
+                break;
+            case 4:
+                Character4 card4 = (Character4) characterCards.get(choice);
+                card4.effect(activePlayer);
+                break;
+            case 5:
+                Character5 card5 = (Character5) characterCards.get(choice);
+                card5.effect(activePlayer, archipelago.get(characterMessage.getIslandCharacter()));
+                break;
+            case 6:
+                Character6 card6 = (Character6) characterCards.get(choice);
+                card6.effect(activePlayer);
+                break;
+            case 7:
+                Character7 card7 = (Character7) characterCards.get(choice);
+                card7.effect(activePlayer, characterMessage.getStudentsFromEntranceCharacter(), characterMessage.getStudentsOnCardCharacter());
+                break;
+            case 8:
+                Character8 card8 = (Character8) characterCards.get(choice);
+                card8.effect(activePlayer);
+                break;
+            case 9:
+                Character9 card9 = (Character9) characterCards.get(choice);
+                card9.effect(activePlayer, characterMessage.getColorStudentCharacter());
+                break;
+            case 10:
+                Character10 card10 = (Character10) characterCards.get(choice);
+                ArrayList<Student> students = new ArrayList<>();
+                for(int i = 0; i < 2; i++){
+                    students.add(activePlayer.getSchoolBoard().getStudents().get(characterMessage.getStudentsFromDinignRoomCharacter()[i]));
+                }
+                card10.effect(activePlayer, students, characterMessage.getStudentsFromEntranceCharacter());
+                break;
+            case 11:
+                Character11 card11 = (Character11) characterCards.get(choice);
+                card11.effect(activePlayer, characterMessage.getStudentCharacter());
+                break;
+            case 12:
+                Character12 card12 = (Character12) characterCards.get(choice);
+                card12.effect(activePlayer, characterMessage.getColorStudentCharacter());
+                break;
+        }
     }
 
     public synchronized ModelMessage sendModel(String username){

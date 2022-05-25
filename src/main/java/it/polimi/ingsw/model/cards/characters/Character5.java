@@ -10,13 +10,14 @@ import java.util.ArrayList;
 public class Character5 extends CharacterCard {
     private transient ArrayList<NoEntryTile> tiles;
     private transient int num;
-    private transient final int necessaryCoin;
+    private transient int necessaryCoin;
 
     public Character5(int num) {
         this.tiles = new ArrayList<>();
         this.num = num;
         super.setNum(num);
         this.necessaryCoin = 2;
+        super.setNecessaryCoin(necessaryCoin);
     }
 
     public void effect(Player activePlayer, IslandCard island){

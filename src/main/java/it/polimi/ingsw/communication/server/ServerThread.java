@@ -100,18 +100,6 @@ public class ServerThread extends Thread{
             boolean endGame = false;
             int i = 0;
             while (!endGame) {
-                /*
-                System.out.println("it is " + currentCL.getActivePlayer().getID_player() + " turn");
-                try {
-                    synchronized (this){
-                        wait(3000);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                 */
-                //Player currentPlayer = currentCL.getActivePlayer();
                 while (isMyTurn()){
 
                     if(clientSocket.isClosed()){
@@ -123,7 +111,8 @@ public class ServerThread extends Thread{
 
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
-                    MessageType messageCode = receiveMessage.receiveMessage().getCode();
+                    MessageInterface message = receiveMessage.receiveMessage();
+                    MessageType messageCode = message.getCode();
                     switch (messageCode){
                         case PINGPONG:
                             sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
@@ -142,37 +131,16 @@ public class ServerThread extends Thread{
                             selectCloudCard();
                             if (!currentCL.getActivePlayer().equals(currentCL.getPlayerOrder().get(currentCL.getPlayerOrder().size()-1))){
                                 currentCL.changeActivePlayer();
-                                /*
-                                synchronized (preCardLock){
-                                    try{
-                                        preCardLock.wait();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                 */
                             } else {
-                                //synchronized (preCardLock){
-                                //preCardLock.notifyAll();
                                 currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
                                 System.out.println("ish should be " + currentCL.getPlayerOrder().get(0).getID_player() + " turn");
                                 currentCL.getGame().refillCloudCards();
-                                    /*
-                                    try {
-                                        preCardLock.wait();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                     */
-                                //}
                             }
 
                             break;
 
                         case CARD:
-
                             playCardInGame();
-
                             break;
                         case MODEL:
                             sendModelInGame();
@@ -180,6 +148,9 @@ public class ServerThread extends Thread{
                         case STUDENT:
                             moveStudent();
                             sendModel();
+                            break;
+                        case CHARACTERCHOICE:
+                            playCharacter(message);
                             break;
                     }
                     //methods call
@@ -192,31 +163,9 @@ public class ServerThread extends Thread{
                         }
                     }
                 }
-
             }
         }
     }
-
-    /*
-    private MessageInterface receiveMessageTimeOut(JSONtoObject receiveMessage){
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        final MessageInterface[] message = {null};
-        Future<String> future = executor.submit(new Callable() {
-            public String call() throws Exception {
-                message[0] = receiveMessage.receiveMessage();
-                return "OK";
-            }
-        });
-        try {
-            System.out.println(future.get(3000, TimeUnit.SECONDS)); //timeout is in 2 seconds
-        } catch (TimeoutException | InterruptedException | ExecutionException e) {
-            System.err.println("Timeout");
-            currentCL.closeConnection();
-        }
-        executor.shutdownNow();
-        return message[0];
-    }
-    */
 
     private void receivePingSendPong(){
         receiveMessage.receiveMessage();
@@ -341,6 +290,11 @@ public class ServerThread extends Thread{
             return;
         }
         currentCL.selectCloudCard(message.getCloud());
+    }
+
+    private void playCharacter(MessageInterface message){
+        UseCharacterMessage characterMessage = (UseCharacterMessage) message;
+        currentCL.playCharacter(characterMessage);
     }
 
     private boolean isMyTurn(){
