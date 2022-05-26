@@ -98,7 +98,10 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.selectCloudCard();
                         choice = false;
+                        message = clientMain.receiveMessage().getCode();
                         clientMain.showModel();
+                        message = clientMain.receiveMessage().getCode();
+
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
@@ -122,6 +125,10 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.askCharacter();
                         clientMain.selectCloudCard();
+                        message = clientMain.receiveMessage().getCode();
+                        clientMain.showModel();
+                        message = clientMain.receiveMessage().getCode();
+
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
                         clientMain.showModel();
@@ -868,6 +875,7 @@ public class ClientMain extends Thread {
 
     }
 
+    /*
     public void showModel1() {
 
         //ask the list of GameComponents (all the model)
@@ -960,6 +968,10 @@ public class ClientMain extends Thread {
         }
     }
 
+
+     */
+
+
     public void askCharacter(){
         characterHandler.askCharacter();
     }
@@ -971,4 +983,5 @@ public class ClientMain extends Thread {
     public void setReceiveMessage(JSONtoObject receiveMessage) {
         this.receiveMessage = receiveMessage;
     }
+
 }
