@@ -15,8 +15,15 @@ public class MoveStudentMessage implements MessageInterface {
     private int student3Entrance;
     private int student3WhereToPut;
     private int indexIslandIf3ToIsland;
+    private int student4Entrance;
+    private int student4WhereToPut;
+    private int indexIslandIf4ToIsland;
 
-    public MoveStudentMessage(int student1Entrance, int student1WhereToPut, int indexIslandIf1ToIsland, int student2Entrance, int student2WhereToPut, int indexIslandIf2ToIsland, int student3Entrance, int student3WhereToPut, int indexIslandIf3ToIsland) {
+
+    public MoveStudentMessage(int student1Entrance, int student1WhereToPut, int indexIslandIf1ToIsland,
+                              int student2Entrance, int student2WhereToPut, int indexIslandIf2ToIsland,
+                              int student3Entrance, int student3WhereToPut, int indexIslandIf3ToIsland,
+                              int student4Entrance, int student4WhereToPut, int indexIslandIf4ToIsland) {
         message = "Move student to IslandCard or DiningRoom message.\r";
         code = MessageType.STUDENT;
         this.student1Entrance = student1Entrance;
@@ -28,6 +35,9 @@ public class MoveStudentMessage implements MessageInterface {
         this.student3Entrance = student3Entrance;
         this.student3WhereToPut = student3WhereToPut;
         this.indexIslandIf3ToIsland = indexIslandIf3ToIsland;
+        this.student4Entrance = student4Entrance;
+        this.student4WhereToPut = student4WhereToPut;
+        this.indexIslandIf4ToIsland = indexIslandIf4ToIsland;
     }
 
     public MoveStudentMessage() {
@@ -84,39 +94,15 @@ public class MoveStudentMessage implements MessageInterface {
         return indexIslandIf3ToIsland;
     }
 
-    public void setStudent1Entrance(int student1Entrance) {
-        this.student1Entrance = student1Entrance;
+    public int getStudent4Entrance() {
+        return student4Entrance;
     }
 
-    public void setStudent1WhereToPut(int student1WhereToPut) {
-        this.student1WhereToPut = student1WhereToPut;
+    public int getStudent4WhereToPut() {
+        return student4WhereToPut;
     }
 
-    public void setIndexIslandIf1ToIsland(int indexIslandIf1ToIsland) {
-        this.indexIslandIf1ToIsland = indexIslandIf1ToIsland;
-    }
-
-    public void setStudent2Entrance(int student2Entrance) {
-        this.student2Entrance = student2Entrance;
-    }
-
-    public void setStudent2WhereToPut(int student2WhereToPut) {
-        this.student2WhereToPut = student2WhereToPut;
-    }
-
-    public void setIndexIslandIf2ToIsland(int indexIslandIf2ToIsland) {
-        this.indexIslandIf2ToIsland = indexIslandIf2ToIsland;
-    }
-
-    public void setStudent3Entrance(int student3Entrance) {
-        this.student3Entrance = student3Entrance;
-    }
-
-    public void setStudent3WhereToPut(int student3WhereToPut) {
-        this.student3WhereToPut = student3WhereToPut;
-    }
-
-    public void setIndexIslandIf3ToIsland(int indexIslandIf3ToIsland) {
-        this.indexIslandIf3ToIsland = indexIslandIf3ToIsland;
+    public int getIndexIslandIf4ToIsland() {
+        return indexIslandIf4ToIsland;
     }
 }

@@ -263,9 +263,13 @@ public class ServerThread extends Thread{
         students.add(new MovedStudent( message.getStudent1Entrance() - 1,  message.getStudent1WhereToPut(), message.getIndexIslandIf1ToIsland()));
         students.add(new MovedStudent( message.getStudent2Entrance() - 1 ,  message.getStudent2WhereToPut(), message.getIndexIslandIf2ToIsland()));
         students.add(new MovedStudent( message.getStudent3Entrance() - 1 ,  message.getStudent3WhereToPut(), message.getIndexIslandIf3ToIsland()));
+        if(currentCL.getNumPlayers() == 3){
+            students.add(new MovedStudent( message.getStudent4Entrance() - 1 ,  message.getStudent4WhereToPut(), message.getIndexIslandIf4ToIsland()));
+        }
 
         ArrayList<MovedStudent> orderedStudents = students.stream()
-                .sorted(Comparator.comparingInt(MovedStudent::getIndex).reversed()).collect(Collectors.toCollection(ArrayList<MovedStudent> :: new));
+                .sorted(Comparator.comparingInt(MovedStudent::getIndex).reversed()).
+                collect(Collectors.toCollection(ArrayList<MovedStudent> :: new));
 
         currentCL.moveStudents(orderedStudents);
     }
