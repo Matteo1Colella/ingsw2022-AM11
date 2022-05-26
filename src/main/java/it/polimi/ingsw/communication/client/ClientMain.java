@@ -12,21 +12,22 @@ import it.polimi.ingsw.model.pieces.Student;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.*;
 
 public class ClientMain extends Thread {
     private int port;
     private static int[] cloudName = new int[4];
     private Socket clientSocket;
-    private final ObjectToJSON sendMessage;
-    private final JSONtoObject receiveMessage;
-    private final Object lock;
+    private ObjectToJSON sendMessage;
+    private JSONtoObject receiveMessage;
     private int selectedCard;
     private int gameSize;
-    private ModelMessage model;
     private boolean gameType;
+    private ModelMessage model;
     private CharacterHandlerClient characterHandler;
 
     public ObjectToJSON getSendMessage() {
@@ -37,21 +38,34 @@ public class ClientMain extends Thread {
         return receiveMessage;
     }
 
-    public ClientMain() {
-        lock = new Object();
+    public static void main(String[] args) {
+        System.out.println("                                                                                                                                                                                                       \n" +
+                "                                                                                                                                                                                                        \n" +
+                "                                                                                                                                                                            ,&@@ *#                     \n" +
+                "                                                                                                                                                                         @@@@@ (.                       \n" +
+                "        ,%%%%%%%%%%%%%%%%%%%%,         ,(&@@@@@#*          #%%%%%%%%.            ########(            .#########    (#######,########################%%%%%%%%%           *@@,.,      (&@@@@@#*    *     \n" +
+                "           #@@@. **//, ,@@@% #    *@@@@@.*##%#. @@@@#         @@@@ &              .@@@@@ &               @@@@@ &      .@@& &. @@@/    .@@@% .. .@@@.%  &@@@@ %          ,@& @     @@@* (%#%# @@@@,/     \n" +
+                "           (@@@.,        (/*        @@@@.%       *@@@@ ,      @@@@ .             .@@#@@@@.               @&@@@@ (      @@ #    @ &    .@@@%*     % &     @@@@% %       @@./      @@@ /        .@.&      \n" +
+                "           (@@@.,                   @@@@.%       /@@@@ /      @@@@ .             @@ /%@@@&               @& &@@@# .    @@ (           .@@@%*              ,@@@@ (.   *@& #       @@@@ &                 \n" +
+                "           #@@@.,    &@ &           @@@@.%      @@@@. %       @@@@ .         @.,@@ %  %@@@@.#@,#         @& .,@@@@ #   @@ (           .@@@%*                &@@@@ @ @@ %         *@@@@@@@@/             \n" +
+                "        @@(%@@@###((#@@ @           @@@@%@@@@@@@.  @          @@@@ .        @@@@@ &    @@@@@@@@*%        @& .  @@@@ &  @@ (           .@@@%*                  @@@@@@% *           % &@@@@@@@@@@@@       \n" +
+                "        (  #@@@.,     . @        %%*@@@@. .,&*@@...           @@@@ .          @@/@@ ( &@@@@@(#           @& .   @@@@,/ @@ (           .@@@%*                   @@@@ %                 (@%,  *@@@@@@ #   \n" +
+                "           #@@@.,                   @@@@.%    ,@@( *          @@@@ .         @@ % *@@@@ #@@@@/#          @@ .    /@@@#.@@ (           .@@@%*                   @@@@ %             .           (.@@@@ .  \n" +
+                "           #@@@.,         @ %       &@@@.%     #@@@ #         @@@@ .        @@**    & #   @@@@*#         @@ ,      @@@@@@ (           .@@@%*                   @@@@ %            /@**           (@@( .  \n" +
+                "           #@@@.,       @@@@, *     &@@@.%      @@@@@ %       @@@@ .      (@@@/(           @@@@.%       /@@.#       @@@@@ (           .@@@%*                   @@@@ %           %@@@@.#        (@@,,,   \n" +
+                "        *@@@@@@@@@@@@@@@@@@@@@/ ( &@@@@@@@,/    ,@@@@@@..# /@@@@@@@@@  (@@@@@@@@/.       @@@@@@@@@(  .&@@@@@@&,      %@@@ (         (@@@@@@@(%              .@@@@@@@@&&        ,    .*%@@@@@@@@, %,     \n" +
+                "                                                 @@* .&,                                                                                                                                .,*/,.          \n" +
+                "                                                  .                                                                                                                                                     \n");
+       
+        ClientMain clientMain = new ClientMain();
         try {
-            readParameters();
-            createConnection();
+            if(!clientMain.askParameters()){
+                clientMain.readParameters();
+                clientMain.createConnection();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        sendMessage = new ObjectToJSON(clientSocket);
-        receiveMessage = new JSONtoObject(clientSocket);
-
-    }
-
-    public static void main(String[] args) {
-        ClientMain clientMain = new ClientMain();
         new PingPongThread(clientMain.getClientSocket(), "client");
         //clientMain.pingPong();
         clientMain.login();
@@ -62,7 +76,7 @@ public class ClientMain extends Thread {
             choice = clientMain.choseMage();
         }
 
-        clientMain.showModel1();
+        clientMain.showModel();
 
         //playCard
         choice = false;
@@ -72,7 +86,6 @@ public class ClientMain extends Thread {
 
         for (int k =0; k < 4; k++)
             cloudName[k]=k;
-        System.out.println("Waiting for my turn...");
         while (true){
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
@@ -85,7 +98,7 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.selectCloudCard();
                         choice = false;
-                        clientMain.showModel1();
+                        clientMain.showModel();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
@@ -111,7 +124,7 @@ public class ClientMain extends Thread {
                         clientMain.selectCloudCard();
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel1();
+                        clientMain.showModel();
                         message = clientMain.receiveMessage().getCode();
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
@@ -131,6 +144,35 @@ public class ClientMain extends Thread {
             }
 
         }
+    }
+
+    private boolean askParameters() throws IOException{
+        String input = "";
+        while(!Objects.equals(input, "no") && !Objects.equals(input, "yes"))
+        {
+            System.out.println("Do you want to set the server's IP and port?");
+            Scanner charscanner = new Scanner(System.in);
+            input = charscanner.nextLine();
+        }
+        if(input.equals("yes")){
+            String IP = null;
+            boolean ok = false;
+            System.out.println("Insert IP:");
+            Scanner scanner = new Scanner(System.in);
+            IP = scanner.nextLine();
+            System.out.println("Insert port:");
+            port = scanner.nextInt();
+            InetAddress host = InetAddress.getByName(IP);
+            clientSocket = new Socket(host, port);
+            clientSocket.setSoTimeout(100000);
+            setReceiveMessage(new JSONtoObject(clientSocket));
+            setSendMessage(new ObjectToJSON(clientSocket));
+            return true;
+
+        } else if(input.equals("no")){
+            return false;
+        }
+        return false;
     }
 
     private void readParameters() throws IOException {
@@ -160,6 +202,8 @@ public class ClientMain extends Thread {
         InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
         clientSocket.setSoTimeout(100000);
+        setReceiveMessage(new JSONtoObject(clientSocket));
+        setSendMessage(new ObjectToJSON(clientSocket));
     }
 
     public Socket getClientSocket() {
@@ -231,7 +275,12 @@ public class ClientMain extends Thread {
 
     public boolean choseMage() {
         System.out.println("");
-        System.out.println("The game is starting... ");
+        System.out.println(" _____________________________\n" +
+                "|                             |\n" +
+                "|                             |\n" +
+                "|   The game is starting...   |\n" +
+                "|                             |\n" +
+                "|_____________________________|\n");
         boolean ok = false;
         sendMessage.sendMageMessage(new MageMessage());
         MageMessage mageMessage = (MageMessage) receiveMessage();
@@ -272,7 +321,12 @@ public class ClientMain extends Thread {
         MessageInterface receivedMessage = receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR){
             System.out.println("Correct selection.\r");
-            System.out.println("Waiting for the opponent's move...");
+            System.out.println(" ________________________________________\n" +
+                    "|                                        |\n" +
+                    "|                                        |\n" +
+                    "|   Waiting for the opponent's move...   |\n" +
+                    "|                                        |\n" +
+                    "|________________________________________|");
             return true;
         } else if (receivedMessage.getCode() == MessageType.MAGEERROR) {
             return false;
@@ -339,7 +393,12 @@ public class ClientMain extends Thread {
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
             System.out.println("Correct selection.\r");
-            System.out.println("Waiting for the opponent...");
+            System.out.println(" ________________________________________\n" +
+                    "|                                        |\n" +
+                    "|                                        |\n" +
+                    "|   Waiting for the opponent's move...   |\n" +
+                    "|                                        |\n" +
+                    "|________________________________________|");
             return true;
         } else if (receivedMessage.getCode() == MessageType.CARDERROR) {
             return false;
@@ -360,10 +419,19 @@ public class ClientMain extends Thread {
         int student3Entrance = -1;
         int student3WhereToPut = -1;
         int indexIslandIf3ToIsland = -1;
+        int student4Entrance = -1;
+        int student4WhereToPut = -1;
+        int indexIslandIf4ToIsland = -1;
         int i = 0;
         int student = -1;
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage());
-        while (i < 3){
+        int requests = -1;
+        if(gameSize == 2 || gameSize == 4){
+            requests = 3;
+        } else if(gameSize == 3){
+            requests = 4;
+        }
+        while (i < requests){
             student = -1;
             while (student < 1 || student > 7) {
                 System.out.println("SELECT a student from the entrance:\n");
@@ -470,12 +538,40 @@ public class ClientMain extends Thread {
                     }
                 }
             }
+            if(i==3 && gameSize == 3) {
+                student4Entrance = student;
+                student4WhereToPut = pose;
+                if (student4WhereToPut == 1) {
+                    while (indexIslandIf4ToIsland < 0 || indexIslandIf4ToIsland > model.getArchipelago().size() - 1) {
+                        System.out.println("WHAT ISLAND? (enter the Island number)");
+                        Scanner scanner3 = new Scanner(System.in);
+                        try {
+                            indexIslandIf4ToIsland = scanner3.nextInt();
+                        }catch (InputMismatchException e){
+                            scanner3.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                        while (indexIslandIf4ToIsland < 0 || indexIslandIf4ToIsland > 10){
+                            System.out.println("Please enter a valid number");
+                            try {
+                                indexIslandIf4ToIsland = scanner3.nextInt();
+                            }catch (InputMismatchException e){
+                                scanner3.nextLine();
+                                System.out.println("Please retry...");
+                            }
+                        }
+                    }
+                }
+            }
             i++;
         }
 
-        sendMessage.sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance,student1WhereToPut,indexIslandIf1ToIsland,student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,student3Entrance,student3WhereToPut,indexIslandIf3ToIsland));
+        sendMessage.sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance,student1WhereToPut,indexIslandIf1ToIsland,
+                student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,
+                student3Entrance,student3WhereToPut,indexIslandIf3ToIsland,
+                student4Entrance,student4WhereToPut,indexIslandIf4ToIsland));
 
-        showModel1();
+        showModel();
 
         MessageInterface receivedMessage = receiveMessage.receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR) {
@@ -704,7 +800,7 @@ public class ClientMain extends Thread {
 
         sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
 
-        showModel1();
+        showModel();
 
         MessageInterface receivedMessage = receiveMessage();
         selectedCard = -1;
@@ -766,13 +862,11 @@ public class ClientMain extends Thread {
 
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
     }
-    
 
     public void setModel(ModelMessage model){
         this.model = model;
 
     }
-
 
     public void showModel1() {
 
@@ -870,4 +964,11 @@ public class ClientMain extends Thread {
         characterHandler.askCharacter();
     }
 
+    public void setSendMessage(ObjectToJSON sendMessage) {
+        this.sendMessage = sendMessage;
+    }
+
+    public void setReceiveMessage(JSONtoObject receiveMessage) {
+        this.receiveMessage = receiveMessage;
+    }
 }

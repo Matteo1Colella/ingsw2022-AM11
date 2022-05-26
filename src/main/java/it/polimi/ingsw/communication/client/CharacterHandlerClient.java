@@ -30,6 +30,7 @@ public class CharacterHandlerClient {
 
     public boolean askCharacter(){
         coinsOwned = model.getCoinOwned();
+
         System.out.println("coins:" + coinsOwned);
         String input = "";
         int choice = -1;
@@ -39,19 +40,20 @@ public class CharacterHandlerClient {
             Scanner charscanner = new Scanner(System.in);
             input = charscanner.nextLine();
         }
-        int n = 0;
+        int n = 0, l = 0;
         for (CharacterCard temp : playableCharacters) {
             //System.out.println(temp.getNecessaryCoin());
             if (temp.getNecessaryCoin() <= coinsOwned) {
-                System.out.println(n + ": Character " + temp.getNum());
+                System.out.println(l + ": Character " + temp.getNum());
                 n++;
             }
+            l++;
         }
         if (n == 0){
             System.out.println("No character usable");
             return false;
         }
-        while (choice < 0 || choice >=n) {
+        while (choice < 0 || choice >=l) {
             System.out.println("Select the character you want to use");
             Scanner charScanner = new Scanner(System.in);
             choice = charScanner.nextInt();
@@ -66,12 +68,12 @@ public class CharacterHandlerClient {
         switch (playableCharacters.get(choice).getNum()){
             case 1:
                 // TODO: 23/05/2022 show in a different way the print of the students: in the model message must be an array containing this students
-                Character1 card1 = (Character1) playableCharacters.get(choice);
+                //Character1 card1 = (Character1) playableCharacters.get(choice);
                 int val = -1;
                 int val2 = - 1;
 
-                card1.getStudents().stream().map(Student::getColor).forEach(System.out::println);
-                while(val < 0 || val > card1.getStudents().size()) {
+                playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+                while(val < 0 || val > playableCharacters.get(choice).getStudents().size()) {
                     System.out.println("Choose Student");
                     Scanner charscanner = new Scanner(System.in);
                     val = charscanner.nextInt();
@@ -105,7 +107,7 @@ public class CharacterHandlerClient {
 
                 break;
             case 4:
-                Character4 card4 = (Character4) playableCharacters.get(choice);
+                //Character4 card4 = (Character4) playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter4Message(choice));
                 //card4.effect(currentPlayer);
                 break;
@@ -129,7 +131,7 @@ public class CharacterHandlerClient {
                 break;
             case 7:
                 // TODO: 23/05/2022 show in a different way the print of the students: in the model message must be an array containing this students
-                Character7 card7 = (Character7) playableCharacters.get(choice);
+                //Character7 card7 = (Character7) playableCharacters.get(choice);
                 int val7 = -1;
                 int[] fromEntrance = {-1, -1, -1};
                 int[] fromCard = {-1, -1, -1};
@@ -154,10 +156,10 @@ public class CharacterHandlerClient {
                 }
 
                 System.out.println("students on character:");
-                card7.getStudents().stream().map(Student::getColor).forEach(System.out::println);
+                playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
                 for(int n7 = 0; n7 < 3; n7++){
                     val7 = -1;
-                    while(val7 < 0 || val7 > card7.getStudents().size()||duplicate>0) {
+                    while(val7 < 0 || val7 > playableCharacters.get(choice).getStudents().size()||duplicate>0) {
                         duplicate = 0;
                         System.out.println("choose the " + n7 + " student from entrance");
                         Scanner charscanner = new Scanner(System.in);
@@ -329,10 +331,10 @@ public class CharacterHandlerClient {
                 int val11 = -1;
                 System.out.println("test");
                 // TODO: 23/05/2022 show in a different way the print of the students: in the model message must be an array containing this students
-                Character11 card11 = (Character11) playableCharacters.get(choice);
-                card11.getStudents().stream().map(Student::getColor).forEach(System.out::println);
+                //Character11 card11 = (Character11) playableCharacters.get(choice);
+                playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
 
-                while(val11 < 0 || val11 > card11.getStudents().size()) {
+                while(val11 < 0 || val11 > playableCharacters.get(choice).getStudents().size()) {
                     System.out.println("choose Student");
                     Scanner charscanner = new Scanner(System.in);
                     val11 = charscanner.nextInt();
