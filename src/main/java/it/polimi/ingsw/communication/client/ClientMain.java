@@ -841,7 +841,12 @@ public class ClientMain extends Thread {
                 } else {
                     cloudName[choice]=-1;
                     ok = true;
-                    System.out.println("Please wait the opponent's move...");
+                    System.out.println(" ________________________________________\n" +
+                            "|                                        |\n" +
+                            "|                                        |\n" +
+                            "|   Please wait the opponent's move...   |\n" +
+                            "|                                        |\n" +
+                            "|________________________________________|");
                 }
             }
         }
