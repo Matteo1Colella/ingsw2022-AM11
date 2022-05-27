@@ -30,8 +30,6 @@ public class CharacterHandlerClient {
 
     public boolean askCharacter(){
         coinsOwned = model.getCoinOwned();
-
-        System.out.println("coins:" + coinsOwned);
         String input = "";
         int choice = -1;
         while(!Objects.equals(input, "no") && !Objects.equals(input, "yes"))
@@ -39,6 +37,9 @@ public class CharacterHandlerClient {
             System.out.println("Do you want to use a character?");
             Scanner charscanner = new Scanner(System.in);
             input = charscanner.nextLine();
+        }
+        if(input.equals("no")){
+            return false;
         }
         int n = 0, l = 0;
         for (CharacterCard temp : playableCharacters) {
@@ -155,13 +156,13 @@ public class CharacterHandlerClient {
                     fromEntrance[n7] = val7;
                 }
 
-                System.out.println("students on character:");
+                System.out.println("Students on character:");
                 playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
                 for(int n7 = 0; n7 < 3; n7++){
                     val7 = -1;
                     while(val7 < 0 || val7 > playableCharacters.get(choice).getStudents().size()||duplicate>0) {
                         duplicate = 0;
-                        System.out.println("choose the " + n7 + " student from entrance");
+                        System.out.println("choose the " + n7 + " student from the character");
                         Scanner charscanner = new Scanner(System.in);
                         val7 = charscanner.nextInt();
 
@@ -216,6 +217,14 @@ public class CharacterHandlerClient {
 
                 break;
             case 10:
+                int i = 0;
+                for(ColorStudent colorStudent : ColorStudent.values()){
+                    i += model.getSchoolBoard().getDiningRoom(colorStudent).getStudentsSize();
+
+                }
+                if(i < 2){
+                    return;
+                }
 
                 int[] fromE = {-1,-1,-1};
                 ArrayList<Student> aFromDining = new ArrayList<>();
@@ -319,7 +328,7 @@ public class CharacterHandlerClient {
                     }
                 }
                 int[] studentsFromEntrance = new int[3];
-                for(int i = 0; i < 2; i++){
+                for(i = 0; i < 2; i++){
                     studentsFromEntrance[i] = model.getSchoolBoard().getEntrance().getStudents().indexOf(aFromDining.get(i));
                 }
                 //Character10 card10 = (Character10)playableCharacters.get(choice);

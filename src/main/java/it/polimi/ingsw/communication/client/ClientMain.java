@@ -12,11 +12,11 @@ import it.polimi.ingsw.model.pieces.Student;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.*;
+
 
 public class ClientMain extends Thread {
     private int port;
@@ -26,8 +26,9 @@ public class ClientMain extends Thread {
     private JSONtoObject receiveMessage;
     private int selectedCard;
     private int gameSize;
-    private boolean gameType;
     private ModelMessage model;
+    private boolean gameType;
+
     private CharacterHandlerClient characterHandler;
 
     public ObjectToJSON getSendMessage() {
@@ -39,6 +40,7 @@ public class ClientMain extends Thread {
     }
 
     public static void main(String[] args) {
+        ClientMain clientMain = new ClientMain();
         System.out.println("                                                                                                                                                                                                       \n" +
                 "                                                                                                                                                                                                        \n" +
                 "                                                                                                                                                                            ,&@@ *#                     \n" +
@@ -56,8 +58,7 @@ public class ClientMain extends Thread {
                 "        *@@@@@@@@@@@@@@@@@@@@@/ ( &@@@@@@@,/    ,@@@@@@..# /@@@@@@@@@  (@@@@@@@@/.       @@@@@@@@@(  .&@@@@@@&,      %@@@ (         (@@@@@@@(%              .@@@@@@@@&&        ,    .*%@@@@@@@@, %,     \n" +
                 "                                                 @@* .&,                                                                                                                                .,*/,.          \n" +
                 "                                                  .                                                                                                                                                     \n");
-       
-        ClientMain clientMain = new ClientMain();
+
         try {
             if(!clientMain.askParameters()){
                 clientMain.readParameters();
@@ -86,6 +87,7 @@ public class ClientMain extends Thread {
 
         for (int k =0; k < 4; k++)
             cloudName[k]=k;
+        System.out.println("Waiting for my turn...");
         while (true){
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
@@ -101,7 +103,6 @@ public class ClientMain extends Thread {
                         message = clientMain.receiveMessage().getCode();
                         clientMain.showModel();
                         message = clientMain.receiveMessage().getCode();
-
                         while (!choice) {
                             choice = clientMain.playAssistantCard();
                         }
@@ -125,10 +126,6 @@ public class ClientMain extends Thread {
                         clientMain.moveMotherNature();
                         clientMain.askCharacter();
                         clientMain.selectCloudCard();
-                        message = clientMain.receiveMessage().getCode();
-                        clientMain.showModel();
-                        message = clientMain.receiveMessage().getCode();
-
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
                         clientMain.showModel();
@@ -149,7 +146,6 @@ public class ClientMain extends Thread {
                 }
 
             }
-
         }
     }
 
@@ -182,8 +178,7 @@ public class ClientMain extends Thread {
         return false;
     }
 
-    private void readParameters() throws IOException {
-
+    public void readParameters() throws IOException {
         Gson gson = new Gson();
         //create a reader
         Reader reader = Files.newBufferedReader(Paths.get("src/main/java/it/polimi/ingsw/communication/client/configClient.json"));
@@ -199,7 +194,7 @@ public class ClientMain extends Thread {
         }
     }
 
-    private void createConnection() throws IOException {
+    public void createConnection() throws IOException {
         //connect to the server on the local host: to be modified.
         // socket parameters
         /*
@@ -334,6 +329,9 @@ public class ClientMain extends Thread {
                     "|   Waiting for the opponent's move...   |\n" +
                     "|                                        |\n" +
                     "|________________________________________|");
+
+
+
             return true;
         } else if (receivedMessage.getCode() == MessageType.MAGEERROR) {
             return false;
@@ -349,6 +347,9 @@ public class ClientMain extends Thread {
 
         //ask the list of cards already played on the table
         sendMessage.sendAssistantCardsMessage(new AssistantCardsMessage());
+
+
+
         AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) receiveMessage();
 
         System.out.println("List of played cards on table: ");
@@ -580,17 +581,17 @@ public class ClientMain extends Thread {
 
         showModel();
 
-        MessageInterface receivedMessage = receiveMessage.receiveMessage();
-        if (receivedMessage.getCode() == MessageType.NOERROR) {
-            System.out.println("Correct selection.\r");
-        } else if (receivedMessage.getCode() == MessageType.MOVESTUDENTERROR) {
-        }
 
+        MessageInterface receivedMessage = receiveMessage.receiveMessage();
+        if (receivedMessage.getCode() == MessageType.TURN) {
+            System.out.println("Correct selection.\r");
+        }
     }
 
     public void showModel() {
 
         //ask the list of GameComponents (all the model)
+
         sendMessage.sendModelMessage(new ModelMessage());
         ModelMessage modelMessage = (ModelMessage) receiveMessage();
         this.model = modelMessage;
@@ -693,7 +694,7 @@ public class ClientMain extends Thread {
         } else {
             return message;
         }
-       return null;
+        return null;
     }
 
     public boolean moveMotherNature(){
@@ -811,13 +812,12 @@ public class ClientMain extends Thread {
 
         MessageInterface receivedMessage = receiveMessage();
         selectedCard = -1;
-        if (receivedMessage.getCode() == MessageType.NOERROR) {
+        if (receivedMessage.getCode() == MessageType.TURN) {
             System.out.println("Correct selection.\r");
             return true;
-        } else if (receivedMessage.getCode() == MessageType.MOVEMOTHERNATUREERROR) {
-            return false;
         }
         return false;
+
     }
 
     public void selectCloudCard(){
@@ -841,12 +841,12 @@ public class ClientMain extends Thread {
                 } else {
                     cloudName[choice]=-1;
                     ok = true;
-                    System.out.println(" ________________________________________\n" +
-                            "|                                        |\n" +
-                            "|                                        |\n" +
-                            "|   Please wait the opponent's move...   |\n" +
-                            "|                                        |\n" +
-                            "|________________________________________|");
+
+
+
+                    System.out.println("Please wait the opponent's move...");
+
+
                 }
             }
         }
@@ -870,17 +870,16 @@ public class ClientMain extends Thread {
             }
         }
 
-
-
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
     }
+
 
     public void setModel(ModelMessage model){
         this.model = model;
 
     }
-
     /*
+
     public void showModel1() {
 
         //ask the list of GameComponents (all the model)
@@ -976,7 +975,6 @@ public class ClientMain extends Thread {
 
      */
 
-
     public void askCharacter(){
         characterHandler.askCharacter();
     }
@@ -988,5 +986,4 @@ public class ClientMain extends Thread {
     public void setReceiveMessage(JSONtoObject receiveMessage) {
         this.receiveMessage = receiveMessage;
     }
-
 }

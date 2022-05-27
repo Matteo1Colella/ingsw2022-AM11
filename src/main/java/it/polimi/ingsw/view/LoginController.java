@@ -228,7 +228,12 @@ private ClientMain client;
 
         //clientMain.login();
         this.client = clientMain;
-
+        try{
+            clientMain.readParameters();
+            clientMain.createConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         anchorPane.setOpacity(0);
         stackPane.setOpacity(1);
         Timeline timeline = new Timeline(
