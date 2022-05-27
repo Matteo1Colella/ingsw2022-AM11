@@ -544,7 +544,7 @@ public class ComplexLobby{
         int choice = characterMessage.getChoice();
         ArrayList<CharacterCard> characterCards = game.getGameComponents().getSpecialDeck().getCards();
         ArrayList<IslandCard> archipelago =  game.getGameComponents().getArchipelago();
-        switch (code){
+        switch (choice){
             case 1:
                 Character1 card = (Character1) characterCards.get(choice);
                 card.effect(activePlayer,archipelago.get(characterMessage.getIslandCharacter()), characterMessage.getStudentCharacter());
