@@ -453,6 +453,9 @@ public class ClientMain extends Thread {
         int student4Entrance = -1;
         int student4WhereToPut = -1;
         int indexIslandIf4ToIsland = -1;
+        int alreadyChosenStudent1 = -55;
+        int alreadyChosenStudent2 = -55;
+        int alreadyChosenStudent3 = -55;
         int i = 0;
         int student = -1;
         sendMessage.sendMoveStudentsMessage(new MoveStudentMessage());
@@ -465,25 +468,48 @@ public class ClientMain extends Thread {
         while (i < requests){
             student = -1;
             if(gameSize == 2 || gameSize == 4){
-                while (student < 1 || student > 7) {
-                    System.out.println("SELECT a student from the entrance:\n");
-                    Scanner scanner1 = new Scanner(System.in);
-                    try {
-                        student = scanner1.nextInt();
-                    }catch (InputMismatchException e){
-                        scanner1.nextLine();
-                        System.out.println("Please retry...");
+                while (student < 1 || student > 7 ) {
+                    if (student != alreadyChosenStudent1 && student != alreadyChosenStudent2){
+                        System.out.println("SELECT a student from the entrance:\n");
+                        Scanner scanner1 = new Scanner(System.in);
+                        try {
+                            student = scanner1.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner1.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                    }while(student == alreadyChosenStudent1 || student == alreadyChosenStudent2){
+                        System.out.println("Please select a never chosen student on the Entrance!");
+                        Scanner scanner1 = new Scanner(System.in);
+                        try {
+                            student = scanner1.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner1.nextLine();
+                            System.out.println("Please retry...");
+                        }
                     }
                 }
             } else if(gameSize == 3){
                 while (student < 1 || student > 9) {
-                    System.out.println("SELECT a student from the entrance:\n");
-                    Scanner scanner1 = new Scanner(System.in);
-                    try {
-                        student = scanner1.nextInt();
-                    }catch (InputMismatchException e){
-                        scanner1.nextLine();
-                        System.out.println("Please retry...");
+                    if (student != alreadyChosenStudent1 && student != alreadyChosenStudent2 && student != alreadyChosenStudent3){
+                        System.out.println("SELECT a student from the entrance:\n");
+                        Scanner scanner1 = new Scanner(System.in);
+                        try {
+                            student = scanner1.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner1.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                    }while(student == alreadyChosenStudent1 || student == alreadyChosenStudent2 || student == alreadyChosenStudent3){
+                        System.out.println("Please select a never chosen student on the Entrance!");
+                        System.out.println("SELECT a student from the entrance:\n");
+                        Scanner scanner1 = new Scanner(System.in);
+                        try {
+                            student = scanner1.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner1.nextLine();
+                            System.out.println("Please retry...");
+                        }
                     }
                 }
             }
@@ -499,6 +525,7 @@ public class ClientMain extends Thread {
                 scanner2.nextLine();
                 System.out.println("Please retry...");
             }
+
             while (pose < 0 || pose > 1){
                 System.out.println("Please enter 0 (SCHOOLBOARD) or 1 (ISLAND)");
                 try {
@@ -532,6 +559,7 @@ public class ClientMain extends Thread {
                         }
                     }
                 }
+                alreadyChosenStudent1=student;
             }
             if(i==1){
                 student2Entrance = student;
@@ -557,6 +585,7 @@ public class ClientMain extends Thread {
                         }
                     }
                 }
+                alreadyChosenStudent2=student;
             }
             if(i==2) {
                 student3Entrance = student;
@@ -582,6 +611,7 @@ public class ClientMain extends Thread {
                         }
                     }
                 }
+                alreadyChosenStudent3 = student;
             }
             if(i==3 && gameSize == 3) {
                 student4Entrance = student;

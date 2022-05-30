@@ -13,9 +13,7 @@ import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
 
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class CharacterHandlerClient {
     private ArrayList<CharacterCard> playableCharacters;
@@ -35,13 +33,17 @@ public class CharacterHandlerClient {
 
     public boolean askCharacter(){
         coinsOwned = model.getCoinOwned();
+        HashMap<Integer,Integer> chosen = new HashMap<>();
         String input = "";
         int choice = -1;
         while(!Objects.equals(input, "no") && !Objects.equals(input, "yes"))
         {
-            System.out.println("Do you want to use a character?");
+            System.out.println("Do you want to use a character?\n");
             Scanner charscanner = new Scanner(System.in);
             input = charscanner.nextLine();
+            if(!Objects.equals(input, "no") && !Objects.equals(input, "yes")) {
+                System.out.println("Please digit yes or no...\n");
+            }
         }
         if(input.equals("no")){
             return false;
@@ -51,6 +53,7 @@ public class CharacterHandlerClient {
             //System.out.println(temp.getNecessaryCoin());
             if (temp.getNecessaryCoin() <= coinsOwned) {
                 System.out.println(l + ": Character " + temp.getNum());
+                chosen.put(l,temp.getNum());
                 n++;
             }
             l++;
@@ -59,10 +62,15 @@ public class CharacterHandlerClient {
             System.out.println("No character usable");
             return false;
         }
-        while (choice < 0 || choice >=l) {
+        while (choice < 0 || choice >=l || chosen.get(choice)==null) {
             System.out.println("Select the character you want to use");
             Scanner charScanner = new Scanner(System.in);
-            choice = charScanner.nextInt();
+            try {
+                choice = charScanner.nextInt();
+            }catch (InputMismatchException e){
+                charScanner.nextLine();
+                System.out.println("Please retry...");
+            }
         }
 
         playCharacter(choice);
@@ -92,11 +100,25 @@ public class CharacterHandlerClient {
                     j++;
                 }
 
-                playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+                //playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
                 while(val < 0 || val > playableCharacters.get(choice).getStudents().size()) {
-                    System.out.println("Choose Student");
+                    System.out.println("Choose Student:\n");
                     Scanner charscanner = new Scanner(System.in);
-                    val = charscanner.nextInt();
+                    try {
+                        val = charscanner.nextInt();
+                    }catch (InputMismatchException e){
+                        charscanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
+                    while (val < 0 || val > 3){
+                        System.out.println("Please enter a valid student: ");
+                        try {
+                            val = charscanner.nextInt();
+                        }catch (InputMismatchException e){
+                            charscanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                    }
                 }
 
                 while(val2 < 0 || val2 > model.getArchipelago().size()) {
@@ -121,7 +143,12 @@ public class CharacterHandlerClient {
                 while(val3 < 0 || val3 > model.getArchipelago().size()) {
                     System.out.println("Choose Island");
                     Scanner charscanner = new Scanner(System.in);
-                    val3 = charscanner.nextInt();
+                    try {
+                        val3 = charscanner.nextInt();
+                    }catch (InputMismatchException e){
+                        charscanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter3Message(val3, choice));
                 //card3.effect(currentPlayer,  newGame.getGameComponents().getArchipelago().get(val3));
@@ -140,7 +167,12 @@ public class CharacterHandlerClient {
                 while(val5 < 0 || val5 > model.getArchipelago().size()) {
                     System.out.println("Choose Island");
                     Scanner charscanner = new Scanner(System.in);
-                    val5 = charscanner.nextInt();
+                    try {
+                        val5 = charscanner.nextInt();
+                    }catch (InputMismatchException e){
+                        charscanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter5Message(val5, choice));
                 //card5.effect(currentPlayer, newGame.getGameComponents().getArchipelago().get(val5));
@@ -162,11 +194,16 @@ public class CharacterHandlerClient {
 
                 for(int n7 = 0; n7 < 3; n7++){
                     val7 = -1;
-                    while(val7 < 0 || val7 > model.getSchoolBoard().getEntrance().getStudents().size() || duplicate > 0) {
+                    while(val7 < 0 || val7 > model.getSchoolBoard().getEntrance().getStudents().size()-1 || duplicate > 0) {
                         duplicate = 0;
                         System.out.println("Choose the " + n7 + " student from entrance");
                         Scanner charscanner = new Scanner(System.in);
-                        val7 = charscanner.nextInt();
+                        try {
+                            val7 = charscanner.nextInt();
+                        }catch (InputMismatchException e){
+                            charscanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
 
                         for(j = 0; j < fromEntrance.length; j++){
                             if (fromEntrance[j] == val7){
@@ -188,11 +225,16 @@ public class CharacterHandlerClient {
                 }
                 for(int n7 = 0; n7 < 3; n7++){
                     val7 = -1;
-                    while(val7 < 0 || val7 > playableCharacters.get(choice).getStudents().size()||duplicate>0) {
+                    while(val7 < 0 || val7 > playableCharacters.get(choice).getStudents().size()-1||duplicate>0) {
                         duplicate = 0;
                         System.out.println("choose the " + n7 + " student from the character");
                         Scanner charscanner = new Scanner(System.in);
-                        val7 = charscanner.nextInt();
+                        try {
+                            val7 = charscanner.nextInt();
+                        }catch (InputMismatchException e){
+                            charscanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
 
                         for(j = 0; j < fromEntrance.length; j++){
                             if (fromCard[j] == val7){
@@ -219,6 +261,8 @@ public class CharacterHandlerClient {
                 while(!chosencolor.equals("red") && !chosencolor.equals("blue") && !chosencolor.equals("yellow") && !chosencolor.equals("pink") && !chosencolor.equals("green")){
                     Scanner charscanner = new Scanner(System.in);
                     chosencolor = charscanner.nextLine();
+                    if(!chosencolor.equals("red") && !chosencolor.equals("blue") && !chosencolor.equals("yellow") && !chosencolor.equals("pink") && !chosencolor.equals("green"))
+                        System.out.println("Please select: red, blue, yellow, pink or green");
                 }
 
                 switch(chosencolor){
@@ -274,7 +318,12 @@ public class CharacterHandlerClient {
                         dup = 0;
                         System.out.println("choose the " + j + " student from entrance");
                         Scanner charscanner = new Scanner(System.in);
-                        s = charscanner.nextInt();
+                        try {
+                            s = charscanner.nextInt();
+                        }catch (InputMismatchException e){
+                            charscanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
                         for(int z = 0; z < fromE.length; z++){
                             if (fromE[z] == s){
                                 dup ++;
@@ -293,6 +342,8 @@ public class CharacterHandlerClient {
                         System.out.println("choose the color of the dining room you want to draw a student from");
                         Scanner charscanner = new Scanner(System.in);
                         diningroomcolor = charscanner.nextLine();
+                        if(!diningroomcolor.equals("red") && !diningroomcolor.equals("blue") && !diningroomcolor.equals("yellow") && !diningroomcolor.equals("pink") && !diningroomcolor.equals("green"))
+                            System.out.println("Please select: red, blue, yellow, pink or green");
                     }
 
                     if(diningroomcolor.equals("red")){
@@ -381,7 +432,12 @@ public class CharacterHandlerClient {
                 while(val11 < 0 || val11 > playableCharacters.get(choice).getStudents().size()) {
                     System.out.println("choose Student");
                     Scanner charscanner = new Scanner(System.in);
-                    val11 = charscanner.nextInt();
+                    try {
+                        val11 = charscanner.nextInt();
+                    }catch (InputMismatchException e){
+                        charscanner.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter11Message(val11, choice));
                 //card11.effect(currentPlayer, val11);
@@ -396,6 +452,8 @@ public class CharacterHandlerClient {
                     System.out.println("choose Color");
                     Scanner charscanner = new Scanner(System.in);
                     col = charscanner.nextLine();
+                    if(!col.equals("red") && !col.equals("blue") && !col.equals("green") && !col.equals("yellow") && !col.equals("pink"))
+                        System.out.println("Please select: red, blue, yellow, pink or green");
                 }
                 switch(col){
                     case "red":
@@ -415,7 +473,7 @@ public class CharacterHandlerClient {
                         break;
                 }
 
-                System.out.println("test");
+                //System.out.println("test");
                 //Character12 card12 = (Character12) playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter12Message(c12, choice));
                 //card12.effect(currentPlayer, c12);
