@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.board.CloudCard;
 import it.polimi.ingsw.model.board.DiningRoom;
 import it.polimi.ingsw.model.board.IslandCard;
 import it.polimi.ingsw.model.cards.CharacterCard;
+import it.polimi.ingsw.model.colors.ColorStudent;
+import it.polimi.ingsw.model.colors.ColorTower;
 import it.polimi.ingsw.model.pieces.Student;
 
 import java.io.*;
@@ -19,6 +21,23 @@ import java.util.*;
 
 
 public class ClientMain extends Thread {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
     private int port;
     private static int[] cloudName = new int[4];
     private Socket clientSocket;
@@ -41,7 +60,7 @@ public class ClientMain extends Thread {
 
     public static void main(String[] args) {
         ClientMain clientMain = new ClientMain();
-        System.out.println("                                                                                                                                                                                                       \n" +
+        System.out.println(ANSI_PURPLE +"                                                                                                                                                                                                       \n" +
                 "                                                                                                                                                                                                        \n" +
                 "                                                                                                                                                                            ,&@@ *#                     \n" +
                 "                                                                                                                                                                         @@@@@ (.                       \n" +
@@ -57,7 +76,7 @@ public class ClientMain extends Thread {
                 "           #@@@.,       @@@@, *     &@@@.%      @@@@@ %       @@@@ .      (@@@/(           @@@@.%       /@@.#       @@@@@ (           .@@@%*                   @@@@ %           %@@@@.#        (@@,,,   \n" +
                 "        *@@@@@@@@@@@@@@@@@@@@@/ ( &@@@@@@@,/    ,@@@@@@..# /@@@@@@@@@  (@@@@@@@@/.       @@@@@@@@@(  .&@@@@@@&,      %@@@ (         (@@@@@@@(%              .@@@@@@@@&&        ,    .*%@@@@@@@@, %,     \n" +
                 "                                                 @@* .&,                                                                                                                                .,*/,.          \n" +
-                "                                                  .                                                                                                                                                     \n");
+                "                                                  .                                                                                                                                                     \n" + ANSI_RESET);
 
         try {
             if(!clientMain.askParameters()){
@@ -110,7 +129,7 @@ public class ClientMain extends Thread {
                     case WIN:
                         System.out.println("");
                         System.out.println("----GAME-OVER----");
-                        System.out.println(receivedMessage.getMessage());
+                        System.out.println(ANSI_PURPLE+receivedMessage.getMessage()+ANSI_RESET);
                         System.out.println("-----------------");
                         return;
                     case MODEL:
@@ -137,7 +156,7 @@ public class ClientMain extends Thread {
                     case WIN:
                         System.out.println("");
                         System.out.println("----GAME-OVER----");
-                        System.out.println(receivedMessage.getMessage());
+                        System.out.println(ANSI_PURPLE+receivedMessage.getMessage()+ANSI_RESET);
                         System.out.println("-----------------");
                         return;
                     case MODEL:
@@ -277,12 +296,12 @@ public class ClientMain extends Thread {
 
     public boolean choseMage() {
         System.out.println("");
-        System.out.println(" _____________________________\n" +
+        System.out.println(ANSI_PURPLE+" _____________________________\n" +
                 "|                             |\n" +
                 "|                             |\n" +
                 "|   The game is starting...   |\n" +
                 "|                             |\n" +
-                "|_____________________________|\n");
+                "|_____________________________|\n"+ANSI_RESET);
         boolean ok = false;
         sendMessage.sendMageMessage(new MageMessage());
         MageMessage mageMessage = (MageMessage) receiveMessage();
@@ -323,12 +342,12 @@ public class ClientMain extends Thread {
         MessageInterface receivedMessage = receiveMessage();
         if (receivedMessage.getCode() == MessageType.NOERROR){
             System.out.println("Correct selection.\r");
-            System.out.println(" ________________________________________\n" +
+            System.out.println(ANSI_PURPLE+" ________________________________________\n" +
                     "|                                        |\n" +
                     "|                                        |\n" +
                     "|   Waiting for the opponent's move...   |\n" +
                     "|                                        |\n" +
-                    "|________________________________________|");
+                    "|________________________________________|"+ANSI_RESET);
 
 
 
@@ -352,26 +371,30 @@ public class ClientMain extends Thread {
 
         AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) receiveMessage();
 
-        System.out.println("List of played cards on table: ");
+        System.out.println(ANSI_YELLOW+"List of played cards on table: "+ANSI_RESET);
         for (int j = 0; j < assistantCardsMessage.getChosenCard().size(); j++) {
-            System.out.println("CARD NAME: " + assistantCardsMessage.getChosenCard().get(j).getName());
-            System.out.println("Influence: -> " + assistantCardsMessage.getChosenCard().get(j).getInfluence());
-            System.out.println("Steps: -> " + assistantCardsMessage.getChosenCard().get(j).getSteps());
+            System.out.println(ANSI_YELLOW+"___________________________________"+ANSI_RESET);
+            System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"CARD NAME: " + assistantCardsMessage.getChosenCard().get(j).getName());
+            System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"Influence: -> " + assistantCardsMessage.getChosenCard().get(j).getInfluence());
+            System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"Steps: -> " + assistantCardsMessage.getChosenCard().get(j).getSteps());
+
         }
 
         //list of my cards:
 
         System.out.println("");
-        System.out.println("My cards:");
+        System.out.println(ANSI_YELLOW+"--> "+ANSI_RESET+ANSI_YELLOW_BACKGROUND+"My cards:"+ANSI_RESET);
         for (int i = 0; i < assistantCardsMessage.getDeck().size(); i++) {
             if(!assistantCardsMessage.getDeck().get(i).isUsed()){
-                System.out.println("");
-                System.out.println("(Enter -> " + (assistantCardsMessage.getDeck().get(i).getInfluence()) + " for: )");
-                System.out.println("NAME: " + assistantCardsMessage.getDeck().get(i).getName());
-                System.out.println("Influence: -> " + assistantCardsMessage.getDeck().get(i).getInfluence());
-                System.out.println("Steps: -> " + assistantCardsMessage.getDeck().get(i).getSteps());
+                System.out.println(ANSI_YELLOW+"___________________________________"+ANSI_RESET);
+                System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"(Enter -> " + (assistantCardsMessage.getDeck().get(i).getInfluence()) + " for: )");
+                System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"NAME: " + assistantCardsMessage.getDeck().get(i).getName());
+                System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"Influence: -> " + assistantCardsMessage.getDeck().get(i).getInfluence());
+                System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"Steps: -> " + assistantCardsMessage.getDeck().get(i).getSteps());
+
             }
         }
+        System.out.println("");
         System.out.println("Select card:\n");
         int card = -1;
         while (!ok) {
@@ -401,12 +424,12 @@ public class ClientMain extends Thread {
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
             System.out.println("Correct selection.\r");
-            System.out.println(" ________________________________________\n" +
+            System.out.println(ANSI_PURPLE+" ________________________________________\n" +
                     "|                                        |\n" +
                     "|                                        |\n" +
                     "|   Waiting for the opponent's move...   |\n" +
                     "|                                        |\n" +
-                    "|________________________________________|");
+                    "|________________________________________|"+ANSI_RESET);
             return true;
         } else if (receivedMessage.getCode() == MessageType.CARDERROR) {
             return false;
@@ -441,16 +464,30 @@ public class ClientMain extends Thread {
         }
         while (i < requests){
             student = -1;
-            while (student < 1 || student > 7) {
-                System.out.println("SELECT a student from the entrance:\n");
-                Scanner scanner1 = new Scanner(System.in);
-                try {
-                    student = scanner1.nextInt();
-                }catch (InputMismatchException e){
-                    scanner1.nextLine();
-                    System.out.println("Please retry...");
+            if(gameSize == 2 || gameSize == 4){
+                while (student < 1 || student > 7) {
+                    System.out.println("SELECT a student from the entrance:\n");
+                    Scanner scanner1 = new Scanner(System.in);
+                    try {
+                        student = scanner1.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner1.nextLine();
+                        System.out.println("Please retry...");
+                    }
+                }
+            } else if(gameSize == 3){
+                while (student < 1 || student > 9) {
+                    System.out.println("SELECT a student from the entrance:\n");
+                    Scanner scanner1 = new Scanner(System.in);
+                    try {
+                        student = scanner1.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner1.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
             }
+
             System.out.println("ENTER:\n");
             System.out.println("0 -> to move student " + student + " to your SCHOOLBOARD");
             System.out.println("1 -> to move student " + student + " to an ISLAND");
@@ -605,80 +642,299 @@ public class ClientMain extends Thread {
         //printing model..
 
         if (gameType == true) {
+            System.out.println("");
             if (modelMessage.getCoinOwned() >= 0) {
-                System.out.println("CHARACTER CARDS:");
+                System.out.println(ANSI_PURPLE+"--> "+ANSI_RESET + ANSI_PURPLE_BACKGROUND+ "CHARACTER CARDS:"+ANSI_RESET);
                 for (CharacterCard characterCard : modelMessage.getCharacterCards()) {
-                    System.out.println(characterCard.getNum());
+                    System.out.println(ANSI_PURPLE+characterCard.getNum()+ANSI_RESET);
+                    if (characterCard.getNum()==1)
+                        System.out.println("1 COIN EFFECT: Take a student from this card and place it on an island");
+                    if (characterCard.getNum()==2)
+                        System.out.println("2 COINS EFFECT: If you have the same number of professors as another player, you control them");
+                    if (characterCard.getNum()==3)
+                        System.out.println("3 COINS EFFECT: Choose an island where you can calculate dominance and place a tower if possible");
+                    if (characterCard.getNum()==4)
+                        System.out.println("1 COIN EFFECT: +2 extra steps of Mother Nature");
+                    if (characterCard.getNum()==5)
+                        System.out.println("2 COINS EFFECT: Put a No Entry Tile on an Island");
+                    if (characterCard.getNum()==6)
+                        System.out.println("3 COINS EFFECT: Do not calculate the towers on an island during the domination check");
+                    if (characterCard.getNum()==7)
+                        System.out.println("1 COIN EFFECT: Replace 3 students with those in your entrance");
+                    if (characterCard.getNum()==8)
+                        System.out.println("2 COINS EFFECT: +2 points of your influence in your turn");
+                    if (characterCard.getNum()==9)
+                        System.out.println("3 COINS EFFECT: Choose a color that provides no influence in your turn");
+                    if (characterCard.getNum()==10)
+                        System.out.println("1 COIN EFFECT: Exchange 2 students present in your Entrance and in your Dining Room");
+                    if (characterCard.getNum()==11)
+                        System.out.println("2 COINS EFFECT: Draw a student to put in your Dining Room");
+                    if (characterCard.getNum()==12)
+                        System.out.println("3 COINS EFFECT: Put 3 students of the color of your choice back into the bag from all Dining Rooms of all the players");
                 }
                 System.out.println("");
-                System.out.println("YOUR COINS:");
-                System.out.println(modelMessage.getCoinOwned());
+                System.out.println(ANSI_YELLOW+"--> "+ANSI_RESET +ANSI_YELLOW_BACKGROUND+ "YOUR COINS:" +ANSI_RESET);
+                System.out.println(ANSI_YELLOW+ modelMessage.getCoinOwned()+ANSI_RESET);
                 System.out.println("");
             }
         }
 
         int i = 0;
-        System.out.println("ARCHIPELAGO: ");
+        System.out.println("");
+        System.out.println(ANSI_GREEN+" ________________________________________\n" +
+                "|             ARCHIPELAGO                |\n" +
+                "|________________________________________|"+ANSI_RESET);
         System.out.println("");
         for (IslandCard islandCard : modelMessage.getArchipelago()) {
             if (islandCard.getMotherNature()) {
-                System.out.println("MOTHERNATURE");
-            }
-            if (islandCard.getTower() != null) {
-                System.out.println("ISLAND: " + i + "\tTower : " + islandCard.getTower().getColor().toString());
-            } else {
-                System.out.println("ISLAND: " + i + "\tTower : no tower");
+                System.out.println(ANSI_BLACK+ANSI_WHITE_BACKGROUND+"MOTHERNATURE"+ANSI_RESET+ANSI_RESET);
+            }if (i < 10) {
+                if(islandCard.getTower()!=null) {
+                    if (islandCard.getTower().getColor() == ColorTower.BLACK) {
+
+                        System.out.println(ANSI_GREEN + "" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          ISLAND          @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@                              @\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          BLACK           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
+
+                    }
+                    if (islandCard.getTower().getColor() == ColorTower.WHITE) {
+
+                        System.out.println(ANSI_GREEN + "" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          ISLAND          @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@                              @\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          WHITE           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
+
+                    }
+                    if (islandCard.getTower().getColor() == ColorTower.GREY) {
+
+                        System.out.println(ANSI_GREEN + "" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          ISLAND          @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@                              @\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@           GREY           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
+
+                    }
+                }
+                if(islandCard.getTower() == null){
+                    System.out.println(ANSI_GREEN + "" + ANSI_RESET +
+                            ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@          ISLAND          @@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@                              @\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@      There isn't any       @@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@          tower           @@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
+
+                }
+            }else{
+                if(islandCard.getTower()!=null) {
+                    if (islandCard.getTower().getColor() == ColorTower.BLACK) {
+
+                        System.out.println(ANSI_GREEN + "" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          ISLAND          @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@                              @\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          BLACK           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
+
+                    }
+                    if (islandCard.getTower().getColor() == ColorTower.WHITE) {
+
+                        System.out.println(ANSI_GREEN + "" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          ISLAND          @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@                              @\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          WHITE           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
+
+                    }
+                    if (islandCard.getTower().getColor() == ColorTower.GREY) {
+
+                        System.out.println(ANSI_GREEN + "" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          ISLAND          @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@                              @\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@           GREY           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
+
+                    }
+                }
+                if(islandCard.getTower() == null){
+                    System.out.println(ANSI_GREEN + "" + ANSI_RESET +
+                            ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@          ISLAND          @@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@                              @\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@      There isn't any       @@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@          tower           @@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
+                            ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
+
+                }
             }
             System.out.println("Students:");
             for (int j = 0; j < islandCard.getStudents().size(); j++) {
-                System.out.println("Student " + j + " color : " + islandCard.getStudents().get(j));
+                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.PINK))
+                    System.out.println("Student " + j + " color : " +ANSI_PURPLE+ islandCard.getStudents().get(j)+ANSI_RESET);
+                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.RED))
+                    System.out.println("Student " + j + " color : " +ANSI_RED+ islandCard.getStudents().get(j)+ANSI_RESET);
+                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.GREEN))
+                    System.out.println("Student " + j + " color : " +ANSI_GREEN+ islandCard.getStudents().get(j)+ANSI_RESET);
+                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.BLUE))
+                    System.out.println("Student " + j + " color : " +ANSI_BLUE+ islandCard.getStudents().get(j)+ANSI_RESET);
+                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.YELLOW))
+                    System.out.println("Student " + j + " color : " +ANSI_YELLOW+ islandCard.getStudents().get(j)+ANSI_RESET);
             }
             System.out.println("Merged with: ");
             for (int j = 0; j < islandCard.getMergedWith().size(); j++) {
                 IslandCard tempIslandCard = islandCard.getMergedWith().get(j);
                 for (int k = 0; k < tempIslandCard.getStudents().size(); k++) {
-                    System.out.println("Student " + k + " color : " + tempIslandCard.getStudents().get(k));
+                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.PINK))
+                        System.out.println("Student " + k + " color : " +ANSI_PURPLE+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
+                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.RED))
+                        System.out.println("Student " + k + " color : " +ANSI_RED+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
+                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.GREEN))
+                        System.out.println("Student " + k + " color : " +ANSI_GREEN+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
+                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.BLUE))
+                        System.out.println("Student " + k + " color : " +ANSI_BLUE+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
+                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.YELLOW))
+                        System.out.println("Student " + k + " color : " +ANSI_YELLOW+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
                 }
             }
             i++;
             System.out.println("");
         }
-        System.out.println("MY SCHOOLBOARD:");
+        System.out.println(ANSI_PURPLE+" ________________________________________\n" +
+                "|             MY SCHOOLBOARD             |\n" +
+                "|________________________________________|"+ANSI_RESET);
         System.out.println("");
-        System.out.println("ENTRANCE:" );
+        System.out.println(ANSI_PURPLE+"ENTRANCE:" +ANSI_RESET);
+        System.out.println(ANSI_PURPLE+"________________________________________" +ANSI_RESET);
         i = 0;
         for (Student student : modelMessage.getSchoolBoard().getEntrance().getStudents()) {
-            System.out.println("student " + (i + 1) + ":");
-            System.out.println(student.getColor());
+            System.out.println(ANSI_PURPLE+"|" +ANSI_RESET+"student " + (i + 1) + ":");
+            if(student.getColor().equals(ColorStudent.RED))
+                System.out.println(ANSI_PURPLE+"|" +ANSI_RESET+ ANSI_RED+ student.getColor()+ANSI_RESET);
+            if(student.getColor().equals(ColorStudent.PINK))
+                System.out.println(ANSI_PURPLE+"|" +ANSI_RESET+ ANSI_PURPLE+ student.getColor()+ANSI_RESET);
+            if(student.getColor().equals(ColorStudent.BLUE))
+                System.out.println(ANSI_PURPLE+"|" +ANSI_RESET+ ANSI_BLUE+ student.getColor()+ANSI_RESET);
+            if(student.getColor().equals(ColorStudent.YELLOW))
+                System.out.println(ANSI_PURPLE+"|" +ANSI_RESET+ ANSI_YELLOW+ student.getColor()+ANSI_RESET);
+            if(student.getColor().equals(ColorStudent.GREEN))
+                System.out.println(ANSI_PURPLE+"|" +ANSI_RESET+ ANSI_GREEN+ student.getColor()+ANSI_RESET);
             i++;
         }
+        System.out.println(ANSI_PURPLE+"________________________________________" +ANSI_RESET);
         System.out.println("");
-        System.out.println("DINING ROOMS:");
-        System.out.println("");
+        System.out.println(ANSI_PURPLE+"DINING ROOMS:"+ANSI_RESET);
         i = 0;
         for (DiningRoom diningRoom : modelMessage.getSchoolBoard().getDiningRooms()) {
-            System.out.println("Color: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor());
-            System.out.println("Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
-            System.out.println("Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
-            i++;
-            System.out.println("");
+            if(diningRoom.getColor().equals(ColorStudent.RED)){
+                System.out.println(ANSI_RED+"________________________________________" +ANSI_RESET);
+                System.out.println(ANSI_RED+"|"+ANSI_RESET+"Color: "+ANSI_RED + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor()+ANSI_RESET);
+                System.out.println(ANSI_RED+"|"+ANSI_RESET+"Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+                System.out.println(ANSI_RED+"|"+ANSI_RESET+"Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+                i++;
+                System.out.println("");
+            }
+            if(diningRoom.getColor().equals(ColorStudent.GREEN)){
+                System.out.println(ANSI_GREEN+"________________________________________" +ANSI_RESET);
+                System.out.println(ANSI_GREEN+"|"+ANSI_RESET+"Color: "+ANSI_GREEN + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor()+ANSI_RESET);
+                System.out.println(ANSI_GREEN+"|"+ANSI_RESET+"Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+                System.out.println(ANSI_GREEN+"|"+ANSI_RESET+"Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+                i++;
+                System.out.println("");
+            }
+            if(diningRoom.getColor().equals(ColorStudent.BLUE)){
+                System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
+                System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Color: " +ANSI_BLUE+ modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor()+ANSI_RESET);
+                System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+                System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+                i++;
+                System.out.println("");
+            }
+            if(diningRoom.getColor().equals(ColorStudent.PINK)){
+                System.out.println(ANSI_PURPLE+"________________________________________" +ANSI_RESET);
+                System.out.println(ANSI_PURPLE+"|"+ANSI_RESET+"Color: "+ANSI_PURPLE + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor()+ANSI_RESET);
+                System.out.println(ANSI_PURPLE+"|"+ANSI_RESET+"Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+                System.out.println(ANSI_PURPLE+"|"+ANSI_RESET+"Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+                i++;
+                System.out.println("");
+            }
+            if(diningRoom.getColor().equals(ColorStudent.YELLOW)){
+                System.out.println(ANSI_YELLOW+"________________________________________" +ANSI_RESET);
+                System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"Color: " + ANSI_YELLOW+modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor()+ANSI_RESET);
+                System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
+                System.out.println(ANSI_YELLOW+"|"+ANSI_RESET+"Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
+                i++;
+                System.out.println("");
+            }
         }
         if (!modelMessage.getSchoolBoard().getTowers().isEmpty() && modelMessage.getSchoolBoard().getTowers().get(0).getColor() != null)
-            System.out.println("TOWER color: " + modelMessage.getSchoolBoard().getTowers().get(0).getColor());
+            System.out.println(ANSI_PURPLE+"TOWER color: " +ANSI_RESET+ modelMessage.getSchoolBoard().getTowers().get(0).getColor());
 
-        System.out.println("Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
+        System.out.println(ANSI_PURPLE+"Remaining Towers: "+ANSI_RESET + modelMessage.getSchoolBoard().getTowers().size());
         i = 0;
 
         System.out.println("");
-        System.out.println("CLOUDS: ");
+        System.out.println(ANSI_CYAN+" ________________________________________\n" +
+                "|                 CLOUDS                 |\n" +
+                "|________________________________________|"+ANSI_RESET);
+        System.out.println("");
         for (CloudCard card : modelMessage.getCloudCardList()) {
-            System.out.println("cloud " + i + ":");
-            System.out.println(card.getStudents());
+            System.out.println(ANSI_CYAN+
+                    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
+                    "@@@@@@@@@@BY7~^~~7JP&@@@@@@@@@@@@@@\n" +
+                    "@@@@@@@&&?          .!7~^^^!?P&@@@@\n" +
+                    "@@@#Y!^::                     :P@@@\n" +
+                    "@@P.                           ^@@@\n" +
+                    "@@5          CLOUD "+i+"          .G@@@" + "    ->  "+card.getStudents()+ "\n"+
+                    "@@@#J:                        .7G@@\n" +
+                    "@@@G:                            P@\n" +
+                    "@@@G.                           :G@\n" +
+                    "@@@@&57~^~7^               ~?JYG&@@\n" +
+                    "@@@@@@@@@@@&5!:.       .^?G@@@@@@@@\n" +
+                    "@@@@@@@@@@@@@@&#GP55PPB#@@@@@@@@@@@"+ANSI_RESET);
             if (card.getStudents().size() == 0){
                 cloudName[i] = -1; //cloud empty
             }
             i++;
         }
+        System.out.println("");
     }
 
     public MessageInterface receiveMessage() {
@@ -844,7 +1100,9 @@ public class ClientMain extends Thread {
 
 
 
-                    System.out.println("Please wait the opponent's move...");
+                    System.out.println(ANSI_PURPLE+" ________________________________________\n" +
+                            "|   Please wait the opponent's move...   |\n" +
+                            "|________________________________________|"+ANSI_RESET);
 
 
                 }
@@ -865,7 +1123,9 @@ public class ClientMain extends Thread {
                 } else {
                     cloudName[choice]=-1;
                     ok = true;
-                    System.out.println("Please wait the opponent's move...");
+                    System.out.println(ANSI_PURPLE+" ________________________________________\n" +
+                            "|   Please wait the opponent's move...   |\n" +
+                            "|________________________________________|"+ANSI_RESET);
                 }
             }
         }
