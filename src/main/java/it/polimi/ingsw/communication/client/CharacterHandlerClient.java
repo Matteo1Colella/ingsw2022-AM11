@@ -1,8 +1,11 @@
 package it.polimi.ingsw.communication.client;
 
 import it.polimi.ingsw.communication.common.JSONtoObject;
+import it.polimi.ingsw.communication.common.MessageInterface;
+import it.polimi.ingsw.communication.common.MessageType;
 import it.polimi.ingsw.communication.common.ObjectToJSON;
 import it.polimi.ingsw.communication.common.messages.ModelMessage;
+import it.polimi.ingsw.communication.common.messages.TurnMessage;
 import it.polimi.ingsw.communication.common.messages.UseCharacterMessage;
 import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.cards.characters.*;
@@ -20,12 +23,14 @@ public class CharacterHandlerClient {
     private int coinsOwned;
     private ObjectToJSON sendMessage;
     private JSONtoObject receiveMessage;
+    private boolean usable;
 
     public CharacterHandlerClient(ModelMessage model, Socket socket){
        this.model = model;
         playableCharacters = model.getCharacterCards();
         sendMessage = new ObjectToJSON(socket);
         receiveMessage = new JSONtoObject(socket);
+        usable = false;
     }
 
     public boolean askCharacter(){
@@ -61,6 +66,13 @@ public class CharacterHandlerClient {
         }
 
         playCharacter(choice);
+        if(usable){
+            MessageInterface messageInterface = receiveMessage();
+            if(messageInterface.getCode() == MessageType.PINGPONG){
+                TurnMessage turnMessage =  (TurnMessage) receiveMessage();
+            }
+        }
+
         return true;
     }
 
@@ -72,6 +84,13 @@ public class CharacterHandlerClient {
                 //Character1 card1 = (Character1) playableCharacters.get(choice);
                 int val = -1;
                 int val2 = - 1;
+
+                System.out.println("Students on the character chard:");
+                int j = 0;
+                for(Student student : model.getCharacterCards().get(choice).getStudents()){
+                    System.out.println("Student " + j + ": " + student.getColor());
+                    j++;
+                }
 
                 playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
                 while(val < 0 || val > playableCharacters.get(choice).getStudents().size()) {
@@ -87,12 +106,13 @@ public class CharacterHandlerClient {
                 }
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter1Message(val2, val, choice));
                 //card.effect(currentPlayer, newGame.getGameComponents().getArchipelago().get(val), val2);
-
+                usable = true;
                 break;
             case 2:
                 //Character2 card2 = (Character2) playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter2Message(choice));
                 //card2.effect(currentPlayer);
+                usable = true;
                 break;
             case 3:
                 //Character3 card3 = (Character3) playableCharacters.get(choice);
@@ -105,12 +125,13 @@ public class CharacterHandlerClient {
                 }
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter3Message(val3, choice));
                 //card3.effect(currentPlayer,  newGame.getGameComponents().getArchipelago().get(val3));
-
+                usable = true;
                 break;
             case 4:
                 //Character4 card4 = (Character4) playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter4Message(choice));
                 //card4.effect(currentPlayer);
+                usable = true;
                 break;
             case 5:
                 //Character5 card5 = (Character5) playableCharacters.get(choice);
@@ -123,12 +144,13 @@ public class CharacterHandlerClient {
                 }
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter5Message(val5, choice));
                 //card5.effect(currentPlayer, newGame.getGameComponents().getArchipelago().get(val5));
-
+                usable = true;
                 break;
             case 6:
                 //Character6 card6 = (Character6) playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter6Message(choice));
                 //card6.effect(currentPlayer);
+                usable = true;
                 break;
             case 7:
                 // TODO: 23/05/2022 show in a different way the print of the students: in the model message must be an array containing this students
@@ -146,7 +168,7 @@ public class CharacterHandlerClient {
                         Scanner charscanner = new Scanner(System.in);
                         val7 = charscanner.nextInt();
 
-                        for(int j = 0; j < fromEntrance.length; j++){
+                        for(j = 0; j < fromEntrance.length; j++){
                             if (fromEntrance[j] == val7){
                                 duplicate ++;
                             }
@@ -156,8 +178,14 @@ public class CharacterHandlerClient {
                     fromEntrance[n7] = val7;
                 }
 
-                System.out.println("Students on character:");
-                playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+                //System.out.println("Students on character:");
+                //playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+                System.out.println("Students on the character:");
+                j = 0;
+                for(Student student : model.getCharacterCards().get(choice).getStudents()){
+                    System.out.println("Student " + j + ": " + student.getColor());
+                    j++;
+                }
                 for(int n7 = 0; n7 < 3; n7++){
                     val7 = -1;
                     while(val7 < 0 || val7 > playableCharacters.get(choice).getStudents().size()||duplicate>0) {
@@ -166,7 +194,7 @@ public class CharacterHandlerClient {
                         Scanner charscanner = new Scanner(System.in);
                         val7 = charscanner.nextInt();
 
-                        for(int j = 0; j < fromEntrance.length; j++){
+                        for(j = 0; j < fromEntrance.length; j++){
                             if (fromCard[j] == val7){
                                 duplicate ++;
                             }
@@ -176,13 +204,13 @@ public class CharacterHandlerClient {
                 }
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter7Message(fromEntrance, fromCard, choice));
                 //card7.effect(currentPlayer, fromEntrance, fromCard);
-
+                usable = true;
                 break;
             case 8:
                 //Character8 card8 = (Character8) playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter8Message(choice));
                 //card8.effect(currentPlayer);
-
+                usable = true;
                 break;
             case 9:
                 String chosencolor = "";
@@ -220,9 +248,9 @@ public class CharacterHandlerClient {
                 int i = 0;
                 for(ColorStudent colorStudent : ColorStudent.values()){
                     i += model.getSchoolBoard().getDiningRoom(colorStudent).getStudentsSize();
-
                 }
                 if(i < 2){
+                    usable = false;
                     return;
                 }
 
@@ -232,7 +260,7 @@ public class CharacterHandlerClient {
                 String diningroomcolor = "";
                 ColorStudent c = null;
                 int s = -1;
-                int j = 0;
+                j = 0;
 
                 int numred = 0;
                 int numblue = 0;
@@ -334,6 +362,7 @@ public class CharacterHandlerClient {
                 //Character10 card10 = (Character10)playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter10Message(studentsFromEntrance, fromE, choice));
                 //card10.effect(currentPlayer, aFromDining, fromE);
+                usable = true;
                 break;
 
             case 11:
@@ -341,7 +370,13 @@ public class CharacterHandlerClient {
                 System.out.println("test");
                 // TODO: 23/05/2022 show in a different way the print of the students: in the model message must be an array containing this students
                 //Character11 card11 = (Character11) playableCharacters.get(choice);
-                playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+                //playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+                System.out.println("Students on the character chard:");
+                j = 0;
+                for(Student student : model.getCharacterCards().get(choice).getStudents()){
+                    System.out.println("Student " + j + ": " + student.getColor());
+                    j++;
+                }
 
                 while(val11 < 0 || val11 > playableCharacters.get(choice).getStudents().size()) {
                     System.out.println("choose Student");
@@ -351,7 +386,7 @@ public class CharacterHandlerClient {
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter11Message(val11, choice));
                 //card11.effect(currentPlayer, val11);
 
-
+                usable = true;
                 break;
 
             case 12:
@@ -384,6 +419,7 @@ public class CharacterHandlerClient {
                 //Character12 card12 = (Character12) playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter12Message(c12, choice));
                 //card12.effect(currentPlayer, c12);
+                usable = true;
                 break;
         }
     }
@@ -394,5 +430,21 @@ public class CharacterHandlerClient {
 
     public void setModel(ModelMessage model) {
         this.model = model;
+    }
+
+    public MessageInterface receiveMessage() {
+        MessageInterface message = receiveMessage.receiveMessageClient();
+        if(message.getCode() == MessageType.PINGPONG){
+            return receiveMessage();
+        } else if(message.getCode() == MessageType.WIN){
+            System.out.println(message.getMessage());
+            System.exit(0);
+        } else if(message.getCode() == MessageType.ERROR){
+            System.out.println("Connection error.\r");
+            System.exit(0);
+        } else {
+            return message;
+        }
+        return null;
     }
 }
