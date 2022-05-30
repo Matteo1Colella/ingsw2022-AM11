@@ -464,16 +464,30 @@ public class ClientMain extends Thread {
         }
         while (i < requests){
             student = -1;
-            while (student < 1 || student > 7) {
-                System.out.println("SELECT a student from the entrance:\n");
-                Scanner scanner1 = new Scanner(System.in);
-                try {
-                    student = scanner1.nextInt();
-                }catch (InputMismatchException e){
-                    scanner1.nextLine();
-                    System.out.println("Please retry...");
+            if(gameSize == 2 || gameSize == 4){
+                while (student < 1 || student > 7) {
+                    System.out.println("SELECT a student from the entrance:\n");
+                    Scanner scanner1 = new Scanner(System.in);
+                    try {
+                        student = scanner1.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner1.nextLine();
+                        System.out.println("Please retry...");
+                    }
+                }
+            } else if(gameSize == 3){
+                while (student < 1 || student > 9) {
+                    System.out.println("SELECT a student from the entrance:\n");
+                    Scanner scanner1 = new Scanner(System.in);
+                    try {
+                        student = scanner1.nextInt();
+                    }catch (InputMismatchException e){
+                        scanner1.nextLine();
+                        System.out.println("Please retry...");
+                    }
                 }
             }
+
             System.out.println("ENTER:\n");
             System.out.println("0 -> to move student " + student + " to your SCHOOLBOARD");
             System.out.println("1 -> to move student " + student + " to an ISLAND");

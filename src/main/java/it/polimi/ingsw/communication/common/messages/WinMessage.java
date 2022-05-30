@@ -14,8 +14,7 @@ public class WinMessage implements MessageInterface {
        this.code = MessageType.WIN;
        this.winner = player;
        this.message = "-------------------------\n" +
-               "Player: " + winner + " WON!" +
-               "-------------------------\n";
+               "Player: " + winner + " TEAM WON!" ;
     }
 
     @Override
