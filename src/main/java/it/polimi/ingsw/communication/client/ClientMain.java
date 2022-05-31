@@ -209,7 +209,7 @@ public class ClientMain extends Thread {
     public void readParameters() throws IOException {
         Gson gson = new Gson();
         //create a reader
-        Reader reader = Files.newBufferedReader(Paths.get("src/main/java/it/polimi/ingsw/communication/client/configClient.json"));
+        Reader reader = Files.newBufferedReader(Paths.get("/Users/matteocolella/Desktop/Politecnico/ingsw2022-AM11/src/main/resources/configs/configClient.json"));
         //convert JSON file to map
         Map<?, ?> map = gson.fromJson(reader, Map.class);
         //print map entries
