@@ -24,7 +24,7 @@ public class CharacterHandlerClient {
     private boolean usable;
 
     public CharacterHandlerClient(ModelMessage model, Socket socket){
-       this.model = model;
+        this.model = model;
         playableCharacters = model.getCharacterCards();
         sendMessage = new ObjectToJSON(socket);
         receiveMessage = new JSONtoObject(socket);
@@ -418,7 +418,7 @@ public class CharacterHandlerClient {
 
             case 11:
                 int val11 = -1;
-                System.out.println("test");
+                //System.out.println("test");
                 // TODO: 23/05/2022 show in a different way the print of the students: in the model message must be an array containing this students
                 //Character11 card11 = (Character11) playableCharacters.get(choice);
                 //playableCharacters.get(choice).getStudents().stream().map(Student::getColor).forEach(System.out::println);
