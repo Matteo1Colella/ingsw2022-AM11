@@ -139,7 +139,7 @@ public class MageController {
 
 
             client.getSendMessage().sendMageMessage(new MageMessage(finalMage));
-            MessageInterface receivedMessage = client.getReceiveMessage().receiveMessage();
+            MessageInterface receivedMessage = client.receiveMessage();
 
             System.out.println(receivedMessage.getCode());
 
@@ -155,55 +155,7 @@ public class MageController {
             }
             stage.close();
         });
-        /*
-        client.getSendMessage().sendMageMessage(new MageMessage(mage));
-        MessageInterface receivedMessage = client.getReceiveMessage().receiveMessage();
 
-
-        if (receivedMessage.getCode() == MessageType.NOERROR){
-
-            new ActionStage(client);
-            stage.close();
-
-
-
-            Service<Void> service = new Service<Void>() {
-                @Override
-                protected Task<Void> createTask() {
-                    return new Task<Void>() {
-                        @Override
-                        protected Void call() throws Exception {
-
-                            final CountDownLatch latch = new CountDownLatch(1);
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try{
-
-                                    }finally{
-                                        latch.countDown();
-                                    }
-                                }
-                            });
-                            latch.await();
-                            //Keep with the background work
-                            return null;
-                        }
-                    };
-                }
-            };
-            //service.start();
-
-
-
-
-
-
-        } else if (receivedMessage.getCode() == MessageType.MAGEERROR){
-            result.setText("Error, try again");
-        }
-
-         */
 
 
     }

@@ -196,13 +196,13 @@ public class ActionController {
             return;
         } else {
 
-                client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage(steps));
+            client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage(steps));
 
-                client.getSendMessage().sendModelMessage(new ModelMessage());
+            client.getSendMessage().sendModelMessage(new ModelMessage());
 
-                System.out.println("middle");
+            System.out.println("middle");
 
-            this.model  = (ModelMessage) client.receiveMessage();
+            this.model = (ModelMessage) client.receiveMessage();
 
 
             showmodel(client);
@@ -216,12 +216,10 @@ public class ActionController {
             }
 
 
+            System.out.println("aftermodel");
 
 
-                System.out.println("aftermodel");
-
-
-                mn = true;
+            mn = true;
 
         }
 
@@ -286,7 +284,6 @@ public class ActionController {
          */
 
     }
-
 
     public ClientMain getClient() {
         return this.client;
@@ -602,12 +599,6 @@ public class ActionController {
         }
     }
 
-    public void wakeup() {
-        synchronized (this.student) {
-            this.student.notifyAll();
-        }
-    }
-
     public synchronized void confirmStudent() {
 
         if (student1Entrance == -1) {
@@ -664,21 +655,23 @@ public class ActionController {
             System.out.println("sent");
 
 
+            initializeStudents();
+
+            movesLeft = moves;
+
             students = true;
 
             client.getSendMessage().sendModelMessage(new ModelMessage());
             model = (ModelMessage) client.receiveMessage();
-            showmodel(client);
+
+            Platform.runLater(() -> {
+                showmodel(client);
+            });
 
             MessageInterface receivedMessage = client.receiveMessage();
             if (receivedMessage.getCode() == MessageType.TURN) {
                 System.out.println("Correct selection.\r");
             }
-
-
-
-
-
 
 
             //moveMotherNature();
@@ -687,7 +680,6 @@ public class ActionController {
 
     }
 
-
     public synchronized void reset() {
         selectedIsland = null;
         To.setText("null");
@@ -695,16 +687,6 @@ public class ActionController {
     }
 
     public synchronized void showmodel(ClientMain client) {
-        //ask the list of GameComponents (all the model)
-       /* this.client = client;
-        System.out.println("presend");
-        this.client.getSendMessage().sendModelMessage(new ModelMessage());
-        System.out.println("aftersend");
-        ModelMessage modelMessage = (ModelMessage) this.client.receiveMessage();
-        System.out.println("afterreceive");
-        this.model = modelMessage;
-        */
-        //printing model..
 
         //if pro{
         if (model.getCoinOwned() >= 0) {
@@ -720,6 +702,7 @@ public class ActionController {
         }
         //}
 
+        this.archipelago.clear();
         this.archipelago.addAll(model.getArchipelago());
 
         int i = 0;
@@ -800,6 +783,7 @@ public class ActionController {
             towerColor.setText("Tower color: " + model.getSchoolBoard().getTowers().get(0).getColor() + ", remaining: " + model.getSchoolBoard().getTowers().size());
 
 
+        this.clouds.clear();
         this.clouds.addAll(model.getCloudCardList());
         if (model.getCloudCardList().size() != 3) {
             cloud3.setDisable(true);
@@ -831,194 +815,34 @@ public class ActionController {
         client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
     }
 
-    public synchronized void confirmCC(){
-
+    public synchronized void confirmCC() {
 
 
         client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage(cloudchoice));
+
         cc = true;
     }
+
     public synchronized void mainClient(ClientMain client) {
 
         new PingPongThread(client.getClientSocket(), "client");
 
-        Service<Void> service = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void>() {
-
-
-                    @Override
-                    protected Void call() throws Exception {
-                        //Background work
-                        final CountDownLatch latch = new CountDownLatch(1);
-                        Platform.runLater(new Runnable() {
-
-                            private final Object lock = student;
-
-
-                            @Override
-                            public void run() {
-
-                                while (!endgame) {
-                                    System.out.println("start turn");
-                                    MessageInterface receivedMessage = client.receiveMessage();
-                                    MessageType message = receivedMessage.getCode();
-                                    System.out.println("start turn");
-                                    if (!client.isGameType()) {
-                                        switch (message) {
-                                            case TURN:
-
-                                                moveStudents();
-
-                                                //afterStudent();
-
-                                                Thread thread = new Thread(){
-                                                    @Override
-                                                    public void run() {
-                                                        while (!students) {
-                                                            Thread.onSpinWait();
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public synchronized void start() {
-                                                        super.start();
-                                                    }
-                                                };
-                                                thread.start();
-
-                                                Thread thread1 = new Thread(){
-                                                    @Override
-                                                    public void run() {
-                                                        while (!mn) {
-                                                            Thread.onSpinWait();
-                                                        }
-                                                        selectCloudCard();
-                                                    }
-
-                                                    @Override
-                                                    public synchronized void start() {
-                                                        super.start();
-                                                    }
-                                                };
-                                                thread1.start();
-
-
-                                                Thread thread2 = new Thread(){
-                                                    @Override
-                                                    public void run() {
-                                                        while (!cc) {
-                                                            Thread.onSpinWait();
-                                                        }
-                                                        lock.notify();
-                                                    }
-
-                                                    @Override
-                                                    public synchronized void start() {
-                                                        super.start();
-                                                    }
-                                                };
-                                                thread2.start();
-
-
-
-                                                try {
-                                                    System.out.println("wait");
-                                                    thread2.join();
-                                                    System.out.println("wat2");
-                                                } catch (InterruptedException e) {
-                                                    e.printStackTrace();
-                                                }
-
-/*
-                                                System.out.println("after wait");
-
-                                                moveMotherNature();
-
-
-                                                 */
-
-                                                /*
-                                                System.out.println("std");
-                                                System.out.println("stdout");
-                                                client.moveMotherNature();
-                                                client.selectCloudCard();
-                                                choice = false;
-                                                message = client.receiveMessage().getCode();
-                                                client.showModel();
-                                                message = client.receiveMessage().getCode();
-                                                while (!choice) {
-                                                    choice = client.playAssistantCard();
-                                                }
-
-                                                 */
-                                                break;
-                                            case WIN:
-                                                System.out.println("");
-                                                System.out.println("----GAME-OVER----");
-                                                System.out.println("-----------------");
-                                                endgame = true;
-                                                break;
-                                            case MODEL:
-                                                client.setModel((ModelMessage) receivedMessage);
-                                                model = client.getModel();
-                                                showmodel(client);
-                                                break;
-                                        }
-                                    } else {
-                                        switch (message) {
-                                            case TURN:
-                                                client.askCharacter();
-                                                client.moveStudents();
-                                                client.askCharacter();
-                                                client.moveMotherNature();
-                                                client.askCharacter();
-                                                client.selectCloudCard();
-                                                choice = false;
-                                                message = client.receiveMessage().getCode();
-                                                client.showModel();
-                                                message = client.receiveMessage().getCode();
-                                                while (!choice) {
-                                                    choice = client.playAssistantCard();
-                                                }
-                                                break;
-                                            case WIN:
-                                                System.out.println("");
-                                                System.out.println("----GAME-OVER----");
-                                                System.out.println("-----------------");
-                                                return;
-                                            case MODEL:
-                                                client.setModel((ModelMessage) receivedMessage);
-                                                break;
-                                        }
-
-                                    }
-                                }
-                            }
-                        });
-                        latch.await();
-                        //Keep with the background work
-                        return null;
-                    }
-                };
-            }
-        };
-        //service.start();
-
-
-
         Task<Void> task = new Task<>() {
-            @Override public Void call() {
+            @Override
+            public Void call() {
                 while (!endgame) {
 
                     cc = false;
                     students = false;
                     mn = false;
+                    MessageType message;
+                    MessageInterface receivedMessage;
 
-                    MessageInterface receivedMessage = client.receiveMessage();
-                    MessageType message = receivedMessage.getCode();
+
+                    receivedMessage = client.receiveMessage();
+                    message = receivedMessage.getCode();
                     System.out.println("start turn " + message);
+
 
                     if (!client.isGameType()) {
                         switch (message) {
@@ -1026,11 +850,15 @@ public class ActionController {
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
                                 model = (ModelMessage) client.receiveMessage();
-                                showmodel(client);
+
+
+                                Platform.runLater(() -> {
+                                    showmodel(client);
+                                });
 
                                 MessageInterface receivedMessage1 = client.receiveMessage();
 
-                                if(receivedMessage1.getCode() == MessageType.TURN){
+                                if (receivedMessage1.getCode() == MessageType.TURN) {
                                     System.out.println("lesgo");
                                 }
 
@@ -1039,69 +867,51 @@ public class ActionController {
                                 moveStudents();
 
                                 while (!students) {
-                                            Thread.onSpinWait();
-                                        }
-                                        students = false;
-                                        moveMotherNature();
-                                        while (!mn) {
-                                            Thread.onSpinWait();
-                                        }
-                                        mn = false;
-                                        selectCloudCard();
-                                        while (!cc) {
-                                            Thread.onSpinWait();
-                                        }
-                                        cc = false;
+                                    Thread.onSpinWait();
+                                }
+                                students = false;
 
-                                        MessageType messageType = client.receiveMessage().getCode();
-                                        System.out.println(messageType);
+                                moveMotherNature();
+                                while (!mn) {
+                                    Thread.onSpinWait();
+                                }
 
-                                        client.getSendMessage().sendModelMessage(new ModelMessage());
-                                        model = (ModelMessage) client.receiveMessage();
+                                mn = false;
+                                selectCloudCard();
+                                while (!cc) {
+                                    Thread.onSpinWait();
+                                }
+                                cc = false;
+
+                                MessageType messageType = client.receiveMessage().getCode();
+                                System.out.println(messageType);
+
+                                client.getSendMessage().sendModelMessage(new ModelMessage());
+                                model = (ModelMessage) client.receiveMessage();
+
 
                                 Platform.runLater(() -> {
                                     showmodel(client);
                                 });
 
 
-                                        MessageType messageType1 = client.receiveMessage().getCode();
+                                MessageType messageType1 = client.receiveMessage().getCode();
 
-                                        System.out.println(messageType1);
+                                System.out.println(messageType1);
 
-                                        client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
+                                client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
 
-                                        ReceiveCards(client);
+                                ReceiveCards(client);
 
+                                synchronized (student){
+                                        try {
+                                            student.wait();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
 
+                                }
 
-
-
-
-
-
-
-/*
-                                                System.out.println("after wait");
-
-                                                moveMotherNature();
-
-
-                                                 */
-
-                                                /*
-                                                System.out.println("std");
-                                                System.out.println("stdout");
-                                                client.moveMotherNature();
-                                                client.selectCloudCard();
-                                                choice = false;
-                                                message = client.receiveMessage().getCode();
-                                                client.showModel();
-                                                message = client.receiveMessage().getCode();
-                                                while (!choice) {
-                                                    choice = client.playAssistantCard();
-                                                }
-
-                                                 */
                                 break;
                             case WIN:
                                 System.out.println("");
@@ -1266,7 +1076,7 @@ public class ActionController {
     }
 
 
-    public void clickConfirmAssistant() {
+    public synchronized void clickConfirmAssistant() {
         int card = -1;
         switch (selectedCard.getInfluence()) {
             case 1:
@@ -1306,76 +1116,79 @@ public class ActionController {
 
 
         int finalCard = card;
-            this.client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage(finalCard));
-            MessageInterface receivedMessage = this.client.receiveMessage();
+        this.client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage(finalCard));
+        System.out.println(finalCard);
 
-            System.out.println(receivedMessage.getCode());
+        MessageInterface receivedMessage = this.client.receiveMessage();
 
-
-            if (receivedMessage.getCode() == MessageType.NOERROR) {
-                chosen = true;
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText("Correct Selection");
-                alert.setContentText("NAME: " + selectedCard.getName() + "\n" + "Influence: " + selectedCard.getInfluence() + "\n" + "Steps: " + selectedCard.getSteps());
-                alert.show();
-                switch (selectedCard.getInfluence()) {
-                    case 1:
-                        assistant1.setDisable(true);
-                        assistant1.setOpacity(0.5);
-                        break;
-                    case 2:
-                        assistant2.setDisable(true);
-                        assistant2.setOpacity(0.5);
-                        break;
-                    case 3:
-                        assistant3.setDisable(true);
-                        assistant3.setOpacity(0.5);
-                        break;
-                    case 4:
-                        assistant4.setDisable(true);
-                        assistant4.setOpacity(0.5);
-                        break;
-                    case 5:
-                        assistant5.setDisable(true);
-                        assistant5.setOpacity(0.5);
-                        break;
-                    case 6:
-                        assistant6.setDisable(true);
-                        assistant6.setOpacity(0.5);
-                        break;
-                    case 7:
-                        assistant7.setDisable(true);
-                        assistant7.setOpacity(0.5);
-                        break;
-                    case 8:
-                        assistant8.setDisable(true);
-                        assistant8.setOpacity(0.5);
-                        break;
-                    case 9:
-                        assistant9.setDisable(true);
-                        assistant9.setOpacity(0.5);
-                        break;
-                    case 10:
-                        assistant10.setDisable(true);
-                        assistant10.setOpacity(0.5);
-                        break;
-                }
-
-                if(!start){
-                    Platform.runLater(() -> mainClient(client));
-                    start = true;
-                }
+        System.out.println("received message: " + receivedMessage.getCode());
 
 
-            } else if (receivedMessage.getCode() == MessageType.CARDERROR) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("an error occurred, try again");
-                alert.show();
+        if (receivedMessage.getCode() == MessageType.NOERROR) {
+            synchronized (student){
+                student.notifyAll();
+            }
+            chosen = true;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("Correct Selection");
+            alert.setContentText("NAME: " + selectedCard.getName() + "\n" + "Influence: " + selectedCard.getInfluence() + "\n" + "Steps: " + selectedCard.getSteps());
+            alert.show();
+            switch (selectedCard.getInfluence()) {
+                case 1:
+                    assistant1.setDisable(true);
+                    assistant1.setOpacity(0.5);
+                    break;
+                case 2:
+                    assistant2.setDisable(true);
+                    assistant2.setOpacity(0.5);
+                    break;
+                case 3:
+                    assistant3.setDisable(true);
+                    assistant3.setOpacity(0.5);
+                    break;
+                case 4:
+                    assistant4.setDisable(true);
+                    assistant4.setOpacity(0.5);
+                    break;
+                case 5:
+                    assistant5.setDisable(true);
+                    assistant5.setOpacity(0.5);
+                    break;
+                case 6:
+                    assistant6.setDisable(true);
+                    assistant6.setOpacity(0.5);
+                    break;
+                case 7:
+                    assistant7.setDisable(true);
+                    assistant7.setOpacity(0.5);
+                    break;
+                case 8:
+                    assistant8.setDisable(true);
+                    assistant8.setOpacity(0.5);
+                    break;
+                case 9:
+                    assistant9.setDisable(true);
+                    assistant9.setOpacity(0.5);
+                    break;
+                case 10:
+                    assistant10.setDisable(true);
+                    assistant10.setOpacity(0.5);
+                    break;
+            }
+
+            if (!start) {
+                mainClient(client);
+                start = true;
             }
 
 
+        } else if (receivedMessage.getCode() == MessageType.CARDERROR) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("an error occurred, try again");
+            alert.show();
+        }
 
 
     }
@@ -1398,41 +1211,15 @@ public class ActionController {
         initializeStudents();
         this.gametype = false;
 
-
-        Service<Void> service = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                        //Background work
-                        System.out.println("1");
-                        client.getSendMessage().sendModelMessage(new ModelMessage());
-                        ModelMessage modelMessage = (ModelMessage) client.receiveMessage();
-                        final CountDownLatch latch = new CountDownLatch(1);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    model = modelMessage;
-                                    showmodel(client);
-                                    System.out.println("2");
-                                    client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
-                                    ReceiveCards(client);
-                                    System.out.println("3");
-                                } finally {
-                                    latch.countDown();
-                                }
-                            }
-                        });
-                        latch.await();
-                        //Keep with the background work
-                        return null;
-                    }
-                };
-            }
-        };
-        service.start();
+        System.out.println("1");
+        client.getSendMessage().sendModelMessage(new ModelMessage());
+        model = (ModelMessage) client.receiveMessage();
+        showmodel(client);
+        System.out.println("2");
+        client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
+        ReceiveCards(client);
+        System.out.println("3");
 
     }
+
 }

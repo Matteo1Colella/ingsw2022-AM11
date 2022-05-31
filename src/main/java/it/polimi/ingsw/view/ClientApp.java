@@ -18,6 +18,7 @@ public class ClientApp extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApp.class.getResource("/ConnectionPhase.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         ConnectionController controller = fxmlLoader.getController();
         //controller.setToggleGroup();
