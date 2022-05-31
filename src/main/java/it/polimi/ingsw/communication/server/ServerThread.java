@@ -6,7 +6,6 @@ import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.MovedStudent;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.board.GameComponents;
 
 import java.util.Comparator;
 import java.io.*;
@@ -16,57 +15,35 @@ import java.util.stream.Collectors;
 
 public class ServerThread extends Thread{
     private static int counter = 0;
-    private int id = ++counter;
 
     private final GameManager gameManager;
     private String username;
 
     private final Socket clientSocket;
-    private BufferedReader input;
-    private PrintWriter output;
-    private ObjectToJSON sendMessage;
-    private JSONtoObject receiveMessage;
+    private final ObjectToJSON sendMessage;
+    private final JSONtoObject receiveMessage;
     private ComplexLobby currentCL;
-
-    private PingPongThread pingPongThread;
-
-    private Object preMageLock;
-    private Object preCardLock;
-
-    private Object afterMageLock;
-    private Object afterCardLock;
 
     public ServerThread(Socket clientSocket, GameManager gameManager) throws IOException{
         this.clientSocket = clientSocket;
         this.gameManager = gameManager;
         sendMessage = new ObjectToJSON(clientSocket);
         receiveMessage = new JSONtoObject(clientSocket);
-        OutputStreamWriter outputStreamWriter = null;
-
-        //creating the objects for input and output
-        input = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
-        outputStreamWriter = new OutputStreamWriter(this.clientSocket.getOutputStream());
-        output = new PrintWriter(new BufferedWriter(outputStreamWriter), true);
         //the thread is started
         start();
-        System.out.println("ServerThread " + this.id + " starded");
+        int id = ++counter;
+        System.out.println("ServerThread " + id + " starded");
 
-    }
-
-    public PingPongThread getPingPongThread() {
-        return pingPongThread;
     }
 
     @Override
     public void run() {
         JSONtoObject receiveMessage = new JSONtoObject(clientSocket);
         ObjectToJSON sendMessage = new ObjectToJSON(clientSocket);
-        pingPongThread = new PingPongThread(clientSocket, "server", this);
-        //receivePingSendPong();
+        new PingPongThread(clientSocket, "server", this);
         login();
         if(currentCL == null || clientSocket.isClosed()){
             interrupt();
-            return;
         } else {
 
             while(!isMyTurn()){
@@ -108,7 +85,6 @@ public class ServerThread extends Thread{
             }
 
             boolean endGame = false;
-            int i = 0;
             while (!endGame) {
 
 
@@ -127,39 +103,30 @@ public class ServerThread extends Thread{
                     MessageInterface message = receiveMessage.receiveMessage();
                     System.out.println("received: " + message.getCode());
                     MessageType messageCode = message.getCode();
-                    switch (messageCode){
-                        case PINGPONG:
-                            sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
-                            break;
-                        case MOTHERNATURE:
+                    switch (messageCode) {
+                        case PINGPONG -> sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
+                        case MOTHERNATURE -> {
                             moveMotherNature();
                             sendModel();
                             Player winner = currentCL.getGame().winCondition();
-                            if( winner != null && !endGame){
+                            if (winner != null && !endGame) {
                                 endGame = true;
                                 currentCL.endGame(winner);
                             }
-                            break;
-                        case CLOUDCARD:
-
+                        }
+                        case CLOUDCARD -> {
                             selectCloudCard();
-                            if (!currentCL.getActivePlayer().equals(currentCL.getPlayerOrder().get(currentCL.getPlayerOrder().size()-1))){
+                            if (!currentCL.getActivePlayer().equals(currentCL.getPlayerOrder().get(currentCL.getPlayerOrder().size() - 1))) {
                                 currentCL.changeActivePlayer();
                             } else {
                                 currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
                                 System.out.println("ish should be " + currentCL.getPlayerOrder().get(0).getID_player() + " turn");
                                 currentCL.getGame().refillCloudCards();
                             }
-
-                            break;
-
-                        case CARD:
-                            playCardInGame();
-                            break;
-                        case MODEL:
-                            sendModelInGame();
-                            break;
-                        case STUDENT:
+                        }
+                        case CARD -> playCardInGame();
+                        case MODEL -> sendModelInGame();
+                        case STUDENT -> {
                             synchronized (this){
                                 System.out.println("preomove");
                                 moveStudent();
@@ -167,10 +134,8 @@ public class ServerThread extends Thread{
                                 sendModel();
                                 System.out.println("aftermodel");
                             }
-                            break;
-                        case CHARACTERCHOICE:
-                            playCharacter(message);
-                            break;
+                        }
+                        case CHARACTERCHOICE -> playCharacter(message);
                     }
                     //methods call
                     //check if a player has won after a turn
@@ -184,11 +149,6 @@ public class ServerThread extends Thread{
                 }
             }
         }
-    }
-
-    private void receivePingSendPong(){
-        receiveMessage.receiveMessage();
-        sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
     }
 
     private void login(){
@@ -210,11 +170,6 @@ public class ServerThread extends Thread{
 
         if(gameManager.loginSocket(username, numOfPlayers, isPro, clientSocket)){
             currentCL = gameManager.getPlayerComplexLobby(username);
-            preMageLock = currentCL.getPreMageLock();
-            preCardLock = currentCL.getPreCardLock();
-            afterMageLock = currentCL.getAfterMageLock();
-            afterCardLock = currentCL.getAfterCardLock();
-
             sendMessage.sendNoError();
             sendMessage.sendLobbiesMessage(new LobbiesMessage(gameManager.getPlayerComplexLobby(username).getID()));
         } else {
@@ -252,7 +207,7 @@ public class ServerThread extends Thread{
     }
 
     private void sendModel(){
-        ModelMessage message = null;
+        ModelMessage message;
         try{
             message = (ModelMessage) receiveMessage.receiveMessage();
         } catch(ClassCastException e){
@@ -274,7 +229,7 @@ public class ServerThread extends Thread{
     }
 
     private void moveStudent(){
-        MoveStudentMessage message = null;
+        MoveStudentMessage message;
         try{
             message = (MoveStudentMessage) receiveMessage.receiveMessage();
         } catch(ClassCastException e){
@@ -299,7 +254,7 @@ public class ServerThread extends Thread{
     }
 
     private void moveMotherNature(){
-        MoveMotherNatureMessage message = null;
+        MoveMotherNatureMessage message;
         try{
             message = (MoveMotherNatureMessage) receiveMessage.receiveMessage();
         } catch (ClassCastException e){
@@ -310,7 +265,7 @@ public class ServerThread extends Thread{
     }
 
     private void selectCloudCard(){
-        CloudCardChoiceMessage message = null;
+        CloudCardChoiceMessage message;
         try{
             message = (CloudCardChoiceMessage) receiveMessage.receiveMessage();
         } catch (ClassCastException e){
