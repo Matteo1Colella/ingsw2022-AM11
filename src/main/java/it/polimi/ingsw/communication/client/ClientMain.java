@@ -114,7 +114,7 @@ public class ClientMain extends Thread {
         while (true){
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
-            System.out.println("start turn " + message);
+            System.out.println("start " + message);
 
             if(clientMain.gameType == false){
                 switch (message){
