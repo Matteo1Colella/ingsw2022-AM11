@@ -796,8 +796,11 @@ public class Game {
         // if no students no dominance
         if (presentColors.size() == 0) return;
 
+            if (excludedColor == null) {
+
+            } else switch (this.excludedColor) {
         //check excludedColor
-        switch (this.excludedColor) {
+
             case RED:
                 numRed = 0;
                 break;
