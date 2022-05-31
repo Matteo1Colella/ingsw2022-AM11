@@ -21,6 +21,7 @@ import java.util.*;
 
 
 public class ClientMain extends Thread {
+
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -114,7 +115,7 @@ public class ClientMain extends Thread {
         while (true){
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
-            System.out.println("start " + message);
+
 
             if(clientMain.gameType == false){
                 switch (message){
@@ -172,11 +173,6 @@ public class ClientMain extends Thread {
         }
     }
 
-
-    public boolean isGameType() {
-        return gameType;
-    }
-
     private boolean askParameters() throws IOException{
         String input = "";
         while(!Objects.equals(input, "no") && !Objects.equals(input, "yes"))
@@ -195,7 +191,7 @@ public class ClientMain extends Thread {
             port = scanner.nextInt();
             InetAddress host = InetAddress.getByName(IP);
             clientSocket = new Socket(host, port);
-            // clientSocket.setSoTimeout(100000);
+            clientSocket.setSoTimeout(100000);
             setReceiveMessage(new JSONtoObject(clientSocket));
             setSendMessage(new ObjectToJSON(clientSocket));
             return true;
@@ -231,7 +227,7 @@ public class ClientMain extends Thread {
          */
         InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
-        // clientSocket.setSoTimeout(100000);
+        clientSocket.setSoTimeout(100000);
         setReceiveMessage(new JSONtoObject(clientSocket));
         setSendMessage(new ObjectToJSON(clientSocket));
     }
@@ -655,7 +651,6 @@ public class ClientMain extends Thread {
                 student3Entrance,student3WhereToPut,indexIslandIf3ToIsland,
                 student4Entrance,student4WhereToPut,indexIslandIf4ToIsland));
 
-
         showModel();
 
 
@@ -976,6 +971,7 @@ public class ClientMain extends Thread {
         }
         System.out.println("");
     }
+
     public MessageInterface receiveMessage() {
         MessageInterface message = receiveMessage.receiveMessageClient();
         if(message.getCode() == MessageType.PINGPONG){
@@ -999,6 +995,7 @@ public class ClientMain extends Thread {
         sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
         System.out.println("");
         System.out.println("How many steps you want MOTHERNATURE do?");
+
         switch (selectedCard){
             case 1,2:
                 System.out.println("(You can Select only 1 step!)");
@@ -1101,7 +1098,9 @@ public class ClientMain extends Thread {
         }
 
 
+
         sendMessage.sendMoveMotherNatureMessage(new MoveMotherNatureMessage(numberSelectedSteps));
+
 
         showModel();
 
@@ -1285,4 +1284,8 @@ public class ClientMain extends Thread {
     public void setReceiveMessage(JSONtoObject receiveMessage) {
         this.receiveMessage = receiveMessage;
     }
+    public boolean isGameType() {
+        return gameType;
+    }
+
 }
