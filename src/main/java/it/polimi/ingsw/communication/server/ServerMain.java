@@ -70,7 +70,7 @@ public class ServerMain {
         try {
             Gson gson = new Gson();
             //create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("/Users/matteocolella/Desktop/Politecnico/ingsw2022-AM11/src/main/resources/configs/configServer.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/configs/configServer.json"));
             //convert JSON file to map
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             //print map entries

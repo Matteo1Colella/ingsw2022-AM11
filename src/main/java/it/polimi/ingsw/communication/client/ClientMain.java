@@ -209,7 +209,7 @@ public class ClientMain extends Thread {
     public void readParameters() throws IOException {
         Gson gson = new Gson();
         //create a reader
-        Reader reader = Files.newBufferedReader(Paths.get("/Users/matteocolella/Desktop/Politecnico/ingsw2022-AM11/src/main/resources/configs/configClient.json"));
+        Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/configs/configClient.json"));
         //convert JSON file to map
         Map<?, ?> map = gson.fromJson(reader, Map.class);
         //print map entries
@@ -739,7 +739,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@          BLACK           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          "+ANSI_BLACK_BACKGROUND+ANSI_WHITE+"BLACK"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -753,7 +753,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@          WHITE           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          "+ANSI_WHITE_BACKGROUND+ANSI_BLACK+"WHITE"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -767,7 +767,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@           GREY           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@           "+ANSI_CYAN_BACKGROUND+ANSI_BLACK+"GREY"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -797,7 +797,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@          BLACK           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          "+ANSI_BLACK_BACKGROUND+ANSI_WHITE+"BLACK"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -811,7 +811,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@          WHITE           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          "+ANSI_WHITE_BACKGROUND+ANSI_BLACK+"WHITE"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -825,7 +825,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@           GREY           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@           "+ANSI_CYAN_BACKGROUND+ANSI_BLACK+"GREY"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -976,7 +976,6 @@ public class ClientMain extends Thread {
         }
         System.out.println("");
     }
-
     public MessageInterface receiveMessage() {
         MessageInterface message = receiveMessage.receiveMessageClient();
         if(message.getCode() == MessageType.PINGPONG){
