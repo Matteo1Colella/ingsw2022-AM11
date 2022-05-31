@@ -12,6 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleShape="false" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.ActionController">
    <children>
@@ -181,25 +182,25 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="442.0" layoutY="640.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
+            <Button layoutX="442.0" layoutY="640.0" mnemonicParsing="false" onAction="#confirmStudent" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
             <Button fx:id="moveMN" layoutX="17.0" layoutY="640.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" />
-            <Button layoutX="283.12835693359375" layoutY="408.79999923706055" mnemonicParsing="false" prefHeight="15.0" prefWidth="60.0" text="Draw" />
+            <Button layoutX="317.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw" />
             <Button layoutX="226.0" layoutY="640.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Use Character" />
             <ImageView fx:id="motherNature" fitHeight="89.0" fitWidth="86.0" layoutX="269.5166931152344" layoutY="2.1499996185302734" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                <image>
                   <Image url="@Assets/MN.png" />
                </image>
             </ImageView>
-            <Label layoutX="680.1283569335938" layoutY="13.799999237060547" text="Player : " />
-            <Label layoutX="680.1283569335938" layoutY="38.79999923706055" text="Coins:" />
-            <Label fx:id="SelectedCloud" layoutX="250.12835693359375" layoutY="388.79999923706055" prefHeight="17.0" prefWidth="126.0" text="Selected Cloud:" textAlignment="CENTER" />
+            <Label layoutX="658.0" layoutY="20.0" text="Player : " />
+            <Label layoutX="658.0" layoutY="44.0" text="Coins:" />
+            <Label fx:id="SelectedCloud" layoutX="247.0" layoutY="381.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER" />
             <Label fx:id="To" layoutX="442.0" layoutY="614.0" text="To:" />
             <Label fx:id="SelectedStudent" layoutX="442.0" layoutY="587.0" text="Selected Student:" />
             <Label fx:id="SelectedCharacter" layoutX="226.0" layoutY="613.0" text="Selected Character:" />
             <TextField fx:id="steps" layoutX="16.0" layoutY="609.0" prefHeight="25.0" prefWidth="66.0" promptText="Steps" />
             <Button layoutX="280.0" layoutY="691.0" mnemonicParsing="false" text="End Turn" />
             <ComboBox fx:id="green" layoutX="975.0" layoutY="169.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.6" scaleY="0.6" />
-            <ComboBox fx:id="entrance" layoutX="665.0" layoutY="170.0" prefHeight="25.0" prefWidth="86.0" scaleX="0.6" scaleY="0.6" />
+            <ComboBox fx:id="entrance" layoutX="665.0" layoutY="170.0" onAction="#comboBoxAction" prefHeight="25.0" prefWidth="86.0" scaleX="0.6" scaleY="0.6" />
             <ComboBox fx:id="blue" layoutX="975.0" layoutY="334.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.6" scaleY="0.6" />
             <ComboBox fx:id="pink" layoutX="975.0" layoutY="288.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.6" scaleY="0.6" />
             <ComboBox fx:id="yellow" layoutX="975.0" layoutY="252.0" prefHeight="25.0" prefWidth="76.0" scaleX="0.6" scaleY="0.6" />
@@ -208,7 +209,7 @@
                <center>
                   <AnchorPane prefHeight="273.0" prefWidth="618.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant1" fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="131.0" onMouseClicked="#clickonAssistant1" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (1).png" />
                            </image>
@@ -216,7 +217,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="118.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant2" fitHeight="150.0" fitWidth="200.0" layoutX="118.0" layoutY="131.0" onMouseClicked="#clickonAssistant2" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (2).png" />
                            </image>
@@ -224,7 +225,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="233.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant3" fitHeight="150.0" fitWidth="200.0" layoutX="233.0" layoutY="131.0" onMouseClicked="#clickonAssistant3" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (3).png" />
                            </image>
@@ -232,7 +233,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="342.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant4" fitHeight="150.0" fitWidth="200.0" layoutX="342.0" layoutY="131.0" onMouseClicked="#clickonAssistant4" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (4).png" />
                            </image>
@@ -240,7 +241,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="449.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant5" fitHeight="150.0" fitWidth="200.0" layoutX="449.0" layoutY="131.0" onMouseClicked="#clickonAssistant5" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (5).png" />
                            </image>
@@ -248,7 +249,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant6" fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="4.0" onMouseClicked="#clickonAssistant6" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (6).png" />
                            </image>
@@ -256,7 +257,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="118.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant7" fitHeight="150.0" fitWidth="200.0" layoutX="118.0" layoutY="5.0" onMouseClicked="#clickonAssistant7" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (7).png" />
                            </image>
@@ -264,7 +265,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="232.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant8" fitHeight="150.0" fitWidth="200.0" layoutX="232.0" layoutY="5.0" onMouseClicked="#clickonAssistant8" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (8).png" />
                            </image>
@@ -272,7 +273,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="342.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant9" fitHeight="150.0" fitWidth="200.0" layoutX="342.0" layoutY="5.0" onMouseClicked="#clickonAssistant9" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (9).png" />
                            </image>
@@ -280,7 +281,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="449.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                        <ImageView fx:id="assistant10" fitHeight="150.0" fitWidth="200.0" layoutX="449.0" layoutY="4.0" onMouseClicked="#clickonAssistant10" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                            <image>
                               <Image url="@Assets/Assistenti/Assistente (10).png" />
                            </image>
@@ -307,10 +308,52 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <Button layoutX="1179.0" layoutY="593.0" mnemonicParsing="false" scaleX="0.95" scaleY="0.95" text="Choose Card" />
-            <Label layoutX="1209.0" layoutY="567.0" opacity="0.0" scaleX="0.95" scaleY="0.95" text="Label" />
-            <Label layoutX="1175.0" layoutY="540.0" scaleX="0.95" scaleY="0.95" text="Current selection:" />
+            <Button fx:id="confirmCard" layoutX="1179.0" layoutY="593.0" mnemonicParsing="false" onAction="#clickConfirmAssistant" scaleX="0.95" scaleY="0.95" text="Choose Card" />
+            <Label fx:id="assistantText" layoutX="1205.0" layoutY="559.0" prefHeight="25.0" prefWidth="60.0" scaleX="0.95" scaleY="0.95" />
+            <Label layoutX="1175.0" layoutY="538.0" scaleX="0.95" scaleY="0.95" text="Current selection:" />
+            <Label fx:id="towerColor" layoutX="658.0" layoutY="69.0" text="Tower Color:" />
+            <ImageView fx:id="cloud1" fitHeight="101.0" fitWidth="97.0" layoutX="192.0" layoutY="257.0" onMouseClicked="#clickonCloud1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Assets/Cloud.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="cloud3" fitHeight="101.0" fitWidth="91.0" layoutX="284.0" layoutY="160.0" onMouseClicked="#clickonCloud3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Assets/Cloud.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="cloud2" fitHeight="120.0" fitWidth="97.0" layoutX="373.0" layoutY="257.0" onMouseClicked="#clickonCloud2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Assets/Cloud.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Label fx:id="resetLabel" layoutX="513.0" layoutY="674.0" onMouseClicked="#reset" text="Reset" underline="true">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
          </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </AnchorPane>
    </children>
    <padding>

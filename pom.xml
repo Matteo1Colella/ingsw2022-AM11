@@ -20,6 +20,12 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.victorlaerte</groupId>
+      <artifactId>jfx-asynctask</artifactId>
+      <version>1.0.1</version>
+      <type>pom</type>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>

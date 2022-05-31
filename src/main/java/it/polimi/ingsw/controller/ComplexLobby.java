@@ -526,7 +526,9 @@ public class ComplexLobby{
             }
         }
         game.colorDominance();
-        game.coinGiver();
+        if(gameType) {
+            game.coinGiver();
+        }
     }
 
     public synchronized void moveMotherNature(int moves){

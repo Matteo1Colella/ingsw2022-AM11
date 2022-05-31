@@ -17,13 +17,13 @@ public class ClientApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(ClientApp.class.getResource("/LoginPhase.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ClientApp.class.getResource("/ConnectionPhase.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        LoginController controller = fxmlLoader.getController();
-        controller.setToggleGroup();
+        ConnectionController controller = fxmlLoader.getController();
+        //controller.setToggleGroup();
         controller.setStage(primaryStage);
         primaryStage.setResizable(false);
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("Create Connection");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

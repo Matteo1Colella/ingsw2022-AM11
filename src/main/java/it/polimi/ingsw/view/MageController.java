@@ -6,8 +6,13 @@ import it.polimi.ingsw.communication.common.MessageType;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.view.stages.ActionStage;
+import it.polimi.ingsw.view.stages.MageStageSocket;
 import it.polimi.ingsw.view.stages.PlanningStage;
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -15,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 public class MageController {
     private ArrayList<Mage> avaiableMages;
@@ -109,7 +115,7 @@ public class MageController {
     }
 
     @FXML
-    public void confirmMageSocket() throws IOException {
+    public synchronized void confirmMageSocket() throws IOException {
 
         int mage = 0;
 
@@ -127,16 +133,77 @@ public class MageController {
                 mage = 4;
                 break;
         }
-        client.getSendMessage().sendMageMessage(new MageMessage(mage));
 
-        MessageInterface receivedMessage = client.getReceiveMessage().receiveMessage();
-        if (receivedMessage.getCode() == MessageType.NOERROR){
-            result.setText("Correct Selection");
-            new ActionStage();
+        int finalMage = mage;
+        Platform.runLater(() -> {
+
+
+            client.getSendMessage().sendMageMessage(new MageMessage(finalMage));
+            MessageInterface receivedMessage = client.getReceiveMessage().receiveMessage();
+
+            System.out.println(receivedMessage.getCode());
+
+            if (receivedMessage.getCode() == MessageType.MAGEERROR){
+                result.setText("Error, try again");
+                return;
+            }
+
+            try {
+                new ActionStage(client);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             stage.close();
+        });
+        /*
+        client.getSendMessage().sendMageMessage(new MageMessage(mage));
+        MessageInterface receivedMessage = client.getReceiveMessage().receiveMessage();
+
+
+        if (receivedMessage.getCode() == MessageType.NOERROR){
+
+            new ActionStage(client);
+            stage.close();
+
+
+
+            Service<Void> service = new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
+
+                            final CountDownLatch latch = new CountDownLatch(1);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try{
+
+                                    }finally{
+                                        latch.countDown();
+                                    }
+                                }
+                            });
+                            latch.await();
+                            //Keep with the background work
+                            return null;
+                        }
+                    };
+                }
+            };
+            //service.start();
+
+
+
+
+
+
         } else if (receivedMessage.getCode() == MessageType.MAGEERROR){
             result.setText("Error, try again");
         }
+
+         */
 
 
     }

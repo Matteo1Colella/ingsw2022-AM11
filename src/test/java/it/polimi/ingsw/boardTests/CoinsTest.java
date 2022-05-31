@@ -89,9 +89,27 @@ public class CoinsTest {
         game.coinGiver();
 
         assertEquals(player1.getSchoolBoard().getStudentSize(ColorStudent.RED), 6);
+        assertEquals(player2.getSchoolBoard().getStudentSize(ColorStudent.GREEN), 4);
 
         assertEquals(player1.getCoinOwned(), 3);
         assertEquals(player2.getCoinOwned(), 2);
+
+        game.coinGiver();
+        assertEquals(player1.getCoinOwned(), 3);
+        assertEquals(player2.getCoinOwned(), 2);
+        game.coinGiver();
+        assertEquals(player1.getCoinOwned(), 3);
+        assertEquals(player2.getCoinOwned(), 2);
+        game.coinGiver();
+        assertEquals(player1.getCoinOwned(), 3);
+        assertEquals(player2.getCoinOwned(), 2);
+        game.coinGiver();
+        assertEquals(player1.getCoinOwned(), 3);
+        assertEquals(player2.getCoinOwned(), 2);
+        game.coinGiver();
+        assertEquals(player1.getCoinOwned(), 3);
+        assertEquals(player2.getCoinOwned(), 2);
+
     }
 
     @Test

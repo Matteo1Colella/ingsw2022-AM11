@@ -35,41 +35,43 @@ public class PingPongThread extends Thread{
         exec.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                if(host.equals("server")){
-                    try{
-                        if(socket.getInetAddress().isReachable( 50000)){
-                            //System.out.println("Is reachable.\r");
-                            sendMessage.sendPingPongMessage(new PingPongMessage("ping"));
-                        } else {
-                            System.out.println("Is not reachable.\r");
+                synchronized (serverThread) {
+                    if (host.equals("server")) {
+                        try {
+                            if (socket.getInetAddress().isReachable(50000)) {
+                                //System.out.println("Is reachable.\r");
+                                sendMessage.sendPingPongMessage(new PingPongMessage("ping"));
+                            } else {
+                                System.out.println("Is not reachable.\r");
+                                serverThread.closeConnection();
+                                interrupt();
+                            }
+                            if (socket.isClosed()) {
+                                System.out.println("Is not reachable.\r");
+                                serverThread.closeConnection();
+                                interrupt();
+                            }
+                        } catch (IOException e) {
                             serverThread.closeConnection();
-                            interrupt();
+                            e.printStackTrace();
                         }
-                        if(socket.isClosed()){
-                            System.out.println("Is not reachable.\r");
-                            serverThread.closeConnection();
-                            interrupt();
-                        }
-                    } catch (IOException e) {
-                        serverThread.closeConnection();
-                        e.printStackTrace();
-                    }
-                } else if (host.equals("client")){
-                    try{
-                        if(socket.getInetAddress().isReachable( 50000)){
-                            //System.out.println("Is reachable.\r");
-                        } else {
-                            //System.out.println("Is not reachable.\r");
-                            System.out.println("Connection lost.\r");
-                            socket.close();
-                        }
-                        if(socket.isClosed()){
-                            System.out.println("Connection lost.\r");
-                            socket.close();
-                        }
-                    } catch (IOException e) {
+                    } else if (host.equals("client")) {
+                        try {
+                            if (socket.getInetAddress().isReachable(50000)) {
+                                //System.out.println("Is reachable.\r");
+                            } else {
+                                //System.out.println("Is not reachable.\r");
+                                System.out.println("Connection lost.\r");
+                                socket.close();
+                            }
+                            if (socket.isClosed()) {
+                                System.out.println("Connection lost.\r");
+                                socket.close();
+                            }
+                        } catch (IOException e) {
 
-                        e.printStackTrace();
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

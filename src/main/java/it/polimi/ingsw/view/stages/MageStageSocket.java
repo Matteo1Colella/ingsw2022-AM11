@@ -21,7 +21,7 @@ public class MageStageSocket extends Stage {
 
 
 
-    public MageStageSocket(ClientMain client) throws IOException {
+    public MageStageSocket(ClientMain client, MageMessage mageMessage) throws IOException, InterruptedException {
 
         boolean one = false, two = false, three = false, four = false;
 
@@ -35,8 +35,11 @@ public class MageStageSocket extends Stage {
         controller.setClient(client);
         controller.setStage(subStage);
 
+        /*
         client.getSendMessage().sendMageMessage(new MageMessage());
         MageMessage mageMessage = (MageMessage) client.receiveMessage();
+
+         */
 
         for (int i = 0; i < mageMessage.getAviableMage().length; i++) {
             switch (mageMessage.getAviableMage()[i]){

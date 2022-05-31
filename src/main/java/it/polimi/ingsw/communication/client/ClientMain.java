@@ -58,6 +58,10 @@ public class ClientMain extends Thread {
         return receiveMessage;
     }
 
+    public ModelMessage getModel() {
+        return model;
+    }
+
     public static void main(String[] args) {
         ClientMain clientMain = new ClientMain();
         System.out.println(ANSI_PURPLE +"                                                                                                                                                                                                       \n" +
@@ -110,7 +114,7 @@ public class ClientMain extends Thread {
         while (true){
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
-
+            System.out.println("start turn " + message);
 
             if(clientMain.gameType == false){
                 switch (message){
@@ -168,6 +172,11 @@ public class ClientMain extends Thread {
         }
     }
 
+
+    public boolean isGameType() {
+        return gameType;
+    }
+
     private boolean askParameters() throws IOException{
         String input = "";
         while(!Objects.equals(input, "no") && !Objects.equals(input, "yes"))
@@ -186,7 +195,7 @@ public class ClientMain extends Thread {
             port = scanner.nextInt();
             InetAddress host = InetAddress.getByName(IP);
             clientSocket = new Socket(host, port);
-            clientSocket.setSoTimeout(100000);
+           // clientSocket.setSoTimeout(100000);
             setReceiveMessage(new JSONtoObject(clientSocket));
             setSendMessage(new ObjectToJSON(clientSocket));
             return true;
@@ -222,7 +231,7 @@ public class ClientMain extends Thread {
          */
         InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
-        clientSocket.setSoTimeout(100000);
+       // clientSocket.setSoTimeout(100000);
         setReceiveMessage(new JSONtoObject(clientSocket));
         setSendMessage(new ObjectToJSON(clientSocket));
     }
@@ -645,6 +654,7 @@ public class ClientMain extends Thread {
                 student2Entrance,student2WhereToPut,indexIslandIf2ToIsland,
                 student3Entrance,student3WhereToPut,indexIslandIf3ToIsland,
                 student4Entrance,student4WhereToPut,indexIslandIf4ToIsland));
+
 
         showModel();
 

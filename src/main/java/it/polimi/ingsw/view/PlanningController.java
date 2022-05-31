@@ -13,7 +13,7 @@ public class PlanningController {
     private Button confirm;
 
     public void confirm() throws IOException {
-        new ActionStage();
+
     }
 
 }

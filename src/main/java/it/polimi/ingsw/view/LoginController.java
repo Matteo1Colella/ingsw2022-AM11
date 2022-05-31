@@ -1,19 +1,22 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.communication.client.ClientMain;
-import it.polimi.ingsw.communication.common.MessageInterface;
-import it.polimi.ingsw.communication.common.MessageType;
-import it.polimi.ingsw.communication.common.PingPongThread;
+import it.polimi.ingsw.communication.common.*;
 import it.polimi.ingsw.communication.common.messages.LobbiesMessage;
 import it.polimi.ingsw.communication.common.messages.LoginMessage;
+import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.view.stages.LoginStage;
 import it.polimi.ingsw.view.stages.MageStageSocket;
 import it.polimi.ingsw.view.stages.Magestage;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.event.EventType;
 import javafx.fxml.*;
@@ -26,10 +29,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 public class LoginController implements Initializable{
     private final GameManager gameManager = new GameManager();
@@ -48,17 +55,21 @@ public class LoginController implements Initializable{
     private ToggleGroup toggleGroup;
     private Stage stage;
 
-private ClientMain client;
+
+    private ClientMain client;
     @FXML
-    AnchorPane anchorPane;
+    private AnchorPane anchorPane;
+
+
+
 
     @FXML
-    StackPane stackPane;
+    private StackPane stackPane;
 
     @FXML
     private ProgressBar progressBar;
     @FXML
-    ImageView background;
+    private ImageView background;
     @FXML
     private CheckBox pro;
     @FXML
@@ -90,6 +101,10 @@ private ClientMain client;
         this.stage = stage;
     }
 
+    public void setClient(ClientMain client) {
+        this.client = client;
+    }
+
     public void setToggleGroup() {
         this.toggleGroup = new ToggleGroup();
         twoP.setToggleGroup(toggleGroup);
@@ -97,8 +112,10 @@ private ClientMain client;
         fourP.setToggleGroup(toggleGroup);
     }
 
+
+
     @FXML
-    public void loginSocket() throws IOException {
+    public void loginSocket() throws IOException, InterruptedException {
         boolean set = false;
 
         if(toggleGroup.getSelectedToggle().equals(twoP)){
@@ -125,10 +142,50 @@ private ClientMain client;
             welcomeText.setText("Something gone wrong, please retry.\r");
         } else if(message.getCode() == MessageType.NOERROR) {
             LobbiesMessage lobbiesMessage = (LobbiesMessage) client.receiveMessage();
-            welcomeText.setText("You are in the lobby ");
-           // welcomeText.setText("You are in the lobby " + lobbiesMessage.getIdLobby());
-            new MageStageSocket(client);
-            stage.close();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("Successful Login");
+            alert.setContentText("You are in lobby "+ lobbiesMessage.getIdLobby() + ", waiting for players..." );
+            alert.show();
+
+            Service<Void> service = new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
+
+                            client.getSendMessage().sendMageMessage(new MageMessage());
+                            MageMessage mageMessage = (MageMessage) client.receiveMessage();
+                            final CountDownLatch latch = new CountDownLatch(1);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try{
+
+                                        try {
+                                            new MageStageSocket(client, mageMessage);
+                                            stage.close();
+                                        } catch (IOException | InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }finally{
+                                        latch.countDown();
+                                    }
+                                }
+                            });
+                            latch.await();
+                            //Keep with the background work
+                            return null;
+                        }
+                    };
+                }
+            };
+            service.start();
+
+
+
         }
 
 
@@ -219,26 +276,18 @@ private ClientMain client;
          */
     }
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setToggleGroup();
-        ClientMain clientMain = new ClientMain();
-        new PingPongThread(clientMain.getClientSocket(), "client");
-        //clientMain.pingPong();
-
-        //clientMain.login();
-        this.client = clientMain;
-        try{
-            clientMain.readParameters();
-            clientMain.createConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         anchorPane.setOpacity(0);
+        stackPane.setOpacity(0);
+
         stackPane.setOpacity(1);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(progressBar.progressProperty(), 0)),
-                new KeyFrame(Duration.seconds(5), e-> {
+                new KeyFrame(Duration.seconds(2), e-> {
 
                     FadeTransition fade1 = new FadeTransition();
                     FadeTransition fade = new FadeTransition();
@@ -265,6 +314,5 @@ private ClientMain client;
         );
         timeline.setCycleCount(1);
         timeline.play();
-
     }
 }

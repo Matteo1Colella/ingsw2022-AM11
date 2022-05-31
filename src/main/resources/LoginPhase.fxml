@@ -22,7 +22,7 @@
          <Image url="@Assets/14.jpg" />
       </ImageView>
    </StackPane>
-   <AnchorPane fx:id="anchorPane" layoutY="10.0" prefHeight="405.0" prefWidth="608.0" translateY="7.0">
+   <AnchorPane fx:id="anchorPane" layoutY="10.0" opacity="0.0" prefHeight="405.0" prefWidth="608.0" translateY="7.0">
       <ImageView fx:id="background" fitHeight="415.0" fitWidth="644.0" layoutY="-10.0" opacity="0.26" pickOnBounds="true" preserveRatio="true" translateY="-7.0">
          <Image url="@Assets/14.jpg" />
       </ImageView>

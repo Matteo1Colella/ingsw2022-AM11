@@ -43,5 +43,14 @@ public class CloudCard implements Board{
         return retStudents;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder students = new StringBuilder();
+        for(Student s : this.students){
+            students.append(s.toString()).append(" ");
+        }
+
+        return "" + students;
+    }
 }
 

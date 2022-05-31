@@ -76,7 +76,10 @@ public class ServerThread extends Thread{
                 }
             }
 
-            chooseMage();
+            synchronized (this){
+                chooseMage();
+
+            }
 
             while (!isMyTurn()){
                 if(clientSocket.isClosed()){
@@ -85,9 +88,16 @@ public class ServerThread extends Thread{
                 }
             }
 
-            sendModel();
+            synchronized (this){
+                sendModel();
 
-            playCard();
+            }
+
+            synchronized (this){
+
+                playCard();
+            }
+
 
             while (!isMyTurn()){
                 if(clientSocket.isClosed()){
@@ -100,6 +110,9 @@ public class ServerThread extends Thread{
             boolean endGame = false;
             int i = 0;
             while (!endGame) {
+
+
+
                 while (isMyTurn()){
 
                     if(clientSocket.isClosed()){
@@ -112,6 +125,7 @@ public class ServerThread extends Thread{
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
                     MessageInterface message = receiveMessage.receiveMessage();
+                    System.out.println("received: " + message.getCode());
                     MessageType messageCode = message.getCode();
                     switch (messageCode){
                         case PINGPONG:
@@ -146,8 +160,13 @@ public class ServerThread extends Thread{
                             sendModelInGame();
                             break;
                         case STUDENT:
-                            moveStudent();
-                            sendModel();
+                            synchronized (this){
+                                System.out.println("preomove");
+                                moveStudent();
+                                System.out.println("sending model");
+                                sendModel();
+                                System.out.println("aftermodel");
+                            }
                             break;
                         case CHARACTERCHOICE:
                             playCharacter(message);
@@ -240,8 +259,13 @@ public class ServerThread extends Thread{
             interrupt();
             return;
         }
+
+        System.out.println(message.getCode());
+
         if(message.getCode() == MessageType.MODEL){
+
             sendMessage.sendModelMessage(currentCL.sendModel(username));
+            System.out.println("sent");
         }
     }
 
