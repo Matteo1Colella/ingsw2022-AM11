@@ -18,6 +18,11 @@
    <children>
       <AnchorPane fx:id="apane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" scaleShape="false">
          <children>
+            <ImageView fitHeight="821.0" fitWidth="1377.0" layoutX="-38.0" layoutY="-32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@action_back.jpg" />
+               </image>
+            </ImageView>
             <ImageView fitHeight="419.0" fitWidth="960.0" layoutX="468.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
                <image>
                   <Image url="@Assets/Plancia_DEF2.png" />

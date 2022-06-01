@@ -686,6 +686,33 @@ public class ActionController {
         SelectedStudent.setText("null");
     }
 
+    public synchronized void disableIslands(){
+        island1.setOpacity(0);
+        island1.setDisable(true);
+        island2.setOpacity(0);
+        island2.setDisable(true);
+        island3.setOpacity(0);
+        island3.setDisable(true);
+        island4.setOpacity(0);
+        island4.setDisable(true);
+        island5.setOpacity(0);
+        island5.setDisable(true);
+        island6.setOpacity(0);
+        island6.setDisable(true);
+        island7.setOpacity(0);
+        island7.setDisable(true);
+        island8.setOpacity(0);
+        island8.setDisable(true);
+        island9.setOpacity(0);
+        island9.setDisable(true);
+        island10.setOpacity(0);
+        island10.setDisable(true);
+        island11.setOpacity(0);
+        island11.setDisable(true);
+        island12.setOpacity(0);
+        island12.setDisable(true);
+    }
+
     public synchronized void showmodel(ClientMain client) {
 
         //if pro{
@@ -705,9 +732,71 @@ public class ActionController {
         this.archipelago.clear();
         this.archipelago.addAll(model.getArchipelago());
 
+        disableIslands();
+
+        for (IslandCard islandCard : model.getArchipelago()){
+            switch (islandCard.getId_island()){
+                case 0:
+                    island1.setOpacity(1);
+                    island1.setDisable(false);
+                    break;
+                case 1:
+                    island2.setOpacity(1);
+                    island2.setDisable(false);
+                    break;
+                case 2:
+                    island3.setOpacity(1);
+                    island3.setDisable(false);
+                    break;
+                case 3:
+                    island4.setOpacity(1);
+                    island4.setDisable(false);
+                    break;
+                case 4:
+                    island5.setOpacity(1);
+                    island5.setDisable(false);
+                    break;
+                case 5:
+                    island6.setOpacity(1);
+                    island6.setDisable(false);
+                    break;
+                case 6:
+                    island7.setOpacity(1);
+                    island7.setDisable(false);
+                    break;
+                case 7:
+                    island8.setOpacity(1);
+                    island8.setDisable(false);
+                    break;
+                case 8:
+                    island9.setOpacity(1);
+                    island9.setDisable(false);
+                    break;
+                case 9:
+                    island10.setOpacity(1);
+                    island10.setDisable(false);
+                    break;
+                case 10:
+                    island11.setOpacity(1);
+                    island11.setDisable(false);
+                    break;
+                case 11:
+                    island12.setOpacity(1);
+                    island12.setDisable(false);
+                    break;
+
+            }
+        }
+
+
+
         int i = 0;
         for (IslandCard islandCard : model.getArchipelago()) {
             if (islandCard.getMotherNature()) {
+                if (islandCard.getId_island() == 0) {
+                    motherNature.setLayoutX(island1.getLayoutX() + 42);
+                    motherNature.setLayoutY(island1.getLayoutY());
+                }
                 if (islandCard.getId_island() == 1) {
                     motherNature.setLayoutX(island2.getLayoutX() + 42);
                     motherNature.setLayoutY(island2.getLayoutY());
