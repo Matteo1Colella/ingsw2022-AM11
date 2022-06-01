@@ -8,6 +8,12 @@ import java.util.Comparator;
 public class OrderComparator implements Comparator {
 
 
+    /**
+     * compares the influence of 2 assistant cards
+     * @param obj1 the first object to be compared.
+     * @param obj2 the second object to be compared.
+     * @return int (bool)
+     */
     @Override
     public int compare(Object obj1, Object obj2) {
         if (obj1!=null && obj2!=null){

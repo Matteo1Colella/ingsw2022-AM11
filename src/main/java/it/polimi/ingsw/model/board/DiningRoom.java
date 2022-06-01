@@ -23,6 +23,10 @@ public class DiningRoom implements Board {
         this.students.remove(student);
     }
 
+    /**
+     * who will call this function have to control the number of the students with the same color for all Players
+     * @param student
+     */
     public void addStudent(Student student){
         int sizeBeforeAdding = getStudentsSize();
         if(student.getColor().equals(this.getColor())){
@@ -36,7 +40,6 @@ public class DiningRoom implements Board {
         }
     }
 
-    //who will call this function have to control the number of the students with the same color for all Players
     public void setProfessor(Professor professor){
         this.professor = professor;
     }
@@ -53,7 +56,10 @@ public class DiningRoom implements Board {
         return students.size();
     }
 
-    //says if it is possible to earn a coin
+    /**
+     * says if it is possible to earn a coin
+     * @return
+     */
     public boolean giveCoin(){
 
         if (oldStudents == students.size()){

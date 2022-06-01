@@ -10,7 +10,9 @@ import java.util.Collection;
 public class DeckManager {
     private final ArrayList<AssistantDeck> assistantDecks;
 
-    //Creation of deck ready to be chosen
+    /**
+     * Creation of deck ready to be chosen
+     */
     public DeckManager() {
         Mage[] mages = {Mage.MAGE1, Mage.MAGE2, Mage.MAGE3, Mage.MAGE4};
 
@@ -27,10 +29,13 @@ public class DeckManager {
         return assistantDecks;
     }
 
-    /*
-    Players can choose their mage: if the mage is occupied
-    the function ask to choose an other mage.
-    */
+
+    /**
+     * Players can choose their mage: if the mage is occupied
+     *     the function ask to choose an other mage.
+     * @param mage
+     * @return AssistantDeck
+     */
     public AssistantDeck generateDeck(Mage mage){
         AssistantDeck retDeck;
 
@@ -48,7 +53,11 @@ public class DeckManager {
         return null;
     }
 
-    //Creation of cards
+    /**
+     * Creation of cards
+     * @param mage
+     * @return
+     */
     private Collection<Card> generateCards(Mage mage){
        ArrayList<Card> cards = new ArrayList<>();
        int[] steps = {1, 1, 2, 2, 3, 3, 4, 4, 5, 5};

@@ -17,7 +17,10 @@ public class CoinReserve {
         }
     }
 
-    //give a coin to a player
+    /**
+     * give a coin to a player
+     * @param player
+     */
     public void giveCoin(Player player){
         for(Coin tempCoin : coins){
             if(tempCoin.getOwnerPlayer() == null){
@@ -29,8 +32,11 @@ public class CoinReserve {
         }
     }
 
-    //when a character card end its power, the coins on it have to return in the coins reserve.
-    //the caller have to call this function for each coin on the card
+    /**
+     * when a character card end its power, the coins on it have to return in the coins reserve.
+     * the caller have to call this function for each coin on the card
+     * @param coin
+     */
     public void addCoin(Coin coin){
         this.coins.add(coin);
     }

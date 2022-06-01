@@ -41,12 +41,19 @@ public class AssistantDeck {
         return cards;
     }
 
-    //returns the number of the cars remaining
+    /**
+     * returns the number of the cars remaining
+     * @return number remaining cards
+     */
     public int leftCard(){
         return remainingCards;
     }
 
-    //choose a card from the deck
+    /**
+     * choose a card from the deck
+     * @param i choice
+     * @return card
+     */
     public Card chooseCard(int i){
         i--;
         if(remainingCards == 0){

@@ -172,6 +172,9 @@ public class ServerThread extends Thread{
         sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
     }
 
+    /**
+     * receives the username and preferences for the game that a player wants
+     */
     private void login(){
 
         LoginMessage loginMessage = null;
@@ -204,6 +207,9 @@ public class ServerThread extends Thread{
         }
     }
 
+    /**
+     * selects the mage that a player wants
+     */
     private void chooseMage(){
         boolean ok = false;
         while(!ok){
@@ -214,6 +220,9 @@ public class ServerThread extends Thread{
         }
     }
 
+    /**
+     * plays an assistant card
+     */
     private void playCard(){
         boolean ok = false;
         while (!ok){
@@ -232,6 +241,9 @@ public class ServerThread extends Thread{
         }
     }
 
+    /**
+     * sends the table with the game components
+     */
     private void sendModel(){
         ModelMessage message = null;
         try{
@@ -249,6 +261,9 @@ public class ServerThread extends Thread{
         sendMessage.sendModelMessage(currentCL.sendModel(username));
     }
 
+    /**
+     * moves the students
+     */
     private void moveStudent(){
         MoveStudentMessage message = null;
         try{
@@ -274,6 +289,9 @@ public class ServerThread extends Thread{
         currentCL.moveStudents(orderedStudents);
     }
 
+    /**
+     * moves motherNature
+     */
     private void moveMotherNature(){
         MoveMotherNatureMessage message = null;
         try{
@@ -285,6 +303,9 @@ public class ServerThread extends Thread{
         currentCL.moveMotherNature(message.getMoves());
     }
 
+    /**
+     * selects a cloud card
+     */
     private void selectCloudCard(){
         CloudCardChoiceMessage message = null;
         try{
@@ -296,11 +317,19 @@ public class ServerThread extends Thread{
         currentCL.selectCloudCard(message.getCloud());
     }
 
+    /**
+     * plays a Character
+     * @param message
+     */
     private void playCharacter(MessageInterface message){
         UseCharacterMessage characterMessage = (UseCharacterMessage) message;
         currentCL.playCharacter(characterMessage);
     }
 
+    /**
+     * check if is the turn of the player
+     * @return boolean
+     */
     private boolean isMyTurn(){
 
         if(currentCL.getActivePlayer() == null){

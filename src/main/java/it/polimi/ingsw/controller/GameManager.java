@@ -21,7 +21,12 @@ public class GameManager {
         return complexLobbies;
     }
 
-    // Looks For the last Lobby matching with player preferences and returns, if exists, else it returns null
+    /**
+     * Looks For the last Lobby matching with player preferences and returns, if exists, else it returns null
+     * @param Numplayers
+     * @param Gametype
+     * @return ComplexLobby
+     */
     public ComplexLobby getComplexlobby(int Numplayers, boolean Gametype){
         ComplexLobby Chosen = null;
         int ID = -1;
@@ -42,7 +47,11 @@ public class GameManager {
         return Chosen;
     }
 
-    // returns lobby with ID
+    /**
+     * returns lobby with ID
+     * @param ID
+     * @return ComplexLobby
+     */
     public ComplexLobby ComplexLobbySearch(int ID){
 
         for(ComplexLobby temp : complexLobbies){
@@ -51,8 +60,14 @@ public class GameManager {
         return null;
     }
 
-    // If there's no Lobbies, it creates one, if there's one matching lobby but full, it creates a new one, if there's one matching Lobby which is not full
-    // the player gets added in that Lobby. it checks if UserID is free and if it's not it returns an access failed.
+    /**
+     * If there's no Lobbies, it creates one, if there's one matching lobby but full, it creates a new one, if there's one matching Lobby which is not full
+     * the player gets added in that Lobby. it checks if UserID is free and if it's not it returns an access failed.
+     * @param ID
+     * @param numplayers
+     * @param Gametype
+     * @return boolean
+     */
     public boolean login(String ID, int numplayers, boolean Gametype){
         // no more than 4 players
         if (numplayers <= 1 || numplayers > maxplayers){
@@ -114,6 +129,14 @@ public class GameManager {
         }
     }
 
+    /**
+     * login
+     * @param ID
+     * @param numplayers
+     * @param Gametype
+     * @param clientSocket
+     * @return boolean
+     */
     public boolean loginSocket(String ID, int numplayers, boolean Gametype, Socket clientSocket){
         // no more than 4 players
         if (numplayers > maxplayers){
@@ -184,7 +207,11 @@ public class GameManager {
         }
         return true;
     }
-    // returns the lobby in which plays the player
+    /**
+     * returns the lobby in which plays the player
+     * @param player
+     * @return
+     */
     public ComplexLobby getPlayerComplexLobby(String player){
         for(ComplexLobby temp : complexLobbies){
             for(Player p : temp.getPlayers()){

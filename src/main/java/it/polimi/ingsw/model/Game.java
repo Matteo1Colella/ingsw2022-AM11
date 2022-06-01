@@ -85,8 +85,9 @@ public class Game {
     public ArrayList<Player> playerList(){
         return this.complexLobby.getPlayers();
     }
-
-    //checks if a player earns a professor
+    /**
+     * checks if a player earns a professor
+     */
     public void colorDominance(){
         ArrayList<Player> players = this.complexLobby.getPlayers();
         HashMap<Player, int[]> sizeMap = new HashMap<>();
@@ -194,7 +195,9 @@ public class Game {
     public HashMap<ColorStudent, Player> getDominanceMap(){
         return this.dominanceMap;
     }
-
+    /**
+     * calculate the dominance of an island
+     */
     public void islandDominance(){
 
         IslandCard selectedIsland = null;
@@ -551,7 +554,9 @@ public class Game {
         }
 
     }
-
+    /**
+     * calculate the dominance of an island, this method is only used by Character3
+     */
     public void islandDominance(IslandCard island) {
 
         IslandCard selectedIsland = null;
@@ -893,6 +898,9 @@ public class Game {
     }
     }
 
+    /**
+     * generate the table (gamecomponents)
+     */
     public GameComponents generateBoard(){
 
         ArrayList<Student> initialBag = new ArrayList<>();
@@ -1044,7 +1052,9 @@ public class Game {
 
     }
 
-    //shows the 3 Character cards that a player can use?
+    /**
+     * shows the 3 Character cards that a player can use
+     */
     public void pickCharacters(){
         System.out.println("Character cards chosen for this game: ");
         for (int i=0; i<3; i++) {
@@ -1052,7 +1062,10 @@ public class Game {
         }
     }
 
-    //selects a random player to begin
+
+    /**
+     * selects a random player to begin
+     */
     public Player startGameWithRandomPlayer(){
         /*
         int index = (int) (Math.random() * this.complexLobby.getPlayers().size());
@@ -1082,8 +1095,9 @@ public class Game {
         return this.complexLobby.getPlayerOrder().get(0);
 
     }
-
-    //checks if the game ends, returns the winner player
+    /**
+     * checks if the game ends, returns the winner player
+     */
     public Player winCondition() {
 
         //check if a player finished his free towers in his schoolBoard
@@ -1293,11 +1307,11 @@ public class Game {
         return motherNat;
     }
 
-    public void useEffect(int characterUsed){
+    public void useEffect(int characterUsed){}
 
-    }
-
-    //function which, at the end of each turn, check if a player can earn some conis
+    /**
+     * function which, at the end of each turn, check if a player can earn some conis
+     */
     public void coinGiver(){
         for(Player player : this.complexLobby.getPlayers()){
             SchoolBoard schoolBoard = player.getSchoolBoard();
@@ -1310,6 +1324,9 @@ public class Game {
         }
     }
 
+    /**
+     * At the end of a round, refill the cloud cards
+     */
     public void refillCloudCards(){
         ArrayList<CloudCard> cloudCards = this.getGameComponents().getCloudCards();
         for(CloudCard cloudCard : cloudCards){

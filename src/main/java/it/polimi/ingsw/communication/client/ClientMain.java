@@ -173,6 +173,11 @@ public class ClientMain extends Thread {
         }
     }
 
+    /**
+     * to set ip and port, if a player wants
+     * @return boolean
+     * @throws IOException
+     */
     private boolean askParameters() throws IOException{
         String input = "";
         while(!Objects.equals(input, "no") && !Objects.equals(input, "yes"))
@@ -202,6 +207,10 @@ public class ClientMain extends Thread {
         return false;
     }
 
+    /**
+     * to read the default configuration
+     * @throws IOException
+     */
     public void readParameters() throws IOException {
         Gson gson = new Gson();
         //create a reader
@@ -241,6 +250,9 @@ public class ClientMain extends Thread {
         receiveMessage();
     }
 
+    /**
+     * sets the username and type of game
+     */
     public void login() {
         String username = null;
         int numOfPlayers = 0;
@@ -299,6 +311,10 @@ public class ClientMain extends Thread {
         }
     }
 
+    /**
+     * to choose the initial deck
+     * @return boolean
+     */
     public boolean choseMage() {
         System.out.println("");
         System.out.println(ANSI_PURPLE+" _____________________________\n" +
@@ -364,6 +380,10 @@ public class ClientMain extends Thread {
 
     }
 
+    /**
+     * shows the correct assistant cards to choose
+     * @return boolean
+     */
     public boolean playAssistantCard(){
         boolean ok = false;
         for (int k =0; k < 4; k++)
@@ -442,6 +462,9 @@ public class ClientMain extends Thread {
         return false;
     }
 
+    /**
+     * to select how to move your students
+     */
     public void moveStudents() {
 
         //The user already has the schoolBoard (sent with ModelMessage)
@@ -660,6 +683,9 @@ public class ClientMain extends Thread {
         }
     }
 
+    /**
+     * shows the table
+     */
     public void showModel() {
 
         //ask the list of GameComponents (all the model)
@@ -988,6 +1014,10 @@ public class ClientMain extends Thread {
         return null;
     }
 
+    /**
+     * to select how many steps you want motherNature do
+     * @return boolean
+     */
     public boolean moveMotherNature(){
 
         Scanner scanner;
@@ -1114,6 +1144,9 @@ public class ClientMain extends Thread {
 
     }
 
+    /**
+     * to choose a cloud from the available ones
+     */
     public void selectCloudCard(){
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage());
         Scanner scanner = new Scanner(System.in);
@@ -1176,103 +1209,10 @@ public class ClientMain extends Thread {
         this.model = model;
 
     }
-    /*
 
-    public void showModel1() {
-
-        //ask the list of GameComponents (all the model)
-        sendMessage.sendModelMessage(new ModelMessage());
-        ModelMessage modelMessage = (ModelMessage) receiveMessage();
-        this.model = modelMessage;
-        //printing model..
-
-        //if pro{
-        if (modelMessage.getCoinOwned() >= 0) {
-            System.out.println("CHARACTER CARDS:");
-            for (CharacterCard characterCard : modelMessage.getCharacterCards()) {
-                System.out.println(characterCard.getNum());
-            }
-            System.out.println("");
-            System.out.println("YOUR COINS:");
-            System.out.println(modelMessage.getCoinOwned());
-            System.out.println("");
-        }
-        //}
-
-        int i = 0;
-        System.out.println("ARCHIPELAGO: ");
-        System.out.println("");
-        for (IslandCard islandCard : modelMessage.getArchipelago()) {
-            if (islandCard.getMotherNature()) {
-                System.out.println("MOTHERNATURE");
-            }
-            if (islandCard.getTower() != null) {
-                System.out.println("ISLAND: " + i + "\tTower : " + islandCard.getTower().getColor().toString());
-            } else {
-                System.out.println("ISLAND: " + i + "\tTower : no tower");
-            }
-            System.out.println("Students:");
-            for (int j = 0; j < islandCard.getStudents().size(); j++) {
-                System.out.println("Student " + j + " color : " + islandCard.getStudents().get(j));
-            }
-            System.out.println("Merged with: ");
-            for (int j = 0; j < islandCard.getMergedWith().size(); j++) {
-                IslandCard tempIslandCard = islandCard.getMergedWith().get(j);
-                for (int k = 0; k < tempIslandCard.getStudents().size(); k++) {
-                    System.out.println("Student " + k + " color : " + tempIslandCard.getStudents().get(k));
-                }
-            }
-            i++;
-            System.out.println("");
-        }
-        System.out.println("MY SCHOOLBOARD:");
-        System.out.println("");
-        System.out.println("ENTRANCE:" +"\t"+"\t"+"\t"+"\t"+"\t"+ "DINING ROOMS: " +"\t"+"\t"+"\t"+"\t"+"\t"+"Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
-        i = 0;
-        for (Student student : modelMessage.getSchoolBoard().getEntrance().getStudents()) {
-            System.out.println("student " + (i + 1) + ":" );
-            System.out.println(student.getColor());
-            if(i==0){
-                for (DiningRoom diningRoom : modelMessage.getSchoolBoard().getDiningRooms()) {
-                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" + "Color: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor());
-                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" +"Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
-                    System.out.println("\t"+"\t"+"\t"+"\t"+"\t"+"\t" +"Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
-                    i++;
-                    System.out.println("");
-                }
-                i++;
-            }
-            i--;
-            i++;
-        }
-        System.out.println("");
-        System.out.println("DINING ROOMS:");
-        System.out.println("");
-        i = 0;
-        for (DiningRoom diningRoom : modelMessage.getSchoolBoard().getDiningRooms()) {
-            System.out.println("Color: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getColor());
-            System.out.println("Number of Students: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).getStudents().size());
-            System.out.println("Professor: " + modelMessage.getSchoolBoard().getDiningRooms().get(i).IsProfessor());
-            i++;
-            System.out.println("");
-        }
-        if (!modelMessage.getSchoolBoard().getTowers().isEmpty() && modelMessage.getSchoolBoard().getTowers().get(0).getColor() != null)
-            System.out.println("TOWER color: " + modelMessage.getSchoolBoard().getTowers().get(0).getColor());
-
-        System.out.println("Remaining Towers: " + modelMessage.getSchoolBoard().getTowers().size());
-        i = 0;
-        System.out.println("");
-        System.out.println("CLOUDS: ");
-        for (CloudCard card : modelMessage.getCloudCardList()) {
-            System.out.println("cloud " + i + ":");
-            System.out.println(card.getStudents());
-            i++;
-        }
-    }
-
-
+    /**
+     * select a character to use, if the player wants
      */
-
     public void askCharacter(){
         characterHandler.askCharacter();
     }

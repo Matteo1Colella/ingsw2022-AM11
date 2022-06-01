@@ -31,6 +31,10 @@ public class CharacterHandlerClient {
         usable = false;
     }
 
+    /**
+     * ask what character a player wants
+     * @return
+     */
     public boolean askCharacter(){
         coinsOwned = model.getCoinOwned();
         HashMap<Integer,Integer> chosen = new HashMap<>();
@@ -84,6 +88,10 @@ public class CharacterHandlerClient {
         return true;
     }
 
+    /**
+     * plays effects of characters
+     * @param choice
+     */
     private void playCharacter(int choice){
         UseCharacterMessage characterMessage = new UseCharacterMessage();
         switch (playableCharacters.get(choice).getNum()){
