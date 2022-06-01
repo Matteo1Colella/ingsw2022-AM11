@@ -20,11 +20,17 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
@@ -51,6 +57,7 @@ public class ActionController {
     private ModelMessage model;
     private volatile boolean cc;
     int cloudchoice;
+    int numIslands;
 
 
     private int student1Entrance;
@@ -111,6 +118,9 @@ public class ActionController {
     @FXML
     private Button confirmCard;
 
+    @FXML
+    private javafx.scene.shape.Polygon grid;
+
 
     @FXML
     private ImageView island1;
@@ -157,11 +167,47 @@ public class ActionController {
     @FXML
     private Label assistantText;
 
+    @FXML
+    private ArrayList<ImageView> listIslands;
+
     public void setClient(ClientMain client) {
         this.client = client;
     }
 
+    public void bindIslands() {
+
+        System.out.println("listislands: " + listIslands.size());
+
+        grid.getPoints().clear();
+
+        final double angleStep = Math.PI * 2 / (numIslands);
+
+        double angle = Math.PI;
+        for (int i = 0; i < numIslands; i++, angle -= angleStep) {
+
+            double x = Math.sin(angle) * 245 + 329 - 237.26 - 90;
+            double y = Math.cos(angle) * 245 + 303 - 236 - 70;
+            grid.getPoints().addAll(
+                    x,
+                    y
+            );
+            grid.setDisable(true);
+            grid.setOpacity(0);
+
+            System.out.println(i + "--> x: " +  x + " y: " + y);
+
+            listIslands.get(i).setLayoutX(x + 237.26);
+            listIslands.get(i).setLayoutY(y + 236);
+        }
+
+    }
+
     public void bind(Stage stage, Scene scene) {
+
+
+        System.out.println(listIslands.size());
+
+        bindIslands();
 
         double height = scene.getHeight();
         double width = scene.getWidth();
@@ -300,7 +346,7 @@ public class ActionController {
     public void clickonIsland1() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 1 Content:");
         alert.setContentText(this.archipelago.get(0).toString());
         alert.show();
         selectedIsland = this.archipelago.get(0);
@@ -310,7 +356,7 @@ public class ActionController {
     public void clickonIsland2() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 2 Content:");
         alert.setContentText(this.archipelago.get(1).toString());
         alert.show();
         selectedIsland = this.archipelago.get(1);
@@ -320,7 +366,7 @@ public class ActionController {
     public void clickonIsland3() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 3 Content:");
         alert.setContentText(this.archipelago.get(2).toString());
         alert.show();
         selectedIsland = this.archipelago.get(2);
@@ -328,10 +374,10 @@ public class ActionController {
     }
 
     public void clickonIsland4() {
-        ;
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 4 Content:");
         alert.setContentText(this.archipelago.get(3).toString());
         alert.show();
         selectedIsland = this.archipelago.get(3);
@@ -341,7 +387,7 @@ public class ActionController {
     public void clickonIsland5() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 5 Content:");
         alert.setContentText(this.archipelago.get(4).toString());
         alert.show();
         selectedIsland = this.archipelago.get(4);
@@ -351,7 +397,7 @@ public class ActionController {
     public void clickonIsland6() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 6 Content:");
         alert.setContentText(this.archipelago.get(5).toString());
         alert.show();
         selectedIsland = this.archipelago.get(5);
@@ -361,7 +407,7 @@ public class ActionController {
     public void clickonIsland7() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 7 Content:");
         alert.setContentText(this.archipelago.get(6).toString());
         alert.show();
         selectedIsland = this.archipelago.get(6);
@@ -371,7 +417,7 @@ public class ActionController {
     public void clickonIsland8() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 8 Content:");
         alert.setContentText(this.archipelago.get(7).toString());
         alert.show();
         selectedIsland = this.archipelago.get(7);
@@ -381,7 +427,7 @@ public class ActionController {
     public void clickonIsland9() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 9 Content:");
         alert.setContentText(this.archipelago.get(8).toString());
         alert.show();
         selectedIsland = this.archipelago.get(8);
@@ -391,7 +437,7 @@ public class ActionController {
     public void clickonIsland10() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 10 Content:");
         alert.setContentText(this.archipelago.get(9).toString());
         alert.show();
         selectedIsland = this.archipelago.get(9);
@@ -401,7 +447,7 @@ public class ActionController {
     public void clickonIsland11() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 11 Content:");
         alert.setContentText(this.archipelago.get(10).toString());
         alert.show();
         selectedIsland = this.archipelago.get(10);
@@ -411,7 +457,7 @@ public class ActionController {
     public void clickonIsland12() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island Content:");
+        alert.setHeaderText("Island 12 Content:");
         alert.setContentText(this.archipelago.get(11).toString());
         alert.show();
         selectedIsland = this.archipelago.get(11);
@@ -686,7 +732,7 @@ public class ActionController {
         SelectedStudent.setText("null");
     }
 
-    public synchronized void disableIslands(){
+    public synchronized void disableIslands() {
         island1.setOpacity(0);
         island1.setDisable(true);
         island2.setOpacity(0);
@@ -715,6 +761,7 @@ public class ActionController {
 
     public synchronized void showmodel(ClientMain client) {
 
+
         //if pro{
         if (model.getCoinOwned() >= 0) {
             this.gametype = true;
@@ -728,67 +775,68 @@ public class ActionController {
             System.out.println("");
         }
         //}
-
         this.archipelago.clear();
         this.archipelago.addAll(model.getArchipelago());
 
         disableIslands();
 
-        for (IslandCard islandCard : model.getArchipelago()){
-            switch (islandCard.getId_island()){
-                case 0:
-                    island1.setOpacity(1);
-                    island1.setDisable(false);
-                    break;
-                case 1:
-                    island2.setOpacity(1);
-                    island2.setDisable(false);
-                    break;
-                case 2:
-                    island3.setOpacity(1);
-                    island3.setDisable(false);
-                    break;
-                case 3:
-                    island4.setOpacity(1);
-                    island4.setDisable(false);
-                    break;
-                case 4:
-                    island5.setOpacity(1);
-                    island5.setDisable(false);
-                    break;
-                case 5:
-                    island6.setOpacity(1);
-                    island6.setDisable(false);
-                    break;
-                case 6:
-                    island7.setOpacity(1);
-                    island7.setDisable(false);
-                    break;
-                case 7:
-                    island8.setOpacity(1);
-                    island8.setDisable(false);
-                    break;
-                case 8:
-                    island9.setOpacity(1);
-                    island9.setDisable(false);
-                    break;
-                case 9:
-                    island10.setOpacity(1);
-                    island10.setDisable(false);
-                    break;
-                case 10:
-                    island11.setOpacity(1);
-                    island11.setDisable(false);
-                    break;
-                case 11:
-                    island12.setOpacity(1);
-                    island12.setDisable(false);
-                    break;
+        // oldArchipelago.removeAll(this.archipelago);
+        for (IslandCard temp : archipelago) {
+            if (temp.getMergedWith().size() > 0) {
+                for (IslandCard islandCard : temp.getMergedWith()) {
+                    switch (islandCard.getId_island()) {
+                        case 0:
+                            this.listIslands.remove(island1);
+                            break;
+                        case 1:
+                            this.listIslands.remove(island2);
+                            break;
+                        case 2:
+                            this.listIslands.remove(island3);
+                            break;
+                        case 3:
+                            this.listIslands.remove(island4);
+                            break;
+                        case 4:
+                            this.listIslands.remove(island5);
+                            break;
+                        case 5:
+                            this.listIslands.remove(island6);
+                            break;
+                        case 6:
+                            this.listIslands.remove(island7);
+                            break;
+                        case 7:
+                            this.listIslands.remove(island8);
+                            break;
+                        case 8:
+                            this.listIslands.remove(island9);
+                            break;
+                        case 9:
+                            this.listIslands.remove(island10);
+                            break;
+                        case 10:
+                            this.listIslands.remove(island11);
+                            break;
+                        case 11:
+                            this.listIslands.remove(island12);
+                            break;
 
+                    }
+                }
             }
         }
 
 
+        this.numIslands = this.archipelago.size();
+
+
+        bindIslands();
+
+       for(ImageView island : listIslands){
+           island.setDisable(false);
+           island.setOpacity(1);
+       }
 
         int i = 0;
         for (IslandCard islandCard : model.getArchipelago()) {
@@ -992,12 +1040,12 @@ public class ActionController {
 
                                 ReceiveCards(client);
 
-                                synchronized (student){
-                                        try {
-                                            student.wait();
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        }
+                                synchronized (student) {
+                                    try {
+                                        student.wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
 
                                 }
 
@@ -1214,7 +1262,7 @@ public class ActionController {
 
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
-            synchronized (student){
+            synchronized (student) {
                 student.notifyAll();
             }
             chosen = true;
@@ -1283,6 +1331,21 @@ public class ActionController {
     }
 
     public void initialize(ClientMain client) {
+        this.numIslands = 12;
+
+        listIslands = new ArrayList<>();
+        listIslands.add(island1);
+        listIslands.add(island2);
+        listIslands.add(island3);
+        listIslands.add(island4);
+        listIslands.add(island5);
+        listIslands.add(island6);
+        listIslands.add(island7);
+        listIslands.add(island8);
+        listIslands.add(island9);
+        listIslands.add(island10);
+        listIslands.add(island11);
+        listIslands.add(island12);
         this.turn = 0;
         this.client = client;
         this.start = false;
@@ -1299,6 +1362,7 @@ public class ActionController {
         this.moves = 4;
         initializeStudents();
         this.gametype = false;
+
 
         System.out.println("1");
         client.getSendMessage().sendModelMessage(new ModelMessage());

@@ -191,7 +191,7 @@ public class ClientMain extends Thread {
             port = scanner.nextInt();
             InetAddress host = InetAddress.getByName(IP);
             clientSocket = new Socket(host, port);
-            clientSocket.setSoTimeout(100000);
+            //clientSocket.setSoTimeout(100000);
             setReceiveMessage(new JSONtoObject(clientSocket));
             setSendMessage(new ObjectToJSON(clientSocket));
             return true;
@@ -227,7 +227,7 @@ public class ClientMain extends Thread {
          */
         InetAddress host = InetAddress.getLocalHost();
         clientSocket = new Socket(host, port);
-        clientSocket.setSoTimeout(100000);
+        //clientSocket.setSoTimeout(100000);
         setReceiveMessage(new JSONtoObject(clientSocket));
         setSendMessage(new ObjectToJSON(clientSocket));
     }
