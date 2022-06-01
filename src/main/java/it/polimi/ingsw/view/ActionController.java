@@ -345,124 +345,208 @@ public class ActionController {
     }
 
     public void clickonIsland1() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==0){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 1 Content:");
-        alert.setContentText(this.archipelago.get(0).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(0);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland2() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==1){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 2 Content:");
-        alert.setContentText(this.archipelago.get(1).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(1);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland3() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==2){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 3 Content:");
-        alert.setContentText(this.archipelago.get(2).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(2);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland4() {
 
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==3){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 4 Content:");
-        alert.setContentText(this.archipelago.get(3).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(3);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland5() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==4){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 5 Content:");
-        alert.setContentText(this.archipelago.get(4).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(4);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland6() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==5){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 6 Content:");
-        alert.setContentText(this.archipelago.get(5).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(5);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland7() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==6){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 7 Content:");
-        alert.setContentText(this.archipelago.get(6).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(6);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland8() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==7){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 8 Content:");
-        alert.setContentText(this.archipelago.get(7).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(7);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland9() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==8){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 9 Content:");
-        alert.setContentText(this.archipelago.get(8).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(8);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland10() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==9){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 10 Content:");
-        alert.setContentText(this.archipelago.get(9).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(9);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland11() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==10){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 11 Content:");
-        alert.setContentText(this.archipelago.get(10).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(10);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland12() {
+        IslandCard showIsland = new IslandCard(-1);
+        for(IslandCard island : this.archipelago){
+            if(island.getOriginal()==11){
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 12 Content:");
-        alert.setContentText(this.archipelago.get(11).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(11);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonCloud1() {
@@ -897,51 +981,51 @@ public class ActionController {
 
         for (IslandCard islandCard : model.getArchipelago()) {
             if (islandCard.getMotherNature()) {
-                if (islandCard.getId_island() == 0) {
+                if (islandCard.getOriginal() == 0) {
                     motherNature.setLayoutX(island1.getLayoutX()+42);
                     motherNature.setLayoutY(island1.getLayoutY());
                 }
-                if (islandCard.getId_island() == 1) {
+                if (islandCard.getOriginal() == 1) {
                     motherNature.setLayoutX(island2.getLayoutX()+42);
                     motherNature.setLayoutY(island2.getLayoutY());
                 }
-                if (islandCard.getId_island() == 2) {
+                if (islandCard.getOriginal() == 2) {
                     motherNature.setLayoutX(island3.getLayoutX()+42);
                     motherNature.setLayoutY(island3.getLayoutY());
                 }
-                if (islandCard.getId_island() == 3) {
+                if (islandCard.getOriginal() == 3) {
                     motherNature.setLayoutX(island4.getLayoutX()+42);
                     motherNature.setLayoutY(island4.getLayoutY());
                 }
-                if (islandCard.getId_island() == 4) {
+                if (islandCard.getOriginal() == 4) {
                     motherNature.setLayoutX(island5.getLayoutX()+42);
                     motherNature.setLayoutY(island5.getLayoutY());
                 }
-                if (islandCard.getId_island() == 5) {
+                if (islandCard.getOriginal() == 5) {
                     motherNature.setLayoutX(island6.getLayoutX()+42);
                     motherNature.setLayoutY(island6.getLayoutY());
                 }
-                if (islandCard.getId_island() == 6) {
+                if (islandCard.getOriginal() == 6) {
                     motherNature.setLayoutX(island7.getLayoutX()+42);
                     motherNature.setLayoutY(island7.getLayoutY());
                 }
-                if (islandCard.getId_island() == 7) {
+                if (islandCard.getOriginal() == 7) {
                     motherNature.setLayoutX(island8.getLayoutX()+42);
                     motherNature.setLayoutY(island8.getLayoutY());
                 }
-                if (islandCard.getId_island() == 8) {
+                if (islandCard.getOriginal() == 8) {
                     motherNature.setLayoutX(island9.getLayoutX()+42);
                     motherNature.setLayoutY(island9.getLayoutY());
                 }
-                if (islandCard.getId_island() == 9) {
+                if (islandCard.getOriginal()== 9) {
                     motherNature.setLayoutX(island10.getLayoutX()+42);
                     motherNature.setLayoutY(island10.getLayoutY());
                 }
-                if (islandCard.getId_island() == 10) {
+                if (islandCard.getOriginal() == 10) {
                     motherNature.setLayoutX(island11.getLayoutX()+42);
                     motherNature.setLayoutY(island11.getLayoutY());
                 }
-                if (islandCard.getId_island() == 11) {
+                if (islandCard.getOriginal() == 11) {
                     motherNature.setLayoutX(island12.getLayoutX()+42);
                     motherNature.setLayoutY(island12.getLayoutY());
                 }
