@@ -60,6 +60,11 @@ public class SchoolBoard implements Board {
         return diningRooms;
     }
 
+    /**
+     * generate the correct number of towers in a schoolboard
+     * @param numOfPlayers
+     * @param colorTower
+     */
     private void generateTowers(int numOfPlayers, ColorTower colorTower){
         if(numOfPlayers == 3){
             for(int i = 0; i < 6; i++){
@@ -75,7 +80,10 @@ public class SchoolBoard implements Board {
         }
     }
 
-    //a tower can be placed on the islands
+    /**
+     * a tower can be placed on the islands
+     * @param islandCard
+     */
     public void moveTower(IslandCard islandCard){
         if(this.getTowers().size() > 0){
             Tower movedTower = towers.get(towers.size() - 1);
@@ -90,7 +98,12 @@ public class SchoolBoard implements Board {
             System.out.println("The player has won.");
         }
     }
-    // get a dining room by color
+
+    /**
+     * get a dining room by color
+     * @param color
+     * @return diningRoom
+     */
     public DiningRoom getDiningRoomByColor(ColorStudent color){
         for(DiningRoom temp : diningRooms){
             if (temp.getColor().equals(color)) return temp;
@@ -98,7 +111,10 @@ public class SchoolBoard implements Board {
         return null;
     }
 
-    //move a student in the dining room
+    /**
+     * move a student in the dining room
+     * @param student
+     */
     public void moveStudent(Student student){
         Student movedStudent = this.chooseStudentFromEntrance(student);
 
@@ -112,7 +128,11 @@ public class SchoolBoard implements Board {
         }
     }
 
-    //a student can be placed on an island
+    /**
+     * a student can be placed on an island
+     * @param student
+     * @param islandCard
+     */
     public void moveStudent(Student student, IslandCard islandCard){
         Student movedStudent = this.chooseStudentFromEntrance(student);
         movedStudent.setPosition(islandCard);
@@ -120,7 +140,10 @@ public class SchoolBoard implements Board {
     }
     //a student can be placed in the dining room
 
-    //set the professor of the specified color
+    /**
+     * set the professor of the specified color
+     * @param professor
+     */
     public void setProfessor(Professor professor){
         DiningRoom diningRoom = this.getDiningRoom(professor.getColor());
         assert diningRoom != null;
@@ -128,7 +151,11 @@ public class SchoolBoard implements Board {
         professor.setPosition(diningRoom);
     }
 
-    //get the occupation of a specified color
+    /**
+     * get the occupation of a specified color
+     * @param colorStudent
+     * @return int (the occupation)
+     */
     public int getStudentSize(ColorStudent colorStudent){
         return this.getDiningRoom(colorStudent).getStudentsSize();
     }
@@ -143,12 +170,19 @@ public class SchoolBoard implements Board {
         return allStudents;
     }
 
-    //check if it is possible to earn a coin from a dining room
+    /**
+     * check if it is possible to earn a coin from a dining room
+     * @param colorStudent
+     * @return boolean
+     */
     public boolean giveCoin(ColorStudent colorStudent){
         return this.getDiningRoom(colorStudent).giveCoin();
     }
 
-    //add students to the entrance
+    /**
+     * add students to the entrance
+     * @param students
+     */
     public void addStudetsToEntrance(ArrayList<Student> students){
         int sizeStudent = students.size();
 
@@ -157,12 +191,19 @@ public class SchoolBoard implements Board {
         }
     }
 
-    //it returns the color of the tower
+    /**
+     * it returns the color of the tower
+     * @return ColorTower
+     */
     public ColorTower schoolBoardTowerColor(){
         return this.getTowers().get(0).getColor();
     }
 
-    //choose a student from the entrance
+    /**
+     * choose a student from the entrance
+     * @param student
+     * @return student
+     */
     public Student chooseStudentFromEntrance(Student student){
         return this.getEntrance().chooseStudent(student);
     }

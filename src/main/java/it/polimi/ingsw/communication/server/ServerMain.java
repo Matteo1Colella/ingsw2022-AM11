@@ -66,6 +66,9 @@ public class ServerMain {
         return portNumber;
     }
 
+    /**
+     * to set default configuration
+     */
     public void readParameters(){
         try {
             Gson gson = new Gson();

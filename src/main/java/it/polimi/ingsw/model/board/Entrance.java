@@ -13,12 +13,17 @@ public class Entrance {
         return students;
     }
 
-    //the entrance is initialized with 7 students
+    /**
+     * the entrance is initialized with 7 students
+     */
     public Entrance(){
         this.students = new ArrayList<>();
     }
 
-    //the caller have the control of the drawing of the students
+    /**
+     * the caller have the control of the drawing of the students
+     * @param students
+     */
     public void addStudents(Collection<Student> students){
 
         Collection<Student> addingStudents = new ArrayList<>(students);

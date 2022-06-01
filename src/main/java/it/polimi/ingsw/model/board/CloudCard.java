@@ -23,15 +23,21 @@ public class CloudCard implements Board{
     }
     */
 
-    //fill the students' arraylist
-    //the sise of the new array have to be exactly 3: the control on that is left to the caller
+    /**
+     * fill the students' arraylist, the sise of the new array have to be exactly 3: the control on that is left to the caller
+     * @param students
+     */
     public void setStudents(ArrayList<Student> students){
         if(this.students.isEmpty()){
             this.students.addAll(students);
         }
     }
 
-    //override of interface Board
+    /**
+     * override of interface Board
+     * @return students
+     */
+
     @Override
     public ArrayList<Student> getStudents() {
        return this.students;

@@ -47,6 +47,10 @@ public class Player {
         MotherNatureMoves = motherNatureMoves;
     }
 
+    /**
+     * removes the used coins from the wallet of a player
+     * @param numcoins
+     */
     public void useCoins(int numcoins){
         for(int i = 0; i < numcoins; i++){
             this.getPlayerGame().getGameComponents().getCoins().addCoin(this.coins.get(0));
@@ -78,7 +82,10 @@ public class Player {
         this.schoolBoard = schoolBoard;
     }
 
-    //this method add a coin to the owned ones
+    /**
+     * this method add a coin to the owned ones
+     * @param coin
+     */
     public void addCoins(Coin coin) {
         this.coins.add(coin);
     }
@@ -91,7 +98,11 @@ public class Player {
         this.playerGame = playerGame;
     }
 
-    //choose card from deck and play it
+    /**
+     * choose card from deck and play it
+     * @param i (choice)
+     * @return playedCard
+     */
     public Card playCard(int i) {
         if (deck.leftCard() > 0) {
             return this.deck.chooseCard(i );
@@ -104,12 +115,19 @@ public class Player {
         }
     }
 
-    //get the number of coin owned
+    /**
+     * get the number of coin owned
+     * @return wallet
+     */
     public int getCoinOwned(){
         return coins.size();
     }
 
-    //use some coin on a character
+    /**
+     * use some coin on a character
+     * @param character
+     * @param coinReserve
+     */
     public void playCharacter(CharacterCard character, CoinReserve coinReserve){
         int numCoin = character.getNecessaryCoin();
         int coinsSize = this.coins.size() - 1;
