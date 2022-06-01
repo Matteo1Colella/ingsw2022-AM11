@@ -23,6 +23,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Polygon;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class ActionController {
+    private ArrayList<Boolean> sized;
     private int turn;
     private boolean start;
     private boolean endgame;
@@ -166,7 +168,6 @@ public class ActionController {
     private ComboBox<Student> pink;
     @FXML
     private Label assistantText;
-
     @FXML
     private ArrayList<ImageView> listIslands;
 
@@ -194,7 +195,7 @@ public class ActionController {
             grid.setDisable(true);
             grid.setOpacity(0);
 
-            System.out.println(i + "--> x: " +  x + " y: " + y);
+            System.out.println(i + "--> x: " + x + " y: " + y);
 
             listIslands.get(i).setLayoutX(x + 237.26);
             listIslands.get(i).setLayoutY(y + 236);
@@ -827,16 +828,63 @@ public class ActionController {
             }
         }
 
+        int index = 0;
+        for (IslandCard temp : archipelago) {
+            if (temp.getMergedWith().size() > 0) {
+                switch (temp.getMergedWith().size()) {
+                    case 1:
+
+                        Image image = new javafx.scene.image.Image("Assets/merged2.png");
+                        listIslands.get(index).setImage(image);
+                        if(!sized.get(index)){
+                            listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
+                            listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
+                            sized.set(index, true);
+                        }
+
+
+                        break;
+                    case 2:
+                        Image image2 = new javafx.scene.image.Image("Assets/merged3.png");
+                        listIslands.get(index).setImage(image2);
+                        if(!sized.get(index)){
+                            listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
+                            listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
+                            sized.set(index, true);
+                        }
+                        break;
+                    case 3:
+                        Image image3 = new javafx.scene.image.Image("Assets/merged4.png");
+                        listIslands.get(index).setImage(image3);
+                        if(!sized.get(index)){
+                            listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
+                            listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
+                            sized.set(index, true);
+                        }
+                        break;
+                    case 4:
+                        Image image4 = new javafx.scene.image.Image("Assets/merged5.png");
+                        listIslands.get(index).setImage(image4);
+                        if(!sized.get(index)){
+                            listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
+                            listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
+                            sized.set(index, true);
+                        }
+                        break;
+
+                }
+            }
+            index++;
+        }
 
         this.numIslands = this.archipelago.size();
 
-
         bindIslands();
 
-       for(ImageView island : listIslands){
-           island.setDisable(false);
-           island.setOpacity(1);
-       }
+        for (ImageView island : listIslands) {
+            island.setDisable(false);
+            island.setOpacity(1);
+        }
 
         int i = 0;
         for (IslandCard islandCard : model.getArchipelago()) {
@@ -1212,7 +1260,6 @@ public class ActionController {
 
     }
 
-
     public synchronized void clickConfirmAssistant() {
         int card = -1;
         switch (selectedCard.getInfluence()) {
@@ -1332,7 +1379,10 @@ public class ActionController {
 
     public void initialize(ClientMain client) {
         this.numIslands = 12;
-
+        this.sized = new ArrayList<>();
+        for (Boolean temp : sized) {
+            temp = false;
+        }
         listIslands = new ArrayList<>();
         listIslands.add(island1);
         listIslands.add(island2);
