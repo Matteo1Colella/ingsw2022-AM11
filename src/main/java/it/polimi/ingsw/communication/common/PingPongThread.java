@@ -30,6 +30,10 @@ public class PingPongThread extends Thread{
         startThread(host);
     }
 
+    /**
+     * ping pong message
+     * @param host
+     */
     private void startThread(String host){
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
         exec.scheduleAtFixedRate(new Runnable() {

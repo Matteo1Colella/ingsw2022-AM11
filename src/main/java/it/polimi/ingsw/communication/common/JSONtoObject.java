@@ -26,6 +26,11 @@ public class JSONtoObject {
         gson = new Gson();
     }
 
+    /**
+     * from json to message
+     * @param received
+     * @return message interface
+     */
     private MessageInterface JSONtoMessage(String received){
 
         Message message = gson.fromJson(received, Message.class);

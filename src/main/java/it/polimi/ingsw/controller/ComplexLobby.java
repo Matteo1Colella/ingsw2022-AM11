@@ -148,7 +148,10 @@ public class ComplexLobby{
         return clientSocketsMap;
     }
 
-    // adds a player to the lobby, if it fills up the game starts
+    /**
+     * adds a player to the lobby, if it fills up the game starts
+     * @param ID
+     */
     public synchronized void AddPlayer(String ID){
         Player newPlayer = new Player(players.size(), ID);
         newPlayer.setGameID(this.ID);
@@ -174,7 +177,12 @@ public class ComplexLobby{
         }
     }
 
-    //creates the game related to this lobby
+    /**
+     * creates the game related to this lobby
+     * @param NumPlayers
+     * @param ID
+     * @param GameType
+     */
     public synchronized void createGame(int NumPlayers, int ID, boolean GameType) {
         System.out.println("All set! Starting Game...");
         System.out.println("");
@@ -186,8 +194,12 @@ public class ComplexLobby{
         this.game.generateBoard();
     }
 
-    //adds the Card to the Array of chosen cards
-    //in a turn this method is called a (int)numPlayers times
+    /**
+     * adds the Card to the Array of chosen cards
+     * in a turn this method is called a (int)numPlayers times
+     * @param chosen
+     * @return
+     */
     public synchronized boolean checkIfPlayable(Card chosen) {
 
         if(chosen == null ){ //removed "|| this.activePlayer.getDeck().getCards().get(chosen.getInfluence() - 1).isUsed()"
@@ -217,7 +229,9 @@ public class ComplexLobby{
         return true;
     }
 
-    //turn manager
+    /**
+     * turn manager
+     */
     public synchronized void modifyPlayerTurn(){
 
         //corner case
@@ -292,6 +306,9 @@ public class ComplexLobby{
         setActivePlayer(this.players.get(0));
     }
 
+    /**
+     * changes the player that as to play his turn
+     */
     public void changeActivePlayer(){
 
         int index = 0;
@@ -306,8 +323,13 @@ public class ComplexLobby{
 
     }
 
-    // A player (IDPlayer) from a lobby (ID) requests a deck with a specified mage (mage). if free, it sets player's deck,
-    // if busy, it returns false
+    /**
+     * A player (IDPlayer) from a lobby (ID) requests a deck with a specified mage (mage). if free, it sets player's deck,
+     * if busy, it returns false
+     * @param mage
+     * @param IDplayer
+     * @return boolean
+     */
     public synchronized boolean deckRequest(Mage mage, String IDplayer){
         //looks for lobby (ID)
         ComplexLobby room = this;
@@ -391,6 +413,14 @@ public class ComplexLobby{
         return true;
     }
 
+    /**
+     * mage selection
+     * @param clientSocket
+     * @param player
+     * @param receiveMessage
+     * @param sendMessage
+     * @return boolean
+     */
     public synchronized boolean selectMage(Socket clientSocket, Player player, JSONtoObject receiveMessage, ObjectToJSON sendMessage){
         int i = 0;
         ArrayList<AssistantDeck> assistantDecks = getDm().getAssistantDecks();
@@ -468,6 +498,12 @@ public class ComplexLobby{
         return false;
     }
 
+    /**
+     * play a card
+     * @param sendMessage
+     * @param receiveMessage
+     * @return boolean
+     */
     public synchronized boolean playCard(ObjectToJSON sendMessage,  JSONtoObject receiveMessage) {
 
         if (this.chosenCards.size() == this.numPlayers){
@@ -511,6 +547,10 @@ public class ComplexLobby{
         }
     }
 
+    /**
+     * move the students
+     * @param orderedStudents
+     */
     public synchronized void moveStudents(ArrayList<MovedStudent> orderedStudents){
 
         SchoolBoard schoolBoard = activePlayer.getSchoolBoard();
@@ -531,17 +571,29 @@ public class ComplexLobby{
         }
     }
 
+    /**
+     * move mother nature
+     * @param moves
+     */
     public synchronized void moveMotherNature(int moves){
         game.moveMotherNature(moves, game.getGameComponents().getMotherNature(), game.getGameComponents().getArchipelago());
         game.islandDominance();
         game.mergeIsland();
     }
 
+    /**
+     * select a CloudCard
+     * @param cloudCard
+     */
     public synchronized void selectCloudCard(int cloudCard){
         CloudCard cloudCardChosen = game.getGameComponents().getCloudCards().get(cloudCard);
         activePlayer.getSchoolBoard().addStudetsToEntrance(cloudCardChosen.drawStudents());
     }
 
+    /**
+     * play a Character
+     * @param characterMessage
+     */
     public synchronized  void playCharacter(UseCharacterMessage characterMessage){
         int code = characterMessage.getId();
         int choice = characterMessage.getChoice();
@@ -605,6 +657,11 @@ public class ComplexLobby{
         }
     }
 
+    /**
+     * send the table
+     * @param username
+     * @return model message
+     */
     public synchronized ModelMessage sendModel(String username){
         GameComponents gameComponents = getGame().getGameComponents();
         //if game type is pro
@@ -621,6 +678,10 @@ public class ComplexLobby{
         return modelMessage;
     }
 
+    /**
+     * send the winner
+     * @param winner
+     */
     public synchronized void endGame(Player winner){
         for(Socket clientSocket : clientSocketsMap.values()){
 
