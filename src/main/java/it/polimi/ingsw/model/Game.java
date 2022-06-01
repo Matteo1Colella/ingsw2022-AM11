@@ -1271,6 +1271,7 @@ public class Game {
         //System.out.println("Archipelago after merging");
         //islands.stream().map(IslandCard::getId_island).forEach(System.out::println);
 
+
         int i = 0;
         for(IslandCard temp : islands){
             temp.setId_island(i);

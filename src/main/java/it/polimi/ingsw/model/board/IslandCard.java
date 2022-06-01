@@ -9,6 +9,7 @@ import java.util.Collection;
 
 public class IslandCard implements Board {
     private int id_island;
+    private final int original;
     private Collection<Student> students;
     private Tower tower;
     private Boolean motherNature;
@@ -18,11 +19,16 @@ public class IslandCard implements Board {
     //start constructors, getters, setters
     public IslandCard(int id_island) {
         this.id_island = id_island;
+        this.original = id_island;
         this.students = new ArrayList<>();
         this.tower = null;
         this.motherNature = false;
         this.mergedWith = new ArrayList<>();
         this.locked = false;
+    }
+
+    public int getOriginal() {
+        return original;
     }
 
     public Boolean getLocked() {

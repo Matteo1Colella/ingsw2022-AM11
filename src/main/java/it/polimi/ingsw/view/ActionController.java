@@ -36,8 +36,8 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class ActionController {
-    private ArrayList<Boolean> sized;
-    private int turn;
+
+
     private boolean start;
     private boolean endgame;
     private volatile boolean chosen;
@@ -779,13 +779,18 @@ public class ActionController {
         this.archipelago.clear();
         this.archipelago.addAll(model.getArchipelago());
 
+
+
         disableIslands();
+
+        System.out.println("size pre check: "+ listIslands.size());
 
         // oldArchipelago.removeAll(this.archipelago);
         for (IslandCard temp : archipelago) {
             if (temp.getMergedWith().size() > 0) {
                 for (IslandCard islandCard : temp.getMergedWith()) {
-                    switch (islandCard.getId_island()) {
+                    System.out.println("removing");
+                    switch (islandCard.getOriginal()) {
                         case 0:
                             this.listIslands.remove(island1);
                             break;
@@ -828,47 +833,46 @@ public class ActionController {
             }
         }
 
+        double scaleX = listIslands.get(0).getScaleX() * 1.4;
+
         int index = 0;
         for (IslandCard temp : archipelago) {
             if (temp.getMergedWith().size() > 0) {
                 switch (temp.getMergedWith().size()) {
                     case 1:
 
-                        Image image = new javafx.scene.image.Image("Assets/merged2.png");
-                        listIslands.get(index).setImage(image);
-                        if(!sized.get(index)){
+                            Image image = new javafx.scene.image.Image("Assets/merged2.png");
+                            listIslands.get(index).setImage(image);
+                        if(scaleX != listIslands.get(index).getScaleX()) {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
-                            sized.set(index, true);
                         }
-
 
                         break;
                     case 2:
                         Image image2 = new javafx.scene.image.Image("Assets/merged3.png");
                         listIslands.get(index).setImage(image2);
-                        if(!sized.get(index)){
+                        if(scaleX != listIslands.get(index).getScaleX()) {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
-                            sized.set(index, true);
                         }
+
                         break;
                     case 3:
                         Image image3 = new javafx.scene.image.Image("Assets/merged4.png");
                         listIslands.get(index).setImage(image3);
-                        if(!sized.get(index)){
+                        if(scaleX != listIslands.get(index).getScaleX()) {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
-                            sized.set(index, true);
                         }
+
                         break;
                     case 4:
                         Image image4 = new javafx.scene.image.Image("Assets/merged5.png");
                         listIslands.get(index).setImage(image4);
-                        if(!sized.get(index)){
+                        if(scaleX != listIslands.get(index).getScaleX()) {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
-                            sized.set(index, true);
                         }
                         break;
 
@@ -881,60 +885,64 @@ public class ActionController {
 
         bindIslands();
 
+        int i = 0;
+        System.out.println("remaining: " + listIslands.size());
         for (ImageView island : listIslands) {
+            System.out.println(i+": removing island");
             island.setDisable(false);
             island.setOpacity(1);
+            i++;
         }
 
-        int i = 0;
+
         for (IslandCard islandCard : model.getArchipelago()) {
             if (islandCard.getMotherNature()) {
                 if (islandCard.getId_island() == 0) {
-                    motherNature.setLayoutX(island1.getLayoutX() + 42);
+                    motherNature.setLayoutX(island1.getLayoutX()+42);
                     motherNature.setLayoutY(island1.getLayoutY());
                 }
                 if (islandCard.getId_island() == 1) {
-                    motherNature.setLayoutX(island2.getLayoutX() + 42);
+                    motherNature.setLayoutX(island2.getLayoutX()+42);
                     motherNature.setLayoutY(island2.getLayoutY());
                 }
                 if (islandCard.getId_island() == 2) {
-                    motherNature.setLayoutX(island3.getLayoutX() + 42);
+                    motherNature.setLayoutX(island3.getLayoutX()+42);
                     motherNature.setLayoutY(island3.getLayoutY());
                 }
                 if (islandCard.getId_island() == 3) {
-                    motherNature.setLayoutX(island4.getLayoutX() + 42);
+                    motherNature.setLayoutX(island4.getLayoutX()+42);
                     motherNature.setLayoutY(island4.getLayoutY());
                 }
                 if (islandCard.getId_island() == 4) {
-                    motherNature.setLayoutX(island5.getLayoutX() + 42);
+                    motherNature.setLayoutX(island5.getLayoutX()+42);
                     motherNature.setLayoutY(island5.getLayoutY());
                 }
                 if (islandCard.getId_island() == 5) {
-                    motherNature.setLayoutX(island6.getLayoutX() + 42);
+                    motherNature.setLayoutX(island6.getLayoutX()+42);
                     motherNature.setLayoutY(island6.getLayoutY());
                 }
                 if (islandCard.getId_island() == 6) {
-                    motherNature.setLayoutX(island7.getLayoutX() + 42);
+                    motherNature.setLayoutX(island7.getLayoutX()+42);
                     motherNature.setLayoutY(island7.getLayoutY());
                 }
                 if (islandCard.getId_island() == 7) {
-                    motherNature.setLayoutX(island8.getLayoutX() + 42);
+                    motherNature.setLayoutX(island8.getLayoutX()+42);
                     motherNature.setLayoutY(island8.getLayoutY());
                 }
                 if (islandCard.getId_island() == 8) {
-                    motherNature.setLayoutX(island9.getLayoutX() + 42);
+                    motherNature.setLayoutX(island9.getLayoutX()+42);
                     motherNature.setLayoutY(island9.getLayoutY());
                 }
                 if (islandCard.getId_island() == 9) {
-                    motherNature.setLayoutX(island10.getLayoutX() + 42);
+                    motherNature.setLayoutX(island10.getLayoutX()+42);
                     motherNature.setLayoutY(island10.getLayoutY());
                 }
                 if (islandCard.getId_island() == 10) {
-                    motherNature.setLayoutX(island11.getLayoutX() + 42);
+                    motherNature.setLayoutX(island11.getLayoutX()+42);
                     motherNature.setLayoutY(island11.getLayoutY());
                 }
                 if (islandCard.getId_island() == 11) {
-                    motherNature.setLayoutX(island12.getLayoutX() + 42);
+                    motherNature.setLayoutX(island12.getLayoutX()+42);
                     motherNature.setLayoutY(island12.getLayoutY());
                 }
             }
@@ -1115,7 +1123,6 @@ public class ActionController {
                     } else {
                         switch (message) {
                             case TURN:
-                                turn++;
                                 client.askCharacter();
                                 client.moveStudents();
                                 client.askCharacter();
@@ -1379,10 +1386,6 @@ public class ActionController {
 
     public void initialize(ClientMain client) {
         this.numIslands = 12;
-        this.sized = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            sized.add(false);
-        }
         listIslands = new ArrayList<>();
         listIslands.add(island1);
         listIslands.add(island2);
@@ -1396,7 +1399,6 @@ public class ActionController {
         listIslands.add(island10);
         listIslands.add(island11);
         listIslands.add(island12);
-        this.turn = 0;
         this.client = client;
         this.start = false;
         chosen = false;
