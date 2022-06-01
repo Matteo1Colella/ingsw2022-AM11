@@ -49,7 +49,7 @@ public class ClientMain extends Thread {
     private ModelMessage model;
     private boolean gameType;
 
-    private CharacterHandlerClient characterHandler;
+    private static CharacterHandlerClient characterHandler;
 
     public ObjectToJSON getSendMessage() {
         return sendMessage;
@@ -146,9 +146,12 @@ public class ClientMain extends Thread {
                     case TURN:
                         clientMain.askCharacter();
                         clientMain.moveStudents();
-                        clientMain.askCharacter();
+                        if(!characterHandler.isRequired())
+                            clientMain.askCharacter();
                         clientMain.moveMotherNature();
-                        clientMain.askCharacter();
+                        if(!characterHandler.isRequired())
+                            clientMain.askCharacter();
+                        characterHandler.setRequired(false);
                         clientMain.selectCloudCard();
                         choice = false;
                         message = clientMain.receiveMessage().getCode();
@@ -1029,6 +1032,8 @@ public class ClientMain extends Thread {
         switch (selectedCard){
             case 1,2:
                 System.out.println("(You can Select only 1 step!)");
+                if(characterHandler.isChar4Used())
+                    System.out.println("You have also +2 extra steps... (max 3 steps)");
                 scanner = new Scanner(System.in);
                 try {
                     numberSelectedSteps = scanner.nextInt();
@@ -1036,18 +1041,41 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                while (numberSelectedSteps != 1){
-                    System.out.println("(You can Select only 1 step!!)");
-                    try {
-                        numberSelectedSteps = scanner.nextInt();
-                    }catch (InputMismatchException e){
-                        scanner.nextLine();
-                        System.out.println("Please retry...");
+                if(!characterHandler.isChar4Used()) {
+                    while (numberSelectedSteps != 1) {
+
+                        System.out.println("(You can Select only 1 step!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 3 steps)");
+
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                    }
+                }else{
+                    while (numberSelectedSteps < 1 || numberSelectedSteps >3) {
+
+                        System.out.println("(You can Select only 1 step!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 3 steps)");
+
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
                     }
                 }
+
                 break;
             case 3,4:
                 System.out.println("(You can Select between 1 or 2 steps!)");
+                if(characterHandler.isChar4Used())
+                    System.out.println("You have also +2 extra steps... (max 4 steps)");
                 scanner = new Scanner(System.in);
                 try {
                     numberSelectedSteps = scanner.nextInt();
@@ -1055,18 +1083,36 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                while (numberSelectedSteps < 1 || numberSelectedSteps > 2){
-                    System.out.println("(You can Select only 1 or 2 steps!!)");
-                    try {
-                        numberSelectedSteps = scanner.nextInt();
-                    }catch (InputMismatchException e){
-                        scanner.nextLine();
-                        System.out.println("Please retry...");
+                if(!characterHandler.isChar4Used()) {
+                    while (numberSelectedSteps < 1 || numberSelectedSteps > 2) {
+                        System.out.println("(You can Select only 1 or 2 steps!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 4 steps)");
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                    }
+                }else {
+                    while (numberSelectedSteps < 1 || numberSelectedSteps > 4) {
+                        System.out.println("(You can Select only 1 or 2 steps!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 4 steps)");
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
                     }
                 }
                 break;
             case 5,6:
                 System.out.println("(You can Select from 1 to 3 steps!)");
+                if(characterHandler.isChar4Used())
+                    System.out.println("You have also +2 extra steps... (max 5 steps)");
                 scanner = new Scanner(System.in);
                 try {
                     numberSelectedSteps = scanner.nextInt();
@@ -1074,18 +1120,36 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                while (numberSelectedSteps < 1 || numberSelectedSteps > 3){
-                    System.out.println("(You can Select only 1,2 or 3 steps!!)");
-                    try {
-                        numberSelectedSteps = scanner.nextInt();
-                    }catch (InputMismatchException e){
-                        scanner.nextLine();
-                        System.out.println("Please retry...");
+                if(!characterHandler.isChar4Used()) {
+                    while (numberSelectedSteps < 1 || numberSelectedSteps > 3) {
+                        System.out.println("(You can Select only 1,2 or 3 steps!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 5 steps)");
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                    }
+                }else{
+                    while (numberSelectedSteps < 1 || numberSelectedSteps > 5) {
+                        System.out.println("(You can Select only 1,2 or 3 steps!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 5 steps)");
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
                     }
                 }
                 break;
             case 7,8:
                 System.out.println("(You can Select from 1 to 4 steps!)");
+                if(characterHandler.isChar4Used())
+                    System.out.println("You have also +2 extra steps... (max 6 steps)");
                 scanner = new Scanner(System.in);
                 try {
                     numberSelectedSteps = scanner.nextInt();
@@ -1093,18 +1157,36 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                while (numberSelectedSteps < 1 || numberSelectedSteps > 4){
-                    System.out.println("(You can Select only 1,2,3 or 4 steps!!)");
-                    try {
-                        numberSelectedSteps = scanner.nextInt();
-                    }catch (InputMismatchException e){
-                        scanner.nextLine();
-                        System.out.println("Please retry...");
+                if(!characterHandler.isChar4Used()) {
+                    while (numberSelectedSteps < 1 || numberSelectedSteps > 4) {
+                        System.out.println("(You can Select only 1,2,3 or 4 steps!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 6 steps)");
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                    }
+                }else{
+                    while (numberSelectedSteps < 1 || numberSelectedSteps > 6) {
+                        System.out.println("(You can Select only 1,2,3 or 4 steps!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 6 steps)");
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
                     }
                 }
                 break;
             case 9,10:
                 System.out.println("(You can Select from 1 to 5 steps!)");
+                if(characterHandler.isChar4Used())
+                    System.out.println("You have also +2 extra steps... (max 7 steps)");
                 scanner = new Scanner(System.in);
                 try {
                     numberSelectedSteps = scanner.nextInt();
@@ -1112,13 +1194,29 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                while (numberSelectedSteps < 1 || numberSelectedSteps > 5){
-                    System.out.println("(You can Select only 1,2,3,4 or 5 steps!!)");
-                    try {
-                        numberSelectedSteps = scanner.nextInt();
-                    }catch (InputMismatchException e){
-                        scanner.nextLine();
-                        System.out.println("Please retry...");
+                if(!characterHandler.isChar4Used()) {
+                    while (numberSelectedSteps < 1 || numberSelectedSteps > 5) {
+                        System.out.println("(You can Select only 1,2,3,4 or 5 steps!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 7 steps)");
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
+                    }
+                }else{
+                    while (numberSelectedSteps < 1 || numberSelectedSteps > 7) {
+                        System.out.println("(You can Select only 1,2,3,4 or 5 steps!!)");
+                        if (characterHandler.isChar4Used())
+                            System.out.println("You have also +2 extra steps... (max 7 steps)");
+                        try {
+                            numberSelectedSteps = scanner.nextInt();
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            System.out.println("Please retry...");
+                        }
                     }
                 }
                 break;
@@ -1126,6 +1224,7 @@ public class ClientMain extends Thread {
                 System.out.println("(ERROR: you have to play an Assistant Card first or choose a correct number of Steps!)");
                 break;
         }
+        characterHandler.setChar4Used(false);
 
 
 

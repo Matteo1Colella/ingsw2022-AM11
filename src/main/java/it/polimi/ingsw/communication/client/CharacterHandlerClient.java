@@ -16,6 +16,8 @@ import java.net.Socket;
 import java.util.*;
 
 public class CharacterHandlerClient {
+    private boolean required;
+    private boolean char4Used;
     private ArrayList<CharacterCard> playableCharacters;
     private ModelMessage model;
     private int coinsOwned;
@@ -29,6 +31,8 @@ public class CharacterHandlerClient {
         sendMessage = new ObjectToJSON(socket);
         receiveMessage = new JSONtoObject(socket);
         usable = false;
+        char4Used = false;
+        required=false;
     }
 
     /**
@@ -52,6 +56,7 @@ public class CharacterHandlerClient {
         if(input.equals("no")){
             return false;
         }
+        required=true;
         int n = 0, l = 0;
         for (CharacterCard temp : playableCharacters) {
             //System.out.println(temp.getNecessaryCoin());
@@ -163,6 +168,7 @@ public class CharacterHandlerClient {
                 usable = true;
                 break;
             case 4:
+                char4Used = true;
                 //Character4 card4 = (Character4) playableCharacters.get(choice);
                 sendMessage.sendCharacterMessage(characterMessage.useCharacter4Message(choice));
                 //card4.effect(currentPlayer);
@@ -512,5 +518,21 @@ public class CharacterHandlerClient {
             return message;
         }
         return null;
+    }
+
+    public boolean isChar4Used() {
+        return char4Used;
+    }
+
+    public void setChar4Used(boolean char4Used) {
+        this.char4Used = char4Used;
+    }
+
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
     }
 }
