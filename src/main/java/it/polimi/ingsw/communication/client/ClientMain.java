@@ -1032,7 +1032,7 @@ public class ClientMain extends Thread {
         switch (selectedCard){
             case 1,2:
                 System.out.println("(You can Select only 1 step!)");
-                if(characterHandler.isChar4Used())
+                if( gameType && characterHandler.isChar4Used())
                     System.out.println("You have also +2 extra steps... (max 3 steps)");
                 scanner = new Scanner(System.in);
                 try {
@@ -1041,7 +1041,7 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                if(!characterHandler.isChar4Used()) {
+                if(gameType && !characterHandler.isChar4Used()) {
                     while (numberSelectedSteps != 1) {
 
                         System.out.println("(You can Select only 1 step!!)");
@@ -1074,7 +1074,7 @@ public class ClientMain extends Thread {
                 break;
             case 3,4:
                 System.out.println("(You can Select between 1 or 2 steps!)");
-                if(characterHandler.isChar4Used())
+                if(gameType && characterHandler.isChar4Used())
                     System.out.println("You have also +2 extra steps... (max 4 steps)");
                 scanner = new Scanner(System.in);
                 try {
@@ -1083,10 +1083,10 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                if(!characterHandler.isChar4Used()) {
+                if(gameType && !characterHandler.isChar4Used()) {
                     while (numberSelectedSteps < 1 || numberSelectedSteps > 2) {
                         System.out.println("(You can Select only 1 or 2 steps!!)");
-                        if (characterHandler.isChar4Used())
+                        if (gameType && characterHandler.isChar4Used())
                             System.out.println("You have also +2 extra steps... (max 4 steps)");
                         try {
                             numberSelectedSteps = scanner.nextInt();
@@ -1098,7 +1098,7 @@ public class ClientMain extends Thread {
                 }else {
                     while (numberSelectedSteps < 1 || numberSelectedSteps > 4) {
                         System.out.println("(You can Select only 1 or 2 steps!!)");
-                        if (characterHandler.isChar4Used())
+                        if (gameType && characterHandler.isChar4Used())
                             System.out.println("You have also +2 extra steps... (max 4 steps)");
                         try {
                             numberSelectedSteps = scanner.nextInt();
@@ -1111,7 +1111,7 @@ public class ClientMain extends Thread {
                 break;
             case 5,6:
                 System.out.println("(You can Select from 1 to 3 steps!)");
-                if(characterHandler.isChar4Used())
+                if(gameType && characterHandler.isChar4Used())
                     System.out.println("You have also +2 extra steps... (max 5 steps)");
                 scanner = new Scanner(System.in);
                 try {
@@ -1120,7 +1120,7 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                if(!characterHandler.isChar4Used()) {
+                if(gameType && !characterHandler.isChar4Used()) {
                     while (numberSelectedSteps < 1 || numberSelectedSteps > 3) {
                         System.out.println("(You can Select only 1,2 or 3 steps!!)");
                         if (characterHandler.isChar4Used())
@@ -1135,7 +1135,7 @@ public class ClientMain extends Thread {
                 }else{
                     while (numberSelectedSteps < 1 || numberSelectedSteps > 5) {
                         System.out.println("(You can Select only 1,2 or 3 steps!!)");
-                        if (characterHandler.isChar4Used())
+                        if (gameType && characterHandler.isChar4Used())
                             System.out.println("You have also +2 extra steps... (max 5 steps)");
                         try {
                             numberSelectedSteps = scanner.nextInt();
@@ -1148,7 +1148,7 @@ public class ClientMain extends Thread {
                 break;
             case 7,8:
                 System.out.println("(You can Select from 1 to 4 steps!)");
-                if(characterHandler.isChar4Used())
+                if(gameType && characterHandler.isChar4Used())
                     System.out.println("You have also +2 extra steps... (max 6 steps)");
                 scanner = new Scanner(System.in);
                 try {
@@ -1157,7 +1157,7 @@ public class ClientMain extends Thread {
                     scanner.nextLine();
                     System.out.println("Please retry...");
                 }
-                if(!characterHandler.isChar4Used()) {
+                if( gameType && !characterHandler.isChar4Used()) {
                     while (numberSelectedSteps < 1 || numberSelectedSteps > 4) {
                         System.out.println("(You can Select only 1,2,3 or 4 steps!!)");
                         if (characterHandler.isChar4Used())
@@ -1172,7 +1172,7 @@ public class ClientMain extends Thread {
                 }else{
                     while (numberSelectedSteps < 1 || numberSelectedSteps > 6) {
                         System.out.println("(You can Select only 1,2,3 or 4 steps!!)");
-                        if (characterHandler.isChar4Used())
+                        if (gameType && characterHandler.isChar4Used())
                             System.out.println("You have also +2 extra steps... (max 6 steps)");
                         try {
                             numberSelectedSteps = scanner.nextInt();
@@ -1224,7 +1224,7 @@ public class ClientMain extends Thread {
                 System.out.println("(ERROR: you have to play an Assistant Card first or choose a correct number of Steps!)");
                 break;
         }
-        characterHandler.setChar4Used(false);
+        if(gameType) characterHandler.setChar4Used(false);
 
 
 

@@ -1380,8 +1380,8 @@ public class ActionController {
     public void initialize(ClientMain client) {
         this.numIslands = 12;
         this.sized = new ArrayList<>();
-        for (Boolean temp : sized) {
-            temp = false;
+        for (int i = 0; i < 12; i++) {
+            sized.add(false);
         }
         listIslands = new ArrayList<>();
         listIslands.add(island1);

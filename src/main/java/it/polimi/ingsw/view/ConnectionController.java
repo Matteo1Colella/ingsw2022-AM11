@@ -53,10 +53,8 @@ public class ConnectionController implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            String ip;
-            ip = IP.getText();
-            System.out.println("Insert port:");
-            String p = IP.getText();
+            String ip = IP.getText();
+            String p = port.getText();
             int pnum = Integer.parseInt(p);
             InetAddress host = InetAddress.getByName(ip);
             clientSocket = new Socket(host, pnum);
