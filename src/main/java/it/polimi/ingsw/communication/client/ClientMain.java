@@ -1299,6 +1299,32 @@ public class ClientMain extends Thread {
                 }
             }
         }
+        if (gameSize == 4){
+            System.out.println("Select 0, 1, 2 or 3 to choose the cloud card.\r");
+            while (!ok){
+                try {
+                    choice = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                if(choice < 0 || choice > 3 || cloudName[choice]==-1){
+                    System.out.println("Please chose a valid Cloud Card!.\r");
+                    ok = false;
+                } else {
+                    cloudName[choice]=-1;
+                    ok = true;
+
+
+
+                    System.out.println(ANSI_PURPLE+" ________________________________________\n" +
+                            "|   Please wait the opponent's move...   |\n" +
+                            "|________________________________________|"+ANSI_RESET);
+
+
+                }
+            }
+        }
 
         sendMessage.sendCloudCardMessage(new CloudCardChoiceMessage(choice));
     }
