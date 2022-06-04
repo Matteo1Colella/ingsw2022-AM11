@@ -1185,8 +1185,8 @@ public class ClientMain extends Thread {
                 break;
             case 9,10:
                 System.out.println("(You can Select from 1 to 5 steps!)");
-                if(characterHandler.isChar4Used())
-                    System.out.println("You have also +2 extra steps... (max 7 steps)");
+                if(gameType && characterHandler.isChar4Used())
+                        System.out.println("You have also +2 extra steps... (max 7 steps)");
                 scanner = new Scanner(System.in);
                 try {
                     numberSelectedSteps = scanner.nextInt();
