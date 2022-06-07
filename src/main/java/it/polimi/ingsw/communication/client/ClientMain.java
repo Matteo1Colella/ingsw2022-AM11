@@ -1197,8 +1197,8 @@ public class ClientMain extends Thread {
                 break;
             case 9,10:
                 System.out.println("(You can Select from 1 to 5 steps!)");
-                if(characterHandler.isChar4Used())
-                    System.out.println("You have also +2 extra steps... (max 7 steps)");
+                if(gameType && characterHandler.isChar4Used())
+                        System.out.println("You have also +2 extra steps... (max 7 steps)");
                 scanner = new Scanner(System.in);
                 try {
                     numberSelectedSteps = scanner.nextInt();
@@ -1308,6 +1308,32 @@ public class ClientMain extends Thread {
                     System.out.println(ANSI_PURPLE+" ________________________________________\n" +
                             "|   Please wait the opponent's move...   |\n" +
                             "|________________________________________|"+ANSI_RESET);
+                }
+            }
+        }
+        if (gameSize == 4){
+            System.out.println("Select 0, 1, 2 or 3 to choose the cloud card.\r");
+            while (!ok){
+                try {
+                    choice = scanner.nextInt();
+                }catch (InputMismatchException e){
+                    scanner.nextLine();
+                    System.out.println("Please retry...");
+                }
+                if(choice < 0 || choice > 3 || cloudName[choice]==-1){
+                    System.out.println("Please chose a valid Cloud Card!.\r");
+                    ok = false;
+                } else {
+                    cloudName[choice]=-1;
+                    ok = true;
+
+
+
+                    System.out.println(ANSI_PURPLE+" ________________________________________\n" +
+                            "|   Please wait the opponent's move...   |\n" +
+                            "|________________________________________|"+ANSI_RESET);
+
+
                 }
             }
         }
