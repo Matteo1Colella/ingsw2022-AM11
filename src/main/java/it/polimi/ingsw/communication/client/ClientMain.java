@@ -48,6 +48,7 @@ public class ClientMain extends Thread {
     private int gameSize;
     private ModelMessage model;
     private boolean gameType;
+    private String username;
 
     private static CharacterHandlerClient characterHandler;
 
@@ -253,9 +254,20 @@ public class ClientMain extends Thread {
         receiveMessage();
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     /**
      * sets the username and type of game
      */
+
+
+
     public void login() {
         String username = null;
         int numOfPlayers = 0;

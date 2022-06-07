@@ -60,7 +60,7 @@ public class ActionController {
     private volatile boolean cc;
     int cloudchoice;
     int numIslands;
-
+    private ArrayList<CharacterView> characters;
 
     private int student1Entrance;
     private int student1WhereToPut;
@@ -72,6 +72,24 @@ public class ActionController {
     private int student3WhereToPut;
     private int indexIslandIf3ToIsland;
     private int student4Entrance;
+
+    @FXML
+    private ProgressIndicator progress;
+
+    @FXML
+    private AnchorPane progressPane;
+
+    @FXML
+    private Label coins;
+    @FXML
+    private Label username;
+
+    @FXML
+    private ImageView character1;
+    @FXML
+    private ImageView character2;
+    @FXML
+    private ImageView character3;
 
     @FXML
     private Label towerColor;
@@ -205,6 +223,7 @@ public class ActionController {
 
     public void bind(Stage stage, Scene scene) {
 
+        progress.setStyle("-fx-accent: midnightblue;");
 
         System.out.println(listIslands.size());
 
@@ -219,10 +238,15 @@ public class ActionController {
         apane.translateXProperty().bind(scene.widthProperty().subtract(apane.widthProperty()).divide(2));
         apane.translateYProperty().bind(scene.heightProperty().subtract(apane.heightProperty()).divide(2));
 
+        progressPane.translateXProperty().bind(scene.widthProperty().subtract(progressPane.widthProperty()).divide(2));
+        progressPane.translateYProperty().bind(scene.heightProperty().subtract(progressPane.heightProperty()).divide(2));
+
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             double scaleX = newVal.doubleValue() / width;
             apane.setScaleX(scaleX);
             apane.setCenterShape(true);
+            progressPane.setScaleX(scaleX);
+            progressPane.setCenterShape(true);
         });
 
 
@@ -230,6 +254,8 @@ public class ActionController {
             double scaleY = newVal.doubleValue() / height;
             apane.setCenterShape(true);
             apane.setScaleY(scaleY);
+            progressPane.setScaleY(scaleY);
+            progressPane.setCenterShape(true);
         });
     }
 
@@ -844,25 +870,44 @@ public class ActionController {
         island12.setDisable(true);
     }
 
+    public void characterAction(int num){
+
+    }
+
+    public void clickOnCharacter1(){
+        characterAction(characters.get(0).getNum());
+    }
+    public void clickOnCharacter2(){
+        characterAction(characters.get(1).getNum());
+    }
+    public void clickOnCharacter3(){
+        characterAction(characters.get(2).getNum());
+    }
+
     public synchronized void showmodel(ClientMain client) {
 
 
         //if pro{
-        if (model.getCoinOwned() >= 0) {
+        if (model.getCoinOwned() > 0) {
+            characters = new ArrayList<>();
             this.gametype = true;
             System.out.println("CHARACTER CARDS:");
             for (CharacterCard characterCard : model.getCharacterCards()) {
-                System.out.println(characterCard.getNum());
+                CharacterView characterView = new CharacterView(characterCard.getNum());
+                characters.add(characterView);
             }
-            System.out.println("");
-            System.out.println("YOUR COINS:");
-            System.out.println(model.getCoinOwned());
-            System.out.println("");
+            character1.setImage(characters.get(0).getImage());
+            character2.setImage(characters.get(1).getImage());
+            character3.setImage(characters.get(2).getImage());
+
+            coins.setText("Coins: " + model.getCoinOwned());
         }
         //}
         this.archipelago.clear();
         this.archipelago.addAll(model.getArchipelago());
 
+
+        this.username.setText("Player: " + client.getUsername());
 
 
         disableIslands();
@@ -1097,6 +1142,7 @@ public class ActionController {
 
         client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage(cloudchoice));
 
+        noTurn();
         cc = true;
     }
 
@@ -1120,10 +1166,99 @@ public class ActionController {
                     message = receivedMessage.getCode();
                     System.out.println("start turn " + message);
 
+                    isTurn();
 
                     if (!client.isGameType()) {
                         switch (message) {
                             case TURN:
+
+                                client.getSendMessage().sendModelMessage(new ModelMessage());
+                                model = (ModelMessage) client.receiveMessage();
+
+
+                                Platform.runLater(() -> {
+                                    showmodel(client);
+                                });
+
+                                MessageInterface receivedMessage1 = client.receiveMessage();
+
+                                if (receivedMessage1.getCode() == MessageType.TURN) {
+                                    System.out.println("lesgo");
+                                }
+
+                                System.out.println(students + " " + mn + " " + cc);
+
+                                moveStudents();
+
+                                while (!students) {
+                                    Thread.onSpinWait();
+                                }
+                                students = false;
+
+                                moveMotherNature();
+                                while (!mn) {
+                                    Thread.onSpinWait();
+                                }
+
+                                mn = false;
+                                selectCloudCard();
+                                while (!cc) {
+                                    Thread.onSpinWait();
+                                }
+                                cc = false;
+
+                                MessageType messageType = client.receiveMessage().getCode();
+                                System.out.println(messageType);
+
+                                client.getSendMessage().sendModelMessage(new ModelMessage());
+                                model = (ModelMessage) client.receiveMessage();
+
+
+                                Platform.runLater(() -> {
+                                    showmodel(client);
+                                });
+
+
+                                MessageType messageType1 = client.receiveMessage().getCode();
+
+                                System.out.println(messageType1);
+
+                                client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
+
+                                ReceiveCards(client);
+
+                                isTurn();
+
+                                synchronized (student) {
+                                    try {
+                                        student.wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+
+
+                                break;
+                            case WIN:
+                                System.out.println("");
+                                System.out.println("----GAME-OVER----");
+                                System.out.println("-----------------");
+                                endgame = true;
+                                break;
+                            case MODEL:
+                                client.setModel((ModelMessage) receivedMessage);
+                                model = client.getModel();
+                                Platform.runLater(() -> {
+                                    showmodel(client);
+                                });
+                                break;
+                        }
+                    } else {
+                        switch (message) {
+                            case TURN:
+
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
                                 model = (ModelMessage) client.receiveMessage();
@@ -1189,37 +1324,6 @@ public class ActionController {
 
                                 }
 
-                                break;
-                            case WIN:
-                                System.out.println("");
-                                System.out.println("----GAME-OVER----");
-                                System.out.println("-----------------");
-                                endgame = true;
-                                break;
-                            case MODEL:
-                                client.setModel((ModelMessage) receivedMessage);
-                                model = client.getModel();
-                                Platform.runLater(() -> {
-                                    showmodel(client);
-                                });
-                                break;
-                        }
-                    } else {
-                        switch (message) {
-                            case TURN:
-                                client.askCharacter();
-                                client.moveStudents();
-                                client.askCharacter();
-                                client.moveMotherNature();
-                                client.askCharacter();
-                                client.selectCloudCard();
-                                choice = false;
-                                message = client.receiveMessage().getCode();
-                                client.showModel();
-                                message = client.receiveMessage().getCode();
-                                while (!choice) {
-                                    choice = client.playAssistantCard();
-                                }
                                 break;
                             case WIN:
                                 System.out.println("");
@@ -1400,6 +1504,7 @@ public class ActionController {
 
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
+            noTurn();
             synchronized (student) {
                 student.notifyAll();
             }
@@ -1468,6 +1573,19 @@ public class ActionController {
 
     }
 
+    public void noTurn(){
+        apane.setOpacity(0);
+        apane.setDisable(true);
+        progressPane.setOpacity(1);
+        progressPane.setDisable(true);
+    }
+
+    public void isTurn(){
+        apane.setOpacity(1);
+        apane.setDisable(false);
+        progressPane.setOpacity(0);
+    }
+
     public void initialize(ClientMain client) {
         this.numIslands = 12;
         listIslands = new ArrayList<>();
@@ -1483,6 +1601,9 @@ public class ActionController {
         listIslands.add(island10);
         listIslands.add(island11);
         listIslands.add(island12);
+
+        progressPane.setOpacity(0);
+
         this.client = client;
         this.start = false;
         chosen = false;
