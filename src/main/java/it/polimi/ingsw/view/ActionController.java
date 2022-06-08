@@ -51,6 +51,11 @@ public class ActionController {
     private final Image yellowStudent = new Image("Assets/Students/student_yellow.png");
     private final Image pinkStudent = new Image("Assets/Students/student_pink.png");
 
+    private final Image redProf = new Image("Assets/Students/prof_red.png");
+    private final Image greenProf = new Image("Assets/Students/prof_green.png");
+    private final Image blueProf = new Image("Assets/Students/prof_blue.png");
+    private final Image yellowProf = new Image("Assets/Students/prof_yellow.png");
+    private final Image pinkProf = new Image("Assets/Students/prof_pink.png");
 
     private boolean start;
     private boolean endgame;
@@ -1138,6 +1143,17 @@ public class ActionController {
         }
         for(int k = 64; k<=71; k++){
             towers.add((ImageView) school.get(k));
+        }
+
+        professors.get(0).setImage(greenProf);
+        professors.get(1).setImage(redProf);
+        professors.get(2).setImage(yellowProf);
+        professors.get(3).setImage(pinkProf);
+        professors.get(4).setImage(blueProf);
+
+        for(ImageView professor : professors){
+            professor.setScaleX(1.1);
+            professor.setScaleX(1.1);
         }
 
     }
