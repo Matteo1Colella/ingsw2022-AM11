@@ -183,7 +183,7 @@ public class GameManager {
             System.out.println("Players in Lobby:");
             newComplexLobby.getPlayers().stream().map(Player::getID_player).forEach(System.out::println);
             System.out.println("");
-
+            existingComplexLobby = newComplexLobby;
             // if lobby is free adds the player
         } else {
             existingComplexLobby.AddPlayer(ID);

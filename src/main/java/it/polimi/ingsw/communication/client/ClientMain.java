@@ -116,7 +116,6 @@ public class ClientMain extends Thread {
             MessageInterface receivedMessage = clientMain.receiveMessage();
             MessageType message = receivedMessage.getCode();
 
-
             if(clientMain.gameType == false){
                 switch (message){
                     case TURN:
@@ -171,7 +170,6 @@ public class ClientMain extends Thread {
                         clientMain.setModel((ModelMessage) receivedMessage);
                         break;
                 }
-
             }
         }
     }
