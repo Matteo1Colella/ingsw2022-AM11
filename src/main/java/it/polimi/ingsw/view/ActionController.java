@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -26,6 +27,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
@@ -36,6 +40,16 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class ActionController {
+
+    private final Image bTower = new Image("Assets/Tower_black.png");
+    private final Image wTower = new Image("Assets/Tower.png");
+    private final Image gTower = new Image("Assets/Tower_grey.png");
+
+    private final Image redStudent = new Image("Assets/Students/student_red.png");
+    private final Image greenStudents = new Image("Assets/Students/student_green.png");
+    private final Image blueStudent = new Image("Assets/Students/student_blue.png");
+    private final Image yellowStudent = new Image("Assets/Students/student_yellow.png");
+    private final Image pinkStudent = new Image("Assets/Students/student_pink.png");
 
 
     private boolean start;
@@ -60,7 +74,7 @@ public class ActionController {
     private volatile boolean cc;
     int cloudchoice;
     int numIslands;
-
+    private ArrayList<CharacterView> characters;
 
     private int student1Entrance;
     private int student1WhereToPut;
@@ -72,6 +86,65 @@ public class ActionController {
     private int student3WhereToPut;
     private int indexIslandIf3ToIsland;
     private int student4Entrance;
+
+    private ArrayList<ImageView> entranceStudents;
+    private ArrayList<ImageView> blues;
+    private ArrayList<ImageView> pinks;
+    private ArrayList<ImageView> yellows;
+    private ArrayList<ImageView> reds;
+    private ArrayList<ImageView> greens;
+    private ArrayList<ImageView> professors;
+    private ArrayList<ImageView> towers;
+
+
+    @FXML
+    private AnchorPane schoolPane;
+
+    @FXML
+    private ArrayList<BorderPane> islandStudents;
+
+    @FXML
+    private BorderPane island1Students;
+    @FXML
+    private BorderPane island2Students;
+    @FXML
+    private BorderPane island3Students;
+    @FXML
+    private BorderPane island4Students;
+    @FXML
+    private BorderPane island5Students;
+    @FXML
+    private BorderPane island6Students;
+    @FXML
+    private BorderPane island7Students;
+    @FXML
+    private BorderPane island8Students;
+    @FXML
+    private BorderPane island9Students;
+    @FXML
+    private BorderPane island10Students;
+    @FXML
+    private BorderPane island11Students;
+    @FXML
+    private BorderPane island12Students;
+
+    @FXML
+    private ProgressIndicator progress;
+
+    @FXML
+    private AnchorPane progressPane;
+
+    @FXML
+    private Label coins;
+    @FXML
+    private Label username;
+
+    @FXML
+    private ImageView character1;
+    @FXML
+    private ImageView character2;
+    @FXML
+    private ImageView character3;
 
     @FXML
     private Label towerColor;
@@ -199,12 +272,15 @@ public class ActionController {
 
             listIslands.get(i).setLayoutX(x + 237.26);
             listIslands.get(i).setLayoutY(y + 236);
+            islandStudents.get(i).setLayoutX(listIslands.get(i).getLayoutX()+30);
+            islandStudents.get(i).setLayoutY(listIslands.get(i).getLayoutY()+25);
         }
 
     }
 
     public void bind(Stage stage, Scene scene) {
 
+        progress.setStyle("-fx-accent: midnightblue;");
 
         System.out.println(listIslands.size());
 
@@ -219,10 +295,15 @@ public class ActionController {
         apane.translateXProperty().bind(scene.widthProperty().subtract(apane.widthProperty()).divide(2));
         apane.translateYProperty().bind(scene.heightProperty().subtract(apane.heightProperty()).divide(2));
 
+        progressPane.translateXProperty().bind(scene.widthProperty().subtract(progressPane.widthProperty()).divide(2));
+        progressPane.translateYProperty().bind(scene.heightProperty().subtract(progressPane.heightProperty()).divide(2));
+
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             double scaleX = newVal.doubleValue() / width;
             apane.setScaleX(scaleX);
             apane.setCenterShape(true);
+            progressPane.setScaleX(scaleX);
+            progressPane.setCenterShape(true);
         });
 
 
@@ -230,6 +311,8 @@ public class ActionController {
             double scaleY = newVal.doubleValue() / height;
             apane.setCenterShape(true);
             apane.setScaleY(scaleY);
+            progressPane.setScaleY(scaleY);
+            progressPane.setCenterShape(true);
         });
     }
 
@@ -345,124 +428,208 @@ public class ActionController {
     }
 
     public void clickonIsland1() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 0) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 1 Content:");
-        alert.setContentText(this.archipelago.get(0).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(0);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland2() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 1) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 2 Content:");
-        alert.setContentText(this.archipelago.get(1).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(1);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland3() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 2) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 3 Content:");
-        alert.setContentText(this.archipelago.get(2).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(2);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland4() {
 
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 3) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 4 Content:");
-        alert.setContentText(this.archipelago.get(3).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(3);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland5() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 4) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 5 Content:");
-        alert.setContentText(this.archipelago.get(4).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(4);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland6() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 5) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 6 Content:");
-        alert.setContentText(this.archipelago.get(5).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(5);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland7() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 6) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 7 Content:");
-        alert.setContentText(this.archipelago.get(6).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(6);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland8() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 7) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 8 Content:");
-        alert.setContentText(this.archipelago.get(7).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(7);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland9() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 8) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 9 Content:");
-        alert.setContentText(this.archipelago.get(8).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(8);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland10() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 9) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 10 Content:");
-        alert.setContentText(this.archipelago.get(9).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(9);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland11() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 10) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 11 Content:");
-        alert.setContentText(this.archipelago.get(10).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(10);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonIsland12() {
+        IslandCard showIsland = new IslandCard(-1);
+        for (IslandCard island : this.archipelago) {
+            if (island.getOriginal() == 11) {
+                showIsland = island;
+            }
+        }
+        if (showIsland.getId_island() == -1) return;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Island 12 Content:");
-        alert.setContentText(this.archipelago.get(11).toString());
+        alert.setContentText(showIsland.toString());
         alert.show();
-        selectedIsland = this.archipelago.get(11);
-        To.setText("To: Island " + selectedIsland.getId_island());
+        selectedIsland = showIsland;
+        To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
     public void clickonCloud1() {
@@ -758,32 +925,253 @@ public class ActionController {
         island11.setDisable(true);
         island12.setOpacity(0);
         island12.setDisable(true);
+
+        island1Students.setOpacity(0);
+        island1Students.setDisable(true);
+        island2Students.setOpacity(0);
+        island2Students.setDisable(true);
+        island3Students.setOpacity(0);
+        island3Students.setDisable(true);
+        island4Students.setOpacity(0);
+        island4Students.setDisable(true);
+        island5Students.setOpacity(0);
+        island5Students.setDisable(true);
+        island6Students.setOpacity(0);
+        island6Students.setDisable(true);
+        island7Students.setOpacity(0);
+        island7Students.setDisable(true);
+        island8Students.setOpacity(0);
+        island8Students.setDisable(true);
+        island9Students.setOpacity(0);
+        island9Students.setDisable(true);
+        island10Students.setOpacity(0);
+        island10Students.setDisable(true);
+        island11Students.setOpacity(0);
+        island11Students.setDisable(true);
+        island12Students.setOpacity(0);
+        island12Students.setDisable(true);
+    }
+
+    public void characterAction(int num) {
+
+    }
+
+    public void clickOnCharacter1() {
+        characterAction(characters.get(0).getNum());
+    }
+
+    public void clickOnCharacter2() {
+        characterAction(characters.get(1).getNum());
+    }
+
+    public void clickOnCharacter3() {
+        characterAction(characters.get(2).getNum());
+    }
+
+    private void setStudentImage(ArrayList<Node> nodeMatrix, IslandCard island, int nb, int ng, int nr, int ny, int np) {
+        ImageView tower = new ImageView();
+        int[] array = new int[] {
+                nb, ng, nr, ny, np };
+        for(int i = 0; i < 5; i++){
+            StackPane pane = (StackPane) nodeMatrix.get(i);
+            ArrayList<Node> nodes = new ArrayList<>(pane.getChildren());
+            if (i == 0){
+                tower = (ImageView) nodes.get(2);
+                tower.setDisable(true);
+                tower.setOpacity(0);
+            }
+            Label number = (Label) nodes.get(1);
+            number.setText("" + array[i]);
+            if(array[i]==0){
+                nodes.get(1).setDisable(true);
+                nodes.get(0).setDisable(true);
+                nodes.get(1).setOpacity(0);
+                nodes.get(0).setOpacity(0);
+            }else{
+                nodes.get(1).setDisable(false);
+                nodes.get(0).setDisable(false);
+                nodes.get(1).setOpacity(1);
+                nodes.get(0).setOpacity(1);
+            }
+        }
+
+        if(island.getTower()!= null){
+            switch (island.getTower().getColor()){
+                case GREY ->{
+                    tower.setDisable(false);
+                    tower.setOpacity(1);
+                    tower.setImage(gTower);
+                }
+                case BLACK -> {
+                    tower.setDisable(false);
+                    tower.setOpacity(1);
+                    tower.setImage(bTower);
+                }
+                case WHITE -> {
+                    tower.setDisable(false);
+                    tower.setOpacity(1);
+                    tower.setImage(wTower);
+                }
+            }
+        }
+
+    }
+
+    public void showStudents() {
+        int numred = 0;
+        int numblue= 0;
+        int numpink= 0;
+        int numyellow= 0;
+        int numgreen= 0;
+        for (IslandCard island : model.getArchipelago()) {
+            for (Student student : island.getStudents()) {
+                switch(student.getColor()){
+                    case YELLOW -> numyellow++;
+                    case PINK -> numpink++;
+                    case BLUE -> numblue++;
+                    case GREEN -> numgreen++;
+                    case RED -> numred++;
+                }
+            }
+            for (IslandCard islandCard : island.getMergedWith()) {
+                for (Student student : islandCard.getStudents()) {
+                    switch (student.getColor()) {
+                        case YELLOW -> numyellow++;
+                        case PINK -> numpink++;
+                        case BLUE -> numblue++;
+                        case GREEN -> numgreen++;
+                        case RED -> numred++;
+                    }
+                }
+            }
+
+            ArrayList<Node> nodeMatrix = new ArrayList<>();
+
+            // 0 azzurro
+            // 1 verde
+            // 2 rosso
+            // 3 giallo
+            // 4 rosa
+
+
+            switch (island.getOriginal()) {
+                case 0:
+                    nodeMatrix.addAll(island1Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 1:
+                    nodeMatrix.addAll(island2Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 2:
+                    nodeMatrix.addAll(island3Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 3:
+                    nodeMatrix.addAll(island4Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 4:
+                    nodeMatrix.addAll(island5Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 5:
+                    nodeMatrix.addAll(island6Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 6:
+                    nodeMatrix.addAll(island7Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 7:
+                    nodeMatrix.addAll(island8Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 8:
+                    nodeMatrix.addAll(island9Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 9:
+                    nodeMatrix.addAll(island10Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 10:
+                    nodeMatrix.addAll(island11Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 11:
+                    nodeMatrix.addAll(island12Students.getChildren());
+                    setStudentImage(nodeMatrix, island, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+
+            }
+             numred = 0;
+             numblue= 0;
+             numpink= 0;
+             numyellow= 0;
+             numgreen= 0;
+        }
+    }
+
+    private void initLists(){
+        ArrayList<Node> school = new ArrayList<>(schoolPane.getChildren());
+        for(int k = 0; k<9; k++){
+            entranceStudents.add((ImageView) school.get(k));
+        }
+        for(int k = 9; k<19; k++){
+            blues.add((ImageView) school.get(k));
+        }
+        for(int k = 19; k<29; k++){
+            pinks.add((ImageView) school.get(k));
+        }
+        for(int k = 29; k<39; k++){
+            yellows.add((ImageView) school.get(k));
+        }
+        for(int k = 39; k<49; k++){
+            reds.add((ImageView) school.get(k));
+        }
+        for(int k = 49; k<59; k++){
+            greens.add((ImageView) school.get(k));
+        }
+        for(int k = 59; k<64; k++){
+            professors.add((ImageView) school.get(k));
+        }
+        for(int k = 64; k<=71; k++){
+            towers.add((ImageView) school.get(k));
+        }
+
     }
 
     public synchronized void showmodel(ClientMain client) {
 
+        initLists();
 
         //if pro{
-        if (model.getCoinOwned() >= 0) {
+        if (model.getCoinOwned() > 0) {
+            characters = new ArrayList<>();
             this.gametype = true;
             System.out.println("CHARACTER CARDS:");
             for (CharacterCard characterCard : model.getCharacterCards()) {
-                System.out.println(characterCard.getNum());
+                CharacterView characterView = new CharacterView(characterCard.getNum());
+                characters.add(characterView);
             }
-            System.out.println("");
-            System.out.println("YOUR COINS:");
-            System.out.println(model.getCoinOwned());
-            System.out.println("");
+            character1.setImage(characters.get(0).getImage());
+            character2.setImage(characters.get(1).getImage());
+            character3.setImage(characters.get(2).getImage());
+
+            coins.setText("Coins: " + model.getCoinOwned());
         }
         //}
         this.archipelago.clear();
         this.archipelago.addAll(model.getArchipelago());
 
 
+        this.username.setText("Player: " + client.getUsername());
+
 
         disableIslands();
 
-        System.out.println("size pre check: "+ listIslands.size());
+        System.out.println("size pre check: " + listIslands.size());
 
         // oldArchipelago.removeAll(this.archipelago);
         for (IslandCard temp : archipelago) {
@@ -793,39 +1181,51 @@ public class ActionController {
                     switch (islandCard.getOriginal()) {
                         case 0:
                             this.listIslands.remove(island1);
+                            this.islandStudents.remove(island1Students);
                             break;
                         case 1:
                             this.listIslands.remove(island2);
+                            this.islandStudents.remove(island2Students);
                             break;
                         case 2:
                             this.listIslands.remove(island3);
+                            this.islandStudents.remove(island3Students);
                             break;
                         case 3:
                             this.listIslands.remove(island4);
+                            this.islandStudents.remove(island4Students);
                             break;
                         case 4:
                             this.listIslands.remove(island5);
+                            this.islandStudents.remove(island5Students);
                             break;
                         case 5:
                             this.listIslands.remove(island6);
+                            this.islandStudents.remove(island6Students);
                             break;
                         case 6:
                             this.listIslands.remove(island7);
+                            this.islandStudents.remove(island7Students);
                             break;
                         case 7:
                             this.listIslands.remove(island8);
+                            this.islandStudents.remove(island8Students);
                             break;
                         case 8:
                             this.listIslands.remove(island9);
+                            this.islandStudents.remove(island9Students);
                             break;
                         case 9:
                             this.listIslands.remove(island10);
+                            this.islandStudents.remove(island10Students);
                             break;
                         case 10:
                             this.listIslands.remove(island11);
+                            this.islandStudents.remove(island11Students);
                             break;
                         case 11:
                             this.listIslands.remove(island12);
+                            this.islandStudents.remove(island12Students);
                             break;
 
                     }
@@ -841,9 +1241,9 @@ public class ActionController {
                 switch (temp.getMergedWith().size()) {
                     case 1:
 
-                            Image image = new javafx.scene.image.Image("Assets/merged2.png");
-                            listIslands.get(index).setImage(image);
-                        if(scaleX != listIslands.get(index).getScaleX()) {
+                        Image image = new javafx.scene.image.Image("Assets/merged2.png");
+                        listIslands.get(index).setImage(image);
+                        if (scaleX != listIslands.get(index).getScaleX()) {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
                         }
@@ -852,7 +1252,7 @@ public class ActionController {
                     case 2:
                         Image image2 = new javafx.scene.image.Image("Assets/merged3.png");
                         listIslands.get(index).setImage(image2);
-                        if(scaleX != listIslands.get(index).getScaleX()) {
+                        if (scaleX != listIslands.get(index).getScaleX()) {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
                         }
@@ -861,7 +1261,7 @@ public class ActionController {
                     case 3:
                         Image image3 = new javafx.scene.image.Image("Assets/merged4.png");
                         listIslands.get(index).setImage(image3);
-                        if(scaleX != listIslands.get(index).getScaleX()) {
+                        if (scaleX != listIslands.get(index).getScaleX()) {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
                         }
@@ -870,7 +1270,7 @@ public class ActionController {
                     case 4:
                         Image image4 = new javafx.scene.image.Image("Assets/merged5.png");
                         listIslands.get(index).setImage(image4);
-                        if(scaleX != listIslands.get(index).getScaleX()) {
+                        if (scaleX != listIslands.get(index).getScaleX()) {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
                         }
@@ -885,64 +1285,66 @@ public class ActionController {
 
         bindIslands();
 
-        int i = 0;
-        System.out.println("remaining: " + listIslands.size());
         for (ImageView island : listIslands) {
-            System.out.println(i+": removing island");
             island.setDisable(false);
             island.setOpacity(1);
-            i++;
         }
 
+        for (BorderPane studentGrid : islandStudents) {
+            studentGrid.setDisable(false);
+            studentGrid.setOpacity(1);
+        }
+
+        showStudents();
 
         for (IslandCard islandCard : model.getArchipelago()) {
             if (islandCard.getMotherNature()) {
-                if (islandCard.getId_island() == 0) {
-                    motherNature.setLayoutX(island1.getLayoutX()+42);
+                if (islandCard.getOriginal() == 0) {
+                    motherNature.setLayoutX(island1.getLayoutX() + 42);
                     motherNature.setLayoutY(island1.getLayoutY());
                 }
-                if (islandCard.getId_island() == 1) {
-                    motherNature.setLayoutX(island2.getLayoutX()+42);
+                if (islandCard.getOriginal() == 1) {
+                    motherNature.setLayoutX(island2.getLayoutX() + 42);
                     motherNature.setLayoutY(island2.getLayoutY());
                 }
-                if (islandCard.getId_island() == 2) {
-                    motherNature.setLayoutX(island3.getLayoutX()+42);
+                if (islandCard.getOriginal() == 2) {
+                    motherNature.setLayoutX(island3.getLayoutX() + 42);
                     motherNature.setLayoutY(island3.getLayoutY());
                 }
-                if (islandCard.getId_island() == 3) {
-                    motherNature.setLayoutX(island4.getLayoutX()+42);
+                if (islandCard.getOriginal() == 3) {
+                    motherNature.setLayoutX(island4.getLayoutX() + 42);
                     motherNature.setLayoutY(island4.getLayoutY());
                 }
-                if (islandCard.getId_island() == 4) {
-                    motherNature.setLayoutX(island5.getLayoutX()+42);
+                if (islandCard.getOriginal() == 4) {
+                    motherNature.setLayoutX(island5.getLayoutX() + 42);
                     motherNature.setLayoutY(island5.getLayoutY());
                 }
-                if (islandCard.getId_island() == 5) {
-                    motherNature.setLayoutX(island6.getLayoutX()+42);
+                if (islandCard.getOriginal() == 5) {
+                    motherNature.setLayoutX(island6.getLayoutX() + 42);
                     motherNature.setLayoutY(island6.getLayoutY());
                 }
-                if (islandCard.getId_island() == 6) {
-                    motherNature.setLayoutX(island7.getLayoutX()+42);
+                if (islandCard.getOriginal() == 6) {
+                    motherNature.setLayoutX(island7.getLayoutX() + 42);
                     motherNature.setLayoutY(island7.getLayoutY());
                 }
-                if (islandCard.getId_island() == 7) {
-                    motherNature.setLayoutX(island8.getLayoutX()+42);
+                if (islandCard.getOriginal() == 7) {
+                    motherNature.setLayoutX(island8.getLayoutX() + 42);
                     motherNature.setLayoutY(island8.getLayoutY());
                 }
-                if (islandCard.getId_island() == 8) {
-                    motherNature.setLayoutX(island9.getLayoutX()+42);
+                if (islandCard.getOriginal() == 8) {
+                    motherNature.setLayoutX(island9.getLayoutX() + 42);
                     motherNature.setLayoutY(island9.getLayoutY());
                 }
-                if (islandCard.getId_island() == 9) {
-                    motherNature.setLayoutX(island10.getLayoutX()+42);
+                if (islandCard.getOriginal() == 9) {
+                    motherNature.setLayoutX(island10.getLayoutX() + 42);
                     motherNature.setLayoutY(island10.getLayoutY());
                 }
-                if (islandCard.getId_island() == 10) {
-                    motherNature.setLayoutX(island11.getLayoutX()+42);
+                if (islandCard.getOriginal() == 10) {
+                    motherNature.setLayoutX(island11.getLayoutX() + 42);
                     motherNature.setLayoutY(island11.getLayoutY());
                 }
-                if (islandCard.getId_island() == 11) {
-                    motherNature.setLayoutX(island12.getLayoutX()+42);
+                if (islandCard.getOriginal() == 11) {
+                    motherNature.setLayoutX(island12.getLayoutX() + 42);
                     motherNature.setLayoutY(island12.getLayoutY());
                 }
             }
@@ -952,27 +1354,124 @@ public class ActionController {
         entranceStudents.addAll(model.getSchoolBoard().getEntrance().getStudents());
         entrance.setItems(entranceStudents);
 
-        ObservableList<Student> reds = FXCollections.observableArrayList();
-        reds.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents());
-        red.setItems(reds);
+        int j = 0;
+        for(Student student: entranceStudents){
+            switch (student.getColor()){
+                case RED -> {
+                    this.entranceStudents.get(j).setOpacity(1);
+                    this.entranceStudents.get(j).setImage(redStudent);
+                }
+                case GREEN -> {
+                    this.entranceStudents.get(j).setOpacity(1);
+                    this.entranceStudents.get(j).setImage(greenStudents);
+                }
+                case BLUE -> {
+                    this.entranceStudents.get(j).setOpacity(1);
+                    this.entranceStudents.get(j).setImage(blueStudent);
+                }
+                case PINK -> {
+                    this.entranceStudents.get(j).setOpacity(1);
+                    this.entranceStudents.get(j).setImage(pinkStudent);
+                }
+                case YELLOW -> {
+                    this.entranceStudents.get(j).setOpacity(1);
+                    this.entranceStudents.get(j).setImage(yellowStudent);
+                }
+            }
+            j++;
+        }
 
-        ObservableList<Student> blues = FXCollections.observableArrayList();
-        blues.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents());
-        blue.setItems(blues);
+        for(int l = j; l < 9; l++){
+            this.entranceStudents.get(l).setOpacity(0);
+        }
 
-        ObservableList<Student> yellows = FXCollections.observableArrayList();
-        yellows.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents());
-        yellow.setItems(yellows);
 
-        ObservableList<Student> greens = FXCollections.observableArrayList();
-        greens.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents());
-        green.setItems(greens);
+        int i = 0;
+        for(ColorStudent color: ColorStudent.values()){
+            if (model.getSchoolBoard().getProfessor(color)!= null){
+                professors.get(i).setOpacity(1);
+            } else{
+                professors.get(i).setOpacity(0);
+            }
+            i++;
+        }
 
-        ObservableList<Student> pinks = FXCollections.observableArrayList();
-        pinks.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents());
-        pink.setItems(pinks);
 
-        if (!model.getSchoolBoard().getTowers().isEmpty() && model.getSchoolBoard().getTowers().get(0).getColor() != null)
+        ObservableList<Student> reds1 = FXCollections.observableArrayList();
+        reds1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents());
+        //red.setItems(reds1);
+
+        for(int size = 0; size < reds1.size(); size++){
+            this.reds.get(size).setOpacity(1);
+        }
+
+        ObservableList<Student> blues1 = FXCollections.observableArrayList();
+        blues1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents());
+        //blue.setItems(blues1);
+
+        for(int size = 0; size < blues1.size(); size++){
+            this.blues.get(size).setOpacity(1);
+        }
+
+        ObservableList<Student> yellows1 = FXCollections.observableArrayList();
+        yellows1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents());
+        //yellow.setItems(yellows1);
+
+        for(int size = 0; size < yellows1.size(); size++){
+            this.yellows.get(size).setOpacity(1);
+        }
+
+        ObservableList<Student> greens1 = FXCollections.observableArrayList();
+        greens1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents());
+        //green.setItems(greens1);
+
+        for(int size = 0; size < greens1.size(); size++){
+            this.greens.get(size).setOpacity(1);
+        }
+
+        ObservableList<Student> pinks1 = FXCollections.observableArrayList();
+        pinks1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents());
+        //pink.setItems(pinks1);
+
+        for(int size = 0; size < pinks1.size(); size++){
+            this.pinks.get(size).setOpacity(1);
+        }
+        int t = 0;
+        if (!model.getSchoolBoard().getTowers().isEmpty() && model.getSchoolBoard().getTowers().get(0).getColor() != null){
+            switch(model.getSchoolBoard().getTowers().get(0).getColor()){
+                case WHITE -> {
+                    for(ImageView tower:towers){
+                        tower.setImage(wTower);
+                        tower.setOpacity(1);
+                        t++;
+                    }
+                }
+                case BLACK -> {
+                    for(ImageView tower:towers){
+                        tower.setImage(bTower);
+                        tower.setOpacity(1);
+                        t++;
+                    }
+                }
+                case GREY -> {
+                    for(ImageView tower:towers){
+                        tower.setImage(gTower);
+                        tower.setOpacity(1);
+                        t++;
+                    }
+                }
+            }
+
+        }
+
+        for(ImageView tower: this.towers){
+            tower.setOpacity(0);
+        }
+        for(int t1 = 0; t1<this.model.getSchoolBoard().getTowers().size(); t1++){
+            towers.get(t1).setOpacity(1);
+        }
+
+
             towerColor.setText("Tower color: " + model.getSchoolBoard().getTowers().get(0).getColor() + ", remaining: " + model.getSchoolBoard().getTowers().size());
 
 
@@ -1013,6 +1512,7 @@ public class ActionController {
 
         client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage(cloudchoice));
 
+        noTurn();
         cc = true;
     }
 
@@ -1036,10 +1536,98 @@ public class ActionController {
                     message = receivedMessage.getCode();
                     System.out.println("start turn " + message);
 
+                    isTurn();
 
                     if (!client.isGameType()) {
                         switch (message) {
                             case TURN:
+
+                                client.getSendMessage().sendModelMessage(new ModelMessage());
+                                model = (ModelMessage) client.receiveMessage();
+
+
+                                Platform.runLater(() -> {
+                                    showmodel(client);
+                                });
+
+                                MessageInterface receivedMessage1 = client.receiveMessage();
+
+                                if (receivedMessage1.getCode() == MessageType.TURN) {
+                                    System.out.println("lesgo");
+                                }
+
+                                System.out.println(students + " " + mn + " " + cc);
+
+                                moveStudents();
+
+                                while (!students) {
+                                    Thread.onSpinWait();
+                                }
+                                students = false;
+
+                                moveMotherNature();
+                                while (!mn) {
+                                    Thread.onSpinWait();
+                                }
+
+                                mn = false;
+                                selectCloudCard();
+                                while (!cc) {
+                                    Thread.onSpinWait();
+                                }
+                                cc = false;
+
+                                MessageType messageType = client.receiveMessage().getCode();
+                                System.out.println(messageType);
+
+                                client.getSendMessage().sendModelMessage(new ModelMessage());
+                                model = (ModelMessage) client.receiveMessage();
+
+
+                                Platform.runLater(() -> {
+                                    showmodel(client);
+                                });
+
+
+                                MessageType messageType1 = client.receiveMessage().getCode();
+
+                                System.out.println(messageType1);
+
+                                client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
+
+                                ReceiveCards(client);
+
+                                isTurn();
+
+                                synchronized (student) {
+                                    try {
+                                        student.wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+
+                                break;
+                            case WIN:
+                                System.out.println("");
+                                System.out.println("----GAME-OVER----");
+                                System.out.println("-----------------");
+                                endgame = true;
+                                break;
+                            case MODEL:
+                                client.setModel((ModelMessage) receivedMessage);
+                                model = client.getModel();
+                                Platform.runLater(() -> {
+                                    showmodel(client);
+                                });
+                                break;
+                        }
+                    } else {
+                        switch (message) {
+                            case TURN:
+
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
                                 model = (ModelMessage) client.receiveMessage();
@@ -1105,37 +1693,6 @@ public class ActionController {
 
                                 }
 
-                                break;
-                            case WIN:
-                                System.out.println("");
-                                System.out.println("----GAME-OVER----");
-                                System.out.println("-----------------");
-                                endgame = true;
-                                break;
-                            case MODEL:
-                                client.setModel((ModelMessage) receivedMessage);
-                                model = client.getModel();
-                                Platform.runLater(() -> {
-                                    showmodel(client);
-                                });
-                                break;
-                        }
-                    } else {
-                        switch (message) {
-                            case TURN:
-                                client.askCharacter();
-                                client.moveStudents();
-                                client.askCharacter();
-                                client.moveMotherNature();
-                                client.askCharacter();
-                                client.selectCloudCard();
-                                choice = false;
-                                message = client.receiveMessage().getCode();
-                                client.showModel();
-                                message = client.receiveMessage().getCode();
-                                while (!choice) {
-                                    choice = client.playAssistantCard();
-                                }
                                 break;
                             case WIN:
                                 System.out.println("");
@@ -1316,6 +1873,7 @@ public class ActionController {
 
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
+            noTurn();
             synchronized (student) {
                 student.notifyAll();
             }
@@ -1384,6 +1942,19 @@ public class ActionController {
 
     }
 
+    public void noTurn() {
+        apane.setOpacity(0);
+        apane.setDisable(true);
+        progressPane.setOpacity(1);
+        progressPane.setDisable(true);
+    }
+
+    public void isTurn() {
+        apane.setOpacity(1);
+        apane.setDisable(false);
+        progressPane.setOpacity(0);
+    }
+
     public void initialize(ClientMain client) {
         this.numIslands = 12;
         listIslands = new ArrayList<>();
@@ -1399,6 +1970,32 @@ public class ActionController {
         listIslands.add(island10);
         listIslands.add(island11);
         listIslands.add(island12);
+
+        this.entranceStudents = new ArrayList<>();
+        this.reds = new ArrayList<>();
+        this.yellows = new ArrayList<>();
+        this.blues= new ArrayList<>();
+        this.pinks = new ArrayList<>();
+        this.greens = new ArrayList<>();
+        this.professors = new ArrayList<>();
+        this.towers = new ArrayList<>();
+
+        this.islandStudents = new ArrayList<>();
+        this.islandStudents.add(island1Students);
+        this.islandStudents.add(island2Students);
+        this.islandStudents.add(island3Students);
+        this.islandStudents.add(island4Students);
+        this.islandStudents.add(island5Students);
+        this.islandStudents.add(island6Students);
+        this.islandStudents.add(island7Students);
+        this.islandStudents.add(island8Students);
+        this.islandStudents.add(island9Students);
+        this.islandStudents.add(island10Students);
+        this.islandStudents.add(island11Students);
+        this.islandStudents.add(island12Students);
+
+        progressPane.setOpacity(0);
+
         this.client = client;
         this.start = false;
         chosen = false;

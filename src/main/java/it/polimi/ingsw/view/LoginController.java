@@ -135,6 +135,8 @@ public class LoginController implements Initializable{
             n = 0;
         }
 
+        client.setUsername(nameField.getText());
+
         client.getSendMessage().sendLoginMessage(new LoginMessage(nameField.getText().replaceAll("\\s+",""), n, pro.isSelected()));
 
         MessageInterface message = client.receiveMessage();
