@@ -8,7 +8,7 @@ import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.controller.ComplexLobby;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.view.stages.LoginStage;
+//import it.polimi.ingsw.view.stages.LoginStage;
 import it.polimi.ingsw.view.stages.MageStageSocket;
 import it.polimi.ingsw.view.stages.Magestage;
 import javafx.animation.*;

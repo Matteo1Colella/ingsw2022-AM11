@@ -73,6 +73,7 @@ public class ServerThread extends Thread{
                 if(clientSocket.isClosed()){
                     System.out.println(username + " socket is closed 1.\r");
                     interrupt();
+                    break;
                 }
             }
 
@@ -82,6 +83,7 @@ public class ServerThread extends Thread{
                 if(clientSocket.isClosed()){
                     System.out.println(username + " socket is closed 2.\r");
                     interrupt();
+                    break;
                 }
             }
 
@@ -331,13 +333,18 @@ public class ServerThread extends Thread{
      * @return boolean
      */
     private boolean isMyTurn(){
+        try{
+            if(currentCL.getActivePlayer() == null){
+                return  false;
+            }
+            else {
+                return currentCL.getActivePlayer().getID_player().equals(username);
+            }
+        } catch (NullPointerException e){
+            interrupt();
+            return false;
+        }
 
-        if(currentCL.getActivePlayer() == null){
-            return  false;
-        }
-        else {
-            return currentCL.getActivePlayer().getID_player().equals(username);
-        }
     }
 
     public void closeConnection(){

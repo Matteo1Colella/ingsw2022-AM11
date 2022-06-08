@@ -157,6 +157,32 @@
           <artifactId>sonar-maven-plugin</artifactId>
           <version>3.7.0.1746</version>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.2.0</version>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+              <configuration>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
+                <shadedClassifierName>project-classifier</shadedClassifierName>
+                <outputFile>shade\AM11.jar</outputFile>
+                <transformers>
+                  <transformer implementation=
+                                       "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                    <mainClass>it.polimi.ingsw.communication.client.ClientMain</mainClass>
+                  </transformer>
+                </transformers>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
       </plugins>
     </pluginManagement>
       <plugins>

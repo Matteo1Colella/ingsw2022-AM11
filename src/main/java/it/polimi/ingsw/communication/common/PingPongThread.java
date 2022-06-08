@@ -42,18 +42,20 @@ public class PingPongThread extends Thread{
                 synchronized (serverThread) {
                     if (host.equals("server")) {
                         try {
-                            if (socket.getInetAddress().isReachable(50000)) {
+                            if (socket.getInetAddress().isReachable(1000000)) {
                                 //System.out.println("Is reachable.\r");
                                 sendMessage.sendPingPongMessage(new PingPongMessage("ping"));
                             } else {
+                                System.out.println("connection timeout");
                                 System.out.println("Is not reachable.\r");
                                 serverThread.closeConnection();
-                                interrupt();
+                                exec.shutdown();
                             }
                             if (socket.isClosed()) {
+                                System.out.println("connection closed due to other problems");
                                 System.out.println("Is not reachable.\r");
                                 serverThread.closeConnection();
-                                interrupt();
+                                exec.shutdown();
                             }
                         } catch (IOException e) {
                             serverThread.closeConnection();
@@ -65,7 +67,7 @@ public class PingPongThread extends Thread{
                                 //System.out.println("Is reachable.\r");
                             } else {
                                 //System.out.println("Is not reachable.\r");
-                                System.out.println("Connection lost.\r");
+                                System.out.println("Connection lost: client is closing connection due to timeout.\r");
                                 socket.close();
                             }
                             if (socket.isClosed()) {

@@ -39,6 +39,7 @@ public class ComplexLobby{
     private static Object afterMageLock;
     private static Object preCardLock;
     private static Object afterCardLock;
+    private boolean closing;
 
     private CloseConnectionThread closeConnectionThread;
 
@@ -56,6 +57,7 @@ public class ComplexLobby{
         this.clientSocketsMap = new HashMap<>();
         this.roundCounter=0;
         this.cornerCase=false;
+        this.closing = false;
 
         preMageLock = new Object();
         preCardLock = new Object();
@@ -158,6 +160,7 @@ public class ComplexLobby{
         this.players.add(newPlayer);
 
         if (players.size() == this.numPlayers) {
+
             this.setReady(true);
         }
     }
@@ -705,7 +708,12 @@ public class ComplexLobby{
     }
 
     public synchronized void closeConnection(){
-        closeConnectionThread.start();
+        if(!closing){
+            closeConnectionThread.start();
+            playerOrder.clear();
+            activePlayer = null;
+            closing = true;
+        }
     }
 
     public Player getPlayerByID(String ID){
