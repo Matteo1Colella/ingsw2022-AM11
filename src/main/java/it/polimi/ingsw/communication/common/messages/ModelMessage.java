@@ -16,6 +16,12 @@ public class ModelMessage implements MessageInterface {
     private ArrayList<IslandCard> archipelago;
     private List<CloudCard> cloudCardList;
     private SchoolBoard schoolBoard;
+    private SchoolBoard schoolBoard1;
+    private SchoolBoard schoolBoard2;
+    private SchoolBoard schoolBoard3;
+    private SchoolBoard schoolBoard4;
+    private ArrayList<String> playerNames;
+
     private ArrayList<CharacterCard> characterCards;
     private int coinOwned;
 
@@ -27,19 +33,24 @@ public class ModelMessage implements MessageInterface {
         this.coinOwned = -100;
     }
 
+    //With all the schoolBoard
     //normal
-    public ModelMessage( ArrayList<IslandCard> archipelago, List<CloudCard> cloudCardList, SchoolBoard schoolBoard) {
+    public ModelMessage( ArrayList<IslandCard> archipelago, List<CloudCard> cloudCardList,SchoolBoard schoolBoard, SchoolBoard schoolBoard1,SchoolBoard schoolBoard2,SchoolBoard schoolBoard3,SchoolBoard schoolBoard4, ArrayList<String> playerNames) {
         this.message = "Model message\r";
         this.code = MessageType.MODEL;
         this.archipelago = archipelago;
         this.cloudCardList = cloudCardList;
         this.schoolBoard = schoolBoard;
+        this.schoolBoard1 = schoolBoard1;
+        this.schoolBoard2 = schoolBoard2;
+        this.schoolBoard3 = schoolBoard3;
+        this.schoolBoard4 = schoolBoard4;
         this.characterCards = null;
         this.coinOwned = -100;
+        this.playerNames = playerNames;
     }
-
     //pro
-    public ModelMessage(ArrayList<IslandCard> archipelago, List<CloudCard> cloudCardList, SchoolBoard schoolBoard, ArrayList<CharacterCard> characterCards, int coinOwned) {
+    public ModelMessage(ArrayList<IslandCard> archipelago, List<CloudCard> cloudCardList, SchoolBoard schoolBoard, ArrayList<CharacterCard> characterCards, int coinOwned,SchoolBoard schoolBoard1,SchoolBoard schoolBoard2,SchoolBoard schoolBoard3,SchoolBoard schoolBoard4, ArrayList<String> playerNames) {
         this.message = "Model message\r";
         this.code = MessageType.MODEL;
         this.archipelago = archipelago;
@@ -47,6 +58,11 @@ public class ModelMessage implements MessageInterface {
         this.schoolBoard = schoolBoard;
         this.characterCards = characterCards;
         this.coinOwned = coinOwned;
+        this.schoolBoard1 = schoolBoard1;
+        this.schoolBoard2 = schoolBoard2;
+        this.schoolBoard3 = schoolBoard3;
+        this.schoolBoard4 = schoolBoard4;
+        this.playerNames = playerNames;
     }
 
     public ArrayList<CharacterCard> getCharacterCards() {
@@ -97,6 +113,25 @@ public class ModelMessage implements MessageInterface {
         this.schoolBoard = schoolBoard;
     }
 
+    public SchoolBoard getSchoolBoard1() {
+        return schoolBoard1;
+    }
+
+    public SchoolBoard getSchoolBoard2() {
+        return schoolBoard2;
+    }
+
+    public SchoolBoard getSchoolBoard3() {
+        return schoolBoard3;
+    }
+
+    public SchoolBoard getSchoolBoard4() {
+        return schoolBoard4;
+    }
+
+    public ArrayList<String> getPlayerNames() {
+        return playerNames;
+    }
 
     @Override
     public String getMessage() {

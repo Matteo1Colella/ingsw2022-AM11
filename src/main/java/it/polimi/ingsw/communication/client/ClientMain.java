@@ -706,10 +706,10 @@ public class ClientMain extends Thread {
         sendMessage.sendModelMessage(new ModelMessage());
         ModelMessage modelMessage = (ModelMessage) receiveMessage();
         this.model = modelMessage;
-        if(gameType == true && characterHandler == null){
+        if (gameType == true && characterHandler == null) {
             characterHandler = new CharacterHandlerClient(modelMessage, clientSocket);
         }
-        if(gameType == true){
+        if (gameType == true) {
             characterHandler.setCoinsOwned(modelMessage.getCoinOwned());
             characterHandler.setModel(modelMessage);
         }
@@ -718,52 +718,53 @@ public class ClientMain extends Thread {
         if (gameType == true) {
             System.out.println("");
             if (modelMessage.getCoinOwned() >= 0) {
-                System.out.println(ANSI_PURPLE+"--> "+ANSI_RESET + ANSI_PURPLE_BACKGROUND+ "CHARACTER CARDS:"+ANSI_RESET);
+                System.out.println(ANSI_PURPLE + "--> " + ANSI_RESET + ANSI_PURPLE_BACKGROUND + "CHARACTER CARDS:" + ANSI_RESET);
                 for (CharacterCard characterCard : modelMessage.getCharacterCards()) {
-                    System.out.println(ANSI_PURPLE+characterCard.getNum()+ANSI_RESET);
-                    if (characterCard.getNum()==1)
+                    System.out.println(ANSI_PURPLE + characterCard.getNum() + ANSI_RESET);
+                    if (characterCard.getNum() == 1)
                         System.out.println("1 COIN EFFECT: Take a student from this card and place it on an island");
-                    if (characterCard.getNum()==2)
+                    if (characterCard.getNum() == 2)
                         System.out.println("2 COINS EFFECT: If you have the same number of professors as another player, you control them");
-                    if (characterCard.getNum()==3)
+                    if (characterCard.getNum() == 3)
                         System.out.println("3 COINS EFFECT: Choose an island where you can calculate dominance and place a tower if possible");
-                    if (characterCard.getNum()==4)
+                    if (characterCard.getNum() == 4)
                         System.out.println("1 COIN EFFECT: +2 extra steps of Mother Nature");
-                    if (characterCard.getNum()==5)
+                    if (characterCard.getNum() == 5)
                         System.out.println("2 COINS EFFECT: Put a No Entry Tile on an Island");
-                    if (characterCard.getNum()==6)
+                    if (characterCard.getNum() == 6)
                         System.out.println("3 COINS EFFECT: Do not calculate the towers on an island during the domination check");
-                    if (characterCard.getNum()==7)
+                    if (characterCard.getNum() == 7)
                         System.out.println("1 COIN EFFECT: Replace 3 students with those in your entrance");
-                    if (characterCard.getNum()==8)
+                    if (characterCard.getNum() == 8)
                         System.out.println("2 COINS EFFECT: +2 points of your influence in your turn");
-                    if (characterCard.getNum()==9)
+                    if (characterCard.getNum() == 9)
                         System.out.println("3 COINS EFFECT: Choose a color that provides no influence in your turn");
-                    if (characterCard.getNum()==10)
+                    if (characterCard.getNum() == 10)
                         System.out.println("1 COIN EFFECT: Exchange 2 students present in your Entrance and in your Dining Room");
-                    if (characterCard.getNum()==11)
+                    if (characterCard.getNum() == 11)
                         System.out.println("2 COINS EFFECT: Draw a student to put in your Dining Room");
-                    if (characterCard.getNum()==12)
+                    if (characterCard.getNum() == 12)
                         System.out.println("3 COINS EFFECT: Put 3 students of the color of your choice back into the bag from all Dining Rooms of all the players");
                 }
                 System.out.println("");
-                System.out.println(ANSI_YELLOW+"--> "+ANSI_RESET +ANSI_YELLOW_BACKGROUND+ "YOUR COINS:" +ANSI_RESET);
-                System.out.println(ANSI_YELLOW+ modelMessage.getCoinOwned()+ANSI_RESET);
+                System.out.println(ANSI_YELLOW + "--> " + ANSI_RESET + ANSI_YELLOW_BACKGROUND + "YOUR COINS:" + ANSI_RESET);
+                System.out.println(ANSI_YELLOW + modelMessage.getCoinOwned() + ANSI_RESET);
                 System.out.println("");
             }
         }
 
         int i = 0;
         System.out.println("");
-        System.out.println(ANSI_GREEN+" ________________________________________\n" +
+        System.out.println(ANSI_GREEN + " ________________________________________\n" +
                 "|             ARCHIPELAGO                |\n" +
-                "|________________________________________|"+ANSI_RESET);
+                "|________________________________________|" + ANSI_RESET);
         System.out.println("");
         for (IslandCard islandCard : modelMessage.getArchipelago()) {
             if (islandCard.getMotherNature()) {
-                System.out.println(ANSI_BLACK+ANSI_WHITE_BACKGROUND+"MOTHERNATURE"+ANSI_RESET+ANSI_RESET);
-            }if (i < 10) {
-                if(islandCard.getTower()!=null) {
+                System.out.println(ANSI_BLACK + ANSI_WHITE_BACKGROUND + "MOTHERNATURE" + ANSI_RESET + ANSI_RESET);
+            }
+            if (i < 10) {
+                if (islandCard.getTower() != null) {
                     if (islandCard.getTower().getColor() == ColorTower.BLACK) {
 
                         System.out.println(ANSI_GREEN + "" + ANSI_RESET +
@@ -773,7 +774,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@          "+ANSI_BLACK_BACKGROUND+ANSI_WHITE+"BLACK"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          " + ANSI_BLACK_BACKGROUND + ANSI_WHITE + "BLACK" + ANSI_RESET + ANSI_GREEN + "           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -787,7 +788,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@          "+ANSI_WHITE_BACKGROUND+ANSI_BLACK+"WHITE"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          " + ANSI_WHITE_BACKGROUND + ANSI_BLACK + "WHITE" + ANSI_RESET + ANSI_GREEN + "           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -801,13 +802,13 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "              @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@           "+ANSI_CYAN_BACKGROUND+ANSI_BLACK+"GREY"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@           " + ANSI_CYAN_BACKGROUND + ANSI_BLACK + "GREY" + ANSI_RESET + ANSI_GREEN + "           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
                     }
                 }
-                if(islandCard.getTower() == null){
+                if (islandCard.getTower() == null) {
                     System.out.println(ANSI_GREEN + "" + ANSI_RESET +
                             ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
                             ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
@@ -820,8 +821,8 @@ public class ClientMain extends Thread {
                             ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
                 }
-            }else{
-                if(islandCard.getTower()!=null) {
+            } else {
+                if (islandCard.getTower() != null) {
                     if (islandCard.getTower().getColor() == ColorTower.BLACK) {
 
                         System.out.println(ANSI_GREEN + "" + ANSI_RESET +
@@ -831,7 +832,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@          "+ANSI_BLACK_BACKGROUND+ANSI_WHITE+"BLACK"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          " + ANSI_BLACK_BACKGROUND + ANSI_WHITE + "BLACK" + ANSI_RESET + ANSI_GREEN + "           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -845,7 +846,7 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@          "+ANSI_WHITE_BACKGROUND+ANSI_BLACK+"WHITE"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@          " + ANSI_WHITE_BACKGROUND + ANSI_BLACK + "WHITE" + ANSI_RESET + ANSI_GREEN + "           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
@@ -859,13 +860,13 @@ public class ClientMain extends Thread {
                                 ANSI_GREEN + "@@             " + i + "             @@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@                              @\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@           Tower:           @@\n" + ANSI_RESET +
-                                ANSI_GREEN + "@@@           "+ANSI_CYAN_BACKGROUND+ANSI_BLACK+"GREY"+ANSI_RESET+ANSI_GREEN +"           @@@\n" + ANSI_RESET +
+                                ANSI_GREEN + "@@@           " + ANSI_CYAN_BACKGROUND + ANSI_BLACK + "GREY" + ANSI_RESET + ANSI_GREEN + "           @@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
                                 ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + ANSI_RESET);
 
                     }
                 }
-                if(islandCard.getTower() == null){
+                if (islandCard.getTower() == null) {
                     System.out.println(ANSI_GREEN + "" + ANSI_RESET +
                             ANSI_GREEN + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + ANSI_RESET +
                             ANSI_GREEN + "@@@@                        @@@@\n" + ANSI_RESET +
@@ -881,36 +882,90 @@ public class ClientMain extends Thread {
             }
             System.out.println("Students:");
             for (int j = 0; j < islandCard.getStudents().size(); j++) {
-                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.PINK))
-                    System.out.println("Student " + j + " color : " +ANSI_PURPLE+ islandCard.getStudents().get(j)+ANSI_RESET);
-                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.RED))
-                    System.out.println("Student " + j + " color : " +ANSI_RED+ islandCard.getStudents().get(j)+ANSI_RESET);
-                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.GREEN))
-                    System.out.println("Student " + j + " color : " +ANSI_GREEN+ islandCard.getStudents().get(j)+ANSI_RESET);
-                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.BLUE))
-                    System.out.println("Student " + j + " color : " +ANSI_BLUE+ islandCard.getStudents().get(j)+ANSI_RESET);
-                if(islandCard.getStudents().get(j).getColor().equals(ColorStudent.YELLOW))
-                    System.out.println("Student " + j + " color : " +ANSI_YELLOW+ islandCard.getStudents().get(j)+ANSI_RESET);
+                if (islandCard.getStudents().get(j).getColor().equals(ColorStudent.PINK))
+                    System.out.println("Student " + j + " color : " + ANSI_PURPLE + islandCard.getStudents().get(j) + ANSI_RESET);
+                if (islandCard.getStudents().get(j).getColor().equals(ColorStudent.RED))
+                    System.out.println("Student " + j + " color : " + ANSI_RED + islandCard.getStudents().get(j) + ANSI_RESET);
+                if (islandCard.getStudents().get(j).getColor().equals(ColorStudent.GREEN))
+                    System.out.println("Student " + j + " color : " + ANSI_GREEN + islandCard.getStudents().get(j) + ANSI_RESET);
+                if (islandCard.getStudents().get(j).getColor().equals(ColorStudent.BLUE))
+                    System.out.println("Student " + j + " color : " + ANSI_BLUE + islandCard.getStudents().get(j) + ANSI_RESET);
+                if (islandCard.getStudents().get(j).getColor().equals(ColorStudent.YELLOW))
+                    System.out.println("Student " + j + " color : " + ANSI_YELLOW + islandCard.getStudents().get(j) + ANSI_RESET);
             }
             System.out.println("Merged with: ");
             for (int j = 0; j < islandCard.getMergedWith().size(); j++) {
                 IslandCard tempIslandCard = islandCard.getMergedWith().get(j);
                 for (int k = 0; k < tempIslandCard.getStudents().size(); k++) {
-                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.PINK))
-                        System.out.println("Student " + k + " color : " +ANSI_PURPLE+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
-                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.RED))
-                        System.out.println("Student " + k + " color : " +ANSI_RED+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
-                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.GREEN))
-                        System.out.println("Student " + k + " color : " +ANSI_GREEN+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
-                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.BLUE))
-                        System.out.println("Student " + k + " color : " +ANSI_BLUE+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
-                    if(tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.YELLOW))
-                        System.out.println("Student " + k + " color : " +ANSI_YELLOW+ tempIslandCard.getStudents().get(k)+ANSI_RESET);
+                    if (tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.PINK))
+                        System.out.println("Student " + k + " color : " + ANSI_PURPLE + tempIslandCard.getStudents().get(k) + ANSI_RESET);
+                    if (tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.RED))
+                        System.out.println("Student " + k + " color : " + ANSI_RED + tempIslandCard.getStudents().get(k) + ANSI_RESET);
+                    if (tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.GREEN))
+                        System.out.println("Student " + k + " color : " + ANSI_GREEN + tempIslandCard.getStudents().get(k) + ANSI_RESET);
+                    if (tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.BLUE))
+                        System.out.println("Student " + k + " color : " + ANSI_BLUE + tempIslandCard.getStudents().get(k) + ANSI_RESET);
+                    if (tempIslandCard.getStudents().get(k).getColor().equals(ColorStudent.YELLOW))
+                        System.out.println("Student " + k + " color : " + ANSI_YELLOW + tempIslandCard.getStudents().get(k) + ANSI_RESET);
                 }
             }
             i++;
             System.out.println("");
         }
+        int c = 0;
+        System.out.println(ANSI_BLUE + " ________________________________________\n" +
+                "|             ALL SCHOOLBOARDS           |\n" +
+                "|________________________________________|" + ANSI_RESET);
+        System.out.println("");
+        if (modelMessage.getPlayerNames().size() == 2 || modelMessage.getPlayerNames().size() == 4){
+                for (String name : modelMessage.getPlayerNames()) {
+                    if (c == 0) {
+                        System.out.println("Player -> " + name + ":");
+                        System.out.println("Entrance { " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(0) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(1) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(2) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(3) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(4) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(5) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(6) + " }");
+                        System.out.println("Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard1().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard1().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard1().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard1().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard1().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
+                        System.out.println("Remaining Towers: "+ANSI_BLACK+ANSI_WHITE_BACKGROUND + modelMessage.getSchoolBoard1().getTowers().size()+ANSI_RESET+ANSI_RESET);
+                    } else if (c == 1) {
+                        System.out.println("Player -> " + name + ":");
+                        System.out.println("Entrance { " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(0) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(1) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(2) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(3) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(4) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(5) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(6) + " }");
+                        System.out.println("Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard2().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard2().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard2().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard2().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard2().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
+                        System.out.println("Remaining Towers: "+ANSI_WHITE+ANSI_BLACK_BACKGROUND + modelMessage.getSchoolBoard1().getTowers().size()+ANSI_RESET+ANSI_RESET);
+                    } else if (c == 2) {
+                        System.out.println("Player -> " + name + ":");
+                        System.out.println("Entrance { " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(0) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(1) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(2) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(3) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(4) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(5) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(6) + " }");
+                        System.out.println("Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard3().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard3().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard3().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard3().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard3().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
+                        System.out.println("Remaining Towers: look the towers of "+modelMessage.getPlayerNames().get(0)+ " -> TEAM BLACK");
+                    } else if (c == 3) {
+                        System.out.println("Player -> " + name + ":");
+                        System.out.println("Entrance { " + modelMessage.getSchoolBoard4().getEntrance().getStudents().get(0) + " " + modelMessage.getSchoolBoard4().getEntrance().getStudents().get(1) + " " + modelMessage.getSchoolBoard4().getEntrance().getStudents().get(2) + " " + modelMessage.getSchoolBoard4().getEntrance().getStudents().get(3) + " " + modelMessage.getSchoolBoard4().getEntrance().getStudents().get(4) + " " + modelMessage.getSchoolBoard4().getEntrance().getStudents().get(5) + " " + modelMessage.getSchoolBoard4().getEntrance().getStudents().get(6) + " }");
+                        System.out.println("Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard4().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard4().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard4().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard4().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard4().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
+                        System.out.println("Remaining Towers: look the towers of "+modelMessage.getPlayerNames().get(1)+ " -> TEAM WHITE");
+                    }
+                    c++;
+                    System.out.println("");
+                }
+        }else{
+            for (String name : modelMessage.getPlayerNames()) {
+                if (c == 0) {
+                    System.out.println("Player -> " + name + ":");
+                    System.out.println("Entrance { " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(0) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(1) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(2) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(3) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(4) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(5) + " " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(6) +" " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(7) +" " + modelMessage.getSchoolBoard1().getEntrance().getStudents().get(8) + " }");
+                    System.out.println("Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard1().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard1().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard1().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard1().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard1().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
+                    System.out.println("Remaining Towers: "+ANSI_BLACK+ANSI_WHITE_BACKGROUND + modelMessage.getSchoolBoard1().getTowers().size()+ANSI_RESET+ANSI_RESET);
+                } else if (c == 1) {
+                    System.out.println("Player -> " + name + ":");
+                    System.out.println("Entrance { " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(0) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(1) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(2) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(3) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(4) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(5) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(6) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(7) + " " + modelMessage.getSchoolBoard2().getEntrance().getStudents().get(8) +" }");
+                    System.out.println("Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard2().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard2().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard2().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard2().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard2().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
+                    System.out.println("Remaining Towers: "+ANSI_WHITE+ANSI_BLACK_BACKGROUND + modelMessage.getSchoolBoard2().getTowers().size()+ANSI_RESET+ANSI_RESET);
+                } else if (c == 2) {
+                    System.out.println("Player -> " + name + ":");
+                    System.out.println("Entrance { " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(0) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(1) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(2) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(3) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(4) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(5) + " " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(6) +" " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(7) +" " + modelMessage.getSchoolBoard3().getEntrance().getStudents().get(8) + " }");
+                    System.out.println("Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard3().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard3().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard3().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard3().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard3().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
+                    System.out.println("Remaining Towers: "+ANSI_BLACK+ANSI_CYAN_BACKGROUND + modelMessage.getSchoolBoard3().getTowers().size()+ANSI_RESET+ANSI_RESET);
+                }
+                c++;
+                System.out.println("");
+            }
+        }
+        System.out.println("");
         System.out.println(ANSI_PURPLE+" ________________________________________\n" +
                 "|             MY SCHOOLBOARD             |\n" +
                 "|________________________________________|"+ANSI_RESET);
