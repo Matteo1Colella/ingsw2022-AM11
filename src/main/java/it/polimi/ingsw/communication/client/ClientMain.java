@@ -1036,7 +1036,7 @@ public class ClientMain extends Thread {
                         System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
                     if(modelMessage.getSchoolBoard3().getDiningRooms().get(4).IsProfessor())
                         System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: " + modelMessage.getSchoolBoard3().getTowers().size()+ "GREY");
+                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: " + modelMessage.getSchoolBoard3().getTowers().size()+ " GREY");
                 }
                 c++;
                 System.out.println("");
