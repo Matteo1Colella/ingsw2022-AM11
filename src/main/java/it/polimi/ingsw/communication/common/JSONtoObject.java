@@ -86,6 +86,7 @@ public class JSONtoObject {
                 System.out.println("Connection error in receiving message.\r");
                 try{
                     socket.close();
+                    return null;
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

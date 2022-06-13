@@ -46,6 +46,7 @@ public class Character7 extends CharacterCard {
             super.getStudents().remove(temp);
         }
         activePlayer.useCoins(this.necessaryCoin);
+        super.setNecessaryCoin(necessaryCoin++);
     }
     public void addSudent(Student student){
         super.getStudents().add(student);

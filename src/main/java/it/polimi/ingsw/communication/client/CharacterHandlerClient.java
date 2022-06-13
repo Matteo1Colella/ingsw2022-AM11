@@ -39,8 +39,10 @@ public class CharacterHandlerClient {
      * ask what character a player wants
      * @return
      */
-    public boolean askCharacter(){
+    public boolean askCharacter(ModelMessage model){
+        this.model = model;
         coinsOwned = model.getCoinOwned();
+        playableCharacters = model.getCharacterCards();
         HashMap<Integer,Integer> chosen = new HashMap<>();
         String input = "";
         int choice = -1;
@@ -60,6 +62,7 @@ public class CharacterHandlerClient {
         int n = 0, l = 0;
         for (CharacterCard temp : playableCharacters) {
             //System.out.println(temp.getNecessaryCoin());
+            System.out.println("coins to play: " + temp.getNecessaryCoin());
             if (temp.getNecessaryCoin() <= coinsOwned) {
                 System.out.println(l + ": Character " + temp.getNum());
                 chosen.put(l,temp.getNum());
@@ -101,7 +104,6 @@ public class CharacterHandlerClient {
         UseCharacterMessage characterMessage = new UseCharacterMessage();
         switch (playableCharacters.get(choice).getNum()){
             case 1:
-                // TODO: 23/05/2022 show in a different way the print of the students: in the model message must be an array containing this students
                 //Character1 card1 = (Character1) playableCharacters.get(choice);
                 int val = -1;
                 int val2 = - 1;

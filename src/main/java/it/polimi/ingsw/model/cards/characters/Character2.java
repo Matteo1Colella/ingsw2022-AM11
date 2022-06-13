@@ -20,6 +20,7 @@ public class Character2 extends CharacterCard {
         // correctly the setting of professors.
         activePlayer.getSchoolBoard().setCharachter2used(true);
         activePlayer.useCoins(this.necessaryCoin);
+        super.setNecessaryCoin(necessaryCoin++);
     }
 
     @Override
