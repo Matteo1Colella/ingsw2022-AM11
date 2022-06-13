@@ -11,13 +11,14 @@ import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
-import it.polimi.ingsw.view.stages.ActionStage;
+import it.polimi.ingsw.view.stages.CharacterStage;
+import it.polimi.ingsw.view.stages.LoginStage;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,16 +29,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 
 public class ActionController {
 
@@ -46,7 +42,7 @@ public class ActionController {
     private final Image gTower = new Image("Assets/Tower_grey.png");
 
     private final Image redStudent = new Image("Assets/Students/student_red.png");
-    private final Image greenStudents = new Image("Assets/Students/student_green.png");
+    private final Image greenStudent = new Image("Assets/Students/student_green.png");
     private final Image blueStudent = new Image("Assets/Students/student_blue.png");
     private final Image yellowStudent = new Image("Assets/Students/student_yellow.png");
     private final Image pinkStudent = new Image("Assets/Students/student_pink.png");
@@ -91,6 +87,8 @@ public class ActionController {
     private int student3WhereToPut;
     private int indexIslandIf3ToIsland;
     private int student4Entrance;
+    private int student4WhereToPut;
+    private int indexIslandIf4ToIsland;
 
     private ArrayList<ImageView> entranceStudents;
     private ArrayList<ImageView> blues;
@@ -107,6 +105,16 @@ public class ActionController {
 
     @FXML
     private ArrayList<BorderPane> islandStudents;
+
+    @FXML
+    private BorderPane cloud1Students;
+    @FXML
+    private BorderPane cloud2Students;
+    @FXML
+    private BorderPane cloud3Students;
+    @FXML
+    private BorderPane cloud4Students;
+
 
     @FXML
     private BorderPane island1Students;
@@ -174,6 +182,8 @@ public class ActionController {
     private ImageView cloud2;
     @FXML
     private ImageView cloud3;
+    @FXML
+    private ImageView cloud4;
 
     @FXML
     private ImageView assistant1;
@@ -283,6 +293,10 @@ public class ActionController {
 
     }
 
+    public void setModel(ModelMessage model) {
+        this.model = model;
+    }
+
     public void bind(Stage stage, Scene scene) {
 
         progress.setStyle("-fx-accent: midnightblue;");
@@ -323,6 +337,7 @@ public class ActionController {
 
     public synchronized void clickMoveMN() {
 
+        client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
 
         int maxsteps = selectedCard.getSteps();
         int steps = Integer.parseInt(this.steps.getText());
@@ -440,11 +455,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 1 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -457,11 +467,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 2 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -474,11 +479,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 3 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -492,11 +492,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 4 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -509,11 +504,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 5 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -526,11 +516,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 6 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -543,11 +528,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 7 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -560,11 +540,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 8 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -577,11 +552,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 9 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -594,11 +564,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 10 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -611,11 +576,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 11 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -628,11 +588,6 @@ public class ActionController {
             }
         }
         if (showIsland.getId_island() == -1) return;
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Island 12 Content:");
-        alert.setContentText(showIsland.toString());
-        alert.show();
         selectedIsland = showIsland;
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
@@ -668,6 +623,17 @@ public class ActionController {
         cloudchoice = 2;
         this.selectedCloud = this.clouds.get(2);
         this.SelectedCloud.setText("Selected cloud: Cloud 3");
+    }
+
+    public void clickonCloud4() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Cloud Content:");
+        alert.setContentText(this.clouds.get(3).toString());
+        alert.show();
+        this.cloudchoice = 0;
+        this.selectedCloud = this.clouds.get(3);
+        this.SelectedCloud.setText("Selected cloud: Cloud 4");
     }
 
     public void clickonAssistant1() {
@@ -791,6 +757,8 @@ public class ActionController {
         student3WhereToPut = -1;
         indexIslandIf3ToIsland = -1;
         student4Entrance = -1;
+        student4WhereToPut = -1;
+        indexIslandIf4ToIsland = -1;
     }
 
     public void comboBoxAction() {
@@ -821,6 +789,7 @@ public class ActionController {
     public synchronized void confirmStudent() {
 
         if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
             student1Entrance = entrance.getSelectionModel().getSelectedIndex();
             if (selectedIsland == null) {
                 student1WhereToPut = 0;
@@ -854,11 +823,11 @@ public class ActionController {
             if (student4Entrance == -1) {
                 student4Entrance = entrance.getSelectionModel().getSelectedIndex();
                 if (selectedIsland == null) {
-                    //student4WhereToPut = -1;
-                    //indexIslandIf4ToIsland = -1;
+                    student4WhereToPut = 0;
+                    indexIslandIf4ToIsland = -1;
                 } else {
-                    // student4WhereToPut = 1;
-                    // indexIslandIf4ToIsland = selectedIsland.getId_island();
+                    student4WhereToPut = 1;
+                    indexIslandIf4ToIsland = selectedIsland.getId_island();
                 }
                 movesLeft--;
             }
@@ -870,7 +839,7 @@ public class ActionController {
             System.out.println(student2Entrance + " " + student2WhereToPut + " " + indexIslandIf2ToIsland);
             System.out.println(student3Entrance + " " + student3WhereToPut + " " + indexIslandIf3ToIsland);
 
-            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance + 1, student1WhereToPut, indexIslandIf1ToIsland, student2Entrance + 1, student2WhereToPut, indexIslandIf2ToIsland, student3Entrance + 1, student3WhereToPut, indexIslandIf3ToIsland, -1, -1, -1));
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance + 1, student1WhereToPut, indexIslandIf1ToIsland, student2Entrance + 1, student2WhereToPut, indexIslandIf2ToIsland, student3Entrance + 1, student3WhereToPut, indexIslandIf3ToIsland, student4Entrance, student4WhereToPut, indexIslandIf4ToIsland));
             System.out.println("sent");
 
 
@@ -957,20 +926,90 @@ public class ActionController {
         island12Students.setDisable(true);
     }
 
-    public void characterAction(int num) {
+
+    public CharacterCard getCharacterByNum(int num){
+        int i = 0;
+        for(CharacterCard card : model.getCharacterCards()){
+            if(card.getNum()==num){
+                return card;
+            }
+        }
+        return null;
+
+    }
+    public synchronized void characterAction(int num) throws IOException, InterruptedException {
+        UseCharacterMessage characterMessage = new UseCharacterMessage();
+        switch (num){
+            case 1:
+            case 12:
+            case 11:
+            case 10:
+            case 9:
+            case 7:
+            case 5:
+            case 3:
+                new CharacterStage(this.client, num, model.getCharacterCards().indexOf(getCharacterByNum(num)), model, this);
+                break;
+            case 2:
+                client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter2Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
+                client.receiveMessage();
+                break;
+            case 4:
+                client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter4Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
+                client.receiveMessage();
+                break;
+            case 6:
+                client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter6Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
+                client.receiveMessage();
+                break;
+            case 8:
+                client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter8Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
+                client.receiveMessage();
+                break;
+
+        }
+
+
+        Platform.runLater(() -> {
+            showmodel(client);
+            System.out.println("changed");
+        });
+
 
     }
 
-    public void clickOnCharacter1() {
+    public void clickOnCharacter1() throws IOException, InterruptedException {
         characterAction(characters.get(0).getNum());
     }
 
-    public void clickOnCharacter2() {
+    public void clickOnCharacter2() throws IOException, InterruptedException {
         characterAction(characters.get(1).getNum());
     }
 
-    public void clickOnCharacter3() {
+    public void clickOnCharacter3() throws IOException, InterruptedException {
         characterAction(characters.get(2).getNum());
+    }
+
+    private void setStudentCloud(ArrayList<Node> nodeMatrix, int nb, int ng, int nr, int ny, int np){
+        int[] array = new int[] {
+                nb, ng, nr, ny, np };
+        for(int i = 0; i < 5; i++) {
+            StackPane pane = (StackPane) nodeMatrix.get(i);
+            ArrayList<Node> nodes = new ArrayList<>(pane.getChildren());
+            Label number = (Label) nodes.get(1);
+            number.setText("" + array[i]);
+            if(array[i]==0){
+                nodes.get(1).setDisable(true);
+                nodes.get(0).setDisable(true);
+                nodes.get(1).setOpacity(0);
+                nodes.get(0).setOpacity(0);
+            }else{
+                nodes.get(1).setDisable(false);
+                nodes.get(0).setDisable(false);
+                nodes.get(1).setOpacity(1);
+                nodes.get(0).setOpacity(1);
+            }
+        }
     }
 
     private void setStudentImage(ArrayList<Node> nodeMatrix, IslandCard island, int nb, int ng, int nr, int ny, int np) {
@@ -1116,6 +1155,46 @@ public class ActionController {
              numyellow= 0;
              numgreen= 0;
         }
+        int i = 0;
+        for(CloudCard card : model.getCloudCardList()){
+            for (Student student : card.getStudents()) {
+                switch (student.getColor()) {
+                    case YELLOW -> numyellow++;
+                    case PINK -> numpink++;
+                    case BLUE -> numblue++;
+                    case GREEN -> numgreen++;
+                    case RED -> numred++;
+                }
+            }
+            ArrayList<Node> nodeMatrix = new ArrayList<>();
+            switch (i) {
+                case 0:
+                    nodeMatrix.addAll(cloud1Students.getChildren());
+                    setStudentCloud(nodeMatrix, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 1:
+                    nodeMatrix.addAll(cloud2Students.getChildren());
+                    setStudentCloud(nodeMatrix, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 2:
+                    nodeMatrix.addAll(cloud3Students.getChildren());
+                    setStudentCloud(nodeMatrix, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+                case 3:
+                    nodeMatrix.addAll(cloud4Students.getChildren());
+                    setStudentCloud(nodeMatrix, numblue, numgreen, numred, numyellow, numpink);
+                    break;
+            }
+
+            i++;
+            numred = 0;
+            numblue= 0;
+            numpink= 0;
+            numyellow= 0;
+            numgreen= 0;
+        }
+
+
     }
 
     private void initLists(){
@@ -1152,8 +1231,8 @@ public class ActionController {
         professors.get(4).setImage(blueProf);
 
         for(ImageView professor : professors){
-            professor.setScaleX(1.1);
-            professor.setScaleX(1.1);
+            professor.setScaleX(1.3);
+            professor.setScaleX(1.3);
         }
 
     }
@@ -1174,6 +1253,28 @@ public class ActionController {
             character1.setImage(characters.get(0).getImage());
             character2.setImage(characters.get(1).getImage());
             character3.setImage(characters.get(2).getImage());
+
+            if(model.getCharacterCards().get(0).getNecessaryCoin() > model.getCoinOwned()){
+                character1.setOpacity(0.5);
+                character1.setDisable(true);
+            } else {
+                character1.setOpacity(1);
+                character1.setDisable(false);
+            }
+            if(model.getCharacterCards().get(1).getNecessaryCoin() > model.getCoinOwned()){
+                character2.setOpacity(0.5);
+                character2.setDisable(true);
+            } else {
+                character2.setOpacity(1);
+                character2.setDisable(false);
+            }
+            if(model.getCharacterCards().get(2).getNecessaryCoin() > model.getCoinOwned()){
+                character3.setOpacity(0.5);
+                character3.setDisable(true);
+            } else {
+                character3.setOpacity(1);
+                character3.setDisable(false);
+            }
 
             coins.setText("Coins: " + model.getCoinOwned());
         }
@@ -1379,7 +1480,7 @@ public class ActionController {
                 }
                 case GREEN -> {
                     this.entranceStudents.get(j).setOpacity(1);
-                    this.entranceStudents.get(j).setImage(greenStudents);
+                    this.entranceStudents.get(j).setImage(greenStudent);
                 }
                 case BLUE -> {
                     this.entranceStudents.get(j).setOpacity(1);
@@ -1493,9 +1594,27 @@ public class ActionController {
 
         this.clouds.clear();
         this.clouds.addAll(model.getCloudCardList());
-        if (model.getCloudCardList().size() != 3) {
+        if (model.getCloudCardList().size() == 2) {
             cloud3.setDisable(true);
             cloud3.setOpacity(0.5);
+            cloud3Students.setDisable(true);
+            cloud3Students.setOpacity(0);
+            this.movesLeft = 3;
+            this.moves = 3;
+            cloud4.setDisable(true);
+            cloud4.setOpacity(0.5);
+            cloud4Students.setDisable(true);
+            cloud4Students.setOpacity(0);
+        }
+        if (model.getCloudCardList().size() == 3) {
+            this.movesLeft = 4;
+            this.moves = 4;
+            cloud4.setDisable(true);
+            cloud4.setOpacity(0.5);
+            cloud4Students.setDisable(true);
+            cloud4Students.setOpacity(0);
+        }
+        if (model.getCloudCardList().size() == 4) {
             this.movesLeft = 3;
             this.moves = 3;
         }
@@ -1506,26 +1625,26 @@ public class ActionController {
     public synchronized void moveStudents() {
         //inhibits others
 
-        client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+        //client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
 
     }
 
     public synchronized void moveMotherNature() {
         //inhibits others
 
-        client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
+        //client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
 
     }
 
     public synchronized void selectCloudCard() {
         //inhibits others
 
-        client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
+        //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
     }
 
     public synchronized void confirmCC() {
 
-
+        client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
         client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage(cloudchoice));
 
         noTurn();

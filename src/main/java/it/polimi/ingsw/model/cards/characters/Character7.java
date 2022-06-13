@@ -27,28 +27,35 @@ public class Character7 extends CharacterCard {
         // stores students from schoolboard to this card
         for (int temp : selectionFromSchoolboard) {
             chosen1.add(activePlayer.getSchoolBoard().getEntrance().getStudents().get(temp));
-            this.addSudent(activePlayer.getSchoolBoard().getEntrance().getStudents().get(temp));
         }
-
-        //stores students from this card to schoolboard
-        for (int temp : selectionFromCard) {
-            chosen2.add(super.getStudents().get(temp));
-            activePlayer.getSchoolBoard().getEntrance().addStudent(super.getStudents().get(temp));
-        }
-
         //removes the students
         for(Student temp : chosen1){
             activePlayer.getSchoolBoard().getEntrance().removeStudent(temp);
         }
 
+        //stores students from this card to schoolboard
+        for (int temp : selectionFromCard) {
+            chosen2.add(super.getStudents().get(temp));
+        }
         //removes the students
         for(Student temp : chosen2){
-            super.getStudents().remove(temp);
+            super.removeStudent(temp);
         }
+
+        for(Student temp : chosen1){
+            this.addSudent(temp);
+        }
+
+        //removes the students
+        for(Student temp : chosen2){
+            activePlayer.getSchoolBoard().getEntrance().addStudent(temp);
+        }
+
+
         activePlayer.useCoins(this.necessaryCoin);
     }
     public void addSudent(Student student){
-        super.getStudents().add(student);
+        super.addSudent(student);
     }
 
     @Override
