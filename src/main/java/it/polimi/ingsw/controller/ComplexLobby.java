@@ -669,13 +669,37 @@ public class ComplexLobby{
         GameComponents gameComponents = getGame().getGameComponents();
         //if game type is pro
         ModelMessage modelMessage = null;
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (Player p: game.playerList()) {
+            playerNames.add(p.getID_player());
+        }
         if(isGameType()){
-            modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                    this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
-                    this.getPlayerByID(username).getCoinOwned());
+            if(gameComponents.getSchoolBoards().size()==4) {
+                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
+                        this.getPlayerByID(username).getCoinOwned(),gameComponents.getSchoolBoards().get(0),gameComponents.getSchoolBoards().get(1),gameComponents.getSchoolBoards().get(2),gameComponents.getSchoolBoards().get(3),playerNames);
+            }else if (gameComponents.getSchoolBoards().size()==3){
+                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
+                        this.getPlayerByID(username).getCoinOwned(),gameComponents.getSchoolBoards().get(0),gameComponents.getSchoolBoards().get(1),gameComponents.getSchoolBoards().get(2),null,playerNames);
+            }else{
+                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
+                        this.getPlayerByID(username).getCoinOwned(),gameComponents.getSchoolBoards().get(0),gameComponents.getSchoolBoards().get(1),null,null,playerNames);
+
+            }
         } else {
-            modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                    this.getPlayerByID(username).getSchoolBoard());
+            if(gameComponents.getSchoolBoards().size()==4) {
+                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSchoolBoards().get(0), gameComponents.getSchoolBoards().get(1), gameComponents.getSchoolBoards().get(2), gameComponents.getSchoolBoards().get(3),playerNames);
+            } else if (gameComponents.getSchoolBoards().size()==3) {
+                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSchoolBoards().get(0), gameComponents.getSchoolBoards().get(1), gameComponents.getSchoolBoards().get(2), null,playerNames);
+            } else {
+                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSchoolBoards().get(0), gameComponents.getSchoolBoards().get(1), null, null,playerNames);
+
+            }
         }
 
         return modelMessage;
