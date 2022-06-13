@@ -29,7 +29,9 @@ public class ServerMain {
             serverMain.setPortNumber(Integer.parseInt(args[1]));
             serverMain.setMaxRequests(Integer.parseInt(args[2]));
         } else {
-            serverMain.readParameters();
+            //serverMain.readParameters();
+            serverMain.setPortNumber(2063);
+            serverMain.setHostName("localhost");
         }
 
         try{
@@ -73,7 +75,7 @@ public class ServerMain {
         try {
             Gson gson = new Gson();
             //create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/configs/configServer.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("configServer.json"));
             //convert JSON file to map
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             //print map entries
