@@ -710,14 +710,13 @@
                         <DropShadow />
                      </effect></ImageView>
                </children></AnchorPane>
-            <AnchorPane layoutY="4.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="612.0" prefWidth="641.0" />
             <Button layoutX="443.0" layoutY="653.0" mnemonicParsing="false" onAction="#confirmStudent" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
             <Button fx:id="moveMN" layoutX="18.0" layoutY="653.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" />
-            <Button layoutX="317.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw" />
+            <Button layoutX="318.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw" />
             <Button layoutX="227.0" layoutY="653.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Use Character" />
             <Label fx:id="username" layoutX="658.0" layoutY="20.0" text="Player : " />
             <Label fx:id="coins" layoutX="658.0" layoutY="44.0" text="Coins:" />
-            <Label fx:id="SelectedCloud" layoutX="247.0" layoutY="381.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER" />
+            <Label fx:id="SelectedCloud" layoutX="247.0" layoutY="414.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER" />
             <Label fx:id="To" layoutX="443.0" layoutY="627.0" text="To:" />
             <Label fx:id="SelectedStudent" layoutX="443.0" layoutY="600.0" text="Selected Student:" />
             <Label fx:id="SelectedCharacter" layoutX="227.0" layoutY="626.0" text="Selected Character:" />
@@ -830,7 +829,39 @@
             <Label fx:id="assistantText" layoutX="1205.0" layoutY="559.0" prefHeight="25.0" prefWidth="60.0" scaleX="0.95" scaleY="0.95" />
             <Label layoutX="1175.0" layoutY="538.0" scaleX="0.95" scaleY="0.95" text="Current selection:" />
             <Label fx:id="towerColor" layoutX="658.0" layoutY="69.0" text="Tower Color:" />
-            <ImageView fx:id="cloud1" fitHeight="101.0" fitWidth="97.0" layoutX="192.0" layoutY="257.0" onMouseClicked="#clickonCloud1" pickOnBounds="true" preserveRatio="true">
+            <Polygon fx:id="grid" fill="DODGERBLUE" layoutX="329.0" layoutY="303.0" stroke="BLACK" strokeType="INSIDE">
+              <points>
+                <Double fx:value="-50.0" />
+                <Double fx:value="40.0" />
+                <Double fx:value="50.0" />
+                <Double fx:value="40.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="-60.0" />
+              </points>
+            </Polygon>
+            <ImageView fx:id="cloud4" fitHeight="101.0" fitWidth="91.0" layoutX="284.0" layoutY="320.0" onMouseClicked="#clickonCloud4" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Assets/Cloud.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="cloud3" fitHeight="101.0" fitWidth="91.0" layoutX="284.0" layoutY="141.0" onMouseClicked="#clickonCloud3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Assets/Cloud.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="cloud1" fitHeight="101.0" fitWidth="97.0" layoutX="179.0" layoutY="232.0" onMouseClicked="#clickonCloud1" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Assets/Cloud.png" />
                </image>
@@ -841,18 +872,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="cloud3" fitHeight="101.0" fitWidth="91.0" layoutX="284.0" layoutY="160.0" onMouseClicked="#clickonCloud3" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Assets/Cloud.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </ImageView>
-            <ImageView fx:id="cloud2" fitHeight="120.0" fitWidth="97.0" layoutX="373.0" layoutY="257.0" onMouseClicked="#clickonCloud2" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="cloud2" fitHeight="120.0" fitWidth="97.0" layoutX="385.0" layoutY="232.0" onMouseClicked="#clickonCloud2" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Assets/Cloud.png" />
                </image>
@@ -868,22 +888,12 @@
                   <Font name="System Italic" size="13.0" />
                </font>
             </Label>
-            <Polygon fx:id="grid" fill="DODGERBLUE" layoutX="329.0" layoutY="303.0" stroke="BLACK" strokeType="INSIDE">
-              <points>
-                <Double fx:value="-50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="0.0" />
-                <Double fx:value="-60.0" />
-              </points>
-            </Polygon>
             <ImageView fx:id="motherNature" fitHeight="89.0" fitWidth="86.0" layoutX="269.5166931152344" layoutY="2.1499996185302734" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                <image>
                   <Image url="@Assets/MN.png" />
                </image>
             </ImageView>
-            <BorderPane fx:id="island2Students" layoutX="433.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island2Students" layoutX="433.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland2" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -968,7 +978,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island1Students" layoutX="279.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island1Students" layoutX="279.0" layoutY="36.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland1" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1054,7 +1064,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island12Students" layoutX="132.0" layoutY="58.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island12Students" layoutX="132.0" layoutY="58.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland12" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1140,7 +1150,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island11Students" layoutX="54.0" layoutY="141.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island11Students" layoutX="54.0" layoutY="141.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland11" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1226,7 +1236,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island10Students" layoutX="32.0" layoutY="260.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island10Students" layoutX="32.0" layoutY="260.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland10" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1312,7 +1322,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island9Students" layoutX="82.0" layoutY="357.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island9Students" layoutX="82.0" layoutY="357.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland9" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1398,7 +1408,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island8Students" layoutX="141.0" layoutY="446.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island8Students" layoutX="141.0" layoutY="446.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland8" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1484,7 +1494,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island7Students" layoutX="252.0" layoutY="475.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island7Students" layoutX="252.0" layoutY="475.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland7" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1570,7 +1580,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island6Students" layoutX="388.0" layoutY="473.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island6Students" layoutX="388.0" layoutY="473.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland6" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1656,7 +1666,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island5Students" layoutX="483.0" layoutY="381.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island5Students" layoutX="483.0" layoutY="381.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland5" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1742,7 +1752,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island4Students" layoutX="524.0" layoutY="276.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island4Students" layoutX="524.0" layoutY="276.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland4" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>
@@ -1828,7 +1838,351 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <BorderPane fx:id="island3Students" layoutX="503.0" layoutY="160.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="100.0">
+            <BorderPane fx:id="island3Students" layoutX="503.0" layoutY="160.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonIsland3" prefHeight="83.0" prefWidth="100.0">
+               <top>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_blue.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="44.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT" />
+                     </children>
+                  </StackPane>
+               </top>
+               <left>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_green.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </left>
+               <center>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_red.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </center>
+               <right>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_yellow.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </right>
+               <bottom>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_pink.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </bottom>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </BorderPane>
+            <BorderPane fx:id="cloud4Students" layoutX="280.0" layoutY="318.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonCloud4" prefHeight="83.0" prefWidth="100.0">
+               <top>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_blue.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="44.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT" />
+                     </children>
+                  </StackPane>
+               </top>
+               <left>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_green.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </left>
+               <center>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_red.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </center>
+               <right>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_yellow.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </right>
+               <bottom>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_pink.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </bottom>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </BorderPane>
+            <BorderPane fx:id="cloud1Students" layoutX="177.0" layoutY="231.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonCloud1" prefHeight="83.0" prefWidth="100.0">
+               <top>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_blue.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="44.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT" />
+                     </children>
+                  </StackPane>
+               </top>
+               <left>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_green.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </left>
+               <center>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_red.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </center>
+               <right>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_yellow.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </right>
+               <bottom>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_pink.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </bottom>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </BorderPane>
+            <BorderPane fx:id="cloud3Students" layoutX="279.0" layoutY="141.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonCloud3" prefHeight="83.0" prefWidth="100.0">
+               <top>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_blue.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="44.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_RIGHT" />
+                     </children>
+                  </StackPane>
+               </top>
+               <left>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_green.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </left>
+               <center>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_red.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </center>
+               <right>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_yellow.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </right>
+               <bottom>
+                  <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="19.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Assets/Students/student_pink.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="0">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </bottom>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </BorderPane>
+            <BorderPane fx:id="cloud2Students" layoutX="383.0" layoutY="235.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickonCloud2" prefHeight="83.0" prefWidth="100.0">
                <top>
                   <StackPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="49.0" BorderPane.alignment="CENTER">
                      <children>

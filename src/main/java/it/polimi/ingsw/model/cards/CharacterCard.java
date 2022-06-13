@@ -53,6 +53,10 @@ public class CharacterCard {
         this.students.add(student);
     }
 
+    public void removeStudent(Student student){
+        this.students.remove(student);
+    }
+
     public void addTile(NoEntryTile tile){
         this.tiles.add(tile);
     }

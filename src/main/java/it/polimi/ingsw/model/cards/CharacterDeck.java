@@ -27,7 +27,7 @@ public class CharacterDeck {
                 random = (int) Math.floor(Math.random() * (numCards - min + 1) + min);
             }
             nodup[i] = random;
-            random = 7;
+
             switch(random){
                 case 1:
                     CharacterCard card1 = new Character1(random);
