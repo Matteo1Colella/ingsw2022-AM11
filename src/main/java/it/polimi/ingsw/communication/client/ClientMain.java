@@ -214,9 +214,9 @@ public class ClientMain extends Thread {
      * @throws IOException
      */
     public void readParameters() throws IOException {
-        Gson gson = new Gson();
+        /*Gson gson = new Gson();
         //create a reader
-        Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/configs/configClient.json"));
+        Reader reader = Files.newBufferedReader(Paths.get("/configs/configClient.json"));
         //convert JSON file to map
         Map<?, ?> map = gson.fromJson(reader, Map.class);
         //print map entries
@@ -227,6 +227,10 @@ public class ClientMain extends Thread {
             // close reader
             reader.close();
         }
+
+         */
+        port = 2063;
+
     }
 
     public void createConnection() throws IOException {
