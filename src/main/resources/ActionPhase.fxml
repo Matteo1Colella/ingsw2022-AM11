@@ -2268,6 +2268,7 @@
                   <DropShadow />
                </effect>
             </BorderPane>
+            <Button fx:id="otherSchoolBoards" layoutX="851.0" layoutY="401.0" mnemonicParsing="false" text="Show other players' SchoolBoards" />
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />
