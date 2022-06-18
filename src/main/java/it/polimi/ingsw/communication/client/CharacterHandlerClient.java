@@ -314,7 +314,7 @@ public class CharacterHandlerClient {
                     return;
                 }
 
-                int[] fromE = {-1,-1,-1};
+                int[] fromE = {-1,-1};
                 ArrayList<Student> aFromDining = new ArrayList<>();
                 int dup = 0;
                 String diningroomcolor = "";

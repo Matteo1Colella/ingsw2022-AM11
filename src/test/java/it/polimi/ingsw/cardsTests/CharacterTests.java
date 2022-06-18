@@ -373,8 +373,8 @@ public class CharacterTests {
         int[] chosen2 = {0, 0};
         for (int i = 0; i < 2; i++){
             Student s = new Student(ColorStudent.BLUE);
-            chosen2[i]=i+7;
-            GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().addStudent(s);
+            chosen2[i]=i+4;
+            //GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().addStudent(s);
         }
 
         cards.add(card10);
@@ -388,6 +388,16 @@ public class CharacterTests {
         System.out.println("Blue dining:");
         GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents().stream().map(Student::getColor).forEach(System.out::println);
         System.out.println(" ");
+        System.out.println("YellowDining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("Green dining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("Pink Dining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+
 
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
 
@@ -404,9 +414,18 @@ public class CharacterTests {
         System.out.println("Blue dining:");
         GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents().stream().map(Student::getColor).forEach(System.out::println);
         System.out.println(" ");
+        System.out.println("YellowDining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("Green dining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
+        System.out.println("Pink Dining:");
+        GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().stream().map(Student::getColor).forEach(System.out::println);
+        System.out.println(" ");
 
         for (int i = 0; i < 2; i++) {
-            assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().getStudents().get(i+7).getColor(), ColorStudent.RED );
+            assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().getStudents().get(i+4).getColor(), ColorStudent.RED );
         }
         for (int i = 0; i < 2; i++) {
             assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getColor(), ColorStudent.BLUE);

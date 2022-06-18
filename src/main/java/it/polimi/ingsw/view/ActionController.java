@@ -101,6 +101,11 @@ public class ActionController {
 
 
     @FXML
+    private Button confirmStudent;
+    @FXML
+    private Button confirmCloud;
+
+    @FXML
     private AnchorPane schoolPane;
 
     @FXML
@@ -114,7 +119,6 @@ public class ActionController {
     private BorderPane cloud3Students;
     @FXML
     private BorderPane cloud4Students;
-
 
     @FXML
     private BorderPane island1Students;
@@ -283,8 +287,6 @@ public class ActionController {
             grid.setDisable(true);
             grid.setOpacity(0);
 
-            System.out.println(i + "--> x: " + x + " y: " + y);
-
             listIslands.get(i).setLayoutX(x + 237.26);
             listIslands.get(i).setLayoutY(y + 236);
             islandStudents.get(i).setLayoutX(listIslands.get(i).getLayoutX()+30);
@@ -301,15 +303,11 @@ public class ActionController {
 
         progress.setStyle("-fx-accent: midnightblue;");
 
-        System.out.println(listIslands.size());
 
         bindIslands();
 
         double height = scene.getHeight();
         double width = scene.getWidth();
-
-        System.out.println(height);
-        System.out.println(width);
 
         apane.translateXProperty().bind(scene.widthProperty().subtract(apane.widthProperty()).divide(2));
         apane.translateYProperty().bind(scene.heightProperty().subtract(apane.heightProperty()).divide(2));
@@ -350,8 +348,6 @@ public class ActionController {
 
             client.getSendMessage().sendModelMessage(new ModelMessage());
 
-            System.out.println("middle");
-
             this.model = (ModelMessage) client.receiveMessage();
 
 
@@ -359,80 +355,13 @@ public class ActionController {
 
             MessageInterface receivedMessage = client.receiveMessage();
 
-            System.out.println("recieved");
-
             if (receivedMessage.getCode() == MessageType.TURN) {
                 System.out.println("Correct selection.\r");
             }
 
-
-            System.out.println("aftermodel");
-
-
             mn = true;
 
         }
-
-        /*
-        Game game = this.lobby.getGame();
-        MotherNature mn = game.getGameComponents().getMotherNature();
-        ArrayList<IslandCard> archipelago = game.getGameComponents().getArchipelago();
-
-        game.moveMotherNature(steps, mn, archipelago);
-        System.out.println(mn.getPosition().getId_island());
-        if(mn.getPosition().getId_island() == 0){
-
-            motherNature.setLayoutX(island1.getLayoutX()+42);
-            motherNature.setLayoutY(island1.getLayoutY());
-
-        }
-        if(mn.getPosition().getId_island() == 1){
-            motherNature.setLayoutX(island2.getLayoutX()+42);
-            motherNature.setLayoutY(island2.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 2){
-            motherNature.setLayoutX(island3.getLayoutX()+42);
-            motherNature.setLayoutY(island3.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 3){
-            motherNature.setLayoutX(island4.getLayoutX()+42);
-            motherNature.setLayoutY(island4.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 4){
-            motherNature.setLayoutX(island5.getLayoutX()+42);
-            motherNature.setLayoutY(island5.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 5){
-            motherNature.setLayoutX(island6.getLayoutX()+42);
-            motherNature.setLayoutY(island6.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 6){
-            motherNature.setLayoutX(island7.getLayoutX()+42);
-            motherNature.setLayoutY(island7.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 7){
-            motherNature.setLayoutX(island8.getLayoutX()+42);
-            motherNature.setLayoutY(island8.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 8){
-            motherNature.setLayoutX(island9.getLayoutX()+42);
-            motherNature.setLayoutY(island9.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 9){
-            motherNature.setLayoutX(island10.getLayoutX()+42);
-            motherNature.setLayoutY(island10.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 10){
-            motherNature.setLayoutX(island11.getLayoutX()+42);
-            motherNature.setLayoutY(island11.getLayoutY());
-        }
-        if(mn.getPosition().getId_island() == 11){
-            motherNature.setLayoutX(island12.getLayoutX()+42);
-            motherNature.setLayoutY(island12.getLayoutY());
-        }
-
-         */
-
     }
 
     public ClientMain getClient() {
@@ -593,44 +522,24 @@ public class ActionController {
     }
 
     public void clickonCloud1() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Cloud Content:");
-        alert.setContentText(this.clouds.get(0).toString());
-        alert.show();
         this.cloudchoice = 0;
         this.selectedCloud = this.clouds.get(0);
         this.SelectedCloud.setText("Selected cloud: Cloud 1");
     }
 
     public void clickonCloud2() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Cloud Content:");
-        alert.setContentText(this.clouds.get(1).toString());
-        alert.show();
         cloudchoice = 1;
         this.selectedCloud = this.clouds.get(1);
         this.SelectedCloud.setText("Selected cloud: Cloud 2");
     }
 
     public void clickonCloud3() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Cloud Content:");
-        alert.setContentText(this.clouds.get(2).toString());
-        alert.show();
         cloudchoice = 2;
         this.selectedCloud = this.clouds.get(2);
         this.SelectedCloud.setText("Selected cloud: Cloud 3");
     }
 
     public void clickonCloud4() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText("Cloud Content:");
-        alert.setContentText(this.clouds.get(3).toString());
-        alert.show();
         this.cloudchoice = 0;
         this.selectedCloud = this.clouds.get(3);
         this.SelectedCloud.setText("Selected cloud: Cloud 4");
@@ -790,6 +699,7 @@ public class ActionController {
 
         if (student1Entrance == -1) {
             client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
             student1Entrance = entrance.getSelectionModel().getSelectedIndex();
             if (selectedIsland == null) {
                 student1WhereToPut = 0;
@@ -833,15 +743,7 @@ public class ActionController {
             }
         }
         if (movesLeft == 0) {
-            System.out.println("sending students");
-
-            System.out.println(student1Entrance + " " + student1WhereToPut + " " + indexIslandIf1ToIsland);
-            System.out.println(student2Entrance + " " + student2WhereToPut + " " + indexIslandIf2ToIsland);
-            System.out.println(student3Entrance + " " + student3WhereToPut + " " + indexIslandIf3ToIsland);
-
             client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance + 1, student1WhereToPut, indexIslandIf1ToIsland, student2Entrance + 1, student2WhereToPut, indexIslandIf2ToIsland, student3Entrance + 1, student3WhereToPut, indexIslandIf3ToIsland, student4Entrance, student4WhereToPut, indexIslandIf4ToIsland));
-            System.out.println("sent");
-
 
             initializeStudents();
 
@@ -860,9 +762,8 @@ public class ActionController {
             if (receivedMessage.getCode() == MessageType.TURN) {
                 System.out.println("Correct selection.\r");
             }
+            enableCharacters();
 
-
-            //moveMotherNature();
         }
 
 
@@ -972,7 +873,6 @@ public class ActionController {
 
         Platform.runLater(() -> {
             showmodel(client);
-            System.out.println("changed");
         });
 
 
@@ -1245,7 +1145,6 @@ public class ActionController {
         if (model.getCoinOwned() > 0) {
             characters = new ArrayList<>();
             this.gametype = true;
-            System.out.println("CHARACTER CARDS:");
             for (CharacterCard characterCard : model.getCharacterCards()) {
                 CharacterView characterView = new CharacterView(characterCard.getNum());
                 characters.add(characterView);
@@ -1288,13 +1187,11 @@ public class ActionController {
 
         disableIslands();
 
-        System.out.println("size pre check: " + listIslands.size());
 
         // oldArchipelago.removeAll(this.archipelago);
         for (IslandCard temp : archipelago) {
             if (temp.getMergedWith().size() > 0) {
                 for (IslandCard islandCard : temp.getMergedWith()) {
-                    System.out.println("removing");
                     switch (islandCard.getOriginal()) {
                         case 0:
                             this.listIslands.remove(island1);
@@ -1644,13 +1541,20 @@ public class ActionController {
 
     public synchronized void moveStudents() {
         //inhibits others
-
+        moveMN.setDisable(true);
+        confirmCard.setDisable(true);
+        confirmStudent.setDisable(false);
+        confirmCloud.setDisable(true);
         //client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
 
     }
 
     public synchronized void moveMotherNature() {
         //inhibits others
+        moveMN.setDisable(false);
+        confirmCard.setDisable(true);
+        confirmStudent.setDisable(true);
+        confirmCloud.setDisable(true);
 
         //client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
 
@@ -1658,8 +1562,32 @@ public class ActionController {
 
     public synchronized void selectCloudCard() {
         //inhibits others
-
+        moveMN.setDisable(true);
+        confirmCard.setDisable(true);
+        confirmStudent.setDisable(true);
+        confirmCloud.setDisable(false);
         //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
+    }
+
+    public synchronized void playAssistant() {
+        //inhibits others
+        moveMN.setDisable(true);
+        confirmCard.setDisable(false);
+        confirmStudent.setDisable(true);
+        confirmCloud.setDisable(true);
+        //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
+    }
+
+    public void enableCharacters(){
+        character1.setDisable(false);
+        character2.setDisable(false);
+        character3.setDisable(false);
+    }
+
+    public void disableCharacters(){
+        character1.setDisable(true);
+        character2.setDisable(true);
+        character3.setDisable(true);
     }
 
     public synchronized void confirmCC() {
@@ -1689,7 +1617,6 @@ public class ActionController {
 
                     receivedMessage = client.receiveMessage();
                     message = receivedMessage.getCode();
-                    System.out.println("start turn " + message);
 
                     isTurn();
 
@@ -1706,12 +1633,6 @@ public class ActionController {
                                 });
 
                                 MessageInterface receivedMessage1 = client.receiveMessage();
-
-                                if (receivedMessage1.getCode() == MessageType.TURN) {
-                                    System.out.println("lesgo");
-                                }
-
-                                System.out.println(students + " " + mn + " " + cc);
 
                                 moveStudents();
 
@@ -1733,7 +1654,6 @@ public class ActionController {
                                 cc = false;
 
                                 MessageType messageType = client.receiveMessage().getCode();
-                                System.out.println(messageType);
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
                                 model = (ModelMessage) client.receiveMessage();
@@ -1746,11 +1666,12 @@ public class ActionController {
 
                                 MessageType messageType1 = client.receiveMessage().getCode();
 
-                                System.out.println(messageType1);
 
                                 client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
 
                                 ReceiveCards(client);
+
+                                playAssistant();
 
                                 isTurn();
 
@@ -1783,22 +1704,14 @@ public class ActionController {
                         switch (message) {
                             case TURN:
 
-
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
                                 model = (ModelMessage) client.receiveMessage();
-
 
                                 Platform.runLater(() -> {
                                     showmodel(client);
                                 });
 
                                 MessageInterface receivedMessage1 = client.receiveMessage();
-
-                                if (receivedMessage1.getCode() == MessageType.TURN) {
-                                    System.out.println("lesgo");
-                                }
-
-                                System.out.println(students + " " + mn + " " + cc);
 
                                 moveStudents();
 
@@ -1820,7 +1733,6 @@ public class ActionController {
                                 cc = false;
 
                                 MessageType messageType = client.receiveMessage().getCode();
-                                System.out.println(messageType);
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
                                 model = (ModelMessage) client.receiveMessage();
@@ -1833,11 +1745,12 @@ public class ActionController {
 
                                 MessageType messageType1 = client.receiveMessage().getCode();
 
-                                System.out.println(messageType1);
 
                                 client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
 
                                 ReceiveCards(client);
+
+                                playAssistant();
 
                                 synchronized (student) {
                                     try {
@@ -1874,14 +1787,10 @@ public class ActionController {
         //ask the list of cards already played on the table
         this.deck.clear();
 
-        System.out.println("sent cards");
         AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) client.receiveMessage();
-
-        System.out.println(assistantCardsMessage.getCode());
 
         this.deck.addAll(assistantCardsMessage.getDeck());
         for (int j = 0; j < assistantCardsMessage.getChosenCard().size(); j++) {
-            System.out.println("ok");
             switch (assistantCardsMessage.getChosenCard().get(j).getInfluence()) {
                 case 1:
                     assistant1.setDisable(true);
@@ -2020,11 +1929,9 @@ public class ActionController {
 
         int finalCard = card;
         this.client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage(finalCard));
-        System.out.println(finalCard);
 
         MessageInterface receivedMessage = this.client.receiveMessage();
 
-        System.out.println("received message: " + receivedMessage.getCode());
 
 
         if (receivedMessage.getCode() == MessageType.NOERROR) {
@@ -2033,11 +1940,13 @@ public class ActionController {
                 student.notifyAll();
             }
             chosen = true;
+            /*
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText("Correct Selection");
             alert.setContentText("NAME: " + selectedCard.getName() + "\n" + "Influence: " + selectedCard.getInfluence() + "\n" + "Steps: " + selectedCard.getSteps());
             alert.show();
+             */
             switch (selectedCard.getInfluence()) {
                 case 1:
                     assistant1.setDisable(true);
@@ -2167,16 +2076,12 @@ public class ActionController {
         initializeStudents();
         this.gametype = false;
 
-
-        System.out.println("1");
         client.getSendMessage().sendModelMessage(new ModelMessage());
         model = (ModelMessage) client.receiveMessage();
         showmodel(client);
-        System.out.println("2");
         client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
         ReceiveCards(client);
-        System.out.println("3");
-
+        playAssistant();
     }
 
 }

@@ -710,16 +710,14 @@
                         <DropShadow />
                      </effect></ImageView>
                </children></AnchorPane>
-            <Button layoutX="443.0" layoutY="653.0" mnemonicParsing="false" onAction="#confirmStudent" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
+            <Button fx:id="confirmStudent" layoutX="443.0" layoutY="653.0" mnemonicParsing="false" onAction="#confirmStudent" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
             <Button fx:id="moveMN" layoutX="18.0" layoutY="653.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" />
-            <Button layoutX="318.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw" />
-            <Button layoutX="227.0" layoutY="653.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Use Character" />
+            <Button fx:id="confirmCloud" layoutX="318.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw" />
             <Label fx:id="username" layoutX="658.0" layoutY="20.0" text="Player : " />
             <Label fx:id="coins" layoutX="658.0" layoutY="44.0" text="Coins:" />
             <Label fx:id="SelectedCloud" layoutX="247.0" layoutY="414.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER" />
             <Label fx:id="To" layoutX="443.0" layoutY="627.0" text="To:" />
             <Label fx:id="SelectedStudent" layoutX="443.0" layoutY="600.0" text="Selected Student:" />
-            <Label fx:id="SelectedCharacter" layoutX="227.0" layoutY="626.0" text="Selected Character:" />
             <TextField fx:id="steps" layoutX="17.0" layoutY="622.0" prefHeight="25.0" prefWidth="66.0" promptText="Steps" />
             <ComboBox fx:id="entrance" layoutX="662.0" layoutY="147.0" onAction="#comboBoxAction" prefHeight="25.0" prefWidth="86.0" scaleX="0.6" scaleY="0.6" />
             <BorderPane layoutX="631.0" layoutY="438.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="570.0" scaleX="0.9" scaleY="0.9">
