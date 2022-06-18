@@ -1518,6 +1518,10 @@ public class ActionController {
         reds1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents());
         //red.setItems(reds1);
 
+        for(ImageView image: reds){
+            image.setOpacity(0);
+        }
+
         for(int size = 0; size < reds1.size(); size++){
             this.reds.get(size).setOpacity(1);
         }
@@ -1525,6 +1529,10 @@ public class ActionController {
         ObservableList<Student> blues1 = FXCollections.observableArrayList();
         blues1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents());
         //blue.setItems(blues1);
+
+        for(ImageView image: blues){
+            image.setOpacity(0);
+        }
 
         for(int size = 0; size < blues1.size(); size++){
             this.blues.get(size).setOpacity(1);
@@ -1534,6 +1542,10 @@ public class ActionController {
         yellows1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents());
         //yellow.setItems(yellows1);
 
+        for(ImageView image: yellows){
+            image.setOpacity(0);
+        }
+
         for(int size = 0; size < yellows1.size(); size++){
             this.yellows.get(size).setOpacity(1);
         }
@@ -1542,6 +1554,10 @@ public class ActionController {
         greens1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents());
         //green.setItems(greens1);
 
+        for(ImageView image: greens){
+            image.setOpacity(0);
+        }
+
         for(int size = 0; size < greens1.size(); size++){
             this.greens.get(size).setOpacity(1);
         }
@@ -1549,6 +1565,10 @@ public class ActionController {
         ObservableList<Student> pinks1 = FXCollections.observableArrayList();
         pinks1.addAll(model.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents());
         //pink.setItems(pinks1);
+
+        for(ImageView image: pinks){
+            image.setOpacity(0);
+        }
 
         for(int size = 0; size < pinks1.size(); size++){
             this.pinks.get(size).setOpacity(1);

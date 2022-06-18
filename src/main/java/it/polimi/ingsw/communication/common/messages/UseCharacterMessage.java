@@ -158,7 +158,7 @@ public class UseCharacterMessage implements MessageInterface {
     public UseCharacterMessage useCharacter10Message(int[] studentsFromEntrance, int[] studentsFromDinignRoom, int choice){
         message = "Play character 10.\r";
         code = MessageType.CHARACTERCHOICE;
-        id = 6;
+        id = 10;
         island = 0;
         student = 0;
         this.studentsFromEntrance = studentsFromEntrance;

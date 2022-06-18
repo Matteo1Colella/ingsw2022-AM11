@@ -19,8 +19,8 @@ public class Character10 extends CharacterCard {
     }
 
     public void effect(Player activePlayer, ArrayList<Student> selectionFromDiningRoom, int[] selectionFromEntrance){
-        ArrayList<Student> chosen1 = new ArrayList<>();
-        ArrayList<Student> chosen2 = new ArrayList<>();
+        ArrayList<Student> chosen1 = new ArrayList<>(); //stores dinigroom selection
+        ArrayList<Student> chosen2 = new ArrayList<>(); //stores entrance selection
 
         int i =0;
 

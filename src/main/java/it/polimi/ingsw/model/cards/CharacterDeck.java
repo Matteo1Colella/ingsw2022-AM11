@@ -28,6 +28,8 @@ public class CharacterDeck {
             }
             nodup[i] = random;
 
+           // random = i+1; //OCIOOOOOOOOOOOOOO
+
             switch(random){
                 case 1:
                     CharacterCard card1 = new Character1(random);
