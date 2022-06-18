@@ -674,6 +674,8 @@ public class ComplexLobby{
                         }
                     }
                 }
+                System.out.println("students: " + students.get(0).getColor() + " " + students.get(1).getColor());
+                System.out.println("Entrance: " + characterMessage.getStudentsFromEntranceCharacter()[0] + " " + characterMessage.getStudentsFromEntranceCharacter()[0]);
                 card10.effect(activePlayer, students, characterMessage.getStudentsFromEntranceCharacter());
                 break;
             case 11:
