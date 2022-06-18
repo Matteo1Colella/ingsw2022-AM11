@@ -115,6 +115,7 @@ public class ServerThread extends Thread{
                     sendMessage.sendTurnMessage();
                     MessageInterface message = receiveMessage.receiveMessage();
                     MessageType messageCode = message.getCode();
+                    System.out.println("received " +  messageCode.toString());
                     switch (messageCode){
                         case PINGPONG:
                             sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
@@ -326,6 +327,7 @@ public class ServerThread extends Thread{
     private void playCharacter(MessageInterface message){
         UseCharacterMessage characterMessage = (UseCharacterMessage) message;
         currentCL.playCharacter(characterMessage);
+        System.out.println("sending turn message");
     }
 
     /**

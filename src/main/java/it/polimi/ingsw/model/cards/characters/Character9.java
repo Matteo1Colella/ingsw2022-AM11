@@ -19,6 +19,7 @@ public class Character9 extends CharacterCard {
         if (color == null) return;
         activePlayer.getPlayerGame().setExcludedColor(color);
         activePlayer.useCoins(this.necessaryCoin);
+        super.setNecessaryCoin(necessaryCoin++);
     }
 
     @Override

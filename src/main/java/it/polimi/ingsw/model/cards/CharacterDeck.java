@@ -28,7 +28,7 @@ public class CharacterDeck {
             }
             nodup[i] = random;
 
-            random = 10; //OCIOOOOOOOOOOOOOO
+           // random = i+1; //OCIOOOOOOOOOOOOOO
 
             switch(random){
                 case 1:

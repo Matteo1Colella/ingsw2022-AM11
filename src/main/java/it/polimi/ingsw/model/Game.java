@@ -1030,6 +1030,7 @@ public class Game {
             GameComponents temptable = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,temp);
             this.GameComponents = temptable;
 
+            //OCIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoo
           for (Player p : this.playerList()){
                coinContainer.giveCoin(p);
 

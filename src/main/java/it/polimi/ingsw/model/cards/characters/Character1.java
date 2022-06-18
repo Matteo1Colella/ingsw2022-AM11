@@ -25,6 +25,7 @@ public class Character1 extends CharacterCard {
         students.remove(1);
         students.add(activePlayer.getPlayerGame().getGameComponents().getBag().draw());
         activePlayer.useCoins(this.necessaryCoin);
+        super.setNecessaryCoin(necessaryCoin + 1);
     }
 
     @Override

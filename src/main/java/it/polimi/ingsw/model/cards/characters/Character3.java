@@ -18,6 +18,7 @@ public class Character3 extends CharacterCard {
     public void effect(Player activePlayer, IslandCard island){
         activePlayer.getPlayerGame().islandDominance(island);
         activePlayer.useCoins(this.necessaryCoin);
+        super.setNecessaryCoin(necessaryCoin++);
     }
 
     @Override

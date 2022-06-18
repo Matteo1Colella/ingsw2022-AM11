@@ -144,6 +144,8 @@ public class ClientMain extends Thread {
             } else {
                 switch (message){
                     case TURN:
+                        clientMain.showModel();
+                        message = clientMain.receiveMessage().getCode();
                         clientMain.askCharacter();
                         clientMain.moveStudents();
                         if(!characterHandler.isRequired())
@@ -1485,7 +1487,7 @@ public class ClientMain extends Thread {
      * select a character to use, if the player wants
      */
     public void askCharacter(){
-        characterHandler.askCharacter();
+        characterHandler.askCharacter(model);
     }
 
     public void setSendMessage(ObjectToJSON sendMessage) {

@@ -32,6 +32,7 @@ public class Character5 extends CharacterCard {
         temp.setPosition(island);
         temp.setUsed(true);
         activePlayer.useCoins(this.necessaryCoin);
+        super.setNecessaryCoin(necessaryCoin++);
     }
 
     @Override

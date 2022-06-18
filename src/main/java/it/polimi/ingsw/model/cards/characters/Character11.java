@@ -26,6 +26,7 @@ public class Character11 extends CharacterCard {
         super.getStudents().remove(takenStudent);
         super.addSudent(activePlayer.getPlayerGame().getGameComponents().getBag().draw());
         activePlayer.useCoins(this.necessaryCoin);
+        super.setNecessaryCoin(necessaryCoin++);
     }
 
     @Override
