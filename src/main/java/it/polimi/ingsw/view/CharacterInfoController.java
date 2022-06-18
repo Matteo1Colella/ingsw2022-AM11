@@ -487,11 +487,11 @@ public class CharacterInfoController {
                 int i = 0;
                 for(Student s : fromDining) {
                     switch (s.getColor()) {
-                        case YELLOW -> studentsFromEntrance[i]=2;
-                        case PINK -> studentsFromEntrance[i]=3;
-                        case BLUE -> studentsFromEntrance[i]=4;
-                        case GREEN -> studentsFromEntrance[i]=0;
-                        case RED -> studentsFromEntrance[i]=1;
+                        case YELLOW -> studentsFromDinignRoom[i]=2;
+                        case PINK -> studentsFromDinignRoom[i]=3;
+                        case BLUE -> studentsFromDinignRoom[i]=4;
+                        case GREEN -> studentsFromDinignRoom[i]=0;
+                        case RED -> studentsFromDinignRoom[i]=1;
                     }
                     i++;
                 }

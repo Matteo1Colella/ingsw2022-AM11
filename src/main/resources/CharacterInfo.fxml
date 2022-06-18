@@ -5,6 +5,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,6 +14,14 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.CharacterInfoController">
    <children>
+      <ImageView fitHeight="948.0" fitWidth="690.0" layoutX="-37.0" layoutY="-141.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Assets/MADRE%20NATURA_1.jpg" />
+         </image>
+         <effect>
+            <GaussianBlur radius="23.42" />
+         </effect>
+      </ImageView>
       <AnchorPane fx:id="pane1" disable="true" layoutX="-5.0" layoutY="-2.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="615.0">
          <children>
             <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="15.0" layoutY="97.0" onMouseClicked="#clickOnStudent1" pickOnBounds="true" preserveRatio="true">
@@ -302,7 +311,8 @@
                   <Label text="0">
                      <font>
                         <Font name="System Bold" size="21.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                </children>
             </StackPane>
             <StackPane layoutX="321.0" layoutY="178.0" onMouseClicked="#clickOnR10" prefHeight="51.0" prefWidth="45.0">
