@@ -24,12 +24,6 @@ public class Character10 extends CharacterCard {
 
         int i =0;
 
-        // stores students from diningroom to this entrance
-        for (Student temp : selectionFromDiningRoom) {
-            chosen1.add(temp);
-            activePlayer.getSchoolBoard().getEntrance().addStudents(selectionFromDiningRoom);
-        }
-
         //stores students from entrance to diningroom
         for (int temp : selectionFromEntrance) {
             chosen2.add(activePlayer.getSchoolBoard().getEntrance().getStudents().get(temp));
@@ -37,9 +31,18 @@ public class Character10 extends CharacterCard {
             d.addStudent(activePlayer.getSchoolBoard().getEntrance().getStudents().get(temp));
         }
 
+        // stores students from diningroom to this entrance
+        for (Student temp : selectionFromDiningRoom) {
+            chosen1.add(temp);
+            activePlayer.getSchoolBoard().getEntrance().addStudent(temp);
+        }
+
         //removes the students
         for(Student temp : chosen2){
+
             activePlayer.getSchoolBoard().getEntrance().removeStudent(temp);
+
+
         }
 
         //removes the students

@@ -370,7 +370,7 @@ public class CharacterTests {
         }
 
         //initializing students chosen from entrance
-        int[] chosen2 = {0, 0, 0};
+        int[] chosen2 = {0, 0};
         for (int i = 0; i < 2; i++){
             Student s = new Student(ColorStudent.BLUE);
             chosen2[i]=i+7;
@@ -392,6 +392,8 @@ public class CharacterTests {
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
 
         newGame.getGameComponents().getSpecialDeck().getcard(10).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), chosen1, chosen2);
+
+
         System.out.println("post function:");
         System.out.println("Entrance:");
         GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().getStudents().stream().map(Student::getColor).forEach(System.out::println);
