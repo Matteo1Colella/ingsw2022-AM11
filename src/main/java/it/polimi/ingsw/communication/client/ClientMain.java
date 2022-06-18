@@ -923,131 +923,29 @@ public class ClientMain extends Thread {
                 "|             ALL SCHOOLBOARDS           |\n" +
                 "|________________________________________|" + ANSI_RESET);
         System.out.println("");
-        if (modelMessage.getPlayerNames().size() == 2 || modelMessage.getPlayerNames().size() == 4){
-                for (String name : modelMessage.getPlayerNames()) {
-                    if (c == 0) {
-                        System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Player -> " + name + ":");
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Entrance " + modelMessage.getSchoolBoard1().getEntrance().getStudents() );
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard1().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard1().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard1().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard1().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard1().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
-                        if(modelMessage.getSchoolBoard1().getDiningRooms().get(0).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_GREEN+ "GREEN"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard1().getDiningRooms().get(1).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_RED+ "RED"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard1().getDiningRooms().get(2).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_YELLOW+ "YELLOW"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard1().getDiningRooms().get(3).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard1().getDiningRooms().get(4).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: " + modelMessage.getSchoolBoard1().getTowers().size() +" BLACK");
-                    } else if (c == 1) {
-                        System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Player -> " + name + ":");
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Entrance " + modelMessage.getSchoolBoard2().getEntrance().getStudents() );
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard2().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard2().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard2().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard2().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard2().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
-                        if(modelMessage.getSchoolBoard2().getDiningRooms().get(0).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_GREEN+ "GREEN"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard2().getDiningRooms().get(1).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_RED+ "RED"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard2().getDiningRooms().get(2).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_YELLOW+ "YELLOW"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard2().getDiningRooms().get(3).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard2().getDiningRooms().get(4).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: "+ modelMessage.getSchoolBoard2().getTowers().size() + " WHITE");
-                    } else if (c == 2) {
-                        System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Player -> " + name + ":");
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Entrance " + modelMessage.getSchoolBoard3().getEntrance().getStudents() );
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard3().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard3().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard3().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard3().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard3().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
-                        if(modelMessage.getSchoolBoard3().getDiningRooms().get(0).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_GREEN+ "GREEN"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard3().getDiningRooms().get(1).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_RED+ "RED"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard3().getDiningRooms().get(2).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_YELLOW+ "YELLOW"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard3().getDiningRooms().get(3).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard3().getDiningRooms().get(4).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: look the towers of "+modelMessage.getPlayerNames().get(0)+ " (TEAM BLACK TOWERS)");
-                    } else if (c == 3) {
-                        System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Player -> " + name + ":");
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Entrance " + modelMessage.getSchoolBoard4().getEntrance().getStudents() );
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard4().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard4().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard4().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard4().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard4().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
-                        if(modelMessage.getSchoolBoard4().getDiningRooms().get(0).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_GREEN+ "GREEN"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard4().getDiningRooms().get(1).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_RED+ "RED"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard4().getDiningRooms().get(2).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_YELLOW+ "YELLOW"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard4().getDiningRooms().get(3).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
-                        if(modelMessage.getSchoolBoard4().getDiningRooms().get(4).IsProfessor())
-                            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: look the towers of "+modelMessage.getPlayerNames().get(1)+ " (TEAM WHITE TOWERS)");
-                    }
-                    c++;
-                    System.out.println("");
-                }
-        }else{
-            for (String name : modelMessage.getPlayerNames()) {
-                if (c == 0) {
-                    System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Player -> " + name + ":");
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Entrance " + modelMessage.getSchoolBoard1().getEntrance().getStudents() );
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard1().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard1().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard1().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard1().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard1().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
-                    if(modelMessage.getSchoolBoard1().getDiningRooms().get(0).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_GREEN+ "GREEN"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard1().getDiningRooms().get(1).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_RED+ "RED"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard1().getDiningRooms().get(2).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_YELLOW+ "YELLOW"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard1().getDiningRooms().get(3).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard1().getDiningRooms().get(4).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: "+ modelMessage.getSchoolBoard1().getTowers().size()+" BLACK");
-                } else if (c == 1) {
-                    System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Player -> " + name + ":");
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Entrance " + modelMessage.getSchoolBoard2().getEntrance().getStudents() );
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard2().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard2().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard2().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard2().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard2().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
-                    if(modelMessage.getSchoolBoard2().getDiningRooms().get(0).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_GREEN+ "GREEN"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard2().getDiningRooms().get(1).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_RED+ "RED"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard2().getDiningRooms().get(2).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_YELLOW+ "YELLOW"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard2().getDiningRooms().get(3).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard2().getDiningRooms().get(4).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: " + modelMessage.getSchoolBoard2().getTowers().size()+" WHITE");
-                } else if (c == 2) {
-                    System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Player -> " + name + ":");
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Entrance " + modelMessage.getSchoolBoard3().getEntrance().getStudents());
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Dining room { " + ANSI_GREEN + modelMessage.getSchoolBoard3().getDiningRooms().get(0).getStudents().size() + ANSI_RESET + " " + ANSI_RED + modelMessage.getSchoolBoard3().getDiningRooms().get(1).getStudents().size() + ANSI_RESET + " " + ANSI_YELLOW + modelMessage.getSchoolBoard3().getDiningRooms().get(2).getStudents().size() + ANSI_RESET + " " + ANSI_PURPLE + modelMessage.getSchoolBoard3().getDiningRooms().get(3).getStudents().size() + ANSI_RESET + " " + ANSI_BLUE + modelMessage.getSchoolBoard3().getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
-                    if(modelMessage.getSchoolBoard3().getDiningRooms().get(0).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_GREEN+ "GREEN"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard3().getDiningRooms().get(1).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_RED+ "RED"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard3().getDiningRooms().get(2).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_YELLOW+ "YELLOW"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard3().getDiningRooms().get(3).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
-                    if(modelMessage.getSchoolBoard3().getDiningRooms().get(4).IsProfessor())
-                        System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
-                    System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: " + modelMessage.getSchoolBoard3().getTowers().size()+ " GREY");
-                }
-                c++;
-                System.out.println("");
-            }
+
+        for(String name : modelMessage.getNameSchoolBoardMap().keySet()){
+            System.out.println(ANSI_BLUE+"________________________________________" +ANSI_RESET);
+            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Player -> " + name + ":");
+            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Entrance " + modelMessage.getNameSchoolBoardMap().get(name).getEntrance().getStudents() );
+            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Dining room { " + ANSI_GREEN + modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(0).getStudents().size() + ANSI_RESET
+                    + " " + ANSI_RED + modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(1).getStudents().size() + ANSI_RESET
+                    + " " + ANSI_YELLOW + modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(2).getStudents().size() + ANSI_RESET
+                    + " " + ANSI_PURPLE + modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(3).getStudents().size() + ANSI_RESET
+                    + " " + ANSI_BLUE + modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(4).getStudents().size() + ANSI_RESET + " }");
+            if(modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(0).IsProfessor())
+                System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_GREEN+ "GREEN"+ANSI_RESET);
+            if(modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(1).IsProfessor())
+                System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_RED+ "RED"+ANSI_RESET);
+            if(modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(2).IsProfessor())
+                System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_YELLOW+ "YELLOW"+ANSI_RESET);
+            if(modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(3).IsProfessor())
+                System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_PURPLE+ "PINK"+ANSI_RESET);
+            if(modelMessage.getNameSchoolBoardMap().get(name).getDiningRooms().get(4).IsProfessor())
+                System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"prof -> "+ ANSI_BLUE+ "BLUE"+ANSI_RESET);
+            System.out.println(ANSI_BLUE+"|"+ANSI_RESET+"Remaining Towers: " + modelMessage.getNameSchoolBoardMap().get(name).getTowers().size());
         }
+
         System.out.println("");
         System.out.println(ANSI_PURPLE+" ________________________________________\n" +
                 "|             MY SCHOOLBOARD             |\n" +

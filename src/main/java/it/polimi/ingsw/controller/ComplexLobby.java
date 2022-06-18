@@ -674,9 +674,6 @@ public class ComplexLobby{
                         }
                     }
                 }
-                System.out.println("students: " + characterMessage.getStudentsFromDinignRoomCharacter()[0] + " " + characterMessage.getStudentsFromDinignRoomCharacter()[1]);
-                System.out.println("students: " + students.get(0).getColor() + " " + students.get(1).getColor());
-                System.out.println("Entrance: " + characterMessage.getStudentsFromEntranceCharacter()[0] + " " + characterMessage.getStudentsFromEntranceCharacter()[1]);
                 card10.effect(activePlayer, students, characterMessage.getStudentsFromEntranceCharacter());
                 break;
             case 11:
@@ -697,39 +694,21 @@ public class ComplexLobby{
      */
     public synchronized ModelMessage sendModel(String username){
         GameComponents gameComponents = getGame().getGameComponents();
+        Map<String, SchoolBoard> playersMap = new HashMap<>();
         //if game type is pro
         ModelMessage modelMessage = null;
         ArrayList<String> playerNames = new ArrayList<>();
         for (Player p: game.playerList()) {
             playerNames.add(p.getID_player());
+            playersMap.put(p.getID_player(), p.getSchoolBoard());
         }
-        if(isGameType()){
-            if(gameComponents.getSchoolBoards().size()==4) {
-                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
-                        this.getPlayerByID(username).getCoinOwned(),gameComponents.getSchoolBoards().get(0),gameComponents.getSchoolBoards().get(1),gameComponents.getSchoolBoards().get(2),gameComponents.getSchoolBoards().get(3),playerNames);
-            }else if (gameComponents.getSchoolBoards().size()==3){
-                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
-                        this.getPlayerByID(username).getCoinOwned(),gameComponents.getSchoolBoards().get(0),gameComponents.getSchoolBoards().get(1),gameComponents.getSchoolBoards().get(2),null,playerNames);
-            }else{
-                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
-                        this.getPlayerByID(username).getCoinOwned(),gameComponents.getSchoolBoards().get(0),gameComponents.getSchoolBoards().get(1),null,null,playerNames);
-
-            }
+        if(isGameType()) {
+            modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                    this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSpecialDeck().getCards(),
+                    this.getPlayerByID(username).getCoinOwned(), playersMap);
         } else {
-            if(gameComponents.getSchoolBoards().size()==4) {
-                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSchoolBoards().get(0), gameComponents.getSchoolBoards().get(1), gameComponents.getSchoolBoards().get(2), gameComponents.getSchoolBoards().get(3),playerNames);
-            } else if (gameComponents.getSchoolBoards().size()==3) {
-                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSchoolBoards().get(0), gameComponents.getSchoolBoards().get(1), gameComponents.getSchoolBoards().get(2), null,playerNames);
-            } else {
-                modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
-                        this.getPlayerByID(username).getSchoolBoard(), gameComponents.getSchoolBoards().get(0), gameComponents.getSchoolBoards().get(1), null, null,playerNames);
-
-            }
+            modelMessage = new ModelMessage(gameComponents.getArchipelago(), gameComponents.getCloudCards(),
+                    this.getPlayerByID(username).getSchoolBoard(), playersMap);
         }
 
         return modelMessage;

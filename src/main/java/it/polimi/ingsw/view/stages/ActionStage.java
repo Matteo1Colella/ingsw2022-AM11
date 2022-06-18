@@ -34,17 +34,6 @@ public class ActionStage extends Stage {
         subStage.setTitle("Action Phase");
         subStage.show();
 
-       //viewThread1 thread = new viewThread1(controller);
-     //thread.start();
-        /*
-        System.out.println("1");
-        controller.showmodel(client);
-        System.out.println("2");
-        controller.ReceiveCards(client);
-        System.out.println("3");
-
-         */
-        //controller.mainClient(client);
     }
 
 }

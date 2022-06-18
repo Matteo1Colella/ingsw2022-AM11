@@ -25,6 +25,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -33,6 +35,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -59,9 +62,6 @@ public class LoginController implements Initializable{
     private ClientMain client;
     @FXML
     private AnchorPane anchorPane;
-
-
-
 
     @FXML
     private StackPane stackPane;

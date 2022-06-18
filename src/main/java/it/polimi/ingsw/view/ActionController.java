@@ -13,6 +13,7 @@ import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
 import it.polimi.ingsw.view.stages.CharacterStage;
 import it.polimi.ingsw.view.stages.LoginStage;
+import it.polimi.ingsw.view.stages.ShowSchoolBoardsStage;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -120,6 +121,8 @@ public class ActionController {
     @FXML
     private BorderPane cloud4Students;
 
+    @FXML
+    private Button showBoards;
     @FXML
     private BorderPane island1Students;
     @FXML
@@ -293,6 +296,10 @@ public class ActionController {
             islandStudents.get(i).setLayoutY(listIslands.get(i).getLayoutY()+25);
         }
 
+    }
+
+    public void showOtherBoards() throws IOException {
+        new ShowSchoolBoardsStage(this.client, model);
     }
 
     public void setModel(ModelMessage model) {

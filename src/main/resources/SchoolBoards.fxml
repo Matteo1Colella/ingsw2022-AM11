@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="schoolBoardsPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.stages.ShowSchoolBoardsController">
+<AnchorPane fx:id="schoolBoardsPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.ShowSchoolBoardsController">
    <children>
       <ImageView fitHeight="463.0" fitWidth="628.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Assets/wood.jpg" />
          </image>
+         <effect>
+            <BoxBlur height="6.0" />
+         </effect>
       </ImageView>
       <Label layoutX="43.0" layoutY="73.0" opacity="0.0" text="Player:">
          <font>
@@ -39,6 +44,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="309.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -53,6 +61,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="376.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -67,6 +78,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="442.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -81,6 +95,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="509.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -95,6 +112,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="250.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -109,6 +129,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="309.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -123,6 +146,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="376.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -137,6 +163,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="442.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -151,6 +180,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="509.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -165,6 +197,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="254.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -179,6 +214,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="313.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -193,6 +231,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="380.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -207,6 +248,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="446.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -221,6 +265,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="513.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
@@ -235,20 +282,32 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="250.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
-            <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="49.0" fitWidth="41.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Assets/Students/student_green.png" />
                </image>
+               <effect>
+                  <DropShadow />
+               </effect>
             </ImageView>
-            <Label alignment="CENTER" prefHeight="35.0" prefWidth="27.0" text="0">
+            <Label alignment="CENTER" opacity="0.0" prefHeight="35.0" prefWidth="27.0" text="0">
                <font>
                   <Font size="26.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="309.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -263,6 +322,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="376.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -277,6 +339,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="442.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -291,6 +356,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="509.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -305,6 +373,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="252.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -319,6 +390,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="311.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -333,6 +407,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="378.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -347,6 +424,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="444.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -361,6 +441,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="511.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -375,6 +458,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="253.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -389,6 +475,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="312.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -403,6 +492,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="379.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -417,6 +509,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="445.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -431,6 +526,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <StackPane layoutX="512.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
@@ -445,6 +543,9 @@
                </font>
             </Label>
          </children>
+         <effect>
+            <DropShadow />
+         </effect>
       </StackPane>
       <Label layoutX="228.0" layoutY="69.0" opacity="0.0" text="D:" />
       <Label layoutX="228.0" layoutY="120.0" opacity="0.0" text="E:" />
