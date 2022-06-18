@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.cards.AssistantDeck;
 import it.polimi.ingsw.model.cards.Card;
 import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.cards.characters.*;
+import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
 
 import java.io.IOException;
@@ -644,8 +645,34 @@ public class ComplexLobby{
             case 10:
                 Character10 card10 = (Character10) characterCards.get(choice);
                 ArrayList<Student> students = new ArrayList<>();
+                int r = 0;
+                int g = 0;
+                int b = 0;
+                int y = 0;
+                int p = 0;
                 for(int i = 0; i < 2; i++){
-                    students.add(activePlayer.getSchoolBoard().getStudents().get(characterMessage.getStudentsFromDinignRoomCharacter()[i]));
+                    switch (characterMessage.getStudentsFromDinignRoomCharacter()[i]) {
+                        case 0 -> {
+                            students.add(activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents().get((activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents().size() - (1 + g))));
+                            g++;
+                        }
+                        case 1 -> {
+                            students.add(activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().get((activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().size() - (1 + r))));
+                            r++;
+                        }
+                        case 2 -> {
+                            students.add(activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents().get((activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents().size() - (1 + y))));
+                            y++;
+                        }
+                        case 3 -> {
+                            students.add(activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().get((activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().size() - (1 + p))));
+                            p++;
+                        }
+                        case 4 -> {
+                            students.add(activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents().get((activePlayer.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents().size() - (1 + b))));
+                            b++;
+                        }
+                    }
                 }
                 card10.effect(activePlayer, students, characterMessage.getStudentsFromEntranceCharacter());
                 break;

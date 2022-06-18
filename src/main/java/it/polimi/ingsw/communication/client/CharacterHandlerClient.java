@@ -420,12 +420,30 @@ public class CharacterHandlerClient {
                             break;
                     }
                 }
-                int[] studentsFromEntrance = new int[3];
+                int[] studentsFromDiningroom = new int[2];
                 for(i = 0; i < 2; i++){
-                    studentsFromEntrance[i] = model.getSchoolBoard().getEntrance().getStudents().indexOf(aFromDining.get(i));
+
+                    switch (aFromDining.get(i).getColor()){
+                        case YELLOW -> {
+                            studentsFromDiningroom[i]=2;
+                        }
+                        case RED -> {
+                            studentsFromDiningroom[i]=1;
+                        }
+                        case GREEN -> {
+                            studentsFromDiningroom[i]=0;
+                        }
+                        case BLUE -> {
+                            studentsFromDiningroom[i]=4;
+                        }
+                        case PINK -> {
+                            studentsFromDiningroom[i]=3;
+                        }
+
+                    }
                 }
                 //Character10 card10 = (Character10)playableCharacters.get(choice);
-                sendMessage.sendCharacterMessage(characterMessage.useCharacter10Message(studentsFromEntrance, fromE, choice));
+                sendMessage.sendCharacterMessage(characterMessage.useCharacter10Message(fromE, studentsFromDiningroom, choice));
                 //card10.effect(currentPlayer, aFromDining, fromE);
                 usable = true;
                 break;

@@ -1032,6 +1032,14 @@ public class Game {
 
           for (Player p : this.playerList()){
                coinContainer.giveCoin(p);
+
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
             }
 
             CharacterDeck specialCards = new CharacterDeck(this);

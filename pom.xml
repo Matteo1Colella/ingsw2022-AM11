@@ -40,7 +40,7 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>17-ea+11</version>
+      <version>18.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
@@ -50,7 +50,7 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-web</artifactId>
-      <version>17-ea+11</version>
+      <version>18</version>
     </dependency>
     <dependency>
       <groupId>org.controlsfx</groupId>

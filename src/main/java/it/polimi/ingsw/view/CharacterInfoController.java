@@ -5,6 +5,7 @@ import it.polimi.ingsw.communication.common.MessageInterface;
 import it.polimi.ingsw.communication.common.MessageType;
 import it.polimi.ingsw.communication.common.messages.ModelMessage;
 import it.polimi.ingsw.communication.common.messages.UseCharacterMessage;
+import it.polimi.ingsw.model.board.DiningRoom;
 import it.polimi.ingsw.model.cards.CharacterCard;
 import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
@@ -17,6 +18,7 @@ import javafx.scene.effect.Bloom;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,6 +55,8 @@ public class CharacterInfoController {
     private int[] studentsFromDinignRoom;
     private int choice;
 
+    private ArrayList<Student> fromDining;
+    private int numOfClicks10;
 
     private final UseCharacterMessage characterMessage = new UseCharacterMessage();
 
@@ -190,6 +194,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 0;
                 itemsOnCard.get(0).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -201,6 +210,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 1;
                 itemsOnCard.get(1).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -211,6 +225,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 2;
                 itemsOnCard.get(2).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -221,6 +240,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 3;
                 itemsOnCard.get(3).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -231,6 +255,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 4;
                 itemsOnCard.get(4).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -241,6 +270,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 5;
                 itemsOnCard.get(5).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -251,6 +285,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 6;
                 itemsOnCard.get(6).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -261,6 +300,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 7;
                 itemsOnCard.get(7).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -271,6 +315,11 @@ public class CharacterInfoController {
             if (studentsFromEntrance[i] == -1) {
                 studentsFromEntrance[i] = 8;
                 itemsOnCard.get(8).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -281,6 +330,11 @@ public class CharacterInfoController {
             if (studentsOnCard[i] == -1) {
                 studentsOnCard[i] = 0;
                 itemsOnCard.get(9).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -291,6 +345,11 @@ public class CharacterInfoController {
             if (studentsOnCard[i] == -1) {
                 studentsOnCard[i] = 1;
                 itemsOnCard.get(10).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -301,6 +360,11 @@ public class CharacterInfoController {
             if (studentsOnCard[i] == -1) {
                 studentsOnCard[i] = 2;
                 itemsOnCard.get(11).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -311,6 +375,11 @@ public class CharacterInfoController {
             if (studentsOnCard[i] == -1) {
                 studentsOnCard[i] = 3;
                 itemsOnCard.get(12).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -321,6 +390,11 @@ public class CharacterInfoController {
             if (studentsOnCard[i] == -1) {
                 studentsOnCard[i] = 4;
                 itemsOnCard.get(13).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -331,6 +405,11 @@ public class CharacterInfoController {
             if (studentsOnCard[i] == -1) {
                 studentsOnCard[i] = 5;
                 itemsOnCard.get(14).setEffect(new Bloom());
+                for(Node n : itemsOnCard){
+                    if (n.getEffect() != null && n.getEffect().getClass().equals(Bloom.class)){
+                        n.setDisable(true);
+                    }
+                }
                 return;
             }
         }
@@ -402,7 +481,34 @@ public class CharacterInfoController {
     }
 
     public void character10() {
-        clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter10Message(studentsFromEntrance, studentsFromDinignRoom, choice));
+
+        Platform.runLater(() -> {
+            if (numOfClicks10 == 0 && fromDining.size()==2 && studentsFromEntrance.length == 2){
+                int i = 0;
+                for(Student s : fromDining) {
+                    switch (s.getColor()) {
+                        case YELLOW -> studentsFromEntrance[i]=2;
+                        case PINK -> studentsFromEntrance[i]=3;
+                        case BLUE -> studentsFromEntrance[i]=4;
+                        case GREEN -> studentsFromEntrance[i]=0;
+                        case RED -> studentsFromEntrance[i]=1;
+                    }
+                    i++;
+                }
+
+
+                clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter10Message(studentsFromEntrance, studentsFromDinignRoom, choice));
+                clientMain.receiveMessage();
+                clientMain.getSendMessage().sendModelMessage(new ModelMessage());
+                model = (ModelMessage) clientMain.receiveMessage();
+                actionController.setModel(model);
+                actionController.showmodel(clientMain);
+                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                stage.close();
+            }
+        });
+
+
     }
 
     public void character11() {
@@ -470,6 +576,152 @@ public class CharacterInfoController {
 
     }
 
+
+    public void clickOnR10(){
+        StackPane pane = (StackPane) itemsOnCard.get(13);
+
+        Label num = (Label) pane.getChildren().get(1);
+
+        num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().size()-1));
+        if(fromDining.size() == 1 && fromDining.get(0).getColor().equals(ColorStudent.RED)){
+            num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().size()-2));
+        }
+
+        fromDining.add(model.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().get(model.getSchoolBoard().getDiningRoom(ColorStudent.RED).getStudents().size()-1));
+
+        if(num.getText().equals("0")){
+            itemsOnCard.get(13).setDisable(true);
+            itemsOnCard.get(13).setOpacity(0.5);
+        }
+
+        numOfClicks10--;
+        if (numOfClicks10 == 0){
+            for(int i = 12; i <= 16; i++){
+                itemsOnCard.get(i).setDisable(true);
+                itemsOnCard.get(i).setOpacity(0.5);
+            }
+        }
+    }
+    public void clickOnG10(){
+
+        StackPane pane = (StackPane) itemsOnCard.get(12);
+
+        Label num = (Label) pane.getChildren().get(1);
+
+        num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents().size()-1));
+        if(fromDining.size() == 1 && fromDining.get(0).getColor().equals(ColorStudent.GREEN)){
+            num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents().size()-2));
+        }
+        fromDining.add(model.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents().get(model.getSchoolBoard().getDiningRoom(ColorStudent.GREEN).getStudents().size()-1));
+
+        if(num.getText().equals("0")){
+            itemsOnCard.get(12).setDisable(true);
+            itemsOnCard.get(12).setOpacity(0.5);
+        }
+
+        numOfClicks10--;
+        if (numOfClicks10 == 0){
+            for(int i = 12; i <= 16; i++){
+                itemsOnCard.get(i).setDisable(true);
+                itemsOnCard.get(i).setOpacity(0.5);
+            }
+        }
+    }
+    public void clickOnY10(){
+
+        StackPane pane = (StackPane) itemsOnCard.get(14);
+
+        Label num = (Label) pane.getChildren().get(1);
+
+        num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents().size()-1));
+        if(fromDining.size() == 1 && fromDining.get(0).getColor().equals(ColorStudent.YELLOW)){
+            num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents().size()-2));
+        }
+        fromDining.add(model.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents().get(model.getSchoolBoard().getDiningRoom(ColorStudent.YELLOW).getStudents().size()-1));
+
+
+        if(num.getText().equals("0")){
+            itemsOnCard.get(14).setDisable(true);
+            itemsOnCard.get(14).setOpacity(0.5);
+        }
+
+        numOfClicks10--;
+        if (numOfClicks10 == 0){
+            for(int i = 12; i <= 16; i++){
+                itemsOnCard.get(i).setDisable(true);
+                itemsOnCard.get(i).setOpacity(0.5);
+            }
+        }
+    }
+    public void clickOnP10(){
+
+        StackPane pane = (StackPane) itemsOnCard.get(15);
+
+        Label num = (Label) pane.getChildren().get(1);
+
+        num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().size()-1));
+        if(fromDining.size() == 1 && fromDining.get(0).getColor().equals(ColorStudent.PINK)){
+            num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().size()-2));
+        }
+
+        fromDining.add(model.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().get(model.getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().size()-1));
+
+
+        if(num.getText().equals("0")){
+            itemsOnCard.get(15).setDisable(true);
+            itemsOnCard.get(15).setOpacity(0.5);
+        }
+
+        numOfClicks10--;
+        if (numOfClicks10 == 0){
+            for(int i = 12; i <= 16; i++){
+                itemsOnCard.get(i).setDisable(true);
+                itemsOnCard.get(i).setOpacity(0.5);
+            }
+        }
+    }
+    public void clickOnB10(){
+
+
+        StackPane pane = (StackPane) itemsOnCard.get(16);
+
+        Label num = (Label) pane.getChildren().get(1);
+
+        num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents().size()-1));
+        if(fromDining.size() == 1 && fromDining.get(0).getColor().equals(ColorStudent.BLUE)){
+            num.setText(""+(model.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents().size()-2));
+        }
+        fromDining.add(model.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents().get(model.getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getStudents().size()-1));
+
+
+        if(num.getText().equals("0")){
+            itemsOnCard.get(16).setDisable(true);
+            itemsOnCard.get(16).setOpacity(0.5);
+        }
+
+        numOfClicks10--;
+        if (numOfClicks10 == 0){
+            for(int i = 12; i <= 16; i++){
+                itemsOnCard.get(i).setDisable(true);
+                itemsOnCard.get(i).setOpacity(0.5);
+            }
+        }
+    }
+
+
+    public void initDinings(){
+        int i = 12;
+        for(ColorStudent color : ColorStudent.values()){
+            StackPane pane = (StackPane) itemsOnCard.get(i);
+            Label number = (Label) pane.getChildren().get(1);
+            number.setText("" + model.getSchoolBoard().getDiningRoom(color).getStudents().size());
+            if(model.getSchoolBoard().getDiningRoom(color).getStudents().size()==0){
+                pane.setDisable(true);
+                pane.setOpacity(0.5);
+            }
+            i++;
+        }
+    }
 
     public void init(int num, int choice, ModelMessage model) {
         this.choice = choice;
@@ -564,6 +816,37 @@ public class CharacterInfoController {
                 pane10.setOpacity(1);
                 pane10.setDisable(false);
                 itemsOnCard = new ArrayList<>(pane10.getChildren());
+                numOfClicks10 = 2;
+                studentsFromEntrance = new int[2];
+                studentsFromDinignRoom = new int[2];
+                Arrays.fill(studentsFromEntrance, -1);
+                Arrays.fill(studentsFromDinignRoom, -1);
+                fromDining = new ArrayList<>();
+                int z;
+                for (z = 0; z < 9; z++) {
+                    ImageView imageView = (ImageView) itemsOnCard.get(z);
+                    imageView.setOpacity(0);
+                    imageView.setDisable(true);
+                }
+                z = 0;
+                for (Student student : model.getSchoolBoard().getEntrance().getStudents()) {
+                    ImageView imageView = (ImageView) itemsOnCard.get(z);
+                    imageView.setDisable(false);
+                    imageView.setOpacity(1);
+                    switch (student.getColor()) {
+                        case YELLOW -> imageView.setImage(yellowStudent);
+                        case PINK -> imageView.setImage(pinkStudent);
+                        case BLUE -> imageView.setImage(blueStudent);
+                        case GREEN -> imageView.setImage(greenStudent);
+                        case RED -> imageView.setImage(redStudent);
+                    }
+                    z++;
+                }
+                initDinings();
+
+
+
+
                 break;
             case 11:
                 pane11.setOpacity(1);
