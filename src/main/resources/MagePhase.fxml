@@ -3,14 +3,25 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="479.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.MageController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.MageController">
    <children>
+      <AnchorPane fx:id="loadingPane" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="479.0" prefWidth="600.0">
+         <children>
+            <ProgressIndicator layoutX="274.0" layoutY="187.0" prefHeight="325.0" prefWidth="445.0" scaleX="3.0" scaleY="3.0" />
+         </children>
+      </AnchorPane>
+      <ImageView disable="true" fitHeight="579.0" fitWidth="732.0" layoutX="-81.0" layoutY="-39.0" opacity="0.37" pickOnBounds="true">
+         <image>
+            <Image url="@Assets/14.jpg" />
+         </image>
+      </ImageView>
       <ImageView fx:id="mage3" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="236.0" onMouseClicked="#clickMage3" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Assets/CarteTOT_back_1@3x.png" />
@@ -63,5 +74,6 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

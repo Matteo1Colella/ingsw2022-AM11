@@ -12,9 +12,11 @@ import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,11 +38,20 @@ public class MageController {
     @FXML
     private ImageView mage4;
 
+    private ArrayList<Node> items;
+
+    @FXML
+    private AnchorPane loadingPane;
+
+    @FXML
+    private AnchorPane pane;
+
     @FXML
     private Label result;
 
     public void setClient(ClientMain client) {
         this.client = client;
+        items = new ArrayList<>(pane.getChildren());
     }
 
     public void setStage(Stage stage) {
@@ -135,26 +146,82 @@ public class MageController {
         }
 
         int finalMage = mage;
-        Platform.runLater(() -> {
+
+        Service<Void> service1 = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+
+                        for(int i = 1; i <= 11; i++){
+                            items.get(i).setOpacity(0.5);
+                            items.get(i).setDisable(true);
+                        }
+
+                        loadingPane.setOpacity(1);
+
+                        final CountDownLatch latch = new CountDownLatch(1);
+                        Platform.runLater(() -> {
 
 
-            client.getSendMessage().sendMageMessage(new MageMessage(finalMage));
-            MessageInterface receivedMessage = client.receiveMessage();
+                        });
 
-            System.out.println(receivedMessage.getCode());
-
-            if (receivedMessage.getCode() == MessageType.MAGEERROR){
-                result.setText("Error, try again");
-                return;
+                        latch.await();
+                        //Keep with the background work
+                        return null;
+                    }
+                };
             }
+        };
+        service1.start();
 
-            try {
-                new ActionStage(client);
-            } catch (IOException e) {
-                e.printStackTrace();
+        Service<Void> service = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+
+
+                        final CountDownLatch latch = new CountDownLatch(1);
+                        Platform.runLater(() -> {
+
+                            client.getSendMessage().sendMageMessage(new MageMessage(finalMage));
+
+                            MessageInterface receivedMessage = client.receiveMessage();
+
+                            if (receivedMessage.getCode() == MessageType.MAGEERROR){
+                                result.setText("Error, try again");
+                                return;
+                            }
+
+                            try {
+                                for(int i = 1; i <= 11; i++){
+                                    items.get(i).setOpacity(0.5);
+                                    items.get(i).setDisable(true);
+                                }
+
+                                loadingPane.setOpacity(1);
+                                new ActionStage(client);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            stage.close();
+                        });
+
+                        latch.await();
+                        //Keep with the background work
+                        return null;
+                    }
+                };
             }
-            stage.close();
-        });
+        };
+        service.start();
+
+
+
+
 
 
 
