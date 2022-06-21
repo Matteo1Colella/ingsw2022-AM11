@@ -183,26 +183,32 @@ public class MageController {
                     @Override
                     protected Void call() throws Exception {
 
+                        client.getSendMessage().sendMageMessage(new MageMessage(finalMage));
+
+                        MessageInterface receivedMessage = client.receiveMessage();
+
+                        for(int i = 1; i <= 11; i++){
+                            items.get(i).setOpacity(0.2);
+                            items.get(i).setDisable(true);
+                        }
+
+                        if (receivedMessage.getCode() != MessageType.MAGEERROR){
+                            loadingPane.setOpacity(1);
+                        }
+
 
                         final CountDownLatch latch = new CountDownLatch(1);
                         Platform.runLater(() -> {
 
-                            client.getSendMessage().sendMageMessage(new MageMessage(finalMage));
 
-                            MessageInterface receivedMessage = client.receiveMessage();
 
                             if (receivedMessage.getCode() == MessageType.MAGEERROR){
                                 result.setText("Error, try again");
                                 return;
                             }
 
-                            try {
-                                for(int i = 1; i <= 11; i++){
-                                    items.get(i).setOpacity(0.5);
-                                    items.get(i).setDisable(true);
-                                }
 
-                                loadingPane.setOpacity(1);
+                            try {
                                 new ActionStage(client);
                             } catch (IOException e) {
                                 e.printStackTrace();

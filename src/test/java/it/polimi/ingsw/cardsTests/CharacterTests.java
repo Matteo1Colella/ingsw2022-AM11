@@ -424,13 +424,8 @@ public class CharacterTests {
         GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.PINK).getStudents().stream().map(Student::getColor).forEach(System.out::println);
         System.out.println(" ");
 
-        for (int i = 0; i < 2; i++) {
-            assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getEntrance().getStudents().get(i+4).getColor(), ColorStudent.RED );
-        }
-        for (int i = 0; i < 2; i++) {
-            assertEquals(GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getSchoolBoard().getDiningRoom(ColorStudent.BLUE).getColor(), ColorStudent.BLUE);
-        }
-        newGame.getGameComponents().getSpecialDeck().getcard(10).getNecessaryCoin();
+
+        assertEquals(2, newGame.getGameComponents().getSpecialDeck().getcard(10).getNecessaryCoin());
     }
 
     @Test

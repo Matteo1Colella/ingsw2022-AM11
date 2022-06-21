@@ -812,8 +812,8 @@ public class ActionController {
 
     public synchronized void reset() {
         selectedIsland = null;
-        To.setText("null");
-        SelectedStudent.setText("null");
+        To.setText("To: Dining Room");
+        SelectedStudent.setText("Selected Student:");
     }
 
     public synchronized void disableIslands() {
@@ -1588,6 +1588,7 @@ public class ActionController {
         confirmCard.setDisable(true);
         confirmStudent.setDisable(false);
         confirmCloud.setDisable(true);
+        entrance.setDisable(false);
         //client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
 
     }
@@ -1598,6 +1599,7 @@ public class ActionController {
         confirmCard.setDisable(true);
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(true);
+        entrance.setDisable(true);
 
 
         //client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
@@ -1610,6 +1612,7 @@ public class ActionController {
         confirmCard.setDisable(true);
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(false);
+        entrance.setDisable(true);
         enableclouds();
         //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
     }
@@ -1623,6 +1626,7 @@ public class ActionController {
         cloud2Students.setDisable(true);
         cloud3Students.setDisable(true);
         cloud4Students.setDisable(true);
+        entrance.setDisable(true);
     }
     public void enableclouds(){
         cloud1.setDisable(false);
@@ -1853,14 +1857,40 @@ public class ActionController {
 
     }
 
+    public void enableCards(){
+        assistant1.setDisable(false);
+        assistant1.setOpacity(1);
+        assistant2.setDisable(false);
+        assistant2.setOpacity(1);
+        assistant3.setDisable(false);
+        assistant3.setOpacity(1);
+        assistant4.setDisable(false);
+        assistant4.setOpacity(1);
+        assistant5.setDisable(false);
+        assistant5.setOpacity(1);
+        assistant6.setDisable(false);
+        assistant6.setOpacity(1);
+        assistant7.setDisable(false);
+        assistant7.setOpacity(1);
+        assistant8.setDisable(false);
+        assistant8.setOpacity(1);
+        assistant9.setDisable(false);
+        assistant9.setOpacity(1);
+        assistant10.setDisable(false);
+        assistant10.setOpacity(1);
+    }
+
     public synchronized void ReceiveCards(ClientMain client) {
 
         //ask the list of cards already played on the table
         this.deck.clear();
 
         AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) client.receiveMessage();
-
+        this.deck.clear();
         this.deck.addAll(assistantCardsMessage.getDeck());
+
+        enableCards();
+
         for (int j = 0; j < assistantCardsMessage.getChosenCard().size(); j++) {
             switch (assistantCardsMessage.getChosenCard().get(j).getInfluence()) {
                 case 1:
@@ -2149,6 +2179,7 @@ public class ActionController {
         mnMessage = false;
         steps.setDisable(true);
         disableclouds();
+
 
         client.getSendMessage().sendModelMessage(new ModelMessage());
         model = (ModelMessage) client.receiveMessage();
