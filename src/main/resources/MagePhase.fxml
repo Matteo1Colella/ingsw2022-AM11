@@ -9,6 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.MageController">
    <children>
@@ -67,13 +68,22 @@
          </cursor>
       </ImageView>
       <Separator layoutX="297.0" layoutY="43.0" orientation="VERTICAL" prefHeight="354.0" prefWidth="6.0" />
-      <Label fx:id="result" layoutX="180.0" layoutY="14.0" prefHeight="17.0" prefWidth="247.0" text="Please Select a mage from the ones avaiable" />
+      <Label fx:id="result" layoutX="199.0" layoutY="14.0" prefHeight="17.0" prefWidth="247.0" text="Please Select a mage from the ones avaiable">
+         <font>
+            <Font name="Poor Richard" size="13.0" />
+         </font></Label>
       <Separator layoutY="212.0" prefHeight="17.0" prefWidth="600.0" />
-      <Label fx:id="textMage" layoutX="239.0" layoutY="406.0" prefHeight="17.0" prefWidth="129.0" text="No mage selected" textAlignment="CENTER" />
-      <Button layoutX="265.0" layoutY="435.0" mnemonicParsing="false" onAction="#confirmMageSocket" text="Confirm">
+      <Label fx:id="textMage" alignment="CENTER" layoutX="4.0" layoutY="406.0" prefHeight="17.0" prefWidth="585.0" text="No mage selected" textAlignment="CENTER">
+         <font>
+            <Font name="Poor Richard" size="13.0" />
+         </font></Label>
+      <Button layoutX="271.0" layoutY="441.0" mnemonicParsing="false" onAction="#confirmMageSocket" text="Confirm">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+         <font>
+            <Font name="Poor Richard" size="13.0" />
+         </font></Button>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
