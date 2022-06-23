@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -63,5 +64,16 @@
          <font>
             <Font name="Poor Richard" size="13.0" />
          </font></RadioButton>
+   </AnchorPane>
+   <AnchorPane fx:id="loadingPane" disable="true" opacity="0.0" prefHeight="415.0" prefWidth="623.0">
+      <children>
+         <ImageView fx:id="background1" fitHeight="415.0" fitWidth="633.0" opacity="0.26" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Assets/14.jpg" />
+            </image>
+         </ImageView>
+         <ProgressIndicator layoutX="285.0" layoutY="181.0" prefWidth="73.0" scaleX="3.0" scaleY="3.0" />
+         <Label fx:id="loggedText" alignment="CENTER" layoutX="117.0" layoutY="317.0" prefHeight="17.0" prefWidth="388.0" />
+      </children>
    </AnchorPane>
 </AnchorPane>

@@ -54,6 +54,8 @@ public class ActionController {
     private final Image yellowProf = new Image("Assets/Students/prof_yellow.png");
     private final Image pinkProf = new Image("Assets/Students/prof_pink.png");
 
+    private boolean mnMessage;
+
     private boolean start;
     private boolean endgame;
     private volatile boolean chosen;
@@ -342,7 +344,14 @@ public class ActionController {
 
     public synchronized void clickMoveMN() {
 
-        client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
+        if (!mnMessage){
+            client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
+            mnMessage = true;
+            steps.setDisable(false);
+            disableCharacters();
+            return;
+        }
+
 
         int maxsteps = selectedCard.getSteps();
         int steps = Integer.parseInt(this.steps.getText());
@@ -350,6 +359,10 @@ public class ActionController {
         if (maxsteps < steps) {
             return;
         } else {
+
+            mnMessage = false;
+            this.steps.setDisable(true);
+            enableCharacters();
 
             client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage(steps));
 
@@ -529,27 +542,48 @@ public class ActionController {
     }
 
     public void clickonCloud1() {
+        if(cloudchoice == -1){
+            client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
+            disableCharacters();
+        }
         this.cloudchoice = 0;
         this.selectedCloud = this.clouds.get(0);
         this.SelectedCloud.setText("Selected cloud: Cloud 1");
+
+
     }
 
     public void clickonCloud2() {
+        if(cloudchoice == -1){
+            client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
+            disableCharacters();
+        }
         cloudchoice = 1;
         this.selectedCloud = this.clouds.get(1);
         this.SelectedCloud.setText("Selected cloud: Cloud 2");
+
     }
 
     public void clickonCloud3() {
+        if(cloudchoice == -1){
+            client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
+            disableCharacters();
+        }
         cloudchoice = 2;
         this.selectedCloud = this.clouds.get(2);
         this.SelectedCloud.setText("Selected cloud: Cloud 3");
+
     }
 
     public void clickonCloud4() {
-        this.cloudchoice = 0;
+        if(cloudchoice == -1){
+            client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
+            disableCharacters();
+        }
+        this.cloudchoice = 3;
         this.selectedCloud = this.clouds.get(3);
         this.SelectedCloud.setText("Selected cloud: Cloud 4");
+
     }
 
     public void clickonAssistant1() {
@@ -778,8 +812,8 @@ public class ActionController {
 
     public synchronized void reset() {
         selectedIsland = null;
-        To.setText("null");
-        SelectedStudent.setText("null");
+        To.setText("To: Dining Room");
+        SelectedStudent.setText("Selected Student:");
     }
 
     public synchronized void disableIslands() {
@@ -1147,6 +1181,8 @@ public class ActionController {
     public synchronized void showmodel(ClientMain client) {
 
         initLists();
+
+        this.cloudchoice = -1;
 
         //if pro{
         if (model.getCoinOwned() > 0) {
@@ -1552,6 +1588,7 @@ public class ActionController {
         confirmCard.setDisable(true);
         confirmStudent.setDisable(false);
         confirmCloud.setDisable(true);
+        entrance.setDisable(false);
         //client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
 
     }
@@ -1562,6 +1599,8 @@ public class ActionController {
         confirmCard.setDisable(true);
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(true);
+        entrance.setDisable(true);
+
 
         //client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
 
@@ -1573,7 +1612,31 @@ public class ActionController {
         confirmCard.setDisable(true);
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(false);
+        entrance.setDisable(true);
+        enableclouds();
         //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
+    }
+
+    public void disableclouds(){
+        cloud1.setDisable(true);
+        cloud2.setDisable(true);
+        cloud3.setDisable(true);
+        cloud4.setDisable(true);
+        cloud1Students.setDisable(true);
+        cloud2Students.setDisable(true);
+        cloud3Students.setDisable(true);
+        cloud4Students.setDisable(true);
+        entrance.setDisable(true);
+    }
+    public void enableclouds(){
+        cloud1.setDisable(false);
+        cloud2.setDisable(false);
+        cloud3.setDisable(false);
+        cloud4.setDisable(false);
+        cloud1Students.setDisable(false);
+        cloud2Students.setDisable(false);
+        cloud3Students.setDisable(false);
+        cloud4Students.setDisable(false);
     }
 
     public synchronized void playAssistant() {
@@ -1599,7 +1662,6 @@ public class ActionController {
 
     public synchronized void confirmCC() {
 
-        client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
         client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage(cloudchoice));
 
         noTurn();
@@ -1634,6 +1696,7 @@ public class ActionController {
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
                                 model = (ModelMessage) client.receiveMessage();
 
+                                disableclouds();
 
                                 Platform.runLater(() -> {
                                     showmodel(client);
@@ -1655,10 +1718,13 @@ public class ActionController {
 
                                 mn = false;
                                 selectCloudCard();
+
                                 while (!cc) {
                                     Thread.onSpinWait();
                                 }
                                 cc = false;
+
+                                enableCharacters();
 
                                 MessageType messageType = client.receiveMessage().getCode();
 
@@ -1739,6 +1805,8 @@ public class ActionController {
                                 }
                                 cc = false;
 
+                                enableCharacters();
+
                                 MessageType messageType = client.receiveMessage().getCode();
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
@@ -1789,14 +1857,40 @@ public class ActionController {
 
     }
 
+    public void enableCards(){
+        assistant1.setDisable(false);
+        assistant1.setOpacity(1);
+        assistant2.setDisable(false);
+        assistant2.setOpacity(1);
+        assistant3.setDisable(false);
+        assistant3.setOpacity(1);
+        assistant4.setDisable(false);
+        assistant4.setOpacity(1);
+        assistant5.setDisable(false);
+        assistant5.setOpacity(1);
+        assistant6.setDisable(false);
+        assistant6.setOpacity(1);
+        assistant7.setDisable(false);
+        assistant7.setOpacity(1);
+        assistant8.setDisable(false);
+        assistant8.setOpacity(1);
+        assistant9.setDisable(false);
+        assistant9.setOpacity(1);
+        assistant10.setDisable(false);
+        assistant10.setOpacity(1);
+    }
+
     public synchronized void ReceiveCards(ClientMain client) {
 
         //ask the list of cards already played on the table
         this.deck.clear();
 
         AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) client.receiveMessage();
-
+        this.deck.clear();
         this.deck.addAll(assistantCardsMessage.getDeck());
+
+        enableCards();
+
         for (int j = 0; j < assistantCardsMessage.getChosenCard().size(); j++) {
             switch (assistantCardsMessage.getChosenCard().get(j).getInfluence()) {
                 case 1:
@@ -2082,6 +2176,10 @@ public class ActionController {
         this.moves = 4;
         initializeStudents();
         this.gametype = false;
+        mnMessage = false;
+        steps.setDisable(true);
+        disableclouds();
+
 
         client.getSendMessage().sendModelMessage(new ModelMessage());
         model = (ModelMessage) client.receiveMessage();

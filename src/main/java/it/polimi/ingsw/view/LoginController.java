@@ -64,6 +64,11 @@ public class LoginController implements Initializable{
     private AnchorPane anchorPane;
 
     @FXML
+    private Label loggedText;
+
+    @FXML
+    private AnchorPane loadingPane;
+    @FXML
     private StackPane stackPane;
 
     @FXML
@@ -145,11 +150,11 @@ public class LoginController implements Initializable{
         } else if(message.getCode() == MessageType.NOERROR) {
             LobbiesMessage lobbiesMessage = (LobbiesMessage) client.receiveMessage();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText("Successful Login");
-            alert.setContentText("You are in lobby "+ lobbiesMessage.getIdLobby() + ", waiting for players..." );
-            alert.show();
+            anchorPane.setOpacity(0);
+            anchorPane.setDisable(true);
+            loadingPane.setOpacity(1);
+            loadingPane.setDisable(false);
+            loggedText.setText("You are in lobby "+ lobbiesMessage.getIdLobby() + ", waiting for players...");
 
             Service<Void> service = new Service<Void>() {
                 @Override
