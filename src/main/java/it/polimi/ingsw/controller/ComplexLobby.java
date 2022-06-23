@@ -679,6 +679,7 @@ public class ComplexLobby{
             case 11:
                 Character11 card11 = (Character11) characterCards.get(choice);
                 card11.effect(activePlayer, characterMessage.getStudentCharacter());
+                game.colorDominance();
                 break;
             case 12:
                 Character12 card12 = (Character12) characterCards.get(choice);

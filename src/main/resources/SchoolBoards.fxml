@@ -20,28 +20,28 @@
             <BoxBlur height="6.0" />
          </effect>
       </ImageView>
-      <Label layoutX="43.0" layoutY="73.0" text="Player:">
+      <Label layoutX="43.0" layoutY="73.0" opacity=   "0.0" text="Player:">
          <font>
             <Font name="Poor Richard" size="17.0" />
          </font>
          <effect>
             <InnerShadow choke="1.0" height="255.0" radius="127.0" width="255.0" />
          </effect></Label>
-      <Label layoutX="43.0" layoutY="173.0" text="Player:">
+      <Label layoutX="43.0" layoutY="173.0" opacity="0.0" text="Player:">
          <font>
             <Font name="Poor Richard" size="17.0" />
          </font>
          <effect>
             <InnerShadow choke="1.0" height="255.0" radius="127.0" width="255.0" />
          </effect></Label>
-      <Label layoutX="43.0" layoutY="286.0" text="Player:">
+      <Label layoutX="43.0" layoutY="286.0" opacity="0.0" text="Player:">
          <font>
             <Font name="Poor Richard" size="17.0" />
          </font>
          <effect>
             <InnerShadow choke="1.0" height="255.0" radius="127.0" width="255.0" />
          </effect></Label>
-      <StackPane layoutX="250.0" layoutY="57.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="250.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -58,7 +58,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="309.0" layoutY="57.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="309.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -75,7 +75,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="376.0" layoutY="57.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="376.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -92,7 +92,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="442.0" layoutY="57.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="442.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -109,7 +109,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="509.0" layoutY="57.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="509.0" layoutY="57.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -126,7 +126,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="250.0" layoutY="162.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="250.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -143,7 +143,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="309.0" layoutY="162.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="309.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -160,7 +160,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="376.0" layoutY="162.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="376.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -177,7 +177,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="442.0" layoutY="162.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="442.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -194,7 +194,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="509.0" layoutY="162.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="509.0" layoutY="162.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -211,7 +211,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="254.0" layoutY="272.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="254.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -228,7 +228,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="313.0" layoutY="272.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="313.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -245,7 +245,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="380.0" layoutY="272.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="380.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -262,7 +262,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="446.0" layoutY="272.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="446.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -279,7 +279,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="513.0" layoutY="272.0" prefHeight="20.0" prefWidth="20.0">
+      <StackPane layoutX="513.0" layoutY="272.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -296,7 +296,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="250.0" layoutY="108.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="250.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -319,7 +319,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="309.0" layoutY="108.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="309.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -336,7 +336,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="376.0" layoutY="108.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="376.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -353,7 +353,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="442.0" layoutY="108.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="442.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -370,7 +370,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="509.0" layoutY="108.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="509.0" layoutY="108.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -387,7 +387,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="252.0" layoutY="222.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="252.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -404,7 +404,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="311.0" layoutY="222.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="311.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -421,7 +421,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="378.0" layoutY="222.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="378.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -438,7 +438,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="444.0" layoutY="222.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="444.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -455,7 +455,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="511.0" layoutY="222.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="511.0" layoutY="222.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -472,7 +472,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="253.0" layoutY="323.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="253.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -489,7 +489,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="312.0" layoutY="323.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="312.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -506,7 +506,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="379.0" layoutY="323.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="379.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -523,7 +523,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="445.0" layoutY="323.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="445.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -540,7 +540,7 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <StackPane layoutX="512.0" layoutY="323.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
+      <StackPane layoutX="512.0" layoutY="323.0" opacity="0.0" prefHeight="20.0" prefWidth="20.0" scaleX="0.7" scaleY="0.7">
          <children>
             <ImageView fitHeight="49.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -557,11 +557,11 @@
             <DropShadow />
          </effect>
       </StackPane>
-      <Label layoutX="228.0" layoutY="69.0" text="D:" />
-      <Label layoutX="228.0" layoutY="120.0" text="E:" />
-      <Label layoutX="231.0" layoutY="166.0" text="D:" />
-      <Label layoutX="231.0" layoutY="217.0" text="E:" />
-      <Label layoutX="230.0" layoutY="279.0" text="D:" />
-      <Label layoutX="230.0" layoutY="330.0" text="E:" />
+      <Label layoutX="228.0" layoutY="69.0" opacity="0.0" text="D:" />
+      <Label layoutX="228.0" layoutY="120.0" opacity="0.0" text="E:" />
+      <Label layoutX="231.0" layoutY="166.0" opacity="0.0" text="D:" />
+      <Label layoutX="231.0" layoutY="217.0" opacity="0.0" text="E:" />
+      <Label layoutX="230.0" layoutY="279.0" opacity="0.0" text="D:" />
+      <Label layoutX="230.0" layoutY="330.0" opacity="0.0" text="E:" />
    </children>
 </AnchorPane>
