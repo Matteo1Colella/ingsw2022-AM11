@@ -712,10 +712,16 @@
                </children></AnchorPane>
             <Button fx:id="confirmStudent" layoutX="443.0" layoutY="653.0" mnemonicParsing="false" onAction="#confirmStudent" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
             <Button fx:id="moveMN" layoutX="18.0" layoutY="653.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" />
-            <Button fx:id="confirmCloud" layoutX="318.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw" />
+            <Button fx:id="confirmCloud" layoutX="318.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
             <Label fx:id="username" layoutX="658.0" layoutY="20.0" text="Player : " />
             <Label fx:id="coins" layoutX="658.0" layoutY="44.0" text="Coins:" />
-            <Label fx:id="SelectedCloud" layoutX="247.0" layoutY="414.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER" />
+            <Label fx:id="SelectedCloud" layoutX="247.0" layoutY="414.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
             <Label fx:id="To" layoutX="443.0" layoutY="627.0" text="To:" />
             <Label fx:id="SelectedStudent" layoutX="443.0" layoutY="600.0" text="Selected Student:" />
             <TextField fx:id="steps" layoutX="17.0" layoutY="622.0" prefHeight="25.0" prefWidth="66.0" promptText="Steps" />
@@ -883,7 +889,7 @@
             </ImageView>
             <Label fx:id="resetLabel" layoutX="514.0" layoutY="687.0" onMouseClicked="#reset" text="Reset" underline="true">
                <font>
-                  <Font name="System Italic" size="13.0" />
+                  <Font name="Poor Richard" size="13.0" />
                </font>
             </Label>
             <ImageView fx:id="motherNature" fitHeight="89.0" fitWidth="86.0" layoutX="269.5166931152344" layoutY="2.1499996185302734" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">

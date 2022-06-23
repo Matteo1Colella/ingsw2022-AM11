@@ -3,10 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,29 +20,48 @@
          <Image url="@Assets/14.jpg" />
       </ImageView>
    </StackPane>
-   <AnchorPane fx:id="anchorPane" layoutY="10.0" opacity="0.0" prefHeight="405.0" prefWidth="608.0" translateY="7.0">
+   <AnchorPane fx:id="anchorPane" layoutY="10.0" prefHeight="405.0" prefWidth="608.0" translateY="7.0">
       <ImageView fx:id="background" fitHeight="415.0" fitWidth="644.0" layoutY="-10.0" opacity="0.26" pickOnBounds="true" preserveRatio="true" translateY="-7.0">
          <Image url="@Assets/14.jpg" />
       </ImageView>
-      <Separator layoutX="359.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="408.0" prefWidth="23.0" translateY="-11.0" />
-      <Label fx:id="l" layoutX="163.0" layoutY="32.0" prefHeight="28.0" prefWidth="147.0" text="Login" textAlignment="CENTER">
+      <Label fx:id="l" layoutX="269.0" layoutY="31.0" prefHeight="35.0" prefWidth="69.0" text="Login" textAlignment="CENTER">
          <font>
-            <Font size="22.0" />
+            <Font name="Poor Richard" size="29.0" />
          </font>
       </Label>
-      <TextField fx:id="nameField" layoutX="168.0" layoutY="90.0" prefHeight="26.0" prefWidth="182.0" />
-      <Label fx:id="id" layoutX="14.0" layoutY="94.0" prefHeight="17.0" prefWidth="62.0" text="Username" textAlignment="CENTER" />
-      <Label fx:id="gt1" layoutX="14.0" layoutY="239.0" prefHeight="17.0" prefWidth="62.0" text="GameType" textAlignment="CENTER" />
-      <Label fx:id="nop1" layoutX="14.0" layoutY="171.0" prefHeight="17.0" prefWidth="104.0" text="Number of players" textAlignment="CENTER" />
-      <Button fx:id="login" layoutX="173.0" layoutY="324.0" mnemonicParsing="false" onAction="#loginSocket" text="Login" />
-      <ListView fx:id="Lobbies" layoutX="382.0" layoutY="90.0" onMouseClicked="#ListClick" prefHeight="103.0" prefWidth="209.0" />
-      <ListView fx:id="Players" layoutX="382.0" layoutY="247.0" prefHeight="103.0" prefWidth="209.0" />
-      <Label fx:id="lob" layoutX="463.0" layoutY="66.0" prefHeight="17.0" prefWidth="48.0" text="Lobbies" />
-      <Label fx:id="lobbymembertext" layoutX="438.0" layoutY="224.0" prefHeight="17.0" prefWidth="97.0" text="Players in Lobby" />
-      <Label fx:id="welcomeText" layoutX="106.0" layoutY="350.0" prefHeight="17.0" prefWidth="182.0" />
-      <CheckBox fx:id="pro" layoutX="168.0" layoutY="238.0" mnemonicParsing="false" text="ProRules" />
-      <RadioButton fx:id="fourP" layoutX="319.0" layoutY="171.0" mnemonicParsing="false" text="4" />
-      <RadioButton fx:id="threeP" layoutX="244.0" layoutY="171.0" mnemonicParsing="false" text="3" />
-      <RadioButton fx:id="twoP" layoutX="168.0" layoutY="171.0" mnemonicParsing="false" text="2" />
+      <TextField fx:id="nameField" layoutX="300.0" layoutY="92.0" prefHeight="26.0" prefWidth="182.0" />
+      <Label fx:id="id" layoutX="169.0" layoutY="95.0" prefHeight="20.0" prefWidth="97.0" text="Username" textAlignment="CENTER">
+         <font>
+            <Font name="Poor Richard" size="17.0" />
+         </font></Label>
+      <Label fx:id="gt1" layoutX="169.0" layoutY="241.0" prefHeight="20.0" prefWidth="97.0" text="GameType" textAlignment="CENTER">
+         <font>
+            <Font name="Poor Richard" size="17.0" />
+         </font></Label>
+      <Label fx:id="nop1" layoutX="138.0" layoutY="172.0" prefHeight="20.0" prefWidth="131.0" text="Number of players" textAlignment="CENTER">
+         <font>
+            <Font name="Poor Richard" size="17.0" />
+         </font></Label>
+      <Button fx:id="login" layoutX="276.0" layoutY="337.0" mnemonicParsing="false" onAction="#loginSocket" text="Login">
+         <font>
+            <Font name="Poor Richard" size="15.0" />
+         </font></Button>
+      <Label fx:id="welcomeText" layoutX="179.0" layoutY="351.0" prefHeight="17.0" prefWidth="182.0" />
+      <CheckBox fx:id="pro" layoutX="345.0" layoutY="230.0" mnemonicParsing="false" text="ProRules">
+         <font>
+            <Font name="Poor Richard" size="15.0" />
+         </font></CheckBox>
+      <RadioButton fx:id="fourP" layoutX="453.0" layoutY="173.0" mnemonicParsing="false" text="4">
+         <font>
+            <Font name="Poor Richard" size="13.0" />
+         </font></RadioButton>
+      <RadioButton fx:id="threeP" layoutX="378.0" layoutY="173.0" mnemonicParsing="false" text="3">
+         <font>
+            <Font name="Poor Richard" size="13.0" />
+         </font></RadioButton>
+      <RadioButton fx:id="twoP" layoutX="302.0" layoutY="173.0" mnemonicParsing="false" text="2">
+         <font>
+            <Font name="Poor Richard" size="13.0" />
+         </font></RadioButton>
    </AnchorPane>
 </AnchorPane>

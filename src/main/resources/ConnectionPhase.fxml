@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="connectionPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.ConnectionController">
    <children>
       <ImageView fx:id="background21" fitHeight="425.0" fitWidth="633.0" opacity="0.26" pickOnBounds="true" preserveRatio="true">
@@ -16,15 +15,30 @@
             <Image url="@Assets/14.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="IP" layoutX="68.0" layoutY="192.0" promptText="default" />
-      <TextField fx:id="port" layoutX="404.0" layoutY="192.0" promptText="default" />
-      <Label layoutX="141.0" layoutY="168.0" text="IP:" />
-      <Label layoutX="471.0" layoutY="168.0" text="Port:" />
-      <Label layoutX="237.0" layoutY="50.0" prefHeight="26.0" prefWidth="160.0" text="Create Connection">
+      <TextField fx:id="IP" layoutX="48.0" layoutY="192.0" promptText="default">
          <font>
-            <Font size="20.0" />
+            <Font name="Poor Richard" size="15.0" />
+         </font></TextField>
+      <TextField fx:id="port" layoutX="393.0" layoutY="192.0" promptText="default">
+         <font>
+            <Font name="Poor Richard" size="15.0" />
+         </font></TextField>
+      <Label layoutX="134.0" layoutY="168.0" text="IP:">
+         <font>
+            <Font name="Poor Richard" size="20.0" />
+         </font></Label>
+      <Label layoutX="471.0" layoutY="168.0" text="Port:">
+         <font>
+            <Font name="Poor Richard" size="20.0" />
+         </font></Label>
+      <Label layoutX="242.0" layoutY="52.0" prefHeight="30.0" prefWidth="149.0" text="Create Connection">
+         <font>
+            <Font name="Poor Richard" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="confirmConnection" layoutX="286.0" layoutY="316.0" mnemonicParsing="false" onAction="#connection" text="Confirm" />
+      <Button fx:id="confirmConnection" layoutX="272.0" layoutY="317.0" mnemonicParsing="false" onAction="#connection" text="Confirm">
+         <font>
+            <Font name="Poor Richard" size="20.0" />
+         </font></Button>
    </children>
 </AnchorPane>

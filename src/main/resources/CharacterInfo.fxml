@@ -57,26 +57,56 @@
                </effect>
             </ImageView>
             <TextField layoutX="15.0" layoutY="188.0" prefHeight="25.0" prefWidth="215.0" />
-            <Label layoutX="422.0" layoutY="113.0" text="Selected Student" />
-            <Label layoutX="422.0" layoutY="192.0" text="Selected Island" />
-            <Label layoutX="257.0" layoutY="352.0" text="Not Existing Island" />
-            <Button layoutX="280.0" layoutY="303.0" mnemonicParsing="false" onAction="#character1" text="Confirm" />
+            <Label layoutX="422.0" layoutY="113.0" text="Selected Student">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="422.0" layoutY="192.0" text="Selected Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="257.0" layoutY="352.0" text="Not Existing Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="280.0" layoutY="303.0" mnemonicParsing="false" onAction="#character1" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="pane3" disable="true" layoutX="5.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="615.0">
          <children>
             <TextField layoutX="14.0" layoutY="188.0" prefHeight="25.0" prefWidth="215.0" />
-            <Label layoutX="440.0" layoutY="192.0" text="Selected Island" />
-            <Label layoutX="257.0" layoutY="357.0" text="Not Existing Island" />
-            <Button layoutX="277.0" layoutY="324.0" mnemonicParsing="false" onAction="#character3" text="Confirm" />
+            <Label layoutX="440.0" layoutY="192.0" text="Selected Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="257.0" layoutY="357.0" text="Not Existing Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="277.0" layoutY="324.0" mnemonicParsing="false" onAction="#character3" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="pane5" disable="true" layoutX="-4.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="607.0">
          <children>
             <TextField layoutX="14.0" layoutY="188.0" prefHeight="25.0" prefWidth="215.0" />
-            <Label layoutX="440.0" layoutY="192.0" text="Selected Island" />
-            <Label layoutX="257.0" layoutY="357.0" text="Not Existing Island" />
-            <Button layoutX="277.0" layoutY="324.0" mnemonicParsing="false" onAction="#character5" text="Confirm" />
+            <Label layoutX="440.0" layoutY="192.0" text="Selected Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="257.0" layoutY="357.0" text="Not Existing Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="277.0" layoutY="324.0" mnemonicParsing="false" onAction="#character5" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="pane7" disable="true" layoutX="-5.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="600.0">
@@ -156,20 +186,50 @@
                   <Image url="@Assets/Students/student_blue.png" />
                </image>
             </ImageView>
-            <Label layoutX="60.0" layoutY="50.0" text="On entrance:" />
-            <Label layoutX="300.0" layoutY="50.0" text="On Card:" />
-            <Button layoutX="483.0" layoutY="209.0" mnemonicParsing="false" onAction="#character7" text="Confirm" />
+            <Label layoutX="60.0" layoutY="50.0" text="On entrance:">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="300.0" layoutY="50.0" text="On Card:">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="483.0" layoutY="209.0" mnemonicParsing="false" onAction="#character7" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="pane9" disable="true" layoutX="5.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <RadioButton layoutX="375.0" layoutY="160.0" mnemonicParsing="false" text="Yellow" />
-            <RadioButton layoutX="269.0" layoutY="160.0" mnemonicParsing="false" text="Green" />
-            <RadioButton layoutX="171.0" layoutY="160.0" mnemonicParsing="false" text="Red" />
-            <RadioButton layoutX="56.0" layoutY="160.0" mnemonicParsing="false" text="Blue" />
-            <RadioButton layoutX="488.0" layoutY="160.0" mnemonicParsing="false" text="Pink" />
-            <Button layoutX="273.0" layoutY="288.0" mnemonicParsing="false" onAction="#character9" text="Confirm" />
-            <Label layoutX="233.0" layoutY="61.0" text="Select a Color to Exclude" />
+            <RadioButton layoutX="375.0" layoutY="160.0" mnemonicParsing="false" text="Yellow">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="269.0" layoutY="160.0" mnemonicParsing="false" text="Green">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="171.0" layoutY="160.0" mnemonicParsing="false" text="Red">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="56.0" layoutY="160.0" mnemonicParsing="false" text="Blue">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="488.0" layoutY="160.0" mnemonicParsing="false" text="Pink">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <Button layoutX="273.0" layoutY="288.0" mnemonicParsing="false" onAction="#character9" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+            <Label layoutX="233.0" layoutY="61.0" text="Select a Color to Exclude">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="pane11" disable="true" layoutX="5.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="615.0">
@@ -206,22 +266,46 @@
                   <DropShadow />
                </effect>
             </ImageView>
-            <Label layoutX="422.0" layoutY="113.0" text="Selected Student" />
+            <Label layoutX="422.0" layoutY="113.0" text="Selected Student">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
             <Button layoutX="280.0" layoutY="303.0" mnemonicParsing="false" onAction="#character11" text="Confirm" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="pane12" disable="true" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <RadioButton layoutX="375.0" layoutY="160.0" mnemonicParsing="false" text="Yellow" />
-            <RadioButton layoutX="269.0" layoutY="160.0" mnemonicParsing="false" text="Green" />
-            <RadioButton layoutX="171.0" layoutY="160.0" mnemonicParsing="false" text="Red" />
-            <RadioButton layoutX="56.0" layoutY="160.0" mnemonicParsing="false" text="Blue" />
-            <RadioButton layoutX="488.0" layoutY="160.0" mnemonicParsing="false" text="Pink" />
-            <Button layoutX="273.0" layoutY="288.0" mnemonicParsing="false" onAction="#character12" text="Confirm" />
-            <Label layoutX="259.0" layoutY="60.0" text="Select a Color " />
+            <RadioButton layoutX="375.0" layoutY="160.0" mnemonicParsing="false" text="Yellow">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="269.0" layoutY="160.0" mnemonicParsing="false" text="Green">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="171.0" layoutY="160.0" mnemonicParsing="false" text="Red">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="56.0" layoutY="160.0" mnemonicParsing="false" text="Blue">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="488.0" layoutY="160.0" mnemonicParsing="false" text="Pink">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <Button layoutX="273.0" layoutY="288.0" mnemonicParsing="false" onAction="#character12" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+            <Label layoutX="259.0" layoutY="60.0" text="Select a Color ">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pane10" disable="true" layoutX="3.0" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="413.0" prefWidth="607.0">
+      <AnchorPane fx:id="pane10" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="607.0">
          <children>
             <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="26.0" layoutY="67.0" onMouseClicked="#clickOn7Student1" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
                <image>
@@ -295,9 +379,21 @@
                   <DropShadow />
                </effect>
             </ImageView>
-            <Label layoutX="54.0" layoutY="38.0" text="Entrance" />
-            <Label layoutX="357.0" layoutY="38.0" text="DiningRooms" />
-            <Button layoutX="363.0" layoutY="330.0" mnemonicParsing="false" onAction="#character10" text="Confirm" />
+            <Label layoutX="54.0" layoutY="38.0" text="Entrance">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="357.0" layoutY="38.0" text="DiningRooms">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font>
+            </Label>
+            <Button layoutX="363.0" layoutY="330.0" mnemonicParsing="false" onAction="#character10" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font>
+            </Button>
             <StackPane layoutX="266.0" layoutY="178.0" onMouseClicked="#clickOnG10" prefHeight="51.0" prefWidth="45.0">
                <children>
                   <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">

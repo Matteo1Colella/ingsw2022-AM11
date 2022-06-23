@@ -5,18 +5,16 @@
 - ###   10674905    Leonardo Cesani ([@LeonardoCesani](https://github.com/LeonardoCesani))<br>leonardo.cesani@mail.polimi.it
 - ###   10666309    Matteo Colella ([@Matteo1Colella](https://github.com/Matteo1Colella))<br>matteo1.colella@mail.polimi.it
 
-| Functionality  |                       State                        |
-|:---------------|:--------------------------------------------------:|
-| Basic rules    | 🟢 |
-| Complete rules | 🟢 |
-| Socket         | 🟢 |
-| GUI            | 🟡 |
-| CLI            | 🟢 |
-| Multiple games | 🟢 |
-| Persistence    | 🔴 |
-| Advanced Char  | 🟡 |
-| Undo           | 🔴 |
+| Functionality   |                       State                        |
+|:----------------|:--------------------------------------------------:|
+| Basic rules     | 🟢 |
+| Complete rules  | 🟢 |
+| Socket          | 🟢 |
+| GUI             | 🟢 |
+| CLI             | 🟢 |
+| Multiple games  | 🟢 |
+| Persistence     | 🔴 |
+| Character cards |🟢|
+| 4 player game   | 🟢 |
+| Keepalive       |🔴|
 
-🔴
-🟢
-🟡
