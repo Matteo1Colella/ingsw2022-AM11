@@ -12,6 +12,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -24,7 +26,7 @@ public class MageStageSocket extends Stage {
 
 
 
-    public MageStageSocket(ClientMain client, MageMessage mageMessage) throws IOException, InterruptedException {
+    public MageStageSocket(ClientMain client, MageMessage mageMessage, MediaPlayer player) throws IOException, InterruptedException {
 
         boolean one = false, two = false, three = false, four = false;
 
@@ -41,7 +43,17 @@ public class MageStageSocket extends Stage {
                 System.exit(1);
             }
         });
-
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            final KeyCombination keyComb = new KeyCharacterCombination("7",
+                    KeyCombination.CONTROL_DOWN);
+            public void handle(KeyEvent ke) {
+                if (keyComb.match(ke)) {
+                        controller.showCR7();
+                    ke.consume(); // <-- stops passing the event to next node
+                }
+            }
+        });
+        controller.setPlayer(player);
         controller.setClient(client);
         controller.setStage(subStage);
 

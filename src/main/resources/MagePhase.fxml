@@ -23,56 +23,96 @@
             <Image url="@Assets/14.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="mage3" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="236.0" onMouseClicked="#clickMage3" pickOnBounds="true" preserveRatio="true">
+      <Separator layoutX="297.0" layoutY="43.0" orientation="VERTICAL" prefHeight="354.0" prefWidth="6.0" />
+      <Separator layoutY="212.0" prefHeight="17.0" prefWidth="600.0" />
+      <ImageView fx:id="CR7" disable="true" fitHeight="399.0" fitWidth="600.0" layoutX="-21.0" layoutY="20.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Assets/Easter/Grito-de-Cristiano-Ronaldo-Gre-unscreen.gif" />
+         </image>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="68.17" radius="35.795" spread="0.17" width="77.01" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="239.0" fitWidth="255.0" layoutX="20.0" layoutY="210.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Assets/Spring.gif" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="239.0" fitWidth="239.0" layoutX="20.0" layoutY="-4.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Assets/Summer.gif" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="239.0" fitWidth="229.0" layoutX="344.0" layoutY="215.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Assets/Autumn.gif" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="250.0" fitWidth="229.0" layoutX="344.0" layoutY="1.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Assets/Winter.gif" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="mage3" fitHeight="150.0" fitWidth="96.0" layoutX="92.0" layoutY="257.0" onMouseClicked="#clickMage3" onMouseEntered="#dragOnMage3" onMouseExited="#dragOnMage3out" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Assets/CarteTOT_back_1@3x.png" />
          </image>
          <effect>
             <DropShadow />
          </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
       </ImageView>
-      <ImageView fx:id="mage1" fitHeight="150.0" fitWidth="200.0" layoutX="107.0" layoutY="50.0" onMouseClicked="#clickMage1" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Assets/CarteTOT_back_11@3x.png" />
-         </image>
-         <effect>
-            <DropShadow />
-         </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView fx:id="mage4" fitHeight="150.0" fitWidth="200.0" layoutX="399.0" layoutY="236.0" onMouseClicked="#clickMage4" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="mage4" fitHeight="150.0" fitWidth="96.0" layoutX="411.0" layoutY="257.0" onMouseClicked="#clickMage4" onMouseEntered="#dragOnMage4" onMouseExited="#dragOnMage4out" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Assets/CarteTOT_back_21@3x.png" />
          </image>
          <effect>
             <DropShadow />
          </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
       </ImageView>
-      <ImageView fx:id="mage2" fitHeight="150.0" fitWidth="200.0" layoutX="399.0" layoutY="50.0" onMouseClicked="#clickMage2" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="mage1" fitHeight="159.0" fitWidth="102.0" layoutX="87.0" layoutY="39.0" onMouseClicked="#clickMage1" onMouseEntered="#dragOnMage1" onMouseExited="#dragOnMage1out" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Assets/CarteTOT_back_11@3x.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="mage2" fitHeight="150.0" fitWidth="96.0" layoutX="409.0" layoutY="43.0" onMouseClicked="#clickMage2" onMouseEntered="#dragOnMage2" onMouseExited="#dragOnMage2out" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Assets/CarteTOT_back_31@3x.png" />
          </image>
          <effect>
             <DropShadow />
          </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
       </ImageView>
-      <Separator layoutX="297.0" layoutY="43.0" orientation="VERTICAL" prefHeight="354.0" prefWidth="6.0" />
-      <Label fx:id="result" layoutX="199.0" layoutY="14.0" prefHeight="17.0" prefWidth="247.0" text="Please Select a mage from the ones avaiable">
+      <Label fx:id="result" alignment="CENTER" layoutY="14.0" prefHeight="17.0" prefWidth="600.0" text="Please Select a mage from the ones avaiable">
          <font>
             <Font name="Poor Richard" size="13.0" />
          </font></Label>
-      <Separator layoutY="212.0" prefHeight="17.0" prefWidth="600.0" />
       <Label fx:id="textMage" alignment="CENTER" layoutX="4.0" layoutY="406.0" prefHeight="17.0" prefWidth="585.0" text="No mage selected" textAlignment="CENTER">
          <font>
             <Font name="Poor Richard" size="13.0" />
@@ -84,6 +124,6 @@
          <font>
             <Font name="Poor Richard" size="13.0" />
          </font></Button>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView disable="true" fitHeight="117.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
