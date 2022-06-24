@@ -1031,7 +1031,12 @@ public class Game {
             this.GameComponents = temptable;
 
           for (Player p : this.playerList()){
-               coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
+              coinContainer.giveCoin(p);
             }
 
             CharacterDeck specialCards = new CharacterDeck(this);

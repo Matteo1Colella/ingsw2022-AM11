@@ -109,15 +109,16 @@ public class CharacterInfoController {
             island = Integer.parseInt(islandText.getText());
             if (island > model.getArchipelago().size() || student==-1) {
                 Label label = (Label) itemsOnCard.get(7);
+
                 label.setOpacity(1);
             } else {
                 clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter1Message(island, student, choice));
-                clientMain.receiveMessage();
+                receiveMessage();
                 clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) clientMain.receiveMessage();
+                model = (ModelMessage) receiveMessage();
                 actionController.setModel(model);
                 actionController.showmodel(clientMain);
-                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                MessageInterface receivedMessage1 = receiveMessage();
                 stage.close();
             }
         });
@@ -133,12 +134,12 @@ public class CharacterInfoController {
                 label.setOpacity(1);
             } else {
                 clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter3Message(island, choice));
-                clientMain.receiveMessage();
+                receiveMessage();
                 clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) clientMain.receiveMessage();
+                model = (ModelMessage) receiveMessage();
                 actionController.setModel(model);
                 actionController.showmodel(clientMain);
-                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                MessageInterface receivedMessage1 = receiveMessage();
                 stage.close();
             }
         });
@@ -178,12 +179,12 @@ public class CharacterInfoController {
                 label.setOpacity(1);
             } else {
                 clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter5Message(island, choice));
-                clientMain.receiveMessage();
+                receiveMessage();
                 clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) clientMain.receiveMessage();
+                model = (ModelMessage) receiveMessage();
                 actionController.setModel(model);
                 actionController.showmodel(clientMain);
-                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                MessageInterface receivedMessage1 = receiveMessage();
                 stage.close();
             }
         });
@@ -424,10 +425,10 @@ public class CharacterInfoController {
 
             } else {
                 clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter7Message(studentsFromEntrance, studentsOnCard, choice));
-                clientMain.receiveMessage();
+                receiveMessage();
                 clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) clientMain.receiveMessage();
-                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                model = (ModelMessage) receiveMessage();
+                MessageInterface receivedMessage1 = receiveMessage();
                 actionController.setModel(model);
                 actionController.showmodel(clientMain);
                 stage.close();
@@ -467,12 +468,12 @@ public class CharacterInfoController {
 
             if (ok){
                 clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter9Message(colorStudent, choice));
-                clientMain.receiveMessage();
+                receiveMessage();
                 clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) clientMain.receiveMessage();
+                model = (ModelMessage) receiveMessage();
                 actionController.setModel(model);
                 actionController.showmodel(clientMain);
-                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                MessageInterface receivedMessage1 = receiveMessage();
                 stage.close();
             }
 
@@ -498,12 +499,12 @@ public class CharacterInfoController {
 
 
                 clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter10Message(studentsFromEntrance, studentsFromDinignRoom, choice));
-                clientMain.receiveMessage();
+                receiveMessage();
                 clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) clientMain.receiveMessage();
+                model = (ModelMessage) receiveMessage();
                 actionController.setModel(model);
                 actionController.showmodel(clientMain);
-                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                MessageInterface receivedMessage1 = receiveMessage();
                 stage.close();
             }
         });
@@ -515,12 +516,12 @@ public class CharacterInfoController {
         Platform.runLater(() -> {
             if (student != -1){
                 clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter11Message(student, choice));
-                clientMain.receiveMessage();
+                receiveMessage();
                 clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) clientMain.receiveMessage();
+                model = (ModelMessage) receiveMessage();
                 actionController.setModel(model);
                 actionController.showmodel(clientMain);
-                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                MessageInterface receivedMessage1 = receiveMessage();
                 stage.close();
             }
         });
@@ -553,12 +554,12 @@ public class CharacterInfoController {
 
             if (ok){
                 clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter12Message(colorStudent, choice));
-                clientMain.receiveMessage();
+                receiveMessage();
                 clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) clientMain.receiveMessage();
+                model = (ModelMessage) receiveMessage();
                 actionController.setModel(model);
                 actionController.showmodel(clientMain);
-                MessageInterface receivedMessage1 = clientMain.receiveMessage();
+                MessageInterface receivedMessage1 = receiveMessage();
                 stage.close();
             }
 
@@ -844,14 +845,24 @@ public class CharacterInfoController {
                 }
                 initDinings();
 
-
-
-
                 break;
             case 11:
                 pane11.setOpacity(1);
                 pane11.setDisable(false);
                 itemsOnCard = new ArrayList<>(pane11.getChildren());
+                CharacterCard card11 = getCharacterByNum(11);
+                i = 0;
+                for (Student student : card11.getStudents()) {
+                    ImageView imageView = (ImageView) itemsOnCard.get(i);
+                    switch (student.getColor()) {
+                        case YELLOW -> imageView.setImage(yellowStudent);
+                        case PINK -> imageView.setImage(pinkStudent);
+                        case BLUE -> imageView.setImage(blueStudent);
+                        case GREEN -> imageView.setImage(greenStudent);
+                        case RED -> imageView.setImage(redStudent);
+                    }
+                    i++;
+                }
                 break;
             case 12:
                 pane12.setOpacity(1);
@@ -863,5 +874,22 @@ public class CharacterInfoController {
 
         }
     }
-
+    public MessageInterface receiveMessage() {
+        MessageInterface message = clientMain.getReceiveMessage().receiveMessageClient();
+        if(message.getCode() == MessageType.PINGPONG){
+            return receiveMessage();
+        } else if(message.getCode() == MessageType.WIN){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("End game");
+            alert.setContentText(message.getMessage());
+            alert.showAndWait();
+            System.exit(0);
+        } else if(message.getCode() == MessageType.ERROR){
+            System.out.println(message.getMessage());
+            System.exit(0);
+        } else {
+            return message;
+        }
+        return null;
+    }
 }

@@ -123,9 +123,8 @@ public class CharacterTests {
         GM.getPlayerComplexLobby("Cole").getPlayers().get(0).addCoins(coin4);
 
         newGame.getGameComponents().getSpecialDeck().getcard(3).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0), newGame.getGameComponents().getArchipelago().get(0));
-
-
     }
+
     @Test
     public void Effect4Test() {
         GameManager GM = new GameManager();

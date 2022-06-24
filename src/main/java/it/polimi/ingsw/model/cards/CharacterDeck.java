@@ -20,14 +20,16 @@ public class CharacterDeck {
         int size = 3;
         int min = 1;
         int[] nodup = {0, 0, 0};
-        int random = 0;
+        int random = 9;
         for (int i = 0; i < size; i++){
-
+            /*
             while(random == nodup[0] || random == nodup[1] ||random == nodup[2]) {
                 random = (int) Math.floor(Math.random() * (numCards - min + 1) + min);
             }
-            nodup[i] = random;
 
+             */
+            nodup[i] = random;
+            random ++;
             switch(random){
                 case 1:
                     CharacterCard card1 = new Character1(random);

@@ -368,12 +368,12 @@ public class ActionController {
 
             client.getSendMessage().sendModelMessage(new ModelMessage());
 
-            this.model = (ModelMessage) client.receiveMessage();
+            this.model = (ModelMessage) receiveMessage();
 
 
             showmodel(client);
 
-            MessageInterface receivedMessage = client.receiveMessage();
+            MessageInterface receivedMessage = receiveMessage();
 
             if (receivedMessage.getCode() == MessageType.TURN) {
                 System.out.println("Correct selection.\r");
@@ -1170,13 +1170,13 @@ public class ActionController {
             students = true;
 
             client.getSendMessage().sendModelMessage(new ModelMessage());
-            model = (ModelMessage) client.receiveMessage();
+            model = (ModelMessage) receiveMessage();
 
             Platform.runLater(() -> {
                 showmodel(client);
             });
 
-            MessageInterface receivedMessage = client.receiveMessage();
+            MessageInterface receivedMessage = receiveMessage();
             if (receivedMessage.getCode() == MessageType.TURN) {
                 System.out.println("Correct selection.\r");
             }
@@ -1272,29 +1272,28 @@ public class ActionController {
                 break;
             case 2:
                 client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter2Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
-                client.receiveMessage();
+                receiveMessage();
                 break;
             case 4:
                 client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter4Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
-                client.receiveMessage();
+                receiveMessage();
                 break;
             case 6:
                 client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter6Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
-                client.receiveMessage();
+                receiveMessage();
                 break;
             case 8:
                 client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter8Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
-                client.receiveMessage();
+                receiveMessage();
                 break;
-
         }
 
-
+        client.getSendMessage().sendModelMessage(new ModelMessage());
+        model = (ModelMessage) receiveMessage();
+        MessageInterface receivedMessage1 = receiveMessage();
         Platform.runLater(() -> {
             showmodel(client);
         });
-
-
     }
 
     public void clickOnCharacter1() throws IOException, InterruptedException {
@@ -1598,7 +1597,7 @@ public class ActionController {
                 character3.setOpacity(1);
                 character3.setDisable(false);
             }
-
+            System.out.println("coins:" + model.getCoinOwned());
             coins.setText("Coins: " + model.getCoinOwned());
         }
         //}
@@ -1929,9 +1928,9 @@ public class ActionController {
             towers.get(t1).setOpacity(1);
         }
 
-
+        if(model.getSchoolBoard().getTowers().size() != 0){
             towerColor.setText("Tower color: " + model.getSchoolBoard().getTowers().get(0).getColor() + ", remaining: " + model.getSchoolBoard().getTowers().size());
-
+        }
 
         this.clouds.clear();
         this.clouds.addAll(model.getCloudCardList());
@@ -2061,7 +2060,7 @@ public class ActionController {
 
         Task<Void> task = new Task<>() {
             @Override
-            public Void call() {
+            public Void call() throws InterruptedException {
                 while (!endgame) {
 
                     cc = false;
@@ -2071,7 +2070,7 @@ public class ActionController {
                     MessageInterface receivedMessage;
 
 
-                    receivedMessage = client.receiveMessage();
+                    receivedMessage = receiveMessage();
                     message = receivedMessage.getCode();
 
                     isTurn();
@@ -2081,7 +2080,7 @@ public class ActionController {
                             case TURN:
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
-                                model = (ModelMessage) client.receiveMessage();
+                                model = (ModelMessage) receiveMessage();
 
                                 disableclouds();
 
@@ -2089,7 +2088,7 @@ public class ActionController {
                                     showmodel(client);
                                 });
 
-                                MessageInterface receivedMessage1 = client.receiveMessage();
+                                MessageInterface receivedMessage1 = receiveMessage();
 
                                 moveStudents();
 
@@ -2113,10 +2112,10 @@ public class ActionController {
 
                                 enableCharacters();
 
-                                MessageType messageType = client.receiveMessage().getCode();
+                                MessageType messageType = receiveMessage().getCode();
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
-                                model = (ModelMessage) client.receiveMessage();
+                                model = (ModelMessage) receiveMessage();
 
 
                                 Platform.runLater(() -> {
@@ -2124,7 +2123,7 @@ public class ActionController {
                                 });
 
 
-                                MessageType messageType1 = client.receiveMessage().getCode();
+                                MessageType messageType1 = receiveMessage().getCode();
 
 
                                 client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
@@ -2165,13 +2164,13 @@ public class ActionController {
                             case TURN:
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
-                                model = (ModelMessage) client.receiveMessage();
+                                model = (ModelMessage) receiveMessage();
 
                                 Platform.runLater(() -> {
                                     showmodel(client);
                                 });
 
-                                MessageInterface receivedMessage1 = client.receiveMessage();
+                                MessageInterface receivedMessage1 = receiveMessage();
 
                                 moveStudents();
 
@@ -2194,10 +2193,10 @@ public class ActionController {
 
                                 enableCharacters();
 
-                                MessageType messageType = client.receiveMessage().getCode();
+                                MessageType messageType = receiveMessage().getCode();
 
                                 client.getSendMessage().sendModelMessage(new ModelMessage());
-                                model = (ModelMessage) client.receiveMessage();
+                                model = (ModelMessage) receiveMessage();
 
 
                                 Platform.runLater(() -> {
@@ -2205,7 +2204,7 @@ public class ActionController {
                                 });
 
 
-                                MessageType messageType1 = client.receiveMessage().getCode();
+                                MessageType messageType1 = receiveMessage().getCode();
 
 
                                 client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
@@ -2228,6 +2227,7 @@ public class ActionController {
                                 System.out.println("");
                                 System.out.println("----GAME-OVER----");
                                 System.out.println("-----------------");
+                                endgame = true;
                                 break;
                             case MODEL:
                                 client.setModel((ModelMessage) receivedMessage);
@@ -2272,7 +2272,7 @@ public class ActionController {
         //ask the list of cards already played on the table
         this.deck.clear();
 
-        AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) client.receiveMessage();
+        AssistantCardsMessage assistantCardsMessage = (AssistantCardsMessage) receiveMessage();
         this.deck.clear();
         this.deck.addAll(assistantCardsMessage.getDeck());
 
@@ -2418,7 +2418,7 @@ public class ActionController {
         int finalCard = card;
         this.client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage(finalCard));
 
-        MessageInterface receivedMessage = this.client.receiveMessage();
+        MessageInterface receivedMessage = receiveMessage();
 
 
 
@@ -2570,11 +2570,34 @@ public class ActionController {
 
 
         client.getSendMessage().sendModelMessage(new ModelMessage());
-        model = (ModelMessage) client.receiveMessage();
+        model = (ModelMessage) receiveMessage();
         showmodel(client);
         client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
         ReceiveCards(client);
         playAssistant();
     }
 
+    public synchronized MessageInterface receiveMessage() {
+        MessageInterface message = client.getReceiveMessage().receiveMessageClient();
+        if(message.getCode() == MessageType.PINGPONG){
+            return receiveMessage();
+        } else if(message.getCode() == MessageType.WIN){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("End game");
+            alert.setContentText(message.getMessage());
+            alert.showAndWait();
+            System.exit(0);
+        } else if(message.getCode() == MessageType.ERROR){
+            Platform.runLater(()->{
+                Alert alert2 = new Alert(Alert.AlertType.WARNING);
+                alert2.setTitle("Connection error.");
+                alert2.setHeaderText("Game is ended due to connection problems.");
+                alert2.showAndWait();
+                System.exit(0);
+            });
+        } else {
+            return message;
+        }
+        return null;
+    }
 }

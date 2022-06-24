@@ -113,7 +113,8 @@ public class JSONtoObject {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                System.exit(1);
+                //System.exit(1);
+                return new ErrorMessage();
             } else if (socket.isClosed()){
                 System.out.println("Connection error.\r");
                 try{
@@ -122,6 +123,7 @@ public class JSONtoObject {
                     ex.printStackTrace();
                 }
                 System.exit(1);
+                return new ErrorMessage();
             } else{
                 return JSONtoMessage(inputJSON);
             }

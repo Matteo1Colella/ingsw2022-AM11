@@ -114,8 +114,15 @@ public class ServerThread extends Thread{
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
                     MessageInterface message = receiveMessage.receiveMessage();
-                    MessageType messageCode = message.getCode();
-                    System.out.println("received " +  messageCode.toString());
+                    MessageType messageCode = null;
+                    try {
+                         messageCode = message.getCode();
+                        System.out.println("received " +  messageCode.toString());
+                    } catch (NullPointerException e){
+                        System.out.println("Connection error.");
+                        return;
+                    }
+
                     switch (messageCode){
                         case PINGPONG:
                             sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
@@ -169,12 +176,6 @@ public class ServerThread extends Thread{
             }
         }
     }
-
-    private void receivePingSendPong(){
-        receiveMessage.receiveMessage();
-        sendMessage.sendPingPongMessage(new PingPongMessage("pong"));
-    }
-
     /**
      * receives the username and preferences for the game that a player wants
      */
