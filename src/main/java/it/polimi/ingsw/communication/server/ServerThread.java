@@ -114,6 +114,9 @@ public class ServerThread extends Thread{
                     System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
                     MessageInterface message = receiveMessage.receiveMessage();
+                    if(message == null){
+                        return;
+                    }
                     MessageType messageCode = null;
                     try {
                          messageCode = message.getCode();
