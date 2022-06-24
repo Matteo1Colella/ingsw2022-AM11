@@ -5,22 +5,22 @@ import it.polimi.ingsw.communication.common.JSONtoObject;
 import it.polimi.ingsw.communication.common.ObjectToJSON;
 import it.polimi.ingsw.communication.common.PingPongThread;
 import it.polimi.ingsw.view.stages.LoginStage;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ConnectionController implements Initializable {
@@ -30,7 +30,7 @@ public class ConnectionController implements Initializable {
     private ObjectToJSON sendMessage;
     private JSONtoObject receiveMessage;
     private Stage stage;
-
+    private MediaPlayer player;
     @FXML
     private AnchorPane connectionPane;
     @FXML
@@ -64,7 +64,7 @@ public class ConnectionController implements Initializable {
         }
 
         stage.close();
-        new LoginStage(this.client);
+        new LoginStage(this.client, this.player);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -75,5 +75,18 @@ public class ConnectionController implements Initializable {
         //connectionPane.setOpacity(1);
         new PingPongThread(clientMain.getClientSocket(), "client");
         this.client = clientMain;
+
+
+        Media pick = new Media(Objects.requireNonNull(getClass().getClassLoader()
+                .getResource("music/music.mp3")).toExternalForm());
+        player = new MediaPlayer(pick);
+        //player.setAutoPlay(true);
+        player.setCycleCount(MediaPlayer.INDEFINITE);
+        player.setVolume(25);
+        player.setOnEndOfMedia(() -> {
+            player.seek(Duration.ZERO);
+            player.play();
+        });
+        player.play();
     }
 }

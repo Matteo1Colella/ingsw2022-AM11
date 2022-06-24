@@ -24,6 +24,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -48,7 +49,7 @@ public class LoginController implements Initializable{
     private boolean boolType;
     private ToggleGroup toggleGroup;
     private Stage stage;
-
+    private MediaPlayer player;
 
     private ClientMain client;
     @FXML
@@ -83,6 +84,14 @@ public class LoginController implements Initializable{
 
     public Button getLogin() {
         return login;
+    }
+
+    public MediaPlayer getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(MediaPlayer player) {
+        this.player = player;
     }
 
     @FXML
@@ -163,7 +172,7 @@ public class LoginController implements Initializable{
                                     try{
 
                                         try {
-                                            new MageStageSocket(client, mageMessage);
+                                            new MageStageSocket(client, mageMessage, player);
                                             stage.close();
                                         } catch (IOException | InterruptedException e) {
                                             e.printStackTrace();
