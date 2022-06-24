@@ -47,7 +47,7 @@
          <font>
             <Font name="Poor Richard" size="15.0" />
          </font></Button>
-      <Label fx:id="welcomeText" layoutX="179.0" layoutY="351.0" prefHeight="17.0" prefWidth="182.0" />
+      <Label fx:id="welcomeText" layoutX="365.0" layoutY="344.0" prefHeight="17.0" prefWidth="115.0" />
       <CheckBox fx:id="pro" layoutX="345.0" layoutY="230.0" mnemonicParsing="false" text="ProRules">
          <font>
             <Font name="Poor Richard" size="15.0" />
@@ -67,13 +67,13 @@
    </AnchorPane>
    <AnchorPane fx:id="loadingPane" disable="true" opacity="0.0" prefHeight="415.0" prefWidth="623.0">
       <children>
-         <ImageView fx:id="background1" fitHeight="415.0" fitWidth="633.0" opacity="0.26" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="background1" disable="true" fitHeight="415.0" fitWidth="633.0" opacity="0.26" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@Assets/14.jpg" />
             </image>
          </ImageView>
-         <ProgressIndicator layoutX="285.0" layoutY="181.0" prefWidth="73.0" scaleX="3.0" scaleY="3.0" />
-         <Label fx:id="loggedText" alignment="CENTER" layoutX="117.0" layoutY="317.0" prefHeight="17.0" prefWidth="388.0" />
+         <ProgressIndicator disable="true" layoutX="285.0" layoutY="181.0" prefWidth="73.0" scaleX="3.0" scaleY="3.0" />
+         <Label fx:id="loggedText" alignment="CENTER" disable="true" layoutX="117.0" layoutY="317.0" prefHeight="17.0" prefWidth="388.0" />
       </children>
    </AnchorPane>
 </AnchorPane>

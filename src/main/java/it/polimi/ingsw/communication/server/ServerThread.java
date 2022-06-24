@@ -233,9 +233,13 @@ public class ServerThread extends Thread{
     private void playCard(){
         boolean ok = false;
         while (!ok){
-            MessageType messageCode = receiveMessage.receiveMessage().getCode();
+            MessageInterface message = receiveMessage.receiveMessage();
+            if(message==null){
+                return;
+            }
+            MessageType messageType = message.getCode();
 
-            if(messageCode == MessageType.CARD){
+            if(messageType == MessageType.CARD){
                 ok = currentCL.playCard(sendMessage, receiveMessage);
             }
         }

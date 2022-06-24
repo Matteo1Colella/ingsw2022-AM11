@@ -22,11 +22,7 @@ public class ActionStage extends Stage {
     public ActionStage(ClientMain client) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ClientApp.class.getResource("/ActionPhase.fxml"));
         Stage subStage = new Stage () ;
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width = gd.getDisplayMode().getWidth();
-        int height = gd.getDisplayMode().getHeight();
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
-       // Scene scene = new Scene(fxmlLoader.load(), 1280, 750);
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 750);
         subStage.setScene (scene) ;
         ActionController controller = fxmlLoader.getController();
         controller.initialize(client);

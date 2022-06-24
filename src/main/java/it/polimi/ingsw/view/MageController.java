@@ -224,6 +224,7 @@ public class MageController {
                 break;
         }
 
+        if (mage == 0) return;
         int finalMage = mage;
 
         Service<Void> service1 = new Service<Void>() {
@@ -255,6 +256,8 @@ public class MageController {
         };
         service1.start();
 
+        CR7.setOpacity(0);
+
         Service<Void> service = new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -264,12 +267,15 @@ public class MageController {
 
                         client.getSendMessage().sendMageMessage(new MageMessage(finalMage));
 
+                        CR7.setOpacity(0);
+
                         MessageInterface receivedMessage = client.receiveMessage();
 
                         for(int i = 1; i <= 11; i++){
                             items.get(i).setOpacity(0.2);
                             items.get(i).setDisable(true);
                         }
+                        CR7.setOpacity(0);
 
                         if (receivedMessage.getCode() != MessageType.MAGEERROR){
                             loadingPane.setOpacity(1);
