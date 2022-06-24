@@ -55,16 +55,25 @@
                <effect>
                   <DropShadow />
                </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="character2" fitHeight="172.0" fitWidth="97.0" layoutX="1068.0" layoutY="-7.0" onMouseClicked="#clickOnCharacter2" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+            <ImageView fx:id="character2" fitHeight="156.0" fitWidth="97.0" layoutX="1068.0" layoutY="-7.0" onMouseClicked="#clickOnCharacter2" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                <effect>
                   <DropShadow />
                </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="character3" fitHeight="144.0" fitWidth="97.0" layoutX="1155.0" layoutY="-5.0" onMouseClicked="#clickOnCharacter3" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                <effect>
                   <DropShadow />
                </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <ImageView fx:id="island9" fitHeight="150.0" fitWidth="200.0" layoutX="47.969940185546875" layoutY="326.29999923706055" onMouseClicked="#clickonIsland9" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
                <image>

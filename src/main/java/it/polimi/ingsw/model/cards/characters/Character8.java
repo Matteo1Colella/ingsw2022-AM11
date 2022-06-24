@@ -13,10 +13,11 @@ public class Character8 extends CharacterCard {
         this.num = num;
         this.necessaryCoin = 2;
         super.setNecessaryCoin(necessaryCoin);
+
     }
 
     public void effect(Player activePlayer){
-        activePlayer.setInfluencePoints(activePlayer.getInfluencePoints()+2);
+        activePlayer.setCharacter8(true);
         activePlayer.useCoins(this.necessaryCoin);
         super.setNecessaryCoin(necessaryCoin++);
     }

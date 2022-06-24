@@ -46,6 +46,8 @@ public class ActionController {
     private final Image wTower = new Image("Assets/Tower.png");
     private final Image gTower = new Image("Assets/Tower_grey.png");
 
+    private boolean character4;
+
     private final Image redStudent = new Image("Assets/Students/student_red.png");
     private final Image greenStudent = new Image("Assets/Students/student_green.png");
     private final Image blueStudent = new Image("Assets/Students/student_blue.png");
@@ -357,6 +359,12 @@ public class ActionController {
 
 
         int maxsteps = selectedCard.getSteps();
+
+        if (character4){
+            maxsteps = maxsteps + 2;
+            character4 = false;
+        }
+
         int steps = Integer.parseInt(this.steps.getText());
 
         if (maxsteps < steps) {
@@ -1279,6 +1287,7 @@ public class ActionController {
                 break;
             case 4:
                 client.getSendMessage().sendCharacterMessage(characterMessage.useCharacter4Message(model.getCharacterCards().indexOf(getCharacterByNum(num))));
+                character4 = true;
                 client.receiveMessage();
                 break;
             case 6:
@@ -1293,6 +1302,7 @@ public class ActionController {
         }
 
 
+        System.out.println("used character " + num);
         Platform.runLater(() -> {
             showmodel(client);
         });
@@ -2029,6 +2039,7 @@ public class ActionController {
         confirmCard.setDisable(false);
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(true);
+        disableCharacters();
         for(int i = 0; i < 8; i++){
             entranceView.add(schoolPane.getChildren().get(i));
             entranceView.get(i).setEffect(null);
@@ -2552,6 +2563,7 @@ public class ActionController {
 
         progressPane.setOpacity(0);
 
+        this.character4 = false;
         this.client = client;
         this.start = false;
         chosen = false;
@@ -2570,6 +2582,7 @@ public class ActionController {
         mnMessage = false;
         steps.setDisable(true);
         disableclouds();
+        disableCharacters();
 
 
         client.getSendMessage().sendModelMessage(new ModelMessage());
