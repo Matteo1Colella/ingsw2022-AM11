@@ -305,7 +305,7 @@
                </font></Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pane10" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="607.0">
+      <AnchorPane fx:id="pane10" disable="true" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="413.0" prefWidth="607.0">
          <children>
             <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="26.0" layoutY="67.0" onMouseClicked="#clickOn7Student1" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
                <image>
