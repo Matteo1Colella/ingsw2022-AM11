@@ -201,7 +201,6 @@ public class CharacterHandlerClient {
                 usable = true;
                 break;
             case 7:
-                // TODO: 23/05/2022 show in a different way the print of the students: in the model message must be an array containing this students
                 //Character7 card7 = (Character7) playableCharacters.get(choice);
                 int val7 = -1;
                 int[] fromEntrance = {-1, -1, -1};
@@ -216,6 +215,7 @@ public class CharacterHandlerClient {
                         Scanner charscanner = new Scanner(System.in);
                         try {
                             val7 = charscanner.nextInt();
+                            val7 = val7-1;
                         }catch (InputMismatchException e){
                             charscanner.nextLine();
                             System.out.println("Please retry...");

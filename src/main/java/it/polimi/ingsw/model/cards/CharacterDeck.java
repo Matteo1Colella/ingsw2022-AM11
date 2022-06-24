@@ -20,7 +20,7 @@ public class CharacterDeck {
         int size = 3;
         int min = 1;
         int[] nodup = {0, 0, 0};
-        int random = 9;
+        int random = 1;
         for (int i = 0; i < size; i++){
             /*
             while(random == nodup[0] || random == nodup[1] ||random == nodup[2]) {
