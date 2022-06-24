@@ -3,9 +3,13 @@ package it.polimi.ingsw.view.stages;
 import it.polimi.ingsw.communication.client.ClientMain;
 import it.polimi.ingsw.view.ClientApp;
 import it.polimi.ingsw.view.LoginController;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+
 import java.io.IOException;
 
 
@@ -17,6 +21,13 @@ public class LoginStage extends Stage {
         Stage subStage = new Stage () ;
         subStage.setTitle ("Login") ;
         LoginController controller = fxmlLoader.getController();
+        subStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(1);
+            }
+        });
         controller.setStage(subStage);
         controller.setToggleGroup();
         controller.setClient(client);

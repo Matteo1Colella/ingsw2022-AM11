@@ -5,10 +5,13 @@ import it.polimi.ingsw.view.ActionController;
 import it.polimi.ingsw.view.ClientApp;
 import it.polimi.ingsw.view.viewThread;
 import it.polimi.ingsw.view.viewThread1;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 import java.io.IOException;
@@ -25,6 +28,13 @@ public class ActionStage extends Stage {
         subStage.setResizable(true);
         subStage.setMinHeight(560);
         subStage.setMinWidth(960);
+        subStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(1);
+            }
+        });
         scene.setOnKeyPressed(t -> {
             KeyCode key = t.getCode();
             if (key == KeyCode.ESCAPE){
