@@ -26,6 +26,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Bloom;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -122,6 +123,8 @@ public class ActionController {
     private BorderPane cloud3Students;
     @FXML
     private BorderPane cloud4Students;
+
+    private ArrayList<Node> entranceView;
 
     @FXML
     private Button showBoards;
@@ -251,8 +254,7 @@ public class ActionController {
     private Button moveMN;
     @FXML
     private TextField steps;
-    @FXML
-    private ComboBox<Student> entrance;
+
     @FXML
     private ComboBox<Student> red;
     @FXML
@@ -709,13 +711,29 @@ public class ActionController {
         indexIslandIf4ToIsland = -1;
     }
 
-    public void comboBoxAction() {
+    public void clickOnentranceStudent1(){
+        ImageView student = (ImageView) entranceView.get(0);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 0;
 
-        if (entrance.getSelectionModel().getSelectedItem() == null) {
-            return;
+        }else if (student2Entrance == -1) {
+            student2Entrance = 0;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 0;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 0;
+            }
         }
-
-        switch (entrance.getSelectionModel().getSelectedItem().getColor()) {
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(0).getColor()) {
             case YELLOW:
                 SelectedStudent.setText("Selected student: yellow");
                 break;
@@ -732,14 +750,352 @@ public class ActionController {
                 SelectedStudent.setText("Selected student: red");
                 break;
         }
+        confirmStudent.setDisable(false);
+
+    }
+    public void clickOnentranceStudent2(){
+        ImageView student = (ImageView) entranceView.get(1);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 1;
+
+        }else if (student2Entrance == -1) {
+            student2Entrance = 1;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 1;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 1;
+            }
+        }
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(1).getColor()) {
+            case YELLOW:
+                SelectedStudent.setText("Selected student: yellow");
+                break;
+            case PINK:
+                SelectedStudent.setText("Selected student: pink");
+                break;
+            case BLUE:
+                SelectedStudent.setText("Selected student: blue");
+                break;
+            case GREEN:
+                SelectedStudent.setText("Selected student: green");
+                break;
+            case RED:
+                SelectedStudent.setText("Selected student: red");
+                break;
+        }
+        confirmStudent.setDisable(false);
+    }
+    public void clickOnentranceStudent3(){
+        ImageView student = (ImageView) entranceView.get(2);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 2;
+
+        }else if (student2Entrance == -1) {
+            student2Entrance = 2;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 2;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 2;
+            }
+        }
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(2).getColor()) {
+            case YELLOW:
+                SelectedStudent.setText("Selected student: yellow");
+                break;
+            case PINK:
+                SelectedStudent.setText("Selected student: pink");
+                break;
+            case BLUE:
+                SelectedStudent.setText("Selected student: blue");
+                break;
+            case GREEN:
+                SelectedStudent.setText("Selected student: green");
+                break;
+            case RED:
+                SelectedStudent.setText("Selected student: red");
+                break;
+        }
+        confirmStudent.setDisable(false);
+
+    }
+    public void clickOnentranceStudent4(){
+        ImageView student = (ImageView) entranceView.get(3);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 3;
+
+        }else if (student2Entrance == -1) {
+            student2Entrance = 3;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 3;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 3;
+            }
+        }
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(3).getColor()) {
+            case YELLOW:
+                SelectedStudent.setText("Selected student: yellow");
+                break;
+            case PINK:
+                SelectedStudent.setText("Selected student: pink");
+                break;
+            case BLUE:
+                SelectedStudent.setText("Selected student: blue");
+                break;
+            case GREEN:
+                SelectedStudent.setText("Selected student: green");
+                break;
+            case RED:
+                SelectedStudent.setText("Selected student: red");
+                break;
+        }
+        confirmStudent.setDisable(false);
+    }
+    public void clickOnentranceStudent5(){
+        ImageView student = (ImageView) entranceView.get(4);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 4;
+
+        }else if (student2Entrance == -1) {
+            student2Entrance = 4;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 4;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 4;
+            }
+        }
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(4).getColor()) {
+            case YELLOW:
+                SelectedStudent.setText("Selected student: yellow");
+                break;
+            case PINK:
+                SelectedStudent.setText("Selected student: pink");
+                break;
+            case BLUE:
+                SelectedStudent.setText("Selected student: blue");
+                break;
+            case GREEN:
+                SelectedStudent.setText("Selected student: green");
+                break;
+            case RED:
+                SelectedStudent.setText("Selected student: red");
+                break;
+        }
+        confirmStudent.setDisable(false);
+    }
+    public void clickOnentranceStudent6(){
+        ImageView student = (ImageView) entranceView.get(5);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 5;
+
+        }else if (student2Entrance == -1) {
+            student2Entrance = 5;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 5;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 5;
+            }
+        }
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(5).getColor()) {
+            case YELLOW:
+                SelectedStudent.setText("Selected student: yellow");
+                break;
+            case PINK:
+                SelectedStudent.setText("Selected student: pink");
+                break;
+            case BLUE:
+                SelectedStudent.setText("Selected student: blue");
+                break;
+            case GREEN:
+                SelectedStudent.setText("Selected student: green");
+                break;
+            case RED:
+                SelectedStudent.setText("Selected student: red");
+                break;
+        }
+        confirmStudent.setDisable(false);
+
+    }
+    public void clickOnentranceStudent7(){
+        ImageView student = (ImageView) entranceView.get(6);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 6;
+
+        }else if (student2Entrance == -1) {
+            student2Entrance = 6;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 6;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 6;
+            }
+        }
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(6).getColor()) {
+            case YELLOW:
+                SelectedStudent.setText("Selected student: yellow");
+                break;
+            case PINK:
+                SelectedStudent.setText("Selected student: pink");
+                break;
+            case BLUE:
+                SelectedStudent.setText("Selected student: blue");
+                break;
+            case GREEN:
+                SelectedStudent.setText("Selected student: green");
+                break;
+            case RED:
+                SelectedStudent.setText("Selected student: red");
+                break;
+        }
+        confirmStudent.setDisable(false);
+    }
+    public void clickOnentranceStudent8(){
+        ImageView student = (ImageView) entranceView.get(7);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 7;
+
+        }else if (student2Entrance == -1) {
+            student2Entrance = 7;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 7;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 7;
+            }
+        }
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(7).getColor()) {
+            case YELLOW:
+                SelectedStudent.setText("Selected student: yellow");
+                break;
+            case PINK:
+                SelectedStudent.setText("Selected student: pink");
+                break;
+            case BLUE:
+                SelectedStudent.setText("Selected student: blue");
+                break;
+            case GREEN:
+                SelectedStudent.setText("Selected student: green");
+                break;
+            case RED:
+                SelectedStudent.setText("Selected student: red");
+                break;
+        }
+        confirmStudent.setDisable(false);
+    }
+    public void clickOnentranceStudent9(){
+        ImageView student = (ImageView) entranceView.get(8);
+        if (student1Entrance == -1) {
+            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
+            disableCharacters();
+            student1Entrance = 8;
+
+        }else if (student2Entrance == -1) {
+            student2Entrance = 8;
+        } else if (student3Entrance == -1) {
+            student3Entrance = 8;
+        } else if (this.moves == 4) {
+            if (student4Entrance == -1) {
+                student4Entrance = 8;
+            }
+        }
+        student.setEffect(new Bloom());
+        student.setDisable(true);
+        confirmStudent.setDisable(false);
+        for(Node n : entranceView){
+            n.setDisable(true);
+        }
+        switch (model.getSchoolBoard().getEntrance().getStudents().get(8).getColor()) {
+            case YELLOW:
+                SelectedStudent.setText("Selected student: yellow");
+                break;
+            case PINK:
+                SelectedStudent.setText("Selected student: pink");
+                break;
+            case BLUE:
+                SelectedStudent.setText("Selected student: blue");
+                break;
+            case GREEN:
+                SelectedStudent.setText("Selected student: green");
+                break;
+            case RED:
+                SelectedStudent.setText("Selected student: red");
+                break;
+        }
+        confirmStudent.setDisable(false);
+
     }
 
     public synchronized void confirmStudent() {
 
-        if (student1Entrance == -1) {
-            client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
-            disableCharacters();
-            student1Entrance = entrance.getSelectionModel().getSelectedIndex();
+        if (movesLeft==3) {
+            for(int s = 0; s < model.getSchoolBoard().getEntrance().getStudents().size(); s++){
+                if (s != student1Entrance && s != student4Entrance){
+                    entranceView.get(s).setDisable(false);
+                } else{
+                    entranceView.get(s).setOpacity(0.5);
+                }
+            }
             if (selectedIsland == null) {
                 student1WhereToPut = 0;
                 indexIslandIf1ToIsland = -1;
@@ -748,8 +1104,14 @@ public class ActionController {
                 indexIslandIf1ToIsland = selectedIsland.getId_island();
             }
             movesLeft--;
-        } else if (student2Entrance == -1) {
-            student2Entrance = entrance.getSelectionModel().getSelectedIndex();
+        } else if (movesLeft == 2) {
+            for(int s = 0; s < model.getSchoolBoard().getEntrance().getStudents().size(); s++){
+                if (s != student2Entrance && s != student1Entrance && s != student4Entrance){
+                    entranceView.get(s).setDisable(false);
+                } else{
+                    entranceView.get(s).setOpacity(0.5);
+                }
+            }
             if (selectedIsland == null) {
                 student2WhereToPut = 0;
                 indexIslandIf2ToIsland = -1;
@@ -758,8 +1120,14 @@ public class ActionController {
                 indexIslandIf2ToIsland = selectedIsland.getId_island();
             }
             movesLeft--;
-        } else if (student3Entrance == -1) {
-            student3Entrance = entrance.getSelectionModel().getSelectedIndex();
+        } else if (movesLeft == 1) {
+            for(int s = 0; s < model.getSchoolBoard().getEntrance().getStudents().size(); s++){
+                if (s != student3Entrance && s != student2Entrance && s != student1Entrance && s != student4Entrance){
+                    entranceView.get(s).setDisable(false);
+                } else{
+                    entranceView.get(s).setOpacity(0.5);
+                }
+            }
             if (selectedIsland == null) {
                 student3WhereToPut = 0;
                 indexIslandIf3ToIsland = -1;
@@ -768,9 +1136,15 @@ public class ActionController {
                 indexIslandIf3ToIsland = selectedIsland.getId_island();
             }
             movesLeft--;
-        } else if (this.moves == 4) {
+        } else if (movesLeft == 4) {
             if (student4Entrance == -1) {
-                student4Entrance = entrance.getSelectionModel().getSelectedIndex();
+                for(int s = 0; s < model.getSchoolBoard().getEntrance().getStudents().size(); s++){
+                    if (s != student4Entrance){
+                        entranceView.get(s).setDisable(false);
+                    } else{
+                        entranceView.get(s).setOpacity(0.5);
+                    }
+                }
                 if (selectedIsland == null) {
                     student4WhereToPut = 0;
                     indexIslandIf4ToIsland = -1;
@@ -782,6 +1156,11 @@ public class ActionController {
             }
         }
         if (movesLeft == 0) {
+            for(int s = 0; s < model.getSchoolBoard().getEntrance().getStudents().size(); s++){
+                    entranceView.get(s).setDisable(true);
+                    entranceView.get(s).setOpacity(1);
+                entranceView.get(s).setEffect(null);
+            }
             client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance + 1, student1WhereToPut, indexIslandIf1ToIsland, student2Entrance + 1, student2WhereToPut, indexIslandIf2ToIsland, student3Entrance + 1, student3WhereToPut, indexIslandIf3ToIsland, student4Entrance, student4WhereToPut, indexIslandIf4ToIsland));
 
             initializeStudents();
@@ -804,6 +1183,7 @@ public class ActionController {
             enableCharacters();
 
         }
+        confirmStudent.setDisable(true);
 
 
     }
@@ -1176,6 +1556,9 @@ public class ActionController {
 
     }
 
+
+
+
     public synchronized void showmodel(ClientMain client) {
 
         initLists();
@@ -1407,7 +1790,7 @@ public class ActionController {
 
         ObservableList<Student> entranceStudents = FXCollections.observableArrayList();
         entranceStudents.addAll(model.getSchoolBoard().getEntrance().getStudents());
-        entrance.setItems(entranceStudents);
+
 
         int j = 0;
         for(Student student: entranceStudents){
@@ -1584,9 +1967,12 @@ public class ActionController {
         //inhibits others
         moveMN.setDisable(true);
         confirmCard.setDisable(true);
-        confirmStudent.setDisable(false);
+        confirmStudent.setDisable(true);
         confirmCloud.setDisable(true);
-        entrance.setDisable(false);
+        for(int s = 0; s < model.getSchoolBoard().getEntrance().getStudents().size(); s++){
+            entranceView.get(s).setDisable(false);
+            entranceView.get(s).setOpacity(1);
+        }
         //client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage());
 
     }
@@ -1597,7 +1983,6 @@ public class ActionController {
         confirmCard.setDisable(true);
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(true);
-        entrance.setDisable(true);
 
 
         //client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
@@ -1610,7 +1995,6 @@ public class ActionController {
         confirmCard.setDisable(true);
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(false);
-        entrance.setDisable(true);
         enableclouds();
         //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
     }
@@ -1624,7 +2008,6 @@ public class ActionController {
         cloud2Students.setDisable(true);
         cloud3Students.setDisable(true);
         cloud4Students.setDisable(true);
-        entrance.setDisable(true);
     }
     public void enableclouds(){
         cloud1.setDisable(false);
@@ -1643,6 +2026,11 @@ public class ActionController {
         confirmCard.setDisable(false);
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(true);
+        for(int i = 0; i < 8; i++){
+            entranceView.add(schoolPane.getChildren().get(i));
+            entranceView.get(i).setEffect(null);
+            entranceView.get(i).setDisable(true);
+        }
         //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
     }
 
@@ -1659,6 +2047,7 @@ public class ActionController {
     }
 
     public synchronized void confirmCC() {
+
 
         client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage(cloudchoice));
 
@@ -2119,6 +2508,7 @@ public class ActionController {
     }
 
     public void initialize(ClientMain client) {
+        this.entranceView = new ArrayList<>();
         this.numIslands = 12;
         listIslands = new ArrayList<>();
         listIslands.add(island1);

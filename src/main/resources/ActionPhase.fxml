@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Separator?>
@@ -201,39 +200,39 @@
             </ImageView>
             <AnchorPane fx:id="schoolPane" layoutX="661.0" layoutY="139.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="576.0">
                <children>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="53.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="53.0" layoutY="31.0" onMouseClicked="#clickOnentranceStudent1" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="19.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="19.0" layoutY="72.0" onMouseClicked="#clickOnentranceStudent2" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="52.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="54.0" layoutY="72.0" onMouseClicked="#clickOnentranceStudent3" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="18.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="19.0" layoutY="113.0" onMouseClicked="#clickOnentranceStudent4" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="54.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="54.0" layoutY="113.0" onMouseClicked="#clickOnentranceStudent5" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="19.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="18.0" layoutY="154.0" onMouseClicked="#clickOnentranceStudent6" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="54.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="52.0" layoutY="153.0" onMouseClicked="#clickOnentranceStudent7" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="19.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="19.0" layoutY="196.0" onMouseClicked="#clickOnentranceStudent8" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="52.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="32.0" layoutX="52.0" layoutY="195.0" onMouseClicked="#clickOnentranceStudent9" pickOnBounds="true" preserveRatio="true">
                      <effect>
                         <DropShadow />
                      </effect></ImageView>
@@ -712,20 +711,19 @@
                </children></AnchorPane>
             <Button fx:id="confirmStudent" layoutX="443.0" layoutY="653.0" mnemonicParsing="false" onAction="#confirmStudent" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
             <Button fx:id="moveMN" layoutX="18.0" layoutY="653.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" />
-            <Button fx:id="confirmCloud" layoutX="318.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw">
+            <Button fx:id="confirmCloud" layoutX="299.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw">
                <font>
                   <Font size="13.0" />
                </font></Button>
             <Label fx:id="username" layoutX="658.0" layoutY="20.0" text="Player : " />
             <Label fx:id="coins" layoutX="658.0" layoutY="44.0" text="Coins:" />
-            <Label fx:id="SelectedCloud" layoutX="247.0" layoutY="414.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER">
+            <Label fx:id="SelectedCloud" alignment="CENTER" layoutX="228.0" layoutY="414.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER">
                <font>
                   <Font size="13.0" />
                </font></Label>
             <Label fx:id="To" layoutX="443.0" layoutY="627.0" text="To:" />
             <Label fx:id="SelectedStudent" layoutX="443.0" layoutY="600.0" text="Selected Student:" />
             <TextField fx:id="steps" layoutX="17.0" layoutY="622.0" prefHeight="25.0" prefWidth="66.0" promptText="Steps" />
-            <ComboBox fx:id="entrance" layoutX="662.0" layoutY="147.0" onAction="#comboBoxAction" prefHeight="25.0" prefWidth="86.0" scaleX="0.6" scaleY="0.6" />
             <BorderPane layoutX="631.0" layoutY="438.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="570.0" scaleX="0.9" scaleY="0.9">
                <center>
                   <AnchorPane prefHeight="273.0" prefWidth="618.0" BorderPane.alignment="CENTER">
