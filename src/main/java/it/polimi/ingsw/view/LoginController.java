@@ -10,7 +10,6 @@ import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Player;
 //import it.polimi.ingsw.view.stages.LoginStage;
 import it.polimi.ingsw.view.stages.MageStageSocket;
-import it.polimi.ingsw.view.stages.Magestage;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -25,20 +24,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.nio.file.Paths;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 
 public class LoginController implements Initializable{
@@ -196,91 +187,6 @@ public class LoginController implements Initializable{
         }
 
 
-    }
-
-    @FXML
-    public void Login() throws IOException {
-        ID = nameField.getText();
-
-        boolean set = false;
-
-        if(toggleGroup.getSelectedToggle().equals(twoP)){
-            n = 2;
-            set = true;
-        } else {
-            if(toggleGroup.getSelectedToggle().equals(threeP)){
-                n = 3;
-                set = true;
-            }
-            if(toggleGroup.getSelectedToggle().equals(fourP)){
-                n = 4;
-                set = true;
-            }
-        }
-        if (!set){
-            n = 0;
-        }
-
-
-
-        pro.setAllowIndeterminate(false);
-        boolType = pro.isSelected();
-
-
-
-        ObservableList<String> doList = FXCollections.observableArrayList();
-        ObservableList<String> Lobbieslist = FXCollections.observableArrayList();
-
-
-        boolean login = gameManager.login(ID,n,boolType);
-        if(login){
-            welcomeText.setText("Successfully logged in lobby " + gameManager.getPlayerComplexLobby(ID).getID());
-            lobbymembertext.setText("Players in lobby " + gameManager.getPlayerComplexLobby(ID).getID());
-
-            doList.clear();
-            Lobbieslist.clear();
-            Players.getItems().clear();
-            Lobbies.getItems().clear();
-
-            for(Player p : gameManager.getPlayerComplexLobby(ID).getPlayers()){
-                doList.add(p.getID_player());
-            }
-            for (ComplexLobby c : gameManager.getComplexLobbies()){
-                Lobbieslist.add(c.toString());
-            }
-
-            Lobbies.getItems().addAll(Lobbieslist);
-            Players.getItems().addAll(doList);
-            EventType<? extends ListView.EditEvent<String>> type = ListView.editAnyEvent();
-            Event event = new ListView.EditEvent<>(Players, type, ID, i);
-            Players.fireEvent(event);
-            Lobbies.fireEvent(event);
-            i++;
-            new Magestage();
-        } else{
-            welcomeText.setText("Login Error, Try Again");
-        }
-
-
-    }
-    public void ListClick(){
-
-        /*
-
-        int index = Lobbies.getSelectionModel().getSelectedIndex();
-        ObservableList<String> doList = FXCollections.observableArrayList();
-        Players.getItems().clear();
-        for(Player p : gameManager.getComplexLobbies().get(index).getPlayers()){
-            doList.add(p.getID_player());
-        }
-        Players.getItems().addAll(doList);
-        lobbymembertext.setText("Players in lobby " + gameManager.getComplexLobbies().get(index).getID());
-        EventType<? extends ListView.EditEvent<String>> type = ListView.editAnyEvent();
-        Event event = new ListView.EditEvent<>(Players, type, ID, i);
-        Players.fireEvent(event);
-        i++;
-
-         */
     }
 
 

@@ -7,10 +7,13 @@ import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.view.ClientApp;
 import it.polimi.ingsw.view.MageController;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.awt.*;
 import java.io.IOException;
@@ -31,6 +34,13 @@ public class MageStageSocket extends Stage {
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
         subStage.setScene (scene) ;
         MageController controller = fxmlLoader.getController();
+        subStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(1);
+            }
+        });
 
         controller.setClient(client);
         controller.setStage(subStage);

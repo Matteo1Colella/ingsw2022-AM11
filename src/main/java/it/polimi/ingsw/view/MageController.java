@@ -6,14 +6,11 @@ import it.polimi.ingsw.communication.common.MessageType;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
 import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.view.stages.ActionStage;
-import it.polimi.ingsw.view.stages.MageStageSocket;
-import it.polimi.ingsw.view.stages.PlanningStage;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,7 +18,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 
 public class MageController {
@@ -120,10 +116,7 @@ public class MageController {
         mage4.setDisable(false);
         mage4.setOpacity(1);
     }
-    @FXML
-    public void confirmMage() throws IOException {
-        new PlanningStage();
-    }
+
 
     @FXML
     public synchronized void confirmMageSocket() throws IOException {
