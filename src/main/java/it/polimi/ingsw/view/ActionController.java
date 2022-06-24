@@ -274,8 +274,6 @@ public class ActionController {
 
     public void bindIslands() {
 
-        System.out.println("listislands: " + listIslands.size());
-
         grid.getPoints().clear();
 
         final double angleStep = Math.PI * 2 / (numIslands);
