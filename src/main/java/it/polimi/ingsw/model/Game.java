@@ -228,9 +228,14 @@ public class Game {
 
             if (selectedIsland.getStudents().isEmpty()) return;
 
+
+
             //reset influence points
             for (Player p : playersInitialList) {
-                p.setInfluencePoints(0);
+                if(p.isCharacter8()){
+                    p.setInfluencePoints(2);
+                    p.setCharacter8(false);
+                }else p.setInfluencePoints(0);
             }
 
 
@@ -425,7 +430,10 @@ public class Game {
 
             //reset influence points
             for (Player p : players) {
-                p.setInfluencePoints(0);
+                if(p.isCharacter8()){
+                    p.setInfluencePoints(2);
+                    p.setCharacter8(false);
+                }else p.setInfluencePoints(0);
             }
 
 
@@ -589,7 +597,10 @@ public class Game {
 
             //reset influence points
             for (Player p : playersInitialList) {
-                p.setInfluencePoints(0);
+                if(p.isCharacter8()){
+                    p.setInfluencePoints(2);
+                    p.setCharacter8(false);
+                }else p.setInfluencePoints(0);
             }
 
 

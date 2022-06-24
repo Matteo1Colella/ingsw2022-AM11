@@ -21,6 +21,7 @@ public class Player {
     private Game playerGame;
     private int gameID;
     private int MotherNatureMoves;
+    private boolean character8;
 
     // Start of Getters, Setters, Constructor
 
@@ -29,6 +30,15 @@ public class Player {
         this.ID_player = ID_player;
         this.influencePoints = 0;
         this.coins = new ArrayList<>();
+        character8 = false;
+    }
+
+    public boolean isCharacter8() {
+        return character8;
+    }
+
+    public void setCharacter8(boolean character8) {
+        this.character8 = character8;
     }
 
     public int getInfluencePoints() {
