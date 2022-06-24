@@ -611,6 +611,7 @@ public class ComplexLobby{
             case 2:
                 Character2 card2 = (Character2) characterCards.get(choice);
                 card2.effect(activePlayer);
+                game.colorDominance();
                 break;
             case 3:
                 Character3 card3 = (Character3) characterCards.get(choice);

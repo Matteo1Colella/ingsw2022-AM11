@@ -1032,12 +1032,7 @@ public class Game {
 
           for (Player p : this.playerList()){
               coinContainer.giveCoin(p);
-              coinContainer.giveCoin(p);
-              coinContainer.giveCoin(p);
-              coinContainer.giveCoin(p);
-              coinContainer.giveCoin(p);
-              coinContainer.giveCoin(p);
-            }
+          }
 
             CharacterDeck specialCards = new CharacterDeck(this);
             GameComponents table = new GameComponents(islandsCircularArray, motherPiece, schools, studentsBag, cloudContainer, professors, coinContainer,prohibitionCards,specialCards);

@@ -24,10 +24,11 @@ public class Character12 extends CharacterCard {
             DiningRoom d = temp.getSchoolBoard().getDiningRoomByColor(color);
 
             for (int i = 0; i <3; i++) {
-
+                System.out.println("color: " + d.getColor() + "size: " + d.getStudentsSize());
                 if (d.getStudentsSize() > 0) {
                     activePlayer.getPlayerGame().getGameComponents().getBag().addStudent(d.getStudents().get(0));
                     d.removeStudent(d.getStudents().get(0));
+                    System.out.println("removing student");
                 }
             }
         }

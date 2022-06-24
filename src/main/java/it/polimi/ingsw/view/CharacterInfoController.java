@@ -528,22 +528,22 @@ public class CharacterInfoController {
     }
 
     public void character12() {
-        Platform.runLater(() -> {
+
             boolean ok = false;
 
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(0))) {
+            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(3))) {
                 colorStudent = ColorStudent.BLUE;
                 ok = true;
             }
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(1))) {
+            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(2))) {
                 colorStudent = ColorStudent.RED;
                 ok = true;
             }
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(2))) {
+            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(1))) {
                 colorStudent = ColorStudent.GREEN;
                 ok = true;
             }
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(3))) {
+            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(0))) {
                 colorStudent = ColorStudent.YELLOW;
                 ok = true;
             }
@@ -563,7 +563,7 @@ public class CharacterInfoController {
                 stage.close();
             }
 
-        });
+
 
 
     }
