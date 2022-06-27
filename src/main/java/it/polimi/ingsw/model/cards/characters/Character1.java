@@ -26,6 +26,12 @@ public class Character1 extends CharacterCard {
         students.add(activePlayer.getPlayerGame().getGameComponents().getBag().draw());
         activePlayer.useCoins(this.necessaryCoin);
         super.setNecessaryCoin(necessaryCoin + 1);
+        this.setNecessaryCoin(necessaryCoin + 1);
+    }
+
+    @Override
+    public void setNecessaryCoin(int necessaryCoin) {
+        this.necessaryCoin = necessaryCoin;
     }
 
     @Override

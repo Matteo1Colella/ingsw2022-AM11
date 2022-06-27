@@ -181,6 +181,7 @@ public class CharacterTests {
 
         assertTrue(newGame.getGameComponents().getArchipelago().get(0).getLocked());
 
+        System.out.println(card5.getNecessaryCoin());
 
     }
     @Test

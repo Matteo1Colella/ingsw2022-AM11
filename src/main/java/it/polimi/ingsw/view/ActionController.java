@@ -1302,11 +1302,14 @@ public class ActionController {
         }
 
 
-        System.out.println("used character " + num);
+        client.getSendMessage().sendModelMessage(new ModelMessage());
+        model = (ModelMessage) client.receiveMessage();
+
         Platform.runLater(() -> {
             showmodel(client);
         });
 
+        MessageInterface receivedMessage1 = client.receiveMessage();
 
     }
 
@@ -1579,7 +1582,7 @@ public class ActionController {
         this.cloudchoice = -1;
 
         //if pro{
-        if (model.getCoinOwned() > 0) {
+        if (model.getCharacterCards() != null) {
             characters = new ArrayList<>();
             this.gametype = true;
             for (CharacterCard characterCard : model.getCharacterCards()) {
@@ -1589,6 +1592,10 @@ public class ActionController {
             character1.setImage(characters.get(0).getImage());
             character2.setImage(characters.get(1).getImage());
             character3.setImage(characters.get(2).getImage());
+
+            System.out.println("necessary coin : " + model.getCharacterCards().get(0).getNecessaryCoin());
+            System.out.println("necessary coin : " + model.getCharacterCards().get(1).getNecessaryCoin());
+            System.out.println("necessary coin : " + model.getCharacterCards().get(2).getNecessaryCoin());
 
             if(model.getCharacterCards().get(0).getNecessaryCoin() > model.getCoinOwned()){
                 character1.setOpacity(0.5);
