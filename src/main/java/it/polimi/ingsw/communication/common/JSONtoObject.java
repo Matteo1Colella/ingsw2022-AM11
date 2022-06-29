@@ -109,7 +109,7 @@ public class JSONtoObject {
     }
 
     /**
-     * Recieve a message from the socket and it returns the object of the corresponding class.
+     * Receive a message from the socketand it returns the object of the corresponding class.
      * It deals with the possible errors occurring during the interaction between client and server.
      * @return MessageInterface
      */

@@ -219,7 +219,6 @@ public class ComplexLobby{
         for (Card temp : this.chosenCards){
 
             if (temp.getName().equals(chosen.getName())) {
-                System.out.println("ERROR: You can't play this card in this round because someone has already played that");
                 return false;
             }
         }

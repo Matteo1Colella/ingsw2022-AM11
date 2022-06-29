@@ -110,8 +110,6 @@ public class ServerThread extends Thread{
                         interrupt();
                         break;
                     }
-
-                    System.out.println("it is " + username + " turn");
                     sendMessage.sendTurnMessage();
                     MessageInterface message = receiveMessage.receiveMessage();
                     if(message == null){
@@ -120,7 +118,6 @@ public class ServerThread extends Thread{
                     MessageType messageCode = null;
                     try {
                          messageCode = message.getCode();
-                        System.out.println("received " +  messageCode.toString());
                     } catch (NullPointerException e){
                         System.out.println("Connection error.");
                         return;
@@ -146,7 +143,6 @@ public class ServerThread extends Thread{
                                 currentCL.changeActivePlayer();
                             } else {
                                 currentCL.setActivePlayer(currentCL.getPlayerOrder().get(0));
-                                System.out.println("ish should be " + currentCL.getPlayerOrder().get(0).getID_player() + " turn");
                                 currentCL.getGame().refillCloudCards();
                             }
 
@@ -335,7 +331,6 @@ public class ServerThread extends Thread{
     private void playCharacter(MessageInterface message){
         UseCharacterMessage characterMessage = (UseCharacterMessage) message;
         currentCL.playCharacter(characterMessage);
-        System.out.println("sending turn message");
     }
 
     /**

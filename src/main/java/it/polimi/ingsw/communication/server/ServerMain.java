@@ -55,7 +55,6 @@ public class ServerMain {
             System.out.println("Connection error");
             System.exit(1);
         }
-        System.out.println("Closing multi thread server...");
         try{
             myServerSocket.close();
         } catch (IOException e){
