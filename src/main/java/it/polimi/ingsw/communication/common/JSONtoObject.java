@@ -79,6 +79,11 @@ public class JSONtoObject {
 
     }
 
+    /**
+     * Recieve a message from the socket and it returns the object of the corresponding class.
+     * It deals with the possible errors occourring during the interacion between server and client.
+     * @return MessageInterface
+     */
     public MessageInterface receiveMessage() {
         try {
             String inputJSON = input.readLine();
@@ -100,9 +105,14 @@ public class JSONtoObject {
                 ex.printStackTrace();
             }
         }
-       return new ErrorMessage();
+        return new ErrorMessage();
     }
 
+    /**
+     * Recieve a message from the socket and it returns the object of the corresponding class.
+     * It deals with the possible errors occurring during the interaction between client and server.
+     * @return MessageInterface
+     */
     public MessageInterface receiveMessageClient() {
         try {
             String inputJSON = input.readLine();
@@ -134,8 +144,7 @@ public class JSONtoObject {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            System.exit(1);
+            return new ErrorMessage();
         }
-        return new ErrorMessage();
     }
 }
