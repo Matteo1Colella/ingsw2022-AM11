@@ -47,6 +47,14 @@ Open a terminal and go to the directory containing the jar. Once there, execute 
 
 *java -jar AM11_gui.jar*
 
+#### For MAC users
+
+1. Download javafx SDK from this [here](https://gluonhq.com/products/javafx/) and extract it to the same folder containing the GUI jar
+2. Open a terminal and go to the directory containing the jar. Once there, execute this command:
+
+*java --module-path <PATH_TO_LIB> --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.media -jar AM11_gui.jar*
+
+
 #### For MAC users with Apple Silicon M1
 
 1. Download javafx SDK from this [here](https://download2.gluonhq.com/openjfx/18.0.1/openjfx-18.0.1_osx-aarch64_bin-sdk.zip) and extract it to the same folder containing the GUI jar
