@@ -18,3 +18,15 @@
 | 4 player game   | 🟢 |
 | Keepalive       |🔴|
 
+## Test cases
+
+
+| Package    | Tested Class    | Class       | Method        |      Line       |  
+|:-----------|:----------------|:------------|:--------------|:---------------:|
+| controller | ComplexLobby    | 50% (1/2)   | 54% (23/42)   |  33% (120/360)  |
+| controller | DeckManager     | 100% (1/1)  | 100% (23/42)  |   95% (23/24)   |
+| controller | GameManager     | 100% (1/1)  | 71% (5/7)     |  43% (53/121)   |
+| controller | OrderComparator | 100% (1/1)  | 100% (1/1)    |    88% (8/9)    |
+| model      | Global Package  | 97% (38/39) | 92% (234/252) | 74% (1046/1407) |
+
+
