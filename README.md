@@ -23,6 +23,20 @@
 | 4 player game   | 🟢 |
 | Keepalive       |🔴|
 
+
+## Running
+
+Open a terminal and go to the project target directory. Once there, execute this command:
+
+*java -jar AM11_server.jar*
+
+Then open another terminal, go to the project directory and digit
+
+If you want to use the CLI: *java -jar AM11_cli.jar*
+
+If you want to use the GUI: *java -jar AM11_gui.jar*
+
+
 ## Test cases
 
 | Package    | Tested Class    | Class       | Method        |      Line       |  
@@ -32,16 +46,4 @@
 | controller | GameManager     | 100% (1/1)  | 71% (5/7)     |  43% (53/121)   |
 | controller | OrderComparator | 100% (1/1)  | 100% (1/1)    |    88% (8/9)    |
 | model      | Global Package  | 97% (38/39) | 92% (234/252) | 74% (1046/1407) |
-
-## Running
-
-Open a terminal and go to the project target directory. Once there, execute this command:
-
-*java -jar AM11_server.jar*
-
-Then open another terminal, go to the project directory and digit:
-
-If you want to use the CLI: *java -jar AM11_cli.jar*
-
-If you want to use the GUI: *java -jar AM11_gui.jar*
 
