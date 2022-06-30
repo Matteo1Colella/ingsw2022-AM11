@@ -54,6 +54,7 @@ Open a terminal and go to the directory containing the jar. Once there, execute 
 
 *java --module-path <PATH_TO_LIB> --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.media -jar AM11_gui.jar*
 
+IP and port will be asked as the game begins
 
 #### For MAC users with Apple Silicon M1
 
