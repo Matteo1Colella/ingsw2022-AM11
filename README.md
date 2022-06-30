@@ -75,8 +75,9 @@ Inside the JAR folder you will find another folder named WIN which includes thre
 
 #### Experimental feature (MAC)
 
-1. Download javafx SDK related to your mac processor from [here](https://gluonhq.com/products/javafx/), extract it and RENAME the folder "javafx". Finally move it into the same folder as the jars. 
-2. Inside the JAR folder you will find another folder named MAC which includes three .sh files. You can also run server, client and gui by opening the terminal, navigate into the MAC folder and by running the commands:
+Download javafx SDK related to your mac processor from [here](https://gluonhq.com/products/javafx/), extract it and RENAME the folder "javafx". Finally move it into the same folder as the jars. 
+
+Inside the JAR folder you will find another folder named MAC which includes three .sh files. You can also run server, client and gui by opening the terminal, navigate into the MAC folder and by running the commands:
    1. *sh AM11_server.sh*
    2. *sh AM11_cli.sh*
    3. *sh AM11_gui.sh*
