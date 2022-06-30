@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class LoginStage extends Stage {
 
     public LoginStage(ClientMain client, MediaPlayer player) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ClientApp.class.getResource("/LoginPhase.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ClientApp.class.getResource("/FXML/LoginPhase.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         Stage subStage = new Stage () ;
         subStage.setTitle ("Login") ;
@@ -34,6 +35,7 @@ public class LoginStage extends Stage {
         controller.setToggleGroup();
         controller.setClient(client);
         subStage.setResizable(false);
+        subStage.getIcons().add(new Image("Assets/MN.png"));
         subStage.setScene(scene);
         subStage.show();
     }

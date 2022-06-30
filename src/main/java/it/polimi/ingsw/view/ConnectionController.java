@@ -17,9 +17,8 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.URL;
+import java.lang.reflect.InvocationTargetException;
+import java.net.*;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -44,14 +43,36 @@ public class ConnectionController implements Initializable {
         this.stage = stage;
     }
 
+    /**
+     * asks connection parameters, if not written, sets to default
+     * @throws IOException
+     */
     public void connection() throws IOException {
-        if(port.getText().equals("") || IP.getText().equals("")){
+        if(port.getText().equals("") && IP.getText().equals("")){
             try {
                 this.client.readParameters();
                 this.client.createConnection();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else if(port.getText().equals("") && !IP.getText().equals("")){
+            String p = "2063";
+            String ip = IP.getText();
+            int pnum = Integer.parseInt(p);
+            InetAddress host = InetAddress.getByName(ip);
+            clientSocket = new Socket(host, pnum);
+            // clientSocket.setSoTimeout(100000);
+            client.setReceiveMessage(new JSONtoObject(clientSocket));
+            client.setSendMessage(new ObjectToJSON(clientSocket));
+        }else if(!port.getText().equals("") && IP.getText().equals("")) {
+            String p = port.getText();
+            String ip = "localhost";
+            int pnum = Integer.parseInt(p);
+            InetAddress host = InetAddress.getByName(ip);
+            clientSocket = new Socket(host, pnum);
+            // clientSocket.setSoTimeout(100000);
+            client.setReceiveMessage(new JSONtoObject(clientSocket));
+            client.setSendMessage(new ObjectToJSON(clientSocket));
         } else {
             String ip = IP.getText();
             String p = port.getText();
@@ -66,6 +87,9 @@ public class ConnectionController implements Initializable {
         stage.close();
         new LoginStage(this.client, this.player);
     }
+    /**
+     * launches the scene and the media and the pingpongthread
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //this.setToggleGroup();

@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.CharacterInfoController">
+   <children>
+      <ImageView fitHeight="948.0" fitWidth="690.0" layoutX="-37.0" layoutY="-141.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/MADRE_NATURA_1.jpg" />
+         </image>
+         <effect>
+            <GaussianBlur radius="23.42" />
+         </effect>
+      </ImageView>
+      <AnchorPane fx:id="pane1" disable="true" layoutX="-5.0" layoutY="-2.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="615.0">
+         <children>
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="15.0" layoutY="97.0" onMouseClicked="#clickOnStudent1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="70.0" layoutY="97.0" onMouseClicked="#clickOnStudent2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="128.0" layoutY="97.0" onMouseClicked="#clickOnStudent3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="188.0" layoutY="97.0" onMouseClicked="#clickOnStudent4" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <TextField layoutX="15.0" layoutY="188.0" prefHeight="25.0" prefWidth="215.0" />
+            <Label layoutX="422.0" layoutY="113.0" text="Selected Student">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="422.0" layoutY="192.0" text="Selected Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="257.0" layoutY="352.0" text="Not Existing Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="280.0" layoutY="303.0" mnemonicParsing="false" onAction="#character1" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane3" disable="true" layoutX="5.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="615.0">
+         <children>
+            <TextField layoutX="14.0" layoutY="188.0" prefHeight="25.0" prefWidth="215.0" />
+            <Label layoutX="440.0" layoutY="192.0" text="Selected Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="257.0" layoutY="357.0" text="Not Existing Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="277.0" layoutY="324.0" mnemonicParsing="false" onAction="#character3" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane5" disable="true" layoutX="-4.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="607.0">
+         <children>
+            <TextField layoutX="14.0" layoutY="188.0" prefHeight="25.0" prefWidth="215.0" />
+            <Label layoutX="440.0" layoutY="192.0" text="Selected Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="257.0" layoutY="357.0" text="Not Existing Island">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="277.0" layoutY="324.0" mnemonicParsing="false" onAction="#character5" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane7" disable="true" layoutX="-5.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="24.0" layoutY="91.0" onMouseClicked="#clickOn7Student1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="24.0" layoutY="151.0" onMouseClicked="#clickOn7Student2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="107.0" layoutY="151.0" onMouseClicked="#clickOn7Student3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="24.0" layoutY="209.0" onMouseClicked="#clickOn7Student4" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="107.0" layoutY="209.0" onMouseClicked="#clickOn7Student5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="24.0" layoutY="269.0" onMouseClicked="#clickOn7Student6" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="107.0" layoutY="269.0" onMouseClicked="#clickOn7Student7" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="24.0" layoutY="330.0" onMouseClicked="#clickOn7Student8" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="107.0" layoutY="330.0" onMouseClicked="#clickOn7Student9" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="261.0" layoutY="209.0" onMouseClicked="#clickOn7Student10" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="336.0" layoutY="209.0" onMouseClicked="#clickOn7Student11" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="261.0" layoutY="269.0" onMouseClicked="#clickOn7Student12" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="336.0" layoutY="269.0" onMouseClicked="#clickOn7Student13" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="261.0" layoutY="330.0" onMouseClicked="#clickOn7Student14" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="336.0" layoutY="330.0" onMouseClicked="#clickOn7Student15" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="60.0" layoutY="50.0" text="On entrance:">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="300.0" layoutY="50.0" text="On Card:">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="483.0" layoutY="209.0" mnemonicParsing="false" onAction="#character7" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane9" disable="true" layoutX="5.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <RadioButton layoutX="375.0" layoutY="160.0" mnemonicParsing="false" text="Yellow">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="269.0" layoutY="160.0" mnemonicParsing="false" text="Green">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="171.0" layoutY="160.0" mnemonicParsing="false" text="Red">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="56.0" layoutY="160.0" mnemonicParsing="false" text="Blue">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="488.0" layoutY="160.0" mnemonicParsing="false" text="Pink">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <Button layoutX="273.0" layoutY="288.0" mnemonicParsing="false" onAction="#character9" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+            <Label layoutX="233.0" layoutY="61.0" text="Select a Color to Exclude">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane11" disable="true" layoutX="5.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="615.0">
+         <children>
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="15.0" layoutY="97.0" onMouseClicked="#clickOnStudent1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="70.0" layoutY="97.0" onMouseClicked="#clickOnStudent2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="128.0" layoutY="97.0" onMouseClicked="#clickOnStudent3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="188.0" layoutY="97.0" onMouseClicked="#clickOnStudent4" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <Label layoutX="422.0" layoutY="113.0" text="Selected Student">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Button layoutX="280.0" layoutY="303.0" mnemonicParsing="false" onAction="#character11" text="Confirm" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane12" disable="true" layoutY="2.0" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <RadioButton layoutX="375.0" layoutY="160.0" mnemonicParsing="false" text="Yellow">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="269.0" layoutY="160.0" mnemonicParsing="false" text="Green">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="171.0" layoutY="160.0" mnemonicParsing="false" text="Red">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="56.0" layoutY="160.0" mnemonicParsing="false" text="Blue">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <RadioButton layoutX="488.0" layoutY="160.0" mnemonicParsing="false" text="Pink">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></RadioButton>
+            <Button layoutX="273.0" layoutY="288.0" mnemonicParsing="false" onAction="#character12" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+            <Label layoutX="259.0" layoutY="60.0" text="Select a Color ">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane10" disable="true" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="413.0" prefWidth="607.0">
+         <children>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="26.0" layoutY="67.0" onMouseClicked="#clickOn7Student1" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="26.0" layoutY="124.0" onMouseClicked="#clickOn7Student2" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="93.0" layoutY="124.0" onMouseClicked="#clickOn7Student3" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="26.0" layoutY="178.0" onMouseClicked="#clickOn7Student4" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="93.0" layoutY="178.0" onMouseClicked="#clickOn7Student5" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="26.0" layoutY="238.0" onMouseClicked="#clickOn7Student6" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="93.0" layoutY="238.0" onMouseClicked="#clickOn7Student7" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="26.0" layoutY="296.0" onMouseClicked="#clickOn7Student8" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="51.0" layoutX="93.0" layoutY="296.0" onMouseClicked="#clickOn7Student9" pickOnBounds="true" preserveRatio="true" scaleX="0.6" scaleY="0.6">
+               <image>
+                  <Image url="@../Assets/Students/student_blue.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <Label layoutX="54.0" layoutY="38.0" text="Entrance">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="357.0" layoutY="38.0" text="DiningRooms">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font>
+            </Label>
+            <Button layoutX="363.0" layoutY="330.0" mnemonicParsing="false" onAction="#character10" text="Confirm">
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font>
+            </Button>
+            <StackPane layoutX="266.0" layoutY="178.0" onMouseClicked="#clickOnG10" prefHeight="51.0" prefWidth="45.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Assets/Students/student_green.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <Label text="0">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane layoutX="321.0" layoutY="178.0" onMouseClicked="#clickOnR10" prefHeight="51.0" prefWidth="45.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Assets/Students/student_red.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <Label text="0">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane layoutX="373.0" layoutY="178.0" onMouseClicked="#clickOnY10" prefHeight="51.0" prefWidth="45.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Assets/Students/student_yellow.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <Label text="0">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane layoutX="425.0" layoutY="179.0" onMouseClicked="#clickOnP10" prefHeight="51.0" prefWidth="45.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Assets/Students/student_pink.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <Label text="0">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane layoutX="476.0" layoutY="180.0" onMouseClicked="#clickOnB10" prefHeight="51.0" prefWidth="45.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Assets/Students/student_blue.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+                  <Label text="0">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

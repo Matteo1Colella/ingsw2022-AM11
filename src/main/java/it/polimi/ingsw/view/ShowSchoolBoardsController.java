@@ -7,20 +7,29 @@ import it.polimi.ingsw.model.colors.ColorStudent;
 import it.polimi.ingsw.model.pieces.Student;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 
 public class ShowSchoolBoardsController {
 
     private ClientMain clientMain;
 
+    private Stage stage;
+
     @FXML
     private AnchorPane schoolBoardsPane;
 
     private ArrayList<Node> nodes;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     public void initialize(ModelMessage model){
         int i = 1;
@@ -121,6 +130,7 @@ public class ShowSchoolBoardsController {
                 i += 5;
             }
         }
+        stage.setFullScreen(false);
     }
 
     public void setClientMain(ClientMain clientMain) {

@@ -1,0 +1,164 @@
+{
+"ping": {
+  "message": " ",
+  "code": 0,
+}
+}
+
+{
+"pong": {
+  "message": " ",
+  "code": 1,
+}
+}
+
+{
+"ServerNotFound": {
+  "message": "Server not found",
+  "code": 404,
+}
+}
+
+{
+"login": {
+  "username": "user",
+  "numofplayers": 0,
+  "ispro": false,
+}
+}
+
+{
+"duplicateLoginError": {
+  "message": "Error: already existing name",
+  "code": 100,
+}
+}
+
+{
+"invalidPlayersLoginError": {
+  "message": "Error: invalid number of players",
+  "code": 101,
+}
+}
+
+{
+"invalidGametypeLoginError": {
+  "message": "Error: invalid gameType",
+  "code": 102,
+}
+}
+
+{
+"mageSelection": {
+  "mage": 0,
+}
+}
+
+{
+"alreadyChosenError": {
+  "message": "Error: mage mage already",
+  "code": 103,
+}
+}
+
+{
+"invalidMageError": {
+  "message": "Error: invalid mage",
+  "code": 104,
+}
+}
+
+{
+  "playcard": {
+  "id": 0
+}
+}
+
+{
+"invalidMNumberError": {
+  "message": "Error: invalid number",
+  "code": 200,
+}
+}
+
+{
+"AlreadyChosenCardError": {
+  "message": "someone has already chosen this card",
+  "code": 201,
+}
+}
+
+{
+"MissingCardError": {
+  "message": "you already played this card",
+  "code": 202,
+}
+}
+
+{"choosecloudCard": {
+  "id": "0",
+}
+}
+
+"invalidCloudCard": {
+  "message": "invalid choice",
+  "code": 203,
+}
+}
+
+{"movestudentto": {
+  "where": "island",
+  "position": 0
+}
+}
+
+{
+"invalidParameterError": {
+  "message": "please insert a schoolboard or an island",
+  "code": 301,
+}
+}
+
+
+
+{
+"NotExistingIslandError": {
+  "message": "this island does not exist",
+  "code": 300,
+}
+}
+
+
+
+{
+  "movemothernature": {
+  "moves": 0
+}
+}
+
+{
+"OutOfRangeError": {
+  "message": "you must choose a valid number of steps",
+  "code": 400,
+}
+}
+
+{
+  "usecharacter": {
+  "id": 0,
+}
+}
+
+{
+"InvalidCharacter": {
+  "message": "there are no characters corresponding to the value",
+  "code": 500,
+}
+}
+
+{
+"InsufficientCoinsError": {
+  "message": "you don't have enough coins",
+  "code": 501,
+}
+}

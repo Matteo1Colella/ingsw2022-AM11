@@ -73,7 +73,9 @@ public class MageController {
 
 
     }
-
+    /**
+     * easter egg !!
+     */
     public void showCR7() {
         if (CR7.getOpacity() == 0){
             CR7.setOpacity(1);
@@ -100,110 +102,139 @@ public class MageController {
 
     @FXML
     private Label textMage;
+
+    /**
+     * sets the variable to the corresponding mage clicked
+     */
     @FXML
     public void clickMage1(){
         selectedmage = Mage.MAGE1;
         textMage.setText("You selected SUMMER");
     }
+    /**
+     * sets the variable to the corresponding mage clicked
+     */
     @FXML
     public void clickMage2(){
         selectedmage = Mage.MAGE2;
         textMage.setText("You selected WINTER");
     }
+    /**
+     * sets the variable to the corresponding mage clicked
+     */
     @FXML
     public void clickMage3(){
         selectedmage = Mage.MAGE3;
         textMage.setText("You selected SPRING");
     }
+    /**
+     * sets the variable to the corresponding mage clicked
+     */
     @FXML
     public void clickMage4(){
         selectedmage = Mage.MAGE4;
         textMage.setText("You selected AUTUMN");
     }
+    /**
+     * disables the corresponding mage
+     */
     @FXML
     public void setDisabled1(){
         mage1.setDisable(true);
         mage1.setOpacity(0.5);
     }
+    /**
+     * disables the corresponding mage
+     */
     @FXML
     public void setDisabled2(){
         mage2.setDisable(true);
         mage2.setOpacity(0.5);
     }
+    /**
+     * disables the corresponding mage
+     */
     @FXML
     public void setDisabled3(){
         mage3.setDisable(true);
         mage3.setOpacity(0.5);
     }
+    /**
+     * disables the corresponding mage
+     */
     @FXML
     public void setDisabled4(){
         mage4.setDisable(true);
         mage4.setOpacity(0.5);
     }
-
+    /**
+     * activates the spinning animation of the corresponding mage
+     */
     @FXML
     public void dragOnMage1(){
         mage1.setOpacity(0);
         items.get(6).setOpacity(1);
     }
+    /**
+     * activates the spinning animation of the corresponding mage
+     */
     @FXML
     public void dragOnMage2(){
         mage2.setOpacity(0);
         items.get(8).setOpacity(1);
     }
+    /**
+     * activates the spinning animation of the corresponding mage
+     */
     @FXML
     public void dragOnMage3(){
         mage3.setOpacity(0);
         items.get(5).setOpacity(1);
     }
+    /**
+     * activates the spinning animation of the corresponding mage
+     */
     @FXML
     public void dragOnMage4(){
         mage4.setOpacity(0);
         items.get(7).setOpacity(1);
     }
+    /**
+     * disables the spinning animation of the corresponding mage
+     */
     @FXML
     public void dragOnMage1out(){
         mage1.setOpacity(1);
         items.get(6).setOpacity(0);
     }
+    /**
+     * disables the spinning animation of the corresponding mage
+     */
     @FXML
     public void dragOnMage2out(){
         mage2.setOpacity(1);
         items.get(8).setOpacity(0);
     }
+    /**
+     * disables the spinning animation of the corresponding mage
+     */
     @FXML
     public void dragOnMage3out(){
         mage3.setOpacity(1);
         items.get(5).setOpacity(0);
     }
+    /**
+     * disables the spinning animation of the corresponding mage
+     */
     @FXML
     public void dragOnMage4out(){
         mage4.setOpacity(1);
         items.get(7).setOpacity(0);
     }
 
-    @FXML
-    public void setEnabled1(){
-        mage1.setDisable(false);
-        mage1.setOpacity(1);
-    }
-    @FXML
-    public void setEnabled2(){
-        mage2.setDisable(false);
-        mage2.setOpacity(1);
-    }
-    @FXML
-    public void setEnabled3(){
-        mage3.setDisable(false);
-        mage3.setOpacity(1);
-    }
-    @FXML
-    public void setEnabled4(){
-        mage4.setDisable(false);
-        mage4.setOpacity(1);
-    }
-
-
+    /**
+     * sends the message to the server
+     */
     @FXML
     public synchronized void confirmMageSocket() throws IOException {
 
@@ -310,14 +341,5 @@ public class MageController {
         };
         service.start();
 
-
-
-
-
-
-
-    }
-    public void setAvaiableMages(ArrayList<Mage> mages){
-        this.avaiableMages = mages;
     }
 }

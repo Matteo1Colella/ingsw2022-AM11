@@ -18,7 +18,8 @@ public class Character6 extends CharacterCard {
     public void effect(Player activePlayer){
         activePlayer.getPlayerGame().setNoTower(true);
         activePlayer.useCoins(this.necessaryCoin);
-        super.setNecessaryCoin(necessaryCoin++);
+        super.setNecessaryCoin(necessaryCoin + 1);
+        this.setNecessaryCoin(necessaryCoin + 1);
     }
 
     @Override

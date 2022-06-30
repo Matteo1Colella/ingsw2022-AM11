@@ -60,6 +60,7 @@ public class ActionController {
     private final Image yellowProf = new Image("Assets/Students/prof_yellow.png");
     private final Image pinkProf = new Image("Assets/Students/prof_pink.png");
 
+    private Stage stage;
     private boolean mnMessage;
     private MediaPlayer player;
     private boolean start;
@@ -274,6 +275,10 @@ public class ActionController {
     private Label assistantText;
     @FXML
     private ArrayList<ImageView> listIslands;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     public void setClient(ClientMain client) {
         this.client = client;
@@ -1168,8 +1173,8 @@ public class ActionController {
         }
         if (movesLeft == 0) {
             for(int s = 0; s < model.getSchoolBoard().getEntrance().getStudents().size(); s++){
-                    entranceView.get(s).setDisable(true);
-                    entranceView.get(s).setOpacity(1);
+                entranceView.get(s).setDisable(true);
+                entranceView.get(s).setOpacity(1);
                 entranceView.get(s).setEffect(null);
             }
             client.getSendMessage().sendMoveStudentsMessage(new MoveStudentMessage(student1Entrance + 1, student1WhereToPut, indexIslandIf1ToIsland, student2Entrance + 1, student2WhereToPut, indexIslandIf2ToIsland, student3Entrance + 1, student3WhereToPut, indexIslandIf3ToIsland, student4Entrance, student4WhereToPut, indexIslandIf4ToIsland));
@@ -1484,11 +1489,11 @@ public class ActionController {
                     break;
 
             }
-             numred = 0;
-             numblue= 0;
-             numpink= 0;
-             numyellow= 0;
-             numgreen= 0;
+            numred = 0;
+            numblue= 0;
+            numpink= 0;
+            numyellow= 0;
+            numgreen= 0;
         }
         int i = 0;
         for(CloudCard card : model.getCloudCardList()){
@@ -1692,7 +1697,7 @@ public class ActionController {
         }
 
         double scaleX = listIslands.get(0).getScaleX() * 1.4;
-
+        double scaleX2 = scaleX * 1.1;
         int index = 0;
         for (IslandCard temp : archipelago) {
             if (temp.getMergedWith().size() > 0) {
@@ -1732,6 +1737,15 @@ public class ActionController {
                             listIslands.get(index).setScaleX(listIslands.get(index).getScaleX() * 1.4);
                             listIslands.get(index).setScaleY(listIslands.get(index).getScaleY() * 1.4);
                         }
+                        break;
+
+                    //TODO 5 6 7;
+
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
                         break;
 
                 }
@@ -1950,7 +1964,7 @@ public class ActionController {
         }
 
 
-            towerColor.setText("Tower color: " + model.getSchoolBoard().getTowers().get(0).getColor() + ", remaining: " + model.getSchoolBoard().getTowers().size());
+        towerColor.setText("Tower color: " + model.getSchoolBoard().getTowers().get(0).getColor() + ", remaining: " + model.getSchoolBoard().getTowers().size());
 
 
         this.clouds.clear();
@@ -2069,6 +2083,11 @@ public class ActionController {
 
     public synchronized void confirmCC() {
 
+        if(model.getCloudCardList().get(cloudchoice).getStudents().size() == 0){
+            this.SelectedCloud.setText("Empty Cloud!!");
+            return;
+
+        }
 
         client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage(cloudchoice));
 

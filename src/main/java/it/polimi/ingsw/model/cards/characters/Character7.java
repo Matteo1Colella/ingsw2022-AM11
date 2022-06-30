@@ -53,7 +53,8 @@ public class Character7 extends CharacterCard {
 
 
         activePlayer.useCoins(this.necessaryCoin);
-        super.setNecessaryCoin(necessaryCoin++);
+        super.setNecessaryCoin(necessaryCoin + 1);
+        this.setNecessaryCoin(necessaryCoin + 1);
     }
     public void addSudent(Student student){
         super.addSudent(student);

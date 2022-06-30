@@ -51,7 +51,8 @@ public class Character10 extends CharacterCard {
             d.removeStudent(temp);
         }
         activePlayer.useCoins(this.necessaryCoin);
-        super.setNecessaryCoin(necessaryCoin++);
+        super.setNecessaryCoin(necessaryCoin + 1);
+        this.setNecessaryCoin(necessaryCoin + 1);
 
     }
 

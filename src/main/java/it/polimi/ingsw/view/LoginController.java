@@ -110,6 +110,9 @@ public class LoginController implements Initializable{
         this.client = client;
     }
 
+    /**
+     * sets the exclusivity of the radio buttons
+     */
     public void setToggleGroup() {
         this.toggleGroup = new ToggleGroup();
         twoP.setToggleGroup(toggleGroup);
@@ -118,11 +121,15 @@ public class LoginController implements Initializable{
     }
 
 
-
+    /**
+     * allows the connection checking the parameters
+     */
     @FXML
     public void loginSocket() throws IOException, InterruptedException {
         boolean set = false;
-
+        if(toggleGroup.getSelectedToggle() == null){
+            return;
+        }
         if(toggleGroup.getSelectedToggle().equals(twoP)){
             n = 2;
             set = true;
@@ -138,7 +145,9 @@ public class LoginController implements Initializable{
         }
         if (!set){
             n = 0;
+            return;
         }
+
 
         client.setUsername(nameField.getText());
 
@@ -199,7 +208,9 @@ public class LoginController implements Initializable{
     }
 
 
-
+    /**
+     * sets the scene and the animations
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.setToggleGroup();

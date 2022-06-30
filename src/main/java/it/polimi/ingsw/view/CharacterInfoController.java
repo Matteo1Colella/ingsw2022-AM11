@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class CharacterInfoController {
@@ -107,7 +108,7 @@ public class CharacterInfoController {
         Platform.runLater(() -> {
             TextField islandText = (TextField) itemsOnCard.get(4);
             island = Integer.parseInt(islandText.getText());
-            if (island > model.getArchipelago().size() || student==-1) {
+            if (island < 0 || island >= model.getArchipelago().size() || student==-1 || Objects.equals(islandText.getText(), "")) {
                 Label label = (Label) itemsOnCard.get(7);
 
                 label.setOpacity(1);
@@ -129,7 +130,7 @@ public class CharacterInfoController {
         Platform.runLater(() -> {
             TextField islandText = (TextField) itemsOnCard.get(0);
             island = Integer.parseInt(islandText.getText());
-            if (island > model.getArchipelago().size() || islandText.getText().equals("")) {
+            if (island < 0 || island >= model.getArchipelago().size() || islandText.getText().equals("")|| Objects.equals(islandText.getText(), "")) {
                 Label label = (Label) itemsOnCard.get(2);
                 label.setOpacity(1);
             } else {
@@ -529,39 +530,39 @@ public class CharacterInfoController {
 
     public void character12() {
 
-            boolean ok = false;
+        boolean ok = false;
 
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(3))) {
-                colorStudent = ColorStudent.BLUE;
-                ok = true;
-            }
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(2))) {
-                colorStudent = ColorStudent.RED;
-                ok = true;
-            }
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(1))) {
-                colorStudent = ColorStudent.GREEN;
-                ok = true;
-            }
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(0))) {
-                colorStudent = ColorStudent.YELLOW;
-                ok = true;
-            }
-            if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(4))) {
-                colorStudent = ColorStudent.PINK;
-                ok = true;
-            }
+        if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(3))) {
+            colorStudent = ColorStudent.BLUE;
+            ok = true;
+        }
+        if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(2))) {
+            colorStudent = ColorStudent.RED;
+            ok = true;
+        }
+        if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(1))) {
+            colorStudent = ColorStudent.GREEN;
+            ok = true;
+        }
+        if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(0))) {
+            colorStudent = ColorStudent.YELLOW;
+            ok = true;
+        }
+        if (toggleGroup.getSelectedToggle().equals(itemsOnCard.get(4))) {
+            colorStudent = ColorStudent.PINK;
+            ok = true;
+        }
 
-            if (ok){
-                clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter12Message(colorStudent, choice));
-                receiveMessage();
-                clientMain.getSendMessage().sendModelMessage(new ModelMessage());
-                model = (ModelMessage) receiveMessage();
-                actionController.setModel(model);
-                actionController.showmodel(clientMain);
-                MessageInterface receivedMessage1 = receiveMessage();
-                stage.close();
-            }
+        if (ok){
+            clientMain.getSendMessage().sendCharacterMessage(characterMessage.useCharacter12Message(colorStudent, choice));
+            receiveMessage();
+            clientMain.getSendMessage().sendModelMessage(new ModelMessage());
+            model = (ModelMessage) receiveMessage();
+            actionController.setModel(model);
+            actionController.showmodel(clientMain);
+            MessageInterface receivedMessage1 = receiveMessage();
+            stage.close();
+        }
 
 
 

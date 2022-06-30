@@ -1,26 +1,20 @@
 package it.polimi.ingsw.view.stages;
 
 import it.polimi.ingsw.communication.client.ClientMain;
-import it.polimi.ingsw.communication.common.MessageInterface;
-import it.polimi.ingsw.communication.common.MessageType;
 import it.polimi.ingsw.communication.common.messages.MageMessage;
-import it.polimi.ingsw.model.Mage;
 import it.polimi.ingsw.view.ClientApp;
 import it.polimi.ingsw.view.MageController;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MageStageSocket extends Stage {
 
@@ -30,7 +24,7 @@ public class MageStageSocket extends Stage {
 
         boolean one = false, two = false, three = false, four = false;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(ClientApp.class.getResource("/MagePhase.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ClientApp.class.getResource("/FXML/MagePhase.fxml"));
         Stage subStage = new Stage () ;
         subStage.setTitle ("Mage Selection") ;
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
@@ -48,7 +42,7 @@ public class MageStageSocket extends Stage {
                     KeyCombination.CONTROL_DOWN);
             public void handle(KeyEvent ke) {
                 if (keyComb.match(ke)) {
-                        controller.showCR7();
+                    controller.showCR7();
                     ke.consume(); // <-- stops passing the event to next node
                 }
             }
@@ -94,7 +88,8 @@ public class MageStageSocket extends Stage {
         }
 
 
-
+        subStage.getIcons().add(new Image("Assets/MN.png"));
+        subStage.setResizable(false);
         subStage.show();
 
     }
