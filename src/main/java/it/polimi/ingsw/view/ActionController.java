@@ -404,7 +404,9 @@ public class ActionController {
             this.model = (ModelMessage) client.receiveMessage();
 
 
-            showmodel(client);
+            Platform.runLater(() -> {
+                showmodel(client);
+            });
 
             MessageInterface receivedMessage = client.receiveMessage();
 
@@ -2266,6 +2268,11 @@ public class ActionController {
 
     public synchronized void confirmCC() {
 
+        if(cloudchoice == -1){
+            this.SelectedCloud.setText("Retry !");
+            return;
+
+        }
         if(model.getCloudCardList().get(cloudchoice).getStudents().size() == 0){
             this.SelectedCloud.setText("Empty Cloud!!");
             return;
@@ -2814,7 +2821,9 @@ public class ActionController {
 
         client.getSendMessage().sendModelMessage(new ModelMessage());
         model = (ModelMessage) receiveMessage();
-        showmodel(client);
+        Platform.runLater(() -> {
+            showmodel(client);
+        });
         client.getSendMessage().sendAssistantCardsMessage(new AssistantCardsMessage());
         ReceiveCards(client);
         playAssistant();
