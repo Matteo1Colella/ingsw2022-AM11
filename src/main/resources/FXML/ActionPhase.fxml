@@ -718,20 +718,38 @@
                         <DropShadow />
                      </effect></ImageView>
                </children></AnchorPane>
-            <Button fx:id="confirmStudent" layoutX="443.0" layoutY="653.0" mnemonicParsing="false" onAction="#confirmStudent" prefHeight="25.0" prefWidth="174.0" text="Move Student" />
-            <Button fx:id="moveMN" layoutX="18.0" layoutY="653.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" />
+            <Button fx:id="confirmStudent" layoutX="443.0" layoutY="653.0" mnemonicParsing="false" onAction="#confirmStudent" prefHeight="25.0" prefWidth="174.0" text="Move Student" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+            <Button fx:id="moveMN" layoutX="18.0" layoutY="653.0" mnemonicParsing="false" onAction="#clickMoveMN" prefHeight="25.0" prefWidth="174.0" text="Move mother nature" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
             <Button fx:id="confirmCloud" layoutX="299.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#confirmCC" prefHeight="15.0" prefWidth="60.0" text="Draw">
                <font>
-                  <Font size="13.0" />
+                  <Font name="Poor Richard" size="13.0" />
                </font></Button>
-            <Label fx:id="username" layoutX="658.0" layoutY="20.0" text="Player : " />
-            <Label fx:id="coins" layoutX="658.0" layoutY="44.0" text="Coins:" />
+            <Label fx:id="username" layoutX="658.0" layoutY="20.0" text="Player : " >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label fx:id="coins" layoutX="658.0" layoutY="44.0" text="Coins:" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
             <Label fx:id="SelectedCloud" alignment="CENTER" layoutX="228.0" layoutY="414.0" prefHeight="17.0" prefWidth="202.0" text="Selected Cloud:" textAlignment="CENTER">
                <font>
-                  <Font size="13.0" />
+                  <Font name="Poor Richard" size="13.0" />
                </font></Label>
-            <Label fx:id="To" layoutX="443.0" layoutY="627.0" text="To: Dining Room" />
-            <Label fx:id="SelectedStudent" layoutX="443.0" layoutY="600.0" text="Selected Student:" />
+            <Label fx:id="To" layoutX="443.0" layoutY="627.0" text="To: Dining Room" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label fx:id="SelectedStudent" layoutX="443.0" layoutY="600.0" text="Selected Student:" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
             <TextField fx:id="steps" layoutX="17.0" layoutY="622.0" prefHeight="25.0" prefWidth="66.0" promptText="Steps" />
             <BorderPane layoutX="631.0" layoutY="438.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="570.0" scaleX="0.9" scaleY="0.9">
                <center>
@@ -836,19 +854,31 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <Button fx:id="confirmCard" layoutX="1179.0" layoutY="593.0" mnemonicParsing="false" onAction="#clickConfirmAssistant" scaleX="0.95" scaleY="0.95" text="Choose Card" />
-            <Label fx:id="assistantText" layoutX="1205.0" layoutY="559.0" prefHeight="25.0" prefWidth="60.0" scaleX="0.95" scaleY="0.95" />
-            <Label layoutX="1175.0" layoutY="538.0" scaleX="0.95" scaleY="0.95" text="Current selection:" />
-            <Label fx:id="towerColor" layoutX="658.0" layoutY="69.0" text="Tower Color:" />
+            <Button fx:id="confirmCard" layoutX="1179.0" layoutY="593.0" mnemonicParsing="false" onAction="#clickConfirmAssistant" scaleX="0.95" scaleY="0.95" text="Choose Card" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
+            <Label fx:id="assistantText" alignment="CENTER" layoutX="1178.0" layoutY="566.0" prefHeight="25.0" prefWidth="90.0" scaleX="0.95" scaleY="0.95" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label layoutX="1175.0" layoutY="538.0" scaleX="0.95" scaleY="0.95" text="Current selection:" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
+            <Label fx:id="towerColor" layoutX="658.0" layoutY="69.0" text="Tower Color:" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Label>
             <Polygon fx:id="grid" fill="DODGERBLUE" layoutX="329.0" layoutY="303.0" stroke="BLACK" strokeType="INSIDE">
-              <points>
-                <Double fx:value="-50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="0.0" />
-                <Double fx:value="-60.0" />
-              </points>
+               <points>
+                  <Double fx:value="-50.0" />
+                  <Double fx:value="40.0" />
+                  <Double fx:value="50.0" />
+                  <Double fx:value="40.0" />
+                  <Double fx:value="0.0" />
+                  <Double fx:value="-60.0" />
+               </points>
             </Polygon>
             <ImageView fx:id="cloud4" fitHeight="101.0" fitWidth="91.0" layoutX="284.0" layoutY="320.0" onMouseClicked="#clickonCloud4" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -2279,7 +2309,10 @@
                   <DropShadow />
                </effect>
             </BorderPane>
-            <Button fx:id="showBoards" layoutX="851.0" layoutY="401.0" mnemonicParsing="false" onAction="#showOtherBoards" text="Show other players' SchoolBoards" />
+            <Button fx:id="showBoards" layoutX="851.0" layoutY="401.0" mnemonicParsing="false" onAction="#showOtherBoards" text="Show other players' SchoolBoards" >
+               <font>
+                  <Font name="Poor Richard" size="13.0" />
+               </font></Button>
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />

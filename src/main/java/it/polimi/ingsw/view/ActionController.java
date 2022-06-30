@@ -381,7 +381,7 @@ public class ActionController {
             enableCharacters();
 
             client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage(steps));
-
+            selectedCard = null;
             client.getSendMessage().sendModelMessage(new ModelMessage());
 
             this.model = (ModelMessage) client.receiveMessage();
@@ -1207,7 +1207,6 @@ public class ActionController {
     public synchronized void reset() {
         selectedIsland = null;
         To.setText("To: Dining Room");
-        SelectedStudent.setText("Selected Student:");
     }
 
     public synchronized void disableIslands() {
@@ -2055,7 +2054,9 @@ public class ActionController {
     }
 
     public synchronized void playAssistant() {
+
         //inhibits others
+        assistantText.setText("");
         moveMN.setDisable(true);
         confirmCard.setDisable(false);
         confirmStudent.setDisable(true);
@@ -2418,6 +2419,10 @@ public class ActionController {
 
     public synchronized void clickConfirmAssistant() {
         int card = -1;
+        if (selectedCard == null){
+            assistantText.setText("Try Again!");
+            return;
+        }
         switch (selectedCard.getInfluence()) {
             case 1:
                 card = 1;
@@ -2450,7 +2455,10 @@ public class ActionController {
                 card = 10;
                 break;
         }
-        if (card == -1) return;
+        if (card == -1 || selectedCard == null) {
+            assistantText.setText("Try Again!");
+            return;
+        }
 
         chosen = true;
 
@@ -2468,13 +2476,6 @@ public class ActionController {
                 student.notifyAll();
             }
             chosen = true;
-            /*
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText("Correct Selection");
-            alert.setContentText("NAME: " + selectedCard.getName() + "\n" + "Influence: " + selectedCard.getInfluence() + "\n" + "Steps: " + selectedCard.getSteps());
-            alert.show();
-             */
             switch (selectedCard.getInfluence()) {
                 case 1:
                     assistant1.setDisable(true);
@@ -2518,6 +2519,10 @@ public class ActionController {
                     break;
             }
 
+
+            card = -1;
+            assistantText.setText("");
+
             if (!start) {
                 mainClient(client);
                 start = true;
@@ -2525,10 +2530,7 @@ public class ActionController {
 
 
         } else if (receivedMessage.getCode() == MessageType.CARDERROR) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("an error occurred, try again");
-            alert.show();
+            assistantText.setText("Try Again!");
         }
 
 

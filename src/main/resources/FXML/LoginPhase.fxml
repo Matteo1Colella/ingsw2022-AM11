@@ -48,7 +48,7 @@
             <Font name="Poor Richard" size="15.0" />
          </font></Button>
       <Label fx:id="welcomeText" layoutX="365.0" layoutY="344.0" prefHeight="17.0" prefWidth="115.0" />
-      <CheckBox fx:id="pro" layoutX="345.0" layoutY="230.0" mnemonicParsing="false" text="ProRules">
+      <CheckBox fx:id="pro" layoutX="340.0" layoutY="242.0" mnemonicParsing="false" text="ProRules">
          <font>
             <Font name="Poor Richard" size="15.0" />
          </font></CheckBox>
