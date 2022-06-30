@@ -284,6 +284,11 @@ public class ActionController {
         this.client = client;
     }
 
+    /**
+     * Allows to print the islands on the vertex of a polygon. Every times the
+     * number of islands decreases, the number of the polygon's wedges decreases
+     * and the islands will be equidistant from the center of the polygon.
+     */
     public void bindIslands() {
 
         grid.getPoints().clear();
@@ -310,6 +315,10 @@ public class ActionController {
 
     }
 
+    /**
+     * Launch the stage that allows to see the other players' SchoolBoards
+     * @throws IOException
+     */
     public void showOtherBoards() throws IOException {
         new ShowSchoolBoardsStage(this.client, model);
     }
@@ -318,6 +327,11 @@ public class ActionController {
         this.model = model;
     }
 
+    /**
+     * Allows the resize of the stage
+     * @param stage
+     * @param scene
+     */
     public void bind(Stage stage, Scene scene) {
 
         progress.setStyle("-fx-accent: midnightblue;");
@@ -352,6 +366,9 @@ public class ActionController {
         });
     }
 
+    /**
+     * Sends to the server the message about the number of movements that MotherNature has to do
+     */
     public synchronized void clickMoveMN() {
 
         if (!mnMessage){
@@ -412,6 +429,9 @@ public class ActionController {
         return students;
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland1() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -424,6 +444,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland2() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -436,6 +459,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland3() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -448,6 +474,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland4() {
 
         IslandCard showIsland = new IslandCard(-1);
@@ -461,6 +490,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland5() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -473,6 +505,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland6() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -485,6 +520,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland7() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -497,6 +535,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland8() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -509,6 +550,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland9() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -521,6 +565,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland10() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -533,6 +580,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland11() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -545,6 +595,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the island on which a student will be placed.
+     */
     public void clickonIsland12() {
         IslandCard showIsland = new IslandCard(-1);
         for (IslandCard island : this.archipelago) {
@@ -557,6 +610,9 @@ public class ActionController {
         To.setText("To: Island " + (showIsland.getOriginal() + 1));
     }
 
+    /**
+     * Select the cloud from which select the students that will be placed in the SchoolBoard's Entrance.
+     */
     public void clickonCloud1() {
         if(cloudchoice == -1){
             client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
@@ -569,6 +625,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the cloud from which select the students that will be placed in the SchoolBoard's Entrance.
+     */
     public void clickonCloud2() {
         if(cloudchoice == -1){
             client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
@@ -580,6 +639,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the cloud from which select the students that will be placed in the SchoolBoard's Entrance.
+     */
     public void clickonCloud3() {
         if(cloudchoice == -1){
             client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
@@ -591,6 +653,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the cloud from which select the students that will be placed in the SchoolBoard's Entrance.
+     */
     public void clickonCloud4() {
         if(cloudchoice == -1){
             client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
@@ -602,6 +667,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant1() {
 
         for (Card card : this.deck) {
@@ -613,6 +681,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant2() {
 
         for (Card card : this.deck) {
@@ -624,6 +695,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant3() {
 
         for (Card card : this.deck) {
@@ -635,6 +709,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant4() {
 
         for (Card card : this.deck) {
@@ -646,6 +723,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant5() {
 
         for (Card card : this.deck) {
@@ -657,6 +737,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant6() {
 
         for (Card card : this.deck) {
@@ -668,6 +751,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant7() {
 
         for (Card card : this.deck) {
@@ -679,6 +765,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant8() {
 
         for (Card card : this.deck) {
@@ -690,6 +779,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant9() {
 
         for (Card card : this.deck) {
@@ -701,6 +793,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Select the card to be played.
+     */
     public void clickonAssistant10() {
 
         for (Card card : this.deck) {
@@ -727,6 +822,9 @@ public class ActionController {
         indexIslandIf4ToIsland = -1;
     }
 
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent1(){
         ImageView student = (ImageView) entranceView.get(0);
         if (student1Entrance == -1) {
@@ -769,6 +867,9 @@ public class ActionController {
         confirmStudent.setDisable(false);
 
     }
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent2(){
         ImageView student = (ImageView) entranceView.get(1);
         if (student1Entrance == -1) {
@@ -810,6 +911,10 @@ public class ActionController {
         }
         confirmStudent.setDisable(false);
     }
+
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent3(){
         ImageView student = (ImageView) entranceView.get(2);
         if (student1Entrance == -1) {
@@ -850,8 +955,11 @@ public class ActionController {
                 break;
         }
         confirmStudent.setDisable(false);
-
     }
+
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent4(){
         ImageView student = (ImageView) entranceView.get(3);
         if (student1Entrance == -1) {
@@ -893,6 +1001,10 @@ public class ActionController {
         }
         confirmStudent.setDisable(false);
     }
+
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent5(){
         ImageView student = (ImageView) entranceView.get(4);
         if (student1Entrance == -1) {
@@ -934,6 +1046,10 @@ public class ActionController {
         }
         confirmStudent.setDisable(false);
     }
+
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent6(){
         ImageView student = (ImageView) entranceView.get(5);
         if (student1Entrance == -1) {
@@ -976,6 +1092,10 @@ public class ActionController {
         confirmStudent.setDisable(false);
 
     }
+
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent7(){
         ImageView student = (ImageView) entranceView.get(6);
         if (student1Entrance == -1) {
@@ -1018,6 +1138,10 @@ public class ActionController {
         }
         confirmStudent.setDisable(false);
     }
+
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent8(){
         ImageView student = (ImageView) entranceView.get(7);
         if (student1Entrance == -1) {
@@ -1059,6 +1183,10 @@ public class ActionController {
         }
         confirmStudent.setDisable(false);
     }
+
+    /**
+     * Select a student from the entrance.
+     */
     public void clickOnentranceStudent9(){
         ImageView student = (ImageView) entranceView.get(8);
         if (student1Entrance == -1) {
@@ -1102,6 +1230,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Confirm the student selection.
+     */
     public synchronized void confirmStudent() {
 
         if (movesLeft==3) {
@@ -1204,6 +1335,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Reset the Island and Student selection.
+     */
     public synchronized void reset() {
         selectedIsland = null;
         To.setText("To: Dining Room");
@@ -1261,7 +1395,6 @@ public class ActionController {
         island12Students.setDisable(true);
     }
 
-
     public CharacterCard getCharacterByNum(int num){
         int i = 0;
         for(CharacterCard card : model.getCharacterCards()){
@@ -1272,6 +1405,13 @@ public class ActionController {
         return null;
 
     }
+
+    /**
+     * Allows to play a CharacterCard
+     * @param num
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public synchronized void characterAction(int num) throws IOException, InterruptedException {
         UseCharacterMessage characterMessage = new UseCharacterMessage();
         switch (num){
@@ -1317,18 +1457,42 @@ public class ActionController {
 
     }
 
+    /**
+     * Play a specific CharacterCard
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void clickOnCharacter1() throws IOException, InterruptedException {
         characterAction(characters.get(0).getNum());
     }
 
+    /**
+     * Play a specific CharacterCard
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void clickOnCharacter2() throws IOException, InterruptedException {
         characterAction(characters.get(1).getNum());
     }
 
+    /**
+     * Play a specific CharacterCard
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void clickOnCharacter3() throws IOException, InterruptedException {
         characterAction(characters.get(2).getNum());
     }
 
+    /**
+     * Sets the students on the clouds.
+     * @param nodeMatrix
+     * @param nb
+     * @param ng
+     * @param nr
+     * @param ny
+     * @param np
+     */
     private void setStudentCloud(ArrayList<Node> nodeMatrix, int nb, int ng, int nr, int ny, int np){
         int[] array = new int[] {
                 nb, ng, nr, ny, np };
@@ -1351,6 +1515,16 @@ public class ActionController {
         }
     }
 
+    /**
+     * Set the students in the SchoolBoard.
+     * @param nodeMatrix
+     * @param island
+     * @param nb
+     * @param ng
+     * @param nr
+     * @param ny
+     * @param np
+     */
     private void setStudentImage(ArrayList<Node> nodeMatrix, IslandCard island, int nb, int ng, int nr, int ny, int np) {
         ImageView tower = new ImageView();
         int[] array = new int[] {
@@ -1400,6 +1574,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Show the students on the isands.
+     */
     public void showStudents() {
         int numred = 0;
         int numblue= 0;
@@ -1536,6 +1713,10 @@ public class ActionController {
 
     }
 
+    /**
+     * Initializes the ArrayLists representing the DiningRooms, Entrance, Professors and Towers with
+     * the correspondent ImageView.
+     */
     private void initLists(){
         ArrayList<Node> school = new ArrayList<>(schoolPane.getChildren());
         for(int k = 0; k<9; k++){
@@ -1576,9 +1757,10 @@ public class ActionController {
 
     }
 
-
-
-
+    /**
+     * Shows the entire model
+     * @param client
+     */
     public synchronized void showmodel(ClientMain client) {
 
         initLists();
@@ -2096,6 +2278,10 @@ public class ActionController {
         cc = true;
     }
 
+    /**
+     * Control the game by spelling out the action phases.
+     * @param client
+     */
     public synchronized void mainClient(ClientMain client) {
 
         new PingPongThread(client.getClientSocket(), "client");
@@ -2308,6 +2494,10 @@ public class ActionController {
         assistant10.setOpacity(1);
     }
 
+    /**
+     * Receives the cards from the server, enabling only the ones that can be played.
+     * @param client
+     */
     public synchronized void ReceiveCards(ClientMain client) {
 
         //ask the list of cards already played on the table
@@ -2417,6 +2607,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Confirms the AssistantCard selection.
+     */
     public synchronized void clickConfirmAssistant() {
         int card = -1;
         if (selectedCard == null){
@@ -2536,6 +2729,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Stops the turn
+     */
     public void noTurn() {
         apane.setOpacity(0);
         apane.setDisable(true);
@@ -2543,6 +2739,9 @@ public class ActionController {
         progressPane.setDisable(true);
     }
 
+    /**
+     * Enables the turn.
+     */
     public void isTurn() {
         apane.setOpacity(1);
         apane.setDisable(false);
