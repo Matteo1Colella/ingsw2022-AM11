@@ -52,18 +52,34 @@ Open a terminal and go to the directory containing the jar. Once there, execute 
 1. Download javafx SDK from [here](https://gluonhq.com/products/javafx/) and extract it to the same folder containing the GUI jar
 2. Open a terminal and go to the directory containing the jar. Once there, execute this command:
 
-*java --module-path <PATH_TO_LIB> --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.media -jar AM11_gui.jar*
+*java --module-path <PATH/TO/lib> --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.media -jar AM11_gui.jar*
 
-IP and port will be asked as the game begins
+replacing <PATH/TO/lib> with the path of the folder lib inside the extracted javafx folder.
+
+IP and port will be asked as the game begins.
 
 #### For MAC users with Apple Silicon M1
 
 1. Download javafx SDK from [here](https://download2.gluonhq.com/openjfx/18.0.1/openjfx-18.0.1_osx-aarch64_bin-sdk.zip) and extract it to the same folder containing the GUI jar
 2. Open a terminal and go to the directory containing the jar. Once there, execute this command:
 
-*java --module-path <PATH_TO_LIB> --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.media -jar AM11_gui.jar*
+*java --module-path <PATH/TO/lib> --add-modules javafx.controls --add-modules javafx.fxml --add-modules javafx.media -jar AM11_gui.jar*
 
-IP and port will be asked as the game begins
+replacing <PATH/TO/lib> with the path of the folder lib inside the extracted javafx folder.
+
+IP and port will be asked as the game begins.
+
+#### Experimental feature (WIN)
+
+Inside the JAR folder you will find another folder named WIN which includes three .bat files. You can also run server, client and gui by double clicking them. Note that the WIN folder MUST be in the same directory as the .jar files.
+
+#### Experimental feature (MAC)
+
+1. Download javafx SDK related to your mac processor from [here](https://gluonhq.com/products/javafx/), extract it and RENAME the folder "javafx". Finally move it into the same folder as the jars. 
+2. Inside the JAR folder you will find another folder named MAC which includes three .sh files. You can also run server, client and gui by opening the terminal, navigate into the MAC folder and by running the commands:
+   1. *sh AM11_server.sh*
+   2. *sh AM11_cli.sh*
+   3. *sh AM11_gui.sh*
 
 ## Test cases
 
