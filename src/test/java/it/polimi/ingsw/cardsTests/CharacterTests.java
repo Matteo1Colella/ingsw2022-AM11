@@ -306,7 +306,7 @@ public class CharacterTests {
         newGame.getGameComponents().getSpecialDeck().setCards(cards);
         newGame.getGameComponents().getSpecialDeck().getcard(8).getNecessaryCoin();
         newGame.getGameComponents().getSpecialDeck().getcard(8).effect(GM.getPlayerComplexLobby("Cole").getPlayers().get(0));
-        assertEquals(2, GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getInfluencePoints());
+        assertEquals(0, GM.getPlayerComplexLobby("Cole").getPlayers().get(0).getInfluencePoints());
     }
     @Test
     public void Effect9Test() {
@@ -425,7 +425,7 @@ public class CharacterTests {
         System.out.println(" ");
 
 
-        assertEquals(2, newGame.getGameComponents().getSpecialDeck().getcard(10).getNecessaryCoin());
+        assertEquals(1, newGame.getGameComponents().getSpecialDeck().getcard(10).getNecessaryCoin());
     }
 
     @Test
