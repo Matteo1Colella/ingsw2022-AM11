@@ -239,11 +239,11 @@
             <configuration>
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <shadedClassifierName>project-classifier</shadedClassifierName>
-              <outputFile>shade\AM11_server.jar</outputFile>
+              <outputFile>Deliverables\JAR\AM11_gui.jar</outputFile>
               <transformers>
                 <transformer implementation=
                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>it.polimi.ingsw.communication.server.ServerMain</mainClass>
+                  <mainClass>it.polimi.ingsw.view.GUI_launcher</mainClass>
                 </transformer>
               </transformers>
             </configuration>
