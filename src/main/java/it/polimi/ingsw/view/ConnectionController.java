@@ -44,7 +44,7 @@ public class ConnectionController implements Initializable {
     }
 
     /**
-     * asks connection parameters, if not written, sets to default
+     * Asks connection parameters, if not written, sets to default.
      * @throws IOException
      */
     public void connection() throws IOException {

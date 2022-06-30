@@ -104,6 +104,9 @@ public class CharacterInfoController {
         this.clientMain = clientMain;
     }
 
+    /**
+     * Allows playing Character1.
+     */
     public void character1() {
         Platform.runLater(() -> {
             TextField islandText = (TextField) itemsOnCard.get(4);
@@ -126,6 +129,9 @@ public class CharacterInfoController {
 
     }
 
+    /**
+     * Allows playing Character3.
+     */
     public void character3() {
         Platform.runLater(() -> {
             TextField islandText = (TextField) itemsOnCard.get(0);
@@ -171,6 +177,9 @@ public class CharacterInfoController {
     }
 
 
+    /**
+     * Allows playing Character5.
+     */
     public void character5() {
         Platform.runLater(() -> {
             TextField islandText = (TextField) itemsOnCard.get(0);
@@ -418,9 +427,10 @@ public class CharacterInfoController {
     }
 
 
+    /**
+     * Allows playing Character7.
+     */
     public void character7() {
-
-
         Platform.runLater(() -> {
             if (IntStream.of(studentsFromEntrance).anyMatch(x -> x == -1) || IntStream.of(studentsOnCard).anyMatch(x -> x == -1)) {
 
@@ -441,6 +451,9 @@ public class CharacterInfoController {
 
     }
 
+    /**
+     * Allows playing Character9.
+     */
     public void character9() {
 
         Platform.runLater(() -> {
@@ -482,6 +495,9 @@ public class CharacterInfoController {
 
     }
 
+    /**
+     * Allows playing Character10.
+     */
     public void character10() {
 
         Platform.runLater(() -> {
@@ -513,6 +529,9 @@ public class CharacterInfoController {
 
     }
 
+    /**
+     * Allows playing Character 11.
+     */
     public void character11() {
         Platform.runLater(() -> {
             if (student != -1){
@@ -528,6 +547,9 @@ public class CharacterInfoController {
         });
     }
 
+    /**
+     * Allows playng Character12.
+     */
     public void character12() {
 
         boolean ok = false;
@@ -725,6 +747,13 @@ public class CharacterInfoController {
         }
     }
 
+    /**
+     * Selects the correct pane, based on the chosen character, and initialize it
+     * with the information in ModelMessage (model).
+     * @param num
+     * @param choice
+     * @param model
+     */
     public void init(int num, int choice, ModelMessage model) {
         this.choice = choice;
         this.model = model;

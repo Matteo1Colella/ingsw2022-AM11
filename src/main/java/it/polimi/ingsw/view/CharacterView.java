@@ -22,6 +22,11 @@ public class CharacterView {
         this.num = num;
         setImage();
     }
+
+    /**
+     * Set the correct image, based on the number of the caracter, in the ActionFase section
+     * dedicated to CharacterCards
+     */
     private void setImage(){
         switch(num){
             case 1:

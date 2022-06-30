@@ -17,6 +17,11 @@ public class ClientApp extends Application {
         launch(args);
     }
 
+    /**
+     * Stats the ConnectionFase.
+     * @param primaryStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
 

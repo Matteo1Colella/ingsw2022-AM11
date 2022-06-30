@@ -2194,6 +2194,9 @@ public class ActionController {
 
     }
 
+    /**
+     * Enable the button corresponding to the game phase (move MotherNature), while disabling all the others.
+     */
     public synchronized void moveMotherNature() {
         //inhibits others
         moveMN.setDisable(false);
@@ -2201,11 +2204,11 @@ public class ActionController {
         confirmStudent.setDisable(true);
         confirmCloud.setDisable(true);
 
-
-        //client.getSendMessage().sendMoveMotherNatureMessage(new MoveMotherNatureMessage());
-
     }
 
+    /**
+     * Enable the button corresponding to the game phase (CloudCard selection), while disabling all the others.
+     */
     public synchronized void selectCloudCard() {
         //inhibits others
         moveMN.setDisable(true);
@@ -2216,6 +2219,9 @@ public class ActionController {
         //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
     }
 
+    /**
+     * Disables the CloudCards.
+     */
     public void disableclouds(){
         cloud1.setDisable(true);
         cloud2.setDisable(true);
@@ -2226,6 +2232,10 @@ public class ActionController {
         cloud3Students.setDisable(true);
         cloud4Students.setDisable(true);
     }
+
+    /**
+     * Enables the CloudCards.
+     */
     public void enableclouds(){
         cloud1.setDisable(false);
         cloud2.setDisable(false);
@@ -2237,6 +2247,9 @@ public class ActionController {
         cloud4Students.setDisable(false);
     }
 
+    /**
+     * Enable the button corresponding to the game phase (play AssistantCard), while disabling all the others.
+     */
     public synchronized void playAssistant() {
 
         //inhibits others
@@ -2254,18 +2267,27 @@ public class ActionController {
         //client.getSendMessage().sendCloudCardMessage(new CloudCardChoiceMessage());
     }
 
+    /**
+     * Enables CharacterCards
+     */
     public void enableCharacters(){
         character1.setDisable(false);
         character2.setDisable(false);
         character3.setDisable(false);
     }
 
+    /**
+     * Disables CharacterCards
+     */
     public void disableCharacters(){
         character1.setDisable(true);
         character2.setDisable(true);
         character3.setDisable(true);
     }
 
+    /**
+     * Manages the click on the button to confirm the CloudCard choice.
+     */
     public synchronized void confirmCC() {
 
         if(cloudchoice == -1){
@@ -2755,6 +2777,10 @@ public class ActionController {
         progressPane.setOpacity(0);
     }
 
+    /**
+     * Initialize the view.
+     * @param client
+     */
     public void initialize(ClientMain client) {
         this.entranceView = new ArrayList<>();
         this.numIslands = 12;
@@ -2829,6 +2855,10 @@ public class ActionController {
         playAssistant();
     }
 
+    /**
+     * Allows to receive messages from the server, dealing with ErrorMessages and WinMessages.
+     * @return
+     */
     public synchronized MessageInterface receiveMessage() {
         MessageInterface message = client.getReceiveMessage().receiveMessageClient();
         if(message.getCode() == MessageType.PINGPONG){

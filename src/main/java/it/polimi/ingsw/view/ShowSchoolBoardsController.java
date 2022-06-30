@@ -31,6 +31,10 @@ public class ShowSchoolBoardsController {
         this.stage = stage;
     }
 
+    /**
+     * Sets the correct image in the ShowSchoolBoardsStage based on the information in the ModelMessage.
+     * @param model
+     */
     public void initialize(ModelMessage model){
         int i = 1;
         nodes = new ArrayList<>(schoolBoardsPane.getChildren());

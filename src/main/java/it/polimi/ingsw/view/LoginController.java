@@ -122,7 +122,7 @@ public class LoginController implements Initializable{
 
 
     /**
-     * allows the connection checking the parameters
+     * Allows the connection checking the parameters.
      */
     @FXML
     public void loginSocket() throws IOException, InterruptedException {
